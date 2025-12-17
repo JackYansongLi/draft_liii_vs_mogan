@@ -1,0 +1,65 @@
+<TMU|<tuple|1.1.0|2025.2.2>>
+
+<style|<tuple|generic|number-europe|chinese|preview-ref|smart-ref|comment|doc-tmu>>
+
+<\body>
+  <\hide-preamble>
+    <assign|susmail|<macro|mail.sustech.edu.cn>>
+  </hide-preamble>
+
+  <doc-data|<doc-title|<TeX>的批判>|<doc-author|<author-data|<author-name|李子强>|<\author-affiliation>
+    阿里巴巴
+  </author-affiliation>|<author-email|xxx>>>|<doc-author|<author-data|<author-name|香佳宏>|<author-email|xxx@<susmail>>|<\author-affiliation>
+    南方科技大学
+  </author-affiliation>>>|<doc-author|<author-data|<author-name|李岩松>|<author-email|yansong@liii.pro>|<\author-affiliation>
+    德清三鲤网络科技有限公司
+  </author-affiliation>>>>
+
+  <section|<TeX>的历史介绍>
+
+  很长一段时间人们都认为所见即所得（WYSIWYG）和结构化编辑是不相容的，然而<TeXmacs>的出现证明了这是大错特错。为此，巴黎综合理工大学的Joris教授写了一篇评论，详见 Joris et al.<nbsp><cite|van_der_hoeven_gnu_2001>。<LaTeX> 的设计哲学引领了一系列类似的编辑软件的设计，除了前文提到的<TeXmacs>，还有LyX，以及最近很火的Typst。其中Typst和<TeXmacs>的公式渲染完全独立于<TeX>系统，而LyX则可被看为TeX的一个前端。这篇文章有许多对<TeX>系统的批判，但是我们想让读者清楚我们对<TeX>系统的态度，我们绝不是否定<TeX>的历史地位，也绝不认为在当时那个时代<TeX>是落后的。我们只是认为在今天，尤其是在AI工具发展的越来越快的当今时期，<TeX>的底层设计是有许多问题的。
+
+  <section|<TeX>在编译设计上的问题>
+
+  <section|<TeX>在使用体验设计上的问题>
+
+  <\bibliography|bib|tm-plain|liii>
+    <\bib-list|1>
+      <bibitem*|1><label|bib-van_der_hoeven_gnu_2001>Joris Van Der Hoeven. <newblock>GNU TeXmacs, A free, structured, wysiwyg and technical text editor. <newblock><with|font-shape|italic|Cah. GUT>, (39-40):39-50, 2001.<newblock>
+    </bib-list>
+  </bibliography>
+</body>
+
+<\initial>
+  <\collection>
+    <associate|info-flag|detailed>
+    <associate|page-screen-margin|false>
+  </collection>
+</initial>
+
+<\references>
+  <\collection>
+    <associate|auto-1|<tuple|1|1|../../../Library/Application Support/liiilabs/texts/scratch/no_name_511.tm>>
+    <associate|auto-2|<tuple|3|1|../../../Library/Application Support/liiilabs/texts/scratch/no_name_511.tm>>
+    <associate|auto-3|<tuple|3|1|../../../Library/Application Support/liiilabs/texts/scratch/no_name_511.tm>>
+    <associate|auto-4|<tuple|1|1|../../../Library/Application Support/liiilabs/texts/scratch/no_name_511.tm>>
+    <associate|bib-van_der_hoeven_gnu_2001|<tuple|1|1|../../../Library/Application Support/liiilabs/texts/scratch/no_name_511.tm>>
+  </collection>
+</references>
+
+<\auxiliary>
+  <\collection>
+    <\associate|bib>
+      van_der_hoeven_gnu_2001
+    </associate>
+    <\associate|toc>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X和Mogan介绍><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-1><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|2<space|2spc>L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X在编译设计上的问题><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-2><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|3<space|2spc>L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X在使用体验设计上的问题><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-3><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-4><vspace|0.5fn>
+    </associate>
+  </collection>
+</auxiliary>
