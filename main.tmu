@@ -19,15 +19,15 @@
 
   很长一段时间人们都认为所见即所得（WYSIWYG）和结构化编辑是不相容的，然而<TeXmacs>的出现证明了这是大错特错。为此，巴黎综合理工大学的Joris教授写了一篇评论，详见 Joris et al.<nbsp><cite|van_der_hoeven_gnu_2001>。<LaTeX> 的设计哲学引领了一系列类似的编辑软件的设计，除了前文提到的<TeXmacs>，还有LyX，以及最近很火的Typst。其中Typst和<TeXmacs>的公式渲染完全独立于<TeX>系统，而LyX则可被看为TeX的一个前端。这篇文章有许多对<TeX>系统的批判，但是我们想让读者清楚我们对<TeX>系统的态度，我们绝不是否定<TeX>的历史地位，也绝不认为在当时那个时代<TeX>是落后的。我们只是认为在今天，尤其是在AI工具发展的越来越快的当今时期，<TeX>的底层设计是有许多问题的。
 
-  <section|TeX 与 LaTeX 的设计局限性分析><label|tex-ux4e0e-latex-ux7684ux8bbeux8ba1ux5c40ux9650ux6027ux5206ux6790>
+  <section|TeX 与 LaTeX 的设计局限性分析>
 
   以下是对 TeX 和 LaTeX 系统设计问题的系统性考察。该分析聚焦于编译模型的内在缺陷，以及由此衍生出的结构性挑战和用户体验障碍。这些问题源于 TeX 的历史设计范式，在当代学术写作环境中日益凸显其不适应性。本文通过逻辑结构化的框架，揭示这些局限，并与替代方案（如 GNU TeXmacs）进行对比，以期为学术工具的优化提供启示。\ 
 
-  <subsection*|1 TeX 在编译设计上的局限性><label|tex-ux5728ux7f16ux8bd1ux8bbeux8ba1ux4e0aux7684ux5c40ux9650ux6027>
+  <subsection*|1 TeX 在编译设计上的局限性>
 
   TeX 系统（LaTeX 的核心内核）采用的批处理式编译模型，在其诞生于 20 世纪 70–80 年代的计算环境中曾展现出显著的合理性。然而，在当今强调交互性和即时反馈的学术写作语境中，这一模型暴露出了深刻的系统性张力，包括一次性处理流程、弱语义表示以及延迟错误反馈等。\ 
 
-  <subsubsection*|1.1 TeX 编译模型的核心局限：一次性处理、弱语义与延迟反馈><label|tex-ux7f16ux8bd1ux6a21ux578bux7684ux6838ux5fc3ux5c40ux9650ux4e00ux6b21ux6027ux5904ux7406ux5f31ux8bedux4e49ux4e0eux5ef6ux8fdfux53cdux9988>
+  <subsubsection|TeX 编译模型的核心局限：一次性处理、弱语义与延迟反馈><label|tex-ux7f16ux8bd1ux6a21ux578bux7684ux6838ux5fc3ux5c40ux9650ux4e00ux6b21ux6027ux904ux7406ux5f31ux8bedux4e49ux4e0eux5ef6ux8fdfux53cdux9988>
 
   TeX 的编译架构建立在批处理导向的基础上，该模型虽高效处理静态文档，但难以适应动态编辑需求。\ 
 
@@ -104,10 +104,6 @@
   </itemize>
 
   从系统设计视角而言，此为通过外部副作用弥补内部局限的权宜之计。\ 
-
-  <subsubsection*|1.5 LaTeX 的结构性扩展缺陷：一个历史遗留范式><label|latex-ux7684ux7ed3ux6784ux6027ux6269ux5c55ux7f3aux9677ux4e00ux4e2aux5386ux53f2ux9057ux7559ux8303ux5f0f>
-
-  LaTeX 的设计根植于 20 世纪 70 年代的 TeX 系统，本质上是一种标记导向语言，要求用户以近似编程的精确性构建文档。尽管其排版精度无可匹敌，但这一范式引发了多重结构性缺陷。首先，上手门槛极高，学习曲线陡峭。新学者需掌握繁复的语法规则、宏命令及环境配置，任何微小疏忽（如遗漏括号或拼写偏差）均可导致文档编译失败。此“零容忍”特性类似于编程语言，却缺失现代集成开发环境（IDE）的即时反馈与诊断支持。例如，一位数学领域博士生在 Reddit 平台分享经验称：“LaTeX 宛如一种刚性且不容错误的编程语言，一旦出错，即拒绝编译，从而显著降低工作效率。” 其次，LaTeX 的扩展包系统虽功能强大，却频发兼容性冲突。用户依赖海量社区贡献包以扩展能力，但包间缺乏稳固的互操作性，导致“组合爆炸”风险——任意包可能干扰他人功能。典型案例包括 <with|font-family|tt|siunitx> 包（用于单位与数字格式化）与 <with|font-family|tt|arydshln> 包（用于表格虚线）的交互冲突：前者干扰后者垂直线渲染，致使表格出现意外间隙或元素缺失。调试此类问题常需采用二分搜索法，逐一注释包以隔离根源，耗时可达数小时乃至数日。另一常见问题是索引生成中的页码偏移：在特定包组合下，索引页码系统性偏移两页，此在多作者协作或大型文档中尤为棘手。此外，包版本演进亦成隐患：单一包更新可能破坏依赖链，导致项目整体崩溃。LaTeX Stack Exchange 论坛充斥此类求助，用户常抱怨：“为何此类包缺陷被视作‘过于局部化'而不获重视？” 最后，LaTeX 社区的复杂性进一步放大上述问题。尽管 TeX-LaTeX Stack Exchange 等平台活跃，但社区倾向于高度技术化，讨论晦涩且对初学者缺乏包容。文档质量良莠不齐，许多元素（如特殊符号）难以通过标准工具（如 Detexify）高效检索，用户在 Quora 等平台吐露：“最大挫败源于晦涩的错误消息与文档缺失。”社区对包缺陷的响应亦趋保守，将其归为“局部议题”而非系统性挑战，此抑制了整体进步。在协作导向的时代，此社区动态不仅削弱包容性，还加剧学术不平等：资源匮乏的学者（如发展中国家研究者）更难适应。 这些结构性缺陷与 TeX 编译模型高度关联，进一步强化了延迟反馈与弱语义的系统性问题。\ 
 
   <subsubsection*|1.6 编译模型对工具生态的长期影响><label|ux7f16ux8bd1ux6a21ux578bux5bf9ux5de5ux5177ux751fux6001ux7684ux957fux671fux5f71ux54cd>
 
@@ -209,14 +205,14 @@
     <associate|auto-13|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
     <associate|auto-14|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
     <associate|auto-15|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
-    <associate|auto-16|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
-    <associate|auto-17|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
-    <associate|auto-18|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
-    <associate|auto-19|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|auto-16|<tuple|1|?>>
+    <associate|auto-17|<tuple|1|?>>
+    <associate|auto-18|<tuple|1|?>>
+    <associate|auto-19|<tuple|1|?>>
     <associate|auto-2|<tuple|2|?>>
     <associate|auto-3|<tuple|2|?>>
-    <associate|auto-4|<tuple|2|?>>
-    <associate|auto-5|<tuple|2|?>>
+    <associate|auto-4|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|auto-5|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
     <associate|auto-6|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
     <associate|auto-7|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
     <associate|auto-8|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
@@ -224,14 +220,12 @@
     <associate|bib-van_der_hoeven_gnu_2001|<tuple|1|?>>
     <associate|latex-ux7684ux7ed3ux6784ux6027ux6269ux5c55ux7f3aux9677ux4e00ux4e2aux5386ux53f2ux9057ux7559ux8303ux5f0f|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
     <associate|latex-ux8bbeux8ba1ux4e2dux7684ux5185ux5728ux77dbux76fe|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
-    <associate|latex3-ux7684ux8bbeux8ba1ux601dux8def|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
-    <associate|tex-ux4e0e-latex-ux7684ux8bbeux8ba1ux5c40ux9650ux6027ux5206ux6790|<tuple|2|?>>
+    <associate|latex3-ux7684ux8bbeux8ba1ux601dux8def|<tuple|1|?>>
     <associate|tex-ux5728ux4f7fux7528ux4f53ux9a8cux8bbeux8ba1ux4e0aux7684ux5c40ux9650ux6027|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
-    <associate|tex-ux5728ux7f16ux8bd1ux8bbeux8ba1ux4e0aux7684ux5c40ux9650ux6027|<tuple|2|?>>
-    <associate|tex-ux7f16ux8bd1ux6a21ux578bux7684ux6838ux5fc3ux5c40ux9650ux4e00ux6b21ux6027ux5904ux7406ux5f31ux8bedux4e49ux4e0eux5ef6ux8fdfux53cdux9988|<tuple|2|?>>
-    <associate|ux5355ux5411ux4e0eux4e00ux6b21ux6027ux7684ux5904ux7406ux6d41ux7a0b|<tuple|2|?>>
+    <associate|tex-ux7f16ux8bd1ux6a21ux578bux7684ux6838ux5fc3ux5c40ux9650ux4e00ux6b21ux6027ux904ux7406ux5f31ux8bedux4e49ux4e0eux5ef6ux8fdfux53cdux9988|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|ux5355ux5411ux4e0eux4e00ux6b21ux6027ux7684ux5904ux7406ux6d41ux7a0b|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
     <associate|ux591aux8f6eux7f16ux8bd1ux4f5cux4e3aux8865ux507fux6027ux673aux5236|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
-    <associate|ux5b9eux9645ux7528ux6237ux89c6ux89d2ux4e0bux7684ux4f53ux9a8cux95eeux9898|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|ux5b9eux9645ux7528ux6237ux89c6ux89d2ux4e0bux7684ux4f53ux9a8cux95eeux9898|<tuple|1|?>>
     <associate|ux5bf9ux6bd4ux7ed3ux6784ux5316ux4e0eux589eux91cfux7cfbux7edfux7684ux8bbeux8ba1ux8303ux5f0f|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
     <associate|ux5c0fux7ed3|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
     <associate|ux7528ux6237ux4f53ux9a8cux77dbux76fe|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
@@ -250,33 +244,41 @@
     <\associate|toc>
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X的历史介绍><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-1><vspace|0.5fn>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|2<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X在编译设计上的问题><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-2><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|2<space|2spc>TeX 与 LaTeX 的设计局限性分析><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-2><vspace|0.5fn>
 
-      <with|par-left|<quote|1tab>|2.1<space|2spc>TeX 编译模型的设计局限：一次性处理、弱语义与延迟反馈<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-3>>
+      <with|par-left|<quote|1tab>|1 TeX 在编译设计上的局限性<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-3>>
 
-      <with|par-left|<quote|2tab>|2.1.1<space|2spc>单向、一次性的处理流程<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-4>>
+      <with|par-left|<quote|2tab>|1.1 TeX 编译模型的核心局限：一次性处理、弱语义与延迟反馈<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-4>>
 
-      <with|par-left|<quote|1tab>|2.2<space|2spc>编译阶段与语义阶段的高度耦合<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-5>>
+      <with|par-left|<quote|3tab>|1.1.1 单向与一次性的处理流程<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-5>>
 
-      <with|par-left|<quote|1tab>|2.3<space|2spc>错误只能在“事后”显现<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-6>>
+      <with|par-left|<quote|2tab>|1.2 编译阶段与语义阶段的紧密耦合<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-6>>
 
-      <with|par-left|<quote|1tab>|2.4<space|2spc>多轮编译作为“补丁式机制”<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-7>>
+      <with|par-left|<quote|2tab>|1.3 错误的滞后显现特性<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-7>>
 
-      <with|par-left|<quote|1tab>|6.5 编译模型对工具生态的长期影响<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-8>>
+      <with|par-left|<quote|2tab>|1.4 多轮编译作为补偿性机制<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-8>>
 
-      <with|par-left|<quote|1tab>|6.6 对比：结构化、可增量系统的设计路径<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-9>>
+      <with|par-left|<quote|2tab>|1.5 LaTeX 的结构性扩展缺陷：一个历史遗留范式<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-9>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|小结><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-10><vspace|0.5fn>
+      <with|par-left|<quote|2tab>|1.6 编译模型对工具生态的长期影响<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-10>>
 
-      <vspace*|2fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|font-size|<quote|1.19>|一、LaTeX 的编译设计矛盾><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-11><vspace|1fn>
+      <with|par-left|<quote|2tab>|1.7 对比：结构化与增量系统的设计范式<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-11>>
 
-      <vspace*|2fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|font-size|<quote|1.19>|二、用户体验上的问题><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-12><vspace|1fn>
+      <with|par-left|<quote|3tab>|小结<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-12>>
 
-      <vspace*|2fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|font-size|<quote|1.19>|三、批判总结><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-13><vspace|1fn>
+      <with|par-left|<quote|1tab>|2 LaTeX 设计中的内在矛盾<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-13>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X在使用体验设计上的问题><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-14><vspace|0.5fn>
+      <with|par-left|<quote|1tab>|3 TeX 在使用体验设计上的局限性<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-14>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-15><vspace|0.5fn>
+      <with|par-left|<quote|2tab>|3.1 语言设计矛盾<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-15>>
+
+      <with|par-left|<quote|2tab>|3.2 用户体验矛盾<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-16>>
+
+      <with|par-left|<quote|2tab>|3.3 LaTeX3 的设计思路<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-17>>
+
+      <with|par-left|<quote|2tab>|3.4 实际用户视角下的体验问题<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-18>>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-19><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
