@@ -27,7 +27,9 @@
 
   TeX 的编译架构根植于批处理范式，虽能高效处理静态文档，却难以适应动态、迭代的现代写作需求。
 
-  <strong|2.1.1 单向与一次性的处理流程><next-line>TeX 的工作机制可概括为：线性读取输入 \<rightarrow\> 宏展开 \<rightarrow\> 排版计算 \<rightarrow\> 输出结果。此流程具有强烈的单向性与不可逆性，系统不维护可供增量重计算的中间表示，而是将输入视为连续的指令流。这一设计导致：
+  <strong|2.1.1 单向与一次性的处理流程>
+
+  TeX 的工作机制可概括为：线性读取输入 \<rightarrow\> 宏展开 \<rightarrow\> 排版计算 \<rightarrow\> 输出结果。此流程具有强烈的单向性与不可逆性，系统不维护可供增量重计算的中间表示，而是将输入视为连续的指令流。这一设计导致：
 
   <\itemize>
     <item><strong|全局状态延迟显现>：文档的整体排版状态仅在完整编译周期结束后才能被评估。
@@ -39,7 +41,9 @@
 
   此特性与现代编辑器普遍采用的增量更新和持续反馈机制形成鲜明对比，严重制约了用户的迭代效率。
 
-  <strong|2.1.2 编译阶段与语义阶段的紧密耦合><next-line>在 TeX 系统中，语法解析、宏展开、语义解释及排版决策并非清晰分离，而是深度交织于单一执行路径。宏定义既可表达结构化语义，亦可直接引发排版副作用。典型实例包括：
+  <strong|2.1.2 编译阶段与语义阶段的紧密耦合>
+
+  在 TeX 系统中，语法解析、宏展开、语义解释及排版决策并非清晰分离，而是深度交织于单一执行路径。宏定义既可表达结构化语义，亦可直接引发排版副作用。典型实例包括：
 
   <\itemize>
     <item><code*|\\section><nbsp>命令兼具结构标记与版式控制的双重功能。
@@ -59,7 +63,9 @@
     <item><strong|错误类型难以区分>：语义错误与排版错误在诊断上被混淆，增加了调试的复杂性。
   </itemize>
 
-  <strong|2.1.3 错误的滞后显现与模糊定位><next-line>TeX 的错误检测机制本质上是“事后型”（post hoc），这是其编译模型的直接后果。具体表现为：
+  <strong|2.1.3 错误的滞后显现与模糊定位>
+
+  TeX 的错误检测机制本质上是“事后型”（post hoc），这是其编译模型的直接后果。具体表现为：
 
   <\itemize>
     <item><strong|报告位置不准确>：错误报告的行号往往滞后于错误的实际触发点。
@@ -75,7 +81,9 @@
 
   为弥补上述核心设计的不足，LaTeX 生态催生了一系列复杂的补偿性机制，这些机制本身又带来了新的问题。
 
-  <strong|2.2.1 多轮编译：一种脆弱的权宜之计><next-line>LaTeX 中处理交叉引用、目录和参考文献所需的多次编译，实质是一种用以缓解内部状态缺失的补偿性策略。其标准流程涉及：
+  <strong|2.2.1 多轮编译：一种脆弱的权宜之计>
+
+  LaTeX 中处理交叉引用、目录和参考文献所需的多次编译，实质是一种用以缓解内部状态缺失的补偿性策略。其标准流程涉及：
 
   <\enumerate>
     <item><strong|首次编译>：生成<nbsp><code*|.aux>、<code*|.toc><nbsp>等辅助文件以记录状态。
@@ -97,7 +105,9 @@
 
   从系统设计视角看，这是通过外部副作用来弥补内部架构缺陷的典型“技术债”。
 
-  <strong|2.2.2 引程分化与生态碎片化><next-line>为应对不同需求（如现代字体、Unicode支持），LaTeX 生态演化出多个并行的编译引擎，如 pdfTeX、XeLaTeX 和 LuaLaTeX。这种分化非但不是优势，反而是系统设计僵化的体现：
+  <strong|2.2.2 引程分化与生态碎片化>
+
+  为应对不同需求（如现代字体、Unicode支持），LaTeX 生态演化出多个并行的编译引擎，如 pdfTeX、XeLaTeX 和 LuaLaTeX。这种分化非但不是优势，反而是系统设计僵化的体现：
 
   <\itemize>
     <item><strong|兼容性负担>：同一份文档可能需要在不同引擎间切换以解决特定问题，用户必须理解各引擎的细微差异和限制。
@@ -107,7 +117,9 @@
     <item><strong|认知负荷增加>：用户不仅要学习 LaTeX，还需学习如何选择和配置合适的编译引擎。
   </itemize>
 
-  <strong|2.2.3 编译模型对工具生态的长期压抑><next-line>TeX 的批处理设计深刻地限制了其周边工具生态的发展：
+  <strong|2.2.3 编译模型对工具生态的长期压抑>
+
+  TeX 的批处理设计深刻地限制了其周边工具生态的发展：
 
   <\itemize>
     <item><strong|即时预览难以实现>：编辑器中的“实时预览”功能，本质上仍是频繁触发后台编译，而非真正的即时渲染，存在延迟和不一致性。
@@ -381,7 +393,43 @@
 
   LaTeX2e 本质上是构建在 TeX 宏展开语言之上的一个宏集合，其设计蕴含着难以调和的内在矛盾。下表系统性地概述了这些矛盾点及其负面影响。
 
-  <tabular|<tformat|<twith|table-hmode|min>|<twith|table-width|1par>|<cwith|1|-1|1|-1|cell-hyphen|t>|<table|<row|<cell|矛盾点>|<cell|描述>|<cell|影响>>|<row|<cell|<strong|全局命名 vs 模块化需求>>|<cell|LaTeX2e 缺乏命名空间，所有命令与变量共享全局符号表。>|<cell|极易引发宏包冲突，加载顺序直接影响文档行为，系统脆弱。>>|<row|<cell|<strong|文本替换 vs 结构化接口>>|<cell|宏本质为无类型的令牌替换，缺乏参数签名与类型系统。>|<cell|静态检查困难，函数接口不可组合，参数传递易出错。>>|<row|<cell|<strong|局部状态依赖分组 vs 编译器理解>>|<cell|状态管理依赖 TeX 的分组回滚机制，而非明确的变量作用域。>|<cell|编译器无法解析作用域，状态泄漏与逻辑错误难以检测。>>|<row|<cell|<strong|约定式接口 vs 自动验证>>|<cell|接口约束依赖文档注解和用户自觉遵守，而非语言层面的强制。>|<cell|无法静态验证参数类型、数量或合法性，错误在运行时才暴露。>>|<row|<cell|<strong|兼容性 vs 现代特性>>|<cell|为维持与 LaTeX2e 的兼容性，新特性（如多可选参数）的实现方式笨拙。>|<cell|需依赖<nbsp><code*|xparse><nbsp>等高级宏包或复杂的“黑科技”，学习与维护成本高。>>>>>
+  <tabular|<tformat|<twith|table-hmode|min>|<twith|table-width|1par>|<cwith|1|-1|1|-1|cell-hyphen|t>|<cwith|1|-1|1|-1|cell-tborder|1ln>|<cwith|1|-1|1|-1|cell-bborder|1ln>|<cwith|1|-1|1|-1|cell-lborder|1ln>|<cwith|1|-1|1|-1|cell-rborder|1ln>|<table|<row|<\cell>
+    矛盾点
+  </cell>|<\cell>
+    描述
+  </cell>|<\cell>
+    影响
+  </cell>>|<row|<\cell>
+    <strong|全局命名 vs 模块化需求>
+  </cell>|<\cell>
+    LaTeX2e 缺乏命名空间，所有命令与变量共享全局符号表。
+  </cell>|<\cell>
+    极易引发宏包冲突，加载顺序直接影响文档行为，系统脆弱。
+  </cell>>|<row|<\cell>
+    <strong|文本替换 vs 结构化接口>
+  </cell>|<\cell>
+    宏本质为无类型的令牌替换，缺乏参数签名与类型系统。
+  </cell>|<\cell>
+    静态检查困难，函数接口不可组合，参数传递易出错。
+  </cell>>|<row|<\cell>
+    <strong|局部状态依赖分组 vs 编译器理解>
+  </cell>|<\cell>
+    状态管理依赖 TeX 的分组回滚机制，而非明确的变量作用域。
+  </cell>|<\cell>
+    编译器无法解析作用域，状态泄漏与逻辑错误难以检测。
+  </cell>>|<row|<\cell>
+    <strong|约定式接口 vs 自动验证>
+  </cell>|<\cell>
+    接口约束依赖文档注解和用户自觉遵守，而非语言层面的强制。
+  </cell>|<\cell>
+    无法静态验证参数类型、数量或合法性，错误在运行时才暴露。
+  </cell>>|<row|<\cell>
+    <strong|兼容性 vs 现代特性>
+  </cell>|<\cell>
+    为维持与 LaTeX2e 的兼容性，新特性（如多可选参数）的实现方式笨拙。
+  </cell>|<\cell>
+    需依赖<nbsp><code*|xparse><nbsp>等高级宏包或复杂的“黑科技”，学习与维护成本高。
+  </cell>>>>>
 
   一言以蔽之，LaTeX2e 可被视为一种“工程化严重不足的宏语言”。其用户体验与系统安全性高度依赖于非正式的约定与用户的自觉，而非语言内在的设计保障。
 
@@ -389,7 +437,49 @@
 
   上述设计矛盾最终转化为用户日常使用中的具体痛点，如下表所示：
 
-  <tabular|<tformat|<twith|table-hmode|min>|<twith|table-width|1par>|<cwith|1|-1|1|-1|cell-hyphen|t>|<table|<row|<cell|问题类别>|<cell|描述>|<cell|典型表现>>|<row|<cell|<strong|易用性不足>>|<cell|命令语法繁复，参数规则隐晦。>|<cell|<code*|\\newcommand><nbsp>仅支持单一可选参数，无法灵活指定位置；接口不一致。>>|<row|<cell|<strong|易出错>>|<cell|全局命名空间导致命名冲突。>|<cell|两个宏包定义同名命令，导致编译报错或更危险的无声覆盖。>>|<row|<cell|<strong|调试复杂>>|<cell|错误信息缺乏上下文，定位困难。>|<cell|“Undefined control sequence” 或 “overfull hbox” 等信息模糊，难以精准定位问题根源。>>|<row|<cell|<strong|扩展困难>>|<cell|复杂功能的实现需要依赖“黑客”技巧。>|<cell|星号变体、多可选参数与嵌套逻辑的实现，代码可读性极差。>>|<row|<cell|<strong|学习成本高>>|<cell|约定繁多，规则隐晦。>|<cell|需要理解内部宏（如<nbsp><code*|@foo>）、分组机制、命名约定等大量隐性知识。>>|<row|<cell|<strong|模块化薄弱>>|<cell|内部实现与用户接口界限模糊。>|<cell|用户轻易就能修改内部宏，可能导致文档或其他宏包行为异常。>>>>>
+  <tabular|<tformat|<twith|table-hmode|min>|<twith|table-width|1par>|<cwith|1|-1|1|-1|cell-hyphen|t>|<cwith|1|-1|1|-1|cell-tborder|1ln>|<cwith|1|-1|1|-1|cell-bborder|1ln>|<cwith|1|-1|1|-1|cell-lborder|1ln>|<cwith|1|-1|1|-1|cell-rborder|1ln>|<table|<row|<\cell>
+    问题类别
+  </cell>|<\cell>
+    描述
+  </cell>|<\cell>
+    典型表现
+  </cell>>|<row|<\cell>
+    <strong|易用性不足>
+  </cell>|<\cell>
+    命令语法繁复，参数规则隐晦。
+  </cell>|<\cell>
+    <code*|\\newcommand><nbsp>仅支持单一可选参数，无法灵活指定位置；接口不一致。
+  </cell>>|<row|<\cell>
+    <strong|易出错>
+  </cell>|<\cell>
+    全局命名空间导致命名冲突。
+  </cell>|<\cell>
+    两个宏包定义同名命令，导致编译报错或更危险的无声覆盖。
+  </cell>>|<row|<\cell>
+    <strong|调试复杂>
+  </cell>|<\cell>
+    错误信息缺乏上下文，定位困难。
+  </cell>|<\cell>
+    “Undefined control sequence” 或 “overfull hbox” 等信息模糊，难以精准定位问题根源。
+  </cell>>|<row|<\cell>
+    <strong|扩展困难>
+  </cell>|<\cell>
+    复杂功能的实现需要依赖“黑客”技巧。
+  </cell>|<\cell>
+    星号变体、多可选参数与嵌套逻辑的实现，代码可读性极差。
+  </cell>>|<row|<\cell>
+    <strong|学习成本高>
+  </cell>|<\cell>
+    约定繁多，规则隐晦。
+  </cell>|<\cell>
+    需要理解内部宏（如<nbsp><code*|@foo>）、分组机制、命名约定等大量隐性知识。
+  </cell>>|<row|<\cell>
+    <strong|模块化薄弱>
+  </cell>|<\cell>
+    内部实现与用户接口界限模糊。
+  </cell>|<\cell>
+    用户轻易就能修改内部宏，可能导致文档或其他宏包行为异常。
+  </cell>>>>>
 
   <subsubsection*|<strong|3.3 性能与部署的现实困境>>
 
@@ -407,7 +497,7 @@
 
   为应对上述危机，LaTeX3 项目应运而生。它试图通过引入模块化、命名空间、类型签名和结构化作用域等现代编程语言特性，对 LaTeX2e 进行系统性重构。LaTeX3 在编译层面确实能减少冲突，在用户体验层面也缓解了部分隐性规则的负担。
 
-  然而，LaTeX3 的救赎是有限的。其对 LaTeX2e 的向下兼容性承诺，意味着新旧两套系统并存的复杂性依然存在。用户仍需学习和适应新的接口，整个生态的迁移将是一个漫长且充满不确定性的过程。这进一步印证了 LaTex 生态因历史包袱而步履维艰的困境。
+  然而，LaTeX3 的救赎是有限的。其对 LaTeX2e 的向下兼容性承诺，意味着新旧两套系统并存的复杂性依然存在。用户仍需学习和适应新的接口，整个生态的迁移将是一个漫长且充满不确定性的过程。这进一步印证了 LaTeX 生态因历史包袱而步履维艰的困境。
 
   <subsection*|3.5 现代协作平台的局限：以 Overleaf 为例的批判性审视>
 
@@ -464,34 +554,18 @@
 
 <\references>
   <\collection>
-    <associate|auto-1|<tuple|1|1>>
-    <associate|auto-10|<tuple|<with|mode|<quote|math>|\<bullet\>>|4>>
-    <associate|auto-11|<tuple|<with|mode|<quote|math>|\<bullet\>>|5>>
-    <associate|auto-12|<tuple|<with|mode|<quote|math>|\<bullet\>>|5>>
-    <associate|auto-13|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
-    <associate|auto-14|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
-    <associate|auto-15|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
-    <associate|auto-16|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
-    <associate|auto-17|<tuple|1|?>>
-    <associate|auto-18|<tuple|1|?>>
-    <associate|auto-19|<tuple|1|?>>
-    <associate|auto-2|<tuple|1|1>>
-    <associate|auto-20|<tuple|1|?>>
-    <associate|auto-21|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
-    <associate|auto-22|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
-    <associate|auto-23|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
-    <associate|auto-24|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
-    <associate|auto-25|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
-    <associate|auto-26|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
-    <associate|auto-3|<tuple|1|1>>
-    <associate|auto-4|<tuple|<with|mode|<quote|math>|\<bullet\>>|2>>
-    <associate|auto-5|<tuple|<with|mode|<quote|math>|\<bullet\>>|3>>
-    <associate|auto-6|<tuple|<with|mode|<quote|math>|\<bullet\>>|3>>
-    <associate|auto-7|<tuple|<with|mode|<quote|math>|\<bullet\>>|3>>
-    <associate|auto-8|<tuple|<with|mode|<quote|math>|\<bullet\>>|4>>
-    <associate|auto-9|<tuple|<with|mode|<quote|math>|\<bullet\>>|4>>
-    <associate|bib-van_der_hoeven_gnu_2001|<tuple|1|5>>
-    <associate|texlive-size|<tuple|1|?>>
+    <associate|auto-1|<tuple|1|?>>
+    <associate|auto-10|<tuple|1|?>>
+    <associate|auto-11|<tuple|1|?>>
+    <associate|auto-2|<tuple|1|?>>
+    <associate|auto-3|<tuple|1|?>>
+    <associate|auto-4|<tuple|1|?>>
+    <associate|auto-5|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|auto-6|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|auto-7|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|auto-8|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|auto-9|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|bib-van_der_hoeven_gnu_2001|<tuple|1|?>>
   </collection>
 </references>
 
@@ -508,25 +582,25 @@
     <\associate|toc>
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X的历史介绍><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-1><vspace|0.5fn>
 
-      <with|par-left|<quote|1tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|2 TeX 在编译设计上的根本性缺陷><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-2>>
+      <with|par-left|<quote|1tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|2 TeX 在编译设计上的根本性缺陷><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-2>>
 
-      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|2.1 批处理模型的核心局限：单向性、弱语义与延迟反馈><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-3>>
+      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|2.1 批处理模型的核心局限：单向性、弱语义与延迟反馈><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-3>>
 
-      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|2.2 补偿性机制与工具生态的异化><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-4>>
+      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|2.2 补偿性机制与工具生态的异化><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-4>>
 
-      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|2.3 对比：结构化与增量系统的设计范式><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-5>>
+      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|2.3 对比：结构化与增量系统的设计范式><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-5>>
 
-      <with|par-left|<quote|1tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3 TeX 在使用体验设计上的局限性><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-6>>
+      <with|par-left|<quote|1tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3 TeX 在使用体验设计上的局限性><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-6>>
 
-      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3.1 语言设计的内在矛盾：工程化的缺失><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-8>>
+      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3.1 语言设计的内在矛盾：工程化的缺失><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-7>>
 
-      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3.2 实际用户视角下的体验障碍><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-9>>
+      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3.2 实际用户视角下的体验障碍><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-8>>
 
-      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3.3 性能与部署的现实困境><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-10>>
+      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3.3 性能与部署的现实困境><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-9>>
 
-      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3.4 LaTeX3 的救赎与局限><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-11>>
+      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3.4 LaTeX3 的救赎与局限><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-10>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-12><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-11><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
