@@ -1,4 +1,4 @@
-<TMU|<tuple|1.1.0|2025.2.3-beta3>>
+<TMU|<tuple|1.1.0|2025.2.2>>
 
 <style|<tuple|generic|number-europe|chinese|preview-ref|smart-ref|comment|doc-tmu>>
 
@@ -153,7 +153,9 @@
 
   <tabular|<tformat|<twith|table-hmode|min>|<twith|table-width|1par>|<cwith|1|-1|1|-1|cell-hyphen|t>|<table|<row|<cell|维度>|<cell|pdfLaTeX>|<cell|XeLaTeX>|<cell|LuaLaTeX>>|<row|<cell|原始编码支持>|<cell|8-bit（需 inputenc）>|<cell|原生 Unicode>|<cell|原生 Unicode>>|<row|<cell|字体系统>|<cell|Type1 / limited OpenType>|<cell|系统字体（OpenType）>|<cell|OpenType（经 Lua）>>|<row|<cell|扩展机制>|<cell|TeX primitives>|<cell|TeX + XeTeX primitives>|<cell|TeX + Lua VM>>|<row|<cell|外部可编程性>|<cell|极弱>|<cell|极弱>|<cell|强（Lua）>>>>>
 
-  这些差异意味着：<next-line><strong|同一份 <code*|.tex> 源文件，在不同引擎下并不对应同一语义执行环境。>
+  这些差异意味着：
+
+  <strong|同一份 <code*|.tex> 源文件，在不同引擎下并不对应同一语义执行环境。>
 
   <hrule>
 
@@ -162,14 +164,8 @@
   <subsubsection*|示例：源文件中的 Unicode 字符>
 
   <\code>
-    \;
-
     <\code*>
-      \\section
-
-      {Überblick}
-
-      \;
+      \\section{Überblick}
     </code*>
   </code>
 
@@ -208,14 +204,8 @@
   <subsubsection*|pdfLaTeX：宏包驱动的字体映射>
 
   <\code>
-    \;
-
     <\code*>
-      \\usepackage
-
-      {mathptmx}
-
-      \;
+      \\usepackage{mathptmx}
     </code*>
   </code>
 
@@ -228,20 +218,12 @@
   <subsubsection*|XeLaTeX / LuaLaTeX：fontspec 接口>
 
   <\code>
-    \;
-
     <\code*>
-      \\usepackage
-
-      {fontspec}
+      \\usepackage{fontspec}
 
       \;
 
-      \\setmainfont
-
-      {Times New Roman}
-
-      \;
+      \\setmainfont{Times New Roman}
     </code*>
   </code>
 
@@ -268,8 +250,6 @@
   大量宏包在内部显式区分引擎：
 
   <\code>
-    \;
-
     <\code*>
       \\ifxetex
 
@@ -296,10 +276,6 @@
       \;
 
       \\fi\\fi
-
-      \;
-
-      \;
     </code*>
   </code>
 
@@ -555,9 +531,24 @@
 <\references>
   <\collection>
     <associate|auto-1|<tuple|1|?>>
-    <associate|auto-10|<tuple|1|?>>
-    <associate|auto-11|<tuple|1|?>>
+    <associate|auto-10|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|auto-11|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|auto-12|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|auto-13|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|auto-14|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|auto-15|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|auto-16|<tuple|1|?>>
+    <associate|auto-17|<tuple|1|?>>
+    <associate|auto-18|<tuple|1|?>>
+    <associate|auto-19|<tuple|1|?>>
     <associate|auto-2|<tuple|1|?>>
+    <associate|auto-20|<tuple|1|?>>
+    <associate|auto-21|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|auto-22|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|auto-23|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|auto-24|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|auto-25|<tuple|1|?>>
+    <associate|auto-26|<tuple|1|?>>
     <associate|auto-3|<tuple|1|?>>
     <associate|auto-4|<tuple|1|?>>
     <associate|auto-5|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
@@ -566,6 +557,7 @@
     <associate|auto-8|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
     <associate|auto-9|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
     <associate|bib-van_der_hoeven_gnu_2001|<tuple|1|?>>
+    <associate|texlive-size|<tuple|1|?>>
   </collection>
 </references>
 
@@ -575,12 +567,12 @@
       van_der_hoeven_gnu_2001
     </associate>
     <\associate|figure>
-      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-7>|1>|>
+      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-17>|1>|>
         TeXLive发行版ISO文件大小趋势
-      </surround>|<pageref|auto-7>>
+      </surround>|<pageref|auto-17>>
     </associate>
     <\associate|toc>
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X的历史介绍><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-1><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X的历史介绍><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-1><vspace|0.5fn>
 
       <with|par-left|<quote|1tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|2 TeX 在编译设计上的根本性缺陷><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-2>>
 
@@ -590,17 +582,45 @@
 
       <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|2.3 对比：结构化与增量系统的设计范式><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-5>>
 
-      <with|par-left|<quote|1tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3 TeX 在使用体验设计上的局限性><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-6>>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|多引擎并存的兼容性困境：pdfLaTeX、XeLaTeX 与 LuaLaTeX 的结构性差异><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-6><vspace|0.5fn>
 
-      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3.1 语言设计的内在矛盾：工程化的缺失><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-7>>
+      <with|par-left|<quote|1tab>|1. 统一语法之下的异构执行模型<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-7>>
 
-      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3.2 实际用户视角下的体验障碍><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-8>>
+      <with|par-left|<quote|1tab>|2. 字符编码与文本处理的不兼容性<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-8>>
 
-      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3.3 性能与部署的现实困境><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-9>>
+      <with|par-left|<quote|2tab>|示例：源文件中的 Unicode 字符<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-9>>
 
-      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3.4 LaTeX3 的救赎与局限><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-10>>
+      <with|par-left|<quote|1tab>|3. 字体选择机制的根本分裂<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-10>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-11><vspace|0.5fn>
+      <with|par-left|<quote|2tab>|pdfLaTeX：宏包驱动的字体映射<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-11>>
+
+      <with|par-left|<quote|2tab>|XeLaTeX / LuaLaTeX：fontspec 接口<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-12>>
+
+      <with|par-left|<quote|1tab>|4. 宏包的引擎依赖与条件分裂<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-13>>
+
+      <with|par-left|<quote|1tab>|5. LuaLaTeX：能力增强与复杂性转移<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-14>>
+
+      <with|par-left|<quote|1tab>|6. 错误表现的引擎特异性<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-15>>
+
+      <with|par-left|<quote|1tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3 TeX 在使用体验设计上的局限性><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-16>>
+
+      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3.1 语言设计的内在矛盾：工程化的缺失><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-18>>
+
+      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3.2 实际用户视角下的体验障碍><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-19>>
+
+      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3.3 性能与部署的现实困境><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-20>>
+
+      <with|par-left|<quote|2tab>|<with|font-series|<quote|bold>|math-font-series|<quote|bold>|3.4 LaTeX3 的救赎与局限><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-21>>
+
+      <with|par-left|<quote|1tab>|3.5 现代协作平台的局限：以 Overleaf 为例的批判性审视<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-22>>
+
+      <with|par-left|<quote|2tab>|3.5.1 Overleaf 的主要改进<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-23>>
+
+      <with|par-left|<quote|2tab>|3.5.2 底层架构的制约<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-24>>
+
+      <with|par-left|<quote|2tab>|3.5.3 对技术演进路径的影响<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-25>>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-26><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
