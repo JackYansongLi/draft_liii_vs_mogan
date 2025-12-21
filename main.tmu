@@ -151,11 +151,49 @@
 
   从用户角度看，这三种引擎均接受 <code*|.tex> 输入，并遵循 LaTeX 的宏接口；然而在系统层面，它们在以下关键方面存在本质差异：
 
-  <tabular|<tformat|<twith|table-hmode|min>|<twith|table-width|1par>|<cwith|1|-1|1|-1|cell-hyphen|t>|<table|<row|<cell|维度>|<cell|pdfLaTeX>|<cell|XeLaTeX>|<cell|LuaLaTeX>>|<row|<cell|原始编码支持>|<cell|8-bit（需 inputenc）>|<cell|原生 Unicode>|<cell|原生 Unicode>>|<row|<cell|字体系统>|<cell|Type1 / limited OpenType>|<cell|系统字体（OpenType）>|<cell|OpenType（经 Lua）>>|<row|<cell|扩展机制>|<cell|TeX primitives>|<cell|TeX + XeTeX primitives>|<cell|TeX + Lua VM>>|<row|<cell|外部可编程性>|<cell|极弱>|<cell|极弱>|<cell|强（Lua）>>>>>
+  <tabular|<tformat|<twith|table-hmode|min>|<twith|table-width|1par>|<cwith|1|-1|1|-1|cell-hyphen|t>|<cwith|1|-1|1|-1|cell-tborder|1ln>|<cwith|1|-1|1|-1|cell-bborder|1ln>|<cwith|1|-1|1|-1|cell-lborder|1ln>|<cwith|1|-1|1|-1|cell-rborder|1ln>|<table|<row|<\cell>
+    维度
+  </cell>|<\cell>
+    pdfLaTeX
+  </cell>|<\cell>
+    XeLaTeX
+  </cell>|<\cell>
+    LuaLaTeX
+  </cell>>|<row|<\cell>
+    原始编码支持
+  </cell>|<\cell>
+    8-bit（需 inputenc）
+  </cell>|<\cell>
+    原生 Unicode
+  </cell>|<\cell>
+    原生 Unicode
+  </cell>>|<row|<\cell>
+    字体系统
+  </cell>|<\cell>
+    Type1 / limited OpenType
+  </cell>|<\cell>
+    系统字体（OpenType）
+  </cell>|<\cell>
+    OpenType（经 Lua）
+  </cell>>|<row|<\cell>
+    扩展机制
+  </cell>|<\cell>
+    TeX primitives
+  </cell>|<\cell>
+    TeX + XeTeX primitives
+  </cell>|<\cell>
+    TeX + Lua VM
+  </cell>>|<row|<\cell>
+    外部可编程性
+  </cell>|<\cell>
+    极弱
+  </cell>|<\cell>
+    极弱
+  </cell>|<\cell>
+    强（Lua）
+  </cell>>>>>
 
-  这些差异意味着：
-
-  <strong|同一份 <code*|.tex> 源文件，在不同引擎下并不对应同一语义执行环境。>
+  这些差异意味着：<strong|同一份 <code*|.tex> 源文件，在不同引擎下并不对应同一语义执行环境。>
 
   <hrule>
 
