@@ -291,6 +291,8 @@
 
   上述高度耦合的设计直接带来了多方面的负面影响。首先，静态分析工具难以介入。由于缺乏明确的语义边界，工具无法可靠地构建抽象语法树或结构模型，从而难以实现代码重构、语义检查或一致性验证等高级功能。
 
+  todo：AtEndDocument 命令，xparse 命令。
+
   <subsubsection|错误的滞后显现与模糊定位>
 
   TeX 的错误检测机制本质上是“事后型”（post hoc），这是其编译模型的直接后果。具体表现为：
@@ -884,6 +886,7 @@
     <associate|auto-34|<tuple|2|13>>
     <associate|auto-35|<tuple|2|13>>
     <associate|auto-36|<tuple|A|13>>
+    <associate|auto-37|<tuple|A|?>>
     <associate|auto-4|<tuple|3.1|4>>
     <associate|auto-5|<tuple|3.1.1|4>>
     <associate|auto-6|<tuple|3.1.2|5>>
