@@ -123,7 +123,29 @@
 
   <block|<tformat|<twith|table-hmode|min>|<twith|table-width|1par>|<cwith|1|-1|1|-1|cell-hyphen|t>|<table|<row|<cell|文件扩展名>|<cell|关联工具 / 来源>|<cell|功能说明>>|<row|<cell|.log>|<cell|排版引擎>|<cell|记录编译过程，用于排查错误>>|<row|<cell|.aux>|<cell|LaTeX>|<cell|主辅助文件，记录交叉引用、目录、参考文献引用等>>|<row|<cell|.toc>|<cell|LaTeX>|<cell|记录生成的目录内容>>|<row|<cell|.lof>|<cell|LaTeX>|<cell|记录生成的图片目录内容>>|<row|<cell|.lot>|<cell|LaTeX>|<cell|记录生成的表格目录内容>>|<row|<cell|.bbl>|<cell|BibTeX>|<cell|生成的参考文献记录文件>>|<row|<cell|.blg>|<cell|BibTeX>|<cell|BibTeX 编译过程的日志文件>>|<row|<cell|.idx>|<cell|LaTeX>|<cell|供 makeindex 处理的原始索引记录文件>>|<row|<cell|.ind>|<cell|makeindex>|<cell|处理.idx 后生成的格式化索引文件>>|<row|<cell|.ilg>|<cell|makeindex>|<cell|makeindex 的日志文件>>|<row|<cell|.out>|<cell|hyperref 宏包>|<cell|生成 PDF 书签的记录文件>>>>>
 
-  <todo|ziqiang>多次编译补充
+  为了直观理解为什么 <LaTeX> 文档往往需要多次编译，下面给出一个包含交叉引用和目录的最小示例：
+
+  <\listing>
+    \\documentclass{article}
+
+    \\usepackage{hyperref}
+
+    \;
+
+    \\begin{document}
+
+    \\tableofcontents
+
+    \;
+
+    \\section{Introduction}\\label{sec:intro}
+
+    See Section~\\ref{sec:intro}.
+
+    \\end{document}
+  </listing>
+
+  在第一遍使用 <verbatim|pdflatex> 编译这段代码时，<LaTeX> 尚无法确定章节编号和目录内容，只能在排版过程中将这些信息记录到辅助文件中：章节标题被写入 <code*|.toc> 文件，<code*|\\label{sec:intro}> 对应的编号信息被写入 <code*|.aux> 文件，而正文中的 <code*|\\ref{sec:intro}> 只能暂时以占位符形式输出。所以第一遍编译生成的 PDF 中目录为空，交叉引用位置也显示为“<verbatim|??>”。在第二遍编译时，<LaTeX> 会读取上一次生成的 <code*|.aux> 和 <code*|.toc> 文件，从而获得完整的编号和目录信息，并将其正确地排版到文档中，所以第二遍编译后可以看到交叉正确引用，目录出现。由此可以看出，<LaTeX> 的排版过程本质上是一种依赖中间结果逐步收敛的增量式流程，任何涉及全局信息或前后依赖的功能，几乎都不可避免地需要通过多次编译才能得到最终正确的输出。
 
   在实际使用中，<LaTeX> 的排版结果由底层排版引擎决定，常见的引擎包括 <verbatim|pdfLaTeX>、<verbatim|XeLaTeX> 和 <verbatim|LuaLaTeX>：<verbatim|pdfLaTeX> 是最传统、兼容性最好的引擎，直接生成 PDF，但对 Unicode 和系统字体支持有限，通常依赖 <TeX> 自身的字体体系；<verbatim|XeLaTeX> 以良好的 Unicode 支持和对操作系统字体的直接调用而著称，非常适合中日韩等多语言排版，但编译速度和宏包兼容性相对 <verbatim|pdfLaTeX> 更为复杂；<verbatim|LuaLaTeX> 则在 <verbatim|XeLaTeX> 的基础上进一步引入 Lua 脚本作为可编程扩展层，使排版逻辑可以被动态定制，功能最强但也最复杂，对模板和宏包质量的依赖最高。不同引擎在字体处理、宏包支持和编译行为上的差异，使得同一份 LaTeX 源码在不同环境下可能产生不同结果,也可能直接无法运行，这也是多引擎并存成为 <LaTeX> 生态长期复杂性的根源之一。
 
@@ -239,29 +261,41 @@
 
   <subsubsection|编译阶段与语义阶段的紧密耦合>
 
-  在 TeX 系统中，语法解析、宏展开、语义解释及排版决策并非清晰分离，而是深度交织于单一执行路径。宏定义既可表达结构化语义，亦可直接引发排版副作用。典型实例包括：
+  在 TeX 系统中，语法解析、宏展开、语义解释与排版决策并未形成清晰的分层结构，而是被深度耦合在同一条执行路径之中。宏展开既承担“语义建模”的角色，又直接触发具体的排版行为，使得抽象结构与版式细节难以区分。这种设计在早期带来了极高的灵活性，但在现代文档工程环境下逐渐暴露出严重的问题。
 
-  <\itemize>
-    <item><code*|\\section><nbsp>命令兼具结构标记与版式控制的双重功能。
+  首先，宏命令往往同时承担结构语义与版式控制的双重职责。以 <code*|\\section> 为例，该命令在逻辑上应当仅表示“章节层级”这一结构性语义，但其实现同时决定了章节标题的字体大小、间距、编号方式以及是否产生目录项：
 
-    <item><code*|\\def><nbsp>定义的宏可体现抽象语义，亦可仅为具体的排版指令。
+  <\listing>
+    <\code*>
+      \\section
 
-    <item>条件展开（如<nbsp><code*|\\if...>）在解析早期即对最终文档结构产生决定性影响。
-  </itemize>
+      {Introduction}
+    </code*>
+  </listing>
 
-  这种紧密耦合导致了以下恶果：
+  这一行代码不仅声明了一个新的结构节点，还立即触发了编号递增、标题排版、目录写入（<code*|.toc>）、书签写入（在加载 <code*|hyperref> 时）等一系列排版副作用。由于这些行为在宏展开阶段同时发生，后续工具无法区分“这是一个结构声明”还是“这是一段具体的排版指令”，从而难以在不执行代码的情况下理解文档结构。
 
-  <\itemize>
-    <item><strong|静态分析工具难以介入>：缺乏清晰的语义边界，使得开发高级的代码分析、重构或验证工具异常困难。
+  其次，宏定义机制本身无法区分抽象语义与具体实现，导致同一语法形式既可能表示高层语义，也可能只是排版快捷方式。例如：<verbatim|\\def\\theorem#1{\\textbf{Theorem.} #1}> 在表面上，<code*|\\theorem> 看起来像是一个语义结构（定理），但实际上它只是对加粗文本的简单封装，不具备编号、交叉引用或层级信息。与之相比：<verbatim|\\newtheorem{theorem}{Theorem}> 则引入了真正的结构语义，包括自动编号、作用域和可引用性。然而，从 <inactive|<hybrid|TeX>> 引擎的角度看，这两种定义在宏展开阶段并无本质区别，都是“可执行的文本替换规则”。这种语义不可区分性使得静态工具无法判断某个宏究竟代表文档结构，还是仅仅影响排版外观。
 
-    <item><strong|编辑环境难以捕捉意图>：IDE 无法准确理解作者的逻辑结构，无法提供精准的智能提示。目前我看到唯一比较好用的功能就是自动提示OverLeaf上的 ref 自动提示。
+  再次，条件展开机制在解析阶段就直接影响文档的最终结构，而非仅作为后期排版选择。例如：
 
-    <item><strong|错误类型难以区分>：语义错误与排版错误在诊断上被混淆，增加了调试的复杂性。
-  </itemize>
+  <\listing>
+    \\ifdefined\\includeappendix
+
+    \ \ \\section{附录}
+
+    \\fi
+  </listing>
+
+  这里是否存在“附录”这一结构节点，取决于某个条件在宏展开时的真假。换言之，文档的逻辑结构并不是一个稳定、可枚举的抽象树，而是一个在执行过程中动态生成的结果。任何试图在不运行 <TeX> 的情况下分析文档结构的工具，都必须完整模拟宏展开与条件判断，这在实践中几乎不可行。
+
+  上述高度耦合的设计直接带来了多方面的负面影响。首先，静态分析工具难以介入。由于缺乏明确的语义边界，工具无法可靠地构建抽象语法树或结构模型，从而难以实现代码重构、语义检查或一致性验证等高级功能。
 
   <subsubsection|错误的滞后显现与模糊定位>
 
   TeX 的错误检测机制本质上是“事后型”（post hoc），这是其编译模型的直接后果。具体表现为：
+
+  <strong|错误类型难以区分>：语义错误与排版错误在诊断上被混淆，增加了调试的复杂性。
 
   <\itemize>
     <item><strong|报告位置不准确>：错误报告的行号往往滞后于错误的实际触发点。
@@ -821,45 +855,45 @@
 <\references>
   <\collection>
     <associate|auto-1|<tuple|1|2>>
-    <associate|auto-10|<tuple|3.2.2|6>>
-    <associate|auto-11|<tuple|3.2.3|6>>
-    <associate|auto-12|<tuple|3.3|6>>
-    <associate|auto-13|<tuple|4|6>>
-    <associate|auto-14|<tuple|4.1|6>>
-    <associate|auto-15|<tuple|4.2|7>>
-    <associate|auto-16|<tuple|4.2|7>>
-    <associate|auto-17|<tuple|4.3|7>>
-    <associate|auto-18|<tuple|4.3|7>>
-    <associate|auto-19|<tuple|<with|mode|<quote|math>|\<bullet\>>|7>>
+    <associate|auto-10|<tuple|3.2.2|7>>
+    <associate|auto-11|<tuple|3.2.3|7>>
+    <associate|auto-12|<tuple|3.3|7>>
+    <associate|auto-13|<tuple|4|7>>
+    <associate|auto-14|<tuple|4.1|7>>
+    <associate|auto-15|<tuple|4.2|8>>
+    <associate|auto-16|<tuple|4.2|8>>
+    <associate|auto-17|<tuple|4.3|8>>
+    <associate|auto-18|<tuple|4.3|8>>
+    <associate|auto-19|<tuple|<with|mode|<quote|math>|\<bullet\>>|8>>
     <associate|auto-2|<tuple|2|2>>
-    <associate|auto-20|<tuple|4.4|7>>
-    <associate|auto-21|<tuple|4.5|8>>
-    <associate|auto-22|<tuple|4.6|8>>
-    <associate|auto-23|<tuple|5|9>>
-    <associate|auto-24|<tuple|1|9>>
-    <associate|auto-25|<tuple|5.1|9>>
-    <associate|auto-26|<tuple|5.2|10>>
-    <associate|auto-27|<tuple|5.3|10>>
-    <associate|auto-28|<tuple|5.4|11>>
-    <associate|auto-29|<tuple|5.5|11>>
+    <associate|auto-20|<tuple|4.4|8>>
+    <associate|auto-21|<tuple|4.5|9>>
+    <associate|auto-22|<tuple|4.6|9>>
+    <associate|auto-23|<tuple|5|10>>
+    <associate|auto-24|<tuple|1|10>>
+    <associate|auto-25|<tuple|5.1|10>>
+    <associate|auto-26|<tuple|5.2|11>>
+    <associate|auto-27|<tuple|5.3|11>>
+    <associate|auto-28|<tuple|5.4|12>>
+    <associate|auto-29|<tuple|5.5|12>>
     <associate|auto-3|<tuple|3|3>>
-    <associate|auto-30|<tuple|5.5.1|11>>
-    <associate|auto-31|<tuple|5.5.2|11>>
-    <associate|auto-32|<tuple|5.5.3|11>>
-    <associate|auto-33|<tuple|6|12>>
-    <associate|auto-34|<tuple|2|12>>
-    <associate|auto-35|<tuple|2|12>>
-    <associate|auto-36|<tuple|A|12>>
-    <associate|auto-4|<tuple|3.1|3>>
-    <associate|auto-5|<tuple|3.1.1|3>>
+    <associate|auto-30|<tuple|5.5.1|12>>
+    <associate|auto-31|<tuple|5.5.2|12>>
+    <associate|auto-32|<tuple|5.5.3|12>>
+    <associate|auto-33|<tuple|6|13>>
+    <associate|auto-34|<tuple|2|13>>
+    <associate|auto-35|<tuple|2|13>>
+    <associate|auto-36|<tuple|A|13>>
+    <associate|auto-4|<tuple|3.1|4>>
+    <associate|auto-5|<tuple|3.1.1|4>>
     <associate|auto-6|<tuple|3.1.2|5>>
-    <associate|auto-7|<tuple|3.1.3|5>>
-    <associate|auto-8|<tuple|3.2|5>>
-    <associate|auto-9|<tuple|3.2.1|5>>
-    <associate|bib-van_der_hoeven_gnu_2001|<tuple|1|12>>
-    <associate|eq:tree-struc|<tuple|1|12>>
-    <associate|example:around-in-mogan|<tuple|2|12>>
-    <associate|texlive-size|<tuple|1|9>>
+    <associate|auto-7|<tuple|3.1.3|6>>
+    <associate|auto-8|<tuple|3.2|6>>
+    <associate|auto-9|<tuple|3.2.1|6>>
+    <associate|bib-van_der_hoeven_gnu_2001|<tuple|1|13>>
+    <associate|eq:tree-struc|<tuple|1|13>>
+    <associate|example:around-in-mogan|<tuple|2|13>>
+    <associate|texlive-size|<tuple|1|10>>
   </collection>
 </references>
 
