@@ -20,49 +20,49 @@
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|2<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X的编译原理简介><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-2><vspace|0.5fn>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|3<space|2spc>TeX 在编译设计上的根本性缺陷><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-3><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|3<space|2spc>TeX 在编译设计上的根本性缺陷><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-5><vspace|0.5fn>
 
-    <with|par-left|1tab|3.1<space|2spc>批处理模型的核心局限：单向性、弱语义与延迟反馈<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-4>>
+    <with|par-left|1tab|3.1<space|2spc>批处理模型的核心局限：单向性、弱语义与延迟反馈<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-6>>
 
-    <with|par-left|2tab|3.1.1<space|2spc>单向与一次性的处理流程<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-5>>
+    <with|par-left|2tab|3.1.1<space|2spc>单向与一次性的处理流程<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-7>>
 
-    <with|par-left|2tab|3.1.2<space|2spc>编译阶段与语义阶段的紧密耦合<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-6>>
+    <with|par-left|2tab|3.1.2<space|2spc>编译阶段与语义阶段的紧密耦合<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-8>>
 
-    <with|par-left|2tab|3.1.3<space|2spc>错误的滞后显现与模糊定位<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-7>>
+    <with|par-left|2tab|3.1.3<space|2spc>错误的滞后显现与模糊定位<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-10>>
 
-    <with|par-left|1tab|3.2<space|2spc>统一语法之下的兼容性困境<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-8>>
+    <with|par-left|1tab|3.2<space|2spc>统一语法之下的兼容性困境<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-11>>
 
-    <with|par-left|1tab|3.3<space|2spc>补偿性机制与工具生态的异化<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-9>>
+    <with|par-left|1tab|3.3<space|2spc>补偿性机制与工具生态的异化<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-13>>
 
-    <with|par-left|2tab|3.3.1<space|2spc>多轮编译：一种脆弱的权宜之计<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-10>>
+    <with|par-left|2tab|3.3.1<space|2spc>多轮编译：一种脆弱的权宜之计<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-14>>
 
-    <with|par-left|2tab|3.3.2<space|2spc>编译模型对工具生态的长期压抑<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-11>>
+    <with|par-left|2tab|3.3.2<space|2spc>编译模型对工具生态的长期压抑<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-15>>
 
-    <with|par-left|1tab|3.4<space|2spc>对比：结构化与增量系统的设计范式<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-12>>
+    <with|par-left|1tab|3.4<space|2spc>对比：结构化与增量系统的设计范式<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-16>>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|4<space|2spc>TeX 在使用体验设计上的局限性><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-13><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|4<space|2spc>TeX 在使用体验设计上的局限性><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-17><vspace|0.5fn>
 
-    <with|par-left|1tab|4.1<space|2spc>语言设计的内在矛盾：工程化的缺失<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-15>>
+    <with|par-left|1tab|4.1<space|2spc>语言设计的内在矛盾：工程化的缺失<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-19>>
 
-    <with|par-left|1tab|4.2<space|2spc>实际用户视角下的体验障碍<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-16>>
+    <with|par-left|1tab|4.2<space|2spc>实际用户视角下的体验障碍<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-20>>
 
-    <with|par-left|1tab|4.3<space|2spc>性能与部署的现实困境<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-17>>
+    <with|par-left|1tab|4.3<space|2spc>性能与部署的现实困境<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-21>>
 
-    <with|par-left|1tab|4.4<space|2spc>LaTeX3 的救赎与局限<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-18>>
+    <with|par-left|1tab|4.4<space|2spc>LaTeX3 的救赎与局限<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-22>>
 
-    <with|par-left|1tab|4.5<space|2spc>现代协作平台的局限：以 Overleaf 为例的批判性审视<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-19>>
+    <with|par-left|1tab|4.5<space|2spc>现代协作平台的局限：以 Overleaf 为例的批判性审视<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-23>>
 
-    <with|par-left|2tab|4.5.1<space|2spc>Overleaf 的主要改进<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-20>>
+    <with|par-left|2tab|4.5.1<space|2spc>Overleaf 的主要改进<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-24>>
 
-    <with|par-left|2tab|4.5.2<space|2spc>底层架构的制约<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-21>>
+    <with|par-left|2tab|4.5.2<space|2spc>底层架构的制约<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-25>>
 
-    <with|par-left|2tab|4.5.3<space|2spc>对技术演进路径的影响<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-22>>
+    <with|par-left|2tab|4.5.3<space|2spc>对技术演进路径的影响<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-26>>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|5<space|2spc>Mogan STEM：所见即所得的结构化编辑文档><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-23><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|5<space|2spc>Mogan STEM：所见即所得的结构化编辑文档><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-27><vspace|0.5fn>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-25><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-29><vspace|0.5fn>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|附录 A<space|2spc>Notes><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-26><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|附录 A<space|2spc>Notes><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-30><vspace|0.5fn>
   </table-of-contents>
 
   <section|<TeX>的历史介绍>
@@ -97,11 +97,11 @@
 
   除了我们需要编写的源代码 <verbatim|.tex> 文件，每个宏包和文档类都是带特定扩展名的文件，除此之外也有一些文件出现于<LaTeX>模板中：
 
-  <block|<tformat|<twith|table-hmode|min>|<twith|table-width|1par>|<cwith|1|-1|1|-1|cell-hyphen|t>|<table|<row|<cell|文件扩展名>|<cell|文件类型>|<cell|说明>>|<row|<cell|.sty>|<cell|宏包文件>|<cell|宏包名称为去掉扩展名的文件名>>|<row|<cell|.cls>|<cell|文档类文件>|<cell|文档类名称为去掉扩展名的文件名>>|<row|<cell|.bib>|<cell|BibTeX 参考文献数据库文件>|<cell|存储参考文献信息的数据库文件>>|<row|<cell|.bst>|<cell|BibTeX 参考文献格式模板文件>|<cell|定义参考文献排版格式的模板文件>>>>>
+  <big-table|<block|<tformat|<twith|table-hmode|min>|<twith|table-width|1par>|<cwith|1|-1|1|-1|cell-hyphen|t>|<table|<row|<cell|文件扩展名>|<cell|文件类型>|<cell|说明>>|<row|<cell|.sty>|<cell|宏包文件>|<cell|宏包名称为去掉扩展名的文件名>>|<row|<cell|.cls>|<cell|文档类文件>|<cell|文档类名称为去掉扩展名的文件名>>|<row|<cell|.bib>|<cell|BibTeX 参考文献数据库文件>|<cell|存储参考文献信息的数据库文件>>|<row|<cell|.bst>|<cell|BibTeX 参考文献格式模板文件>|<cell|定义参考文献排版格式的模板文件>>>>>|<LaTeX> 文件扩展名及其说明>
 
   <LaTeX>在编译过程中生成相当多的辅助文件和日志。一些功能如交叉引用、参考文献、目录、索引等，需要先编译生成辅助文件，然后再次编译时读入辅助文件得到正确的结果，所以复杂的<LaTeX>源代码可能要编译多次：
 
-  <block|<tformat|<twith|table-hmode|min>|<twith|table-width|1par>|<cwith|1|-1|1|-1|cell-hyphen|t>|<table|<row|<cell|文件扩展名>|<cell|关联工具 / 来源>|<cell|功能说明>>|<row|<cell|.log>|<cell|排版引擎>|<cell|记录编译过程，用于排查错误>>|<row|<cell|.aux>|<cell|LaTeX>|<cell|主辅助文件，记录交叉引用、目录、参考文献引用等>>|<row|<cell|.toc>|<cell|LaTeX>|<cell|记录生成的目录内容>>|<row|<cell|.lof>|<cell|LaTeX>|<cell|记录生成的图片目录内容>>|<row|<cell|.lot>|<cell|LaTeX>|<cell|记录生成的表格目录内容>>|<row|<cell|.bbl>|<cell|BibTeX>|<cell|生成的参考文献记录文件>>|<row|<cell|.blg>|<cell|BibTeX>|<cell|BibTeX 编译过程的日志文件>>|<row|<cell|.idx>|<cell|LaTeX>|<cell|供 makeindex 处理的原始索引记录文件>>|<row|<cell|.ind>|<cell|makeindex>|<cell|处理.idx 后生成的格式化索引文件>>|<row|<cell|.ilg>|<cell|makeindex>|<cell|makeindex 的日志文件>>|<row|<cell|.out>|<cell|hyperref 宏包>|<cell|生成 PDF 书签的记录文件>>>>>
+  <big-table|<block|<tformat|<twith|table-hmode|min>|<twith|table-width|1par>|<cwith|1|-1|1|-1|cell-hyphen|t>|<table|<row|<cell|文件扩展名>|<cell|关联工具 / 来源>|<cell|功能说明>>|<row|<cell|.log>|<cell|排版引擎>|<cell|记录编译过程，用于排查错误>>|<row|<cell|.aux>|<cell|LaTeX>|<cell|主辅助文件，记录交叉引用、目录、参考文献引用等>>|<row|<cell|.toc>|<cell|LaTeX>|<cell|记录生成的目录内容>>|<row|<cell|.lof>|<cell|LaTeX>|<cell|记录生成的图片目录内容>>|<row|<cell|.lot>|<cell|LaTeX>|<cell|记录生成的表格目录内容>>|<row|<cell|.bbl>|<cell|BibTeX>|<cell|生成的参考文献记录文件>>|<row|<cell|.blg>|<cell|BibTeX>|<cell|BibTeX 编译过程的日志文件>>|<row|<cell|.idx>|<cell|LaTeX>|<cell|供 makeindex 处理的原始索引记录文件>>|<row|<cell|.ind>|<cell|makeindex>|<cell|处理.idx 后生成的格式化索引文件>>|<row|<cell|.ilg>|<cell|makeindex>|<cell|makeindex 的日志文件>>|<row|<cell|.out>|<cell|hyperref 宏包>|<cell|生成 PDF 书签的记录文件>>>>>|<LaTeX> 辅助文件扩展名、关联工具/来源及其功能说明>
 
   为了直观理解为什么 <LaTeX> 文档往往需要多次编译，下面给出一个包含交叉引用和目录的最小示例：
 
@@ -271,27 +271,19 @@
 
   上述高度耦合的设计直接带来了多方面的负面影响。首先，静态分析工具难以介入。由于缺乏明确的语义边界，工具无法可靠地构建抽象语法树或结构模型，从而难以实现代码重构、语义检查或一致性验证等高级功能。
 
-  <inactive|<hybrid|LaTeX>> 的编译结果强依赖指令的顺序，因此为了在特定位置插入或者执行自定义代码，<inactive|<hybrid|LaTeX>> 引入了工程改良的解决方式，给用户提供了控制机制，用于允许用户或宏包作者在特定的执行时间点插入并执行自定义代码。这些机制并非基于显式的语义事件模型，而是依附于 <inactive|<hybrid|TeX>> 的顺序执行流程，通过“截取执行时机”来协调不同宏包与文档结构之间的行为。从而实现延迟初始化、全局参数修补、辅助文件处理或版式调整等功能。在 <inactive|<hybrid|LaTeX>> 核心系统中，常见的相关指令主要包括以下四种：
+  <LaTeX> 的编译结果强依赖指令的顺序，因此为了在特定位置插入或者执行自定义代码，<LaTeX> 引入了工程改良的解决方式，给用户提供了控制机制，用于允许用户或宏包作者在特定的执行时间点插入并执行自定义代码。这些机制并非基于显式的语义事件模型，而是依附于 <TeX> 的顺序执行流程，通过“截取执行时机”来协调不同宏包与文档结构之间的行为。从而实现延迟初始化、全局参数修补、辅助文件处理或版式调整等功能。在 <LaTeX> 核心系统中，常见的相关指令主要包括以下四种：
 
-  <block|<tformat|<twith|table-hmode|min>|<twith|table-width|1par>|<cwith|1|-1|1|-1|cell-hyphen|t>|<table|<row|<cell|指令>|<cell|说明>>|<row|<cell|<code*|\\AtBeginDocument>>|<cell|在文档主体开始处（<code*|\\begin{document}> 之后）执行指定代码>>|<row|<cell|<code*|\\AtEndDocument>>|<cell|在文档结束前（<code*|\\end{document}> 之前）执行指定代码>>|<row|<cell|<code*|\\AtEndOfPackage>>|<cell|在当前宏包加载完成时执行指定代码>>|<row|<cell|<code*|\\AtEndOfClass>>|<cell|在当前文档类加载完成时执行指定代码>>>>>
+  <big-table|<block|<tformat|<cwith|1|5|1|2|cell-hyphen|t>|<table|<row|<cell|指令>|<cell|说明>>|<row|<cell|<code*|\\AtBeginDocument>>|<cell|在文档主体开始处（<code*|\\begin{document}> 之后）执行指定代码>>|<row|<cell|<code*|\\AtEndDocument>>|<cell|在文档结束前（<code*|\\end{document}> 之前）执行指定代码>>|<row|<cell|<code*|\\AtEndOfPackage>>|<cell|在当前宏包加载完成时执行指定代码>>|<row|<cell|<code*|\\AtEndOfClass>>|<cell|在当前文档类加载完成时执行指定代码>>>>>|<LaTeX> 常见钩子指令及其说明>
 
   它们为宏包与用户文档之间提供了一种相对非侵入式的协作方式，避免通过强行控制加载顺序或直接修改用户源码来实现功能扩展。
 
   <subsubsection|错误的滞后显现与模糊定位>
 
-  TeX 的错误检测机制本质上是“事后型”（post hoc），这是其编译模型的直接后果。具体表现为：
+  TeX 的错误检测机制本质上是一种“执行驱动、事后暴露（post hoc）”的模式，这是其线性宏展开与即时排版交织的编译模型所直接导致的结果。由于系统在执行过程中并不维护一个可供即时校验的结构化中间状态，错误只能在“无法继续执行”时才被动显现，从而呈现出一系列系统性特征。
 
-  <strong|错误类型难以区分>：语义错误与排版错误在诊断上被混淆，增加了调试的复杂性。
+  首先，<strong|错误类型在诊断层面高度混杂>。语义层面的结构缺陷（如环境不匹配、参数展开异常）往往与排版层面的失败（如盒子溢出、模式切换错误）以相同的方式被报告，使得错误信息无法准确反映其所属的抽象层级，显著增加了调试难度。其次，<strong|错误报告的位置通常并非错误的真实触发点>。TeX 所给出的行号与上下文，往往对应的是系统最终“崩溃”的执行位置，而非问题最初被引入的源头。进一步地，<strong|中断点与错误起源点之间可能相距甚远>：一个早期的局部错误，可能在多轮宏展开与排版决策之后，才以完全不同的形式暴露出来。其结果是，<strong|局部问题被放大全局化>，单一环境或命令中的细微缺陷，足以导致整个编译流程不可恢复地中断。
 
-  <\itemize>
-    <item><strong|报告位置不准确>：错误报告的行号往往滞后于错误的实际触发点。
-
-    <item><strong|中断点非起源点>：系统仅标识“执行中断位置”，而非“错误逻辑起源位置”。
-
-    <item><strong|局部问题全局化>：单一局部的语法问题可能引发整个编译流程的崩溃。
-  </itemize>
-
-  此问题并非单纯的技术实现缺陷，而是根植于 TeX 缺乏一个可供即时校验的结构化状态维护机制。<unfolded-comment|+1Rd6gOht173VX8UX|+1Rd6gOht173VX8UY|comment|Jack Yansong Li|1766287747||这个是现象，不是原理>
+  需要强调的是，这并非某个具体实现细节上的疏漏，而是根植于 TeX 设计本身：系统并不存在一个独立于执行过程之外、可用于持续一致性检查的结构化状态模型。换言之，TeX 并不会“提前知道”文档是否合理，只会在“继续不下去”时才报告失败。
 
   <\listing>
     \\documentclass{article}
@@ -308,7 +300,7 @@
 
     \\begin{equation}
 
-    x=\\frac{-b\\pm \\sqrt{b^{2}-4ac}}{2a}
+    x=\\frac{-b\\pm \\sqrt{b^{2}-4ac}}{2a
 
     \\end{equation}
 
@@ -317,8 +309,10 @@
     \\end{document}
   </listing>
 
+  在这个示例中，错误的根源是 <code*|\\frac> 的第二个参数缺失了右花括号，但 <TeX> 并不会在该行立即报错。相反，系统会继续尝试展开并进入数学模式，直到在 <code*|\\end{equation}> 处才发现当前状态无法正确收敛，最终抛出诸如 “<verbatim|Runaway argument?>” 或 “<verbatim|Missing } inserted>” 之类的错误信息。此时，报告位置与错误起源之间已经产生了明显偏移，用户需要回溯上下文，凭经验而非工具支持来定位真正的问题。
+
   <\remark>
-    Mogan STEM很好的解决了这个问题，通过隐含的<verbatim|around> tag, 详见<smart-ref|example:around-in-mogan>
+    Mogan STEM 在系统层面有效缓解了这一问题。通过引入隐含的 <code*|around> 标签与显式的结构包裹关系，编辑器能够在输入阶段就维持一个可校验的结构状态，避免错误扩散，详见<smart-ref|example:around-in-mogan>
   </remark>
 
   <subsection|统一语法之下的兼容性困境>
@@ -327,7 +321,7 @@
 
   从用户角度看，这三种引擎均接受 <code*|.tex> 输入，并遵循 LaTeX 的宏接口；然而在系统层面，它们在以下关键方面存在本质差异：
 
-  <tabular|<tformat|<twith|table-hmode|min>|<twith|table-width|1par>|<cwith|1|-1|1|-1|cell-hyphen|t>|<cwith|1|-1|1|-1|cell-tborder|1ln>|<cwith|1|-1|1|-1|cell-bborder|1ln>|<cwith|1|-1|1|-1|cell-lborder|1ln>|<cwith|1|-1|1|-1|cell-rborder|1ln>|<table|<row|<\cell>
+  <big-table|<tabular|<tformat|<cwith|1|5|1|4|cell-hyphen|t>|<cwith|1|5|1|4|cell-tborder|1ln>|<cwith|1|5|1|4|cell-bborder|1ln>|<cwith|1|5|1|4|cell-lborder|1ln>|<cwith|1|5|1|4|cell-rborder|1ln>|<table|<row|<\cell>
     维度
   </cell>|<\cell>
     pdfLaTeX
@@ -367,13 +361,23 @@
     极弱
   </cell>|<\cell>
     强（Lua）
-  </cell>>>>>
+  </cell>>>>>|<LaTeX> 引擎比较表格>
 
   这些差异意味着：同一份 <code*|.tex> 源文件，在不同引擎下并不对应同一语义执行环境。
 
   <strong|兼容性负担>：同一份文档可能需要在不同引擎间切换以解决特定问题，用户必须理解各引擎的细微差异和限制。
 
   以 Emoji 的使用为例，若文档中需要直接包含 Unicode Emoji（如🙂📊），<verbatim|pdfLaTeX> 在机制上完全无法支持此类字符；<verbatim|XeLaTeX> 虽具备原生 Unicode 支持，但在实际排版中往往只能将 Emoji 退化为黑白字形，或因字体覆盖不足而出现缺字；而 <verbatim|LuaLaTeX> 则提供了理论上最完整的支持路径，可通过 OpenType 字体与 Lua 层处理复杂字符。然而，这一“能力增强”并非没有代价：<verbatim|LuaLaTeX> 的编译速度通常显著慢于 <verbatim|XeLaTeX>，引入了对 Lua 运行时的额外依赖，其错误来源与调试范围也随之扩大。在这种约束条件下，一种在现实中确实存在的折中工作流是：使用 <verbatim|XeLaTeX> 编译文档的主体部分，以获得较快的编译速度和相对稳定的版面效果；再单独使用 <verbatim|LuaLaTeX> 编译包含 Emoji 的页面或章节；最终在 PDF 层面对来自不同引擎的输出结果进行拼接。
+
+  类似的兼容性负担也出现在参考文献处理链路中。<LaTeX> 表面上对参考文献提供了统一的 <code*|.bib> 数据源格式，但在实际编译过程中，用户必须在 <code*|bibtex> 与 <code*|biber> 等不同后端之间做出选择，而这两者在字符编码、排序规则与数据模型上存在本质差异。
+
+  <\listing>
+    \\bibliography{ref/refs} \ % 参考文献使用 BibTeX 编译
+
+    % \\printbibliography \ \ \ \ % 参考文献使用 BibLaTeX/Biber 编译
+  </listing>
+
+  这两种写法在视觉上仅是一行命令的差别，却对应着两套几乎不兼容的工具链。前者触发的是传统的 <verbatim|bibtex> 工作流：<code*|.bib> 文件经 <verbatim|bibtex> 解析后生成 <code*|.bbl>，其数据模型受限于 8-bit 编码与固定的 <code*|.bst> 样式机制；后者则隐式要求使用 <code*|biblatex> 宏包与 <code*|biber> 后端，其内部采用 Unicode 数据模型，并在宏层承担了更多排序、过滤与格式化逻辑。结果是，尽管两种方式“看起来都在使用同一个 <code*|.bib> 文件”，但它们在字符编码支持、语言处理能力、样式定制方式乃至编译步骤上都存在较大差异，且无法通过简单切换命令实现平滑迁移。从用户视角看，这意味着参考文献并非一个稳定、可替换的模块，而是与引擎、宏包深度绑定。用户不仅需要理解 <code*|.bib> 数据的语法，还必须明确当前文档究竟是通过哪一条调用路径进入文献处理流程，这进一步加重了用户在工具选择与流程配置上的认知负担。
 
   <strong|生态分裂>：部分宏包仅支持特定引擎，导致文档的可移植性下降。
 
@@ -608,7 +612,7 @@
   \;
 
   <\equation>
-    <frac|<around*|(|<frac*|4|3>|)>|<sqrt|2>><label|eq:tree-struc>
+    x=<frac|-b±<sqrt|b<rsup|2>-4ac>|2a><label|eq:tree-struc>
   </equation>
 
   <\session|goldfish|default>
@@ -626,11 +630,13 @@
       <math|<frac|<around*|(|<frac*|4|3>|)>|<sqrt|2>>>
     </unfolded-io>
 
-    <\input>
-      \<gtr\>
-    <|input>
+    <\unfolded-io>
+      \<gtr\>\ 
+    <|unfolded-io>
+      (math (frac (around* "(" (pm (neg "b") (sqrt (minus (sup "b" "2") (mul "4" "a" "c")))) ")") (mul "2" "a")))
+    <|unfolded-io>
       \;
-    </input>
+    </unfolded-io>
   </session>
 
   \;
@@ -665,35 +671,39 @@
 <\references>
   <\collection>
     <associate|auto-1|<tuple|1|1>>
-    <associate|auto-10|<tuple|3.3.1|7>>
-    <associate|auto-11|<tuple|3.3.2|7>>
-    <associate|auto-12|<tuple|3.4|7>>
-    <associate|auto-13|<tuple|4|8>>
-    <associate|auto-14|<tuple|1|8>>
-    <associate|auto-15|<tuple|4.1|8>>
-    <associate|auto-16|<tuple|4.2|9>>
-    <associate|auto-17|<tuple|4.3|9>>
-    <associate|auto-18|<tuple|4.4|10>>
-    <associate|auto-19|<tuple|4.5|10>>
+    <associate|auto-10|<tuple|3.1.3|6>>
+    <associate|auto-11|<tuple|3.2|7>>
+    <associate|auto-12|<tuple|4|7>>
+    <associate|auto-13|<tuple|3.3|8>>
+    <associate|auto-14|<tuple|3.3.1|8>>
+    <associate|auto-15|<tuple|3.3.2|8>>
+    <associate|auto-16|<tuple|3.4|8>>
+    <associate|auto-17|<tuple|4|9>>
+    <associate|auto-18|<tuple|1|9>>
+    <associate|auto-19|<tuple|4.1|9>>
     <associate|auto-2|<tuple|2|2>>
-    <associate|auto-20|<tuple|4.5.1|10>>
-    <associate|auto-21|<tuple|4.5.2|10>>
-    <associate|auto-22|<tuple|4.5.3|10>>
-    <associate|auto-23|<tuple|5|11>>
-    <associate|auto-24|<tuple|2|11>>
-    <associate|auto-25|<tuple|1|11>>
-    <associate|auto-26|<tuple|A|11>>
-    <associate|auto-3|<tuple|3|3>>
-    <associate|auto-4|<tuple|3.1|3>>
-    <associate|auto-5|<tuple|3.1.1|3>>
-    <associate|auto-6|<tuple|3.1.2|5>>
-    <associate|auto-7|<tuple|3.1.3|6>>
-    <associate|auto-8|<tuple|3.2|6>>
-    <associate|auto-9|<tuple|3.3|7>>
-    <associate|bib-van_der_hoeven_gnu_2001|<tuple|1|11>>
-    <associate|eq:tree-struc|<tuple|1|11>>
-    <associate|example:around-in-mogan|<tuple|1|11>>
-    <associate|texlive-size|<tuple|1|8>>
+    <associate|auto-20|<tuple|4.2|10>>
+    <associate|auto-21|<tuple|4.3|10>>
+    <associate|auto-22|<tuple|4.4|11>>
+    <associate|auto-23|<tuple|4.5|11>>
+    <associate|auto-24|<tuple|4.5.1|11>>
+    <associate|auto-25|<tuple|4.5.2|11>>
+    <associate|auto-26|<tuple|4.5.3|11>>
+    <associate|auto-27|<tuple|5|12>>
+    <associate|auto-28|<tuple|2|12>>
+    <associate|auto-29|<tuple|1|12>>
+    <associate|auto-3|<tuple|1|2>>
+    <associate|auto-30|<tuple|A|12>>
+    <associate|auto-4|<tuple|2|3>>
+    <associate|auto-5|<tuple|3|3>>
+    <associate|auto-6|<tuple|3.1|4>>
+    <associate|auto-7|<tuple|3.1.1|4>>
+    <associate|auto-8|<tuple|3.1.2|5>>
+    <associate|auto-9|<tuple|3|6>>
+    <associate|bib-van_der_hoeven_gnu_2001|<tuple|1|12>>
+    <associate|eq:tree-struc|<tuple|1|12>>
+    <associate|example:around-in-mogan|<tuple|1|12>>
+    <associate|texlive-size|<tuple|1|9>>
   </collection>
 </references>
 
@@ -703,60 +713,69 @@
       van_der_hoeven_gnu_2001
     </associate>
     <\associate|figure>
-      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-14>|1>|>
+      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-18>|1>|>
         TeXLive发行版ISO文件大小趋势
-      </surround>|<pageref|auto-14>>
+      </surround>|<pageref|auto-18>>
 
-      <tuple|normal|<surround|<hidden-binding|<tuple|auto-24>|2>||>|<pageref|auto-24>>
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-28>|2>||>|<pageref|auto-28>>
+    </associate>
+    <\associate|table>
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-3>|1>||L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X 文件扩展名及其说明>|<pageref|auto-3>>
+
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-4>|2>||L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X 辅助文件扩展名、关联工具/来源及其功能说明>|<pageref|auto-4>>
+
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-9>|3>||L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X 常见钩子指令及其说明>|<pageref|auto-9>>
+
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-12>|4>||L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X 引擎比较表格>|<pageref|auto-12>>
     </associate>
     <\associate|toc>
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X的历史介绍><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-1><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|2<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X的编译原理简介><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-2><vspace|0.5fn>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|3<space|2spc>TeX 在编译设计上的根本性缺陷><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-3><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|3<space|2spc>TeX 在编译设计上的根本性缺陷><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-5><vspace|0.5fn>
 
-      <with|par-left|<quote|1tab>|3.1<space|2spc>批处理模型的核心局限：单向性、弱语义与延迟反馈<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-4>>
+      <with|par-left|<quote|1tab>|3.1<space|2spc>批处理模型的核心局限：单向性、弱语义与延迟反馈<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-6>>
 
-      <with|par-left|<quote|2tab>|3.1.1<space|2spc>单向与一次性的处理流程<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-5>>
+      <with|par-left|<quote|2tab>|3.1.1<space|2spc>单向与一次性的处理流程<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-7>>
 
-      <with|par-left|<quote|2tab>|3.1.2<space|2spc>编译阶段与语义阶段的紧密耦合<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-6>>
+      <with|par-left|<quote|2tab>|3.1.2<space|2spc>编译阶段与语义阶段的紧密耦合<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-8>>
 
-      <with|par-left|<quote|2tab>|3.1.3<space|2spc>错误的滞后显现与模糊定位<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-7>>
+      <with|par-left|<quote|2tab>|3.1.3<space|2spc>错误的滞后显现与模糊定位<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-10>>
 
-      <with|par-left|<quote|1tab>|3.2<space|2spc>统一语法之下的兼容性困境<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-8>>
+      <with|par-left|<quote|1tab>|3.2<space|2spc>统一语法之下的兼容性困境<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-11>>
 
-      <with|par-left|<quote|1tab>|3.3<space|2spc>补偿性机制与工具生态的异化<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-9>>
+      <with|par-left|<quote|1tab>|3.3<space|2spc>补偿性机制与工具生态的异化<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-13>>
 
-      <with|par-left|<quote|2tab>|3.3.1<space|2spc>多轮编译：一种脆弱的权宜之计<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-10>>
+      <with|par-left|<quote|2tab>|3.3.1<space|2spc>多轮编译：一种脆弱的权宜之计<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-14>>
 
-      <with|par-left|<quote|2tab>|3.3.2<space|2spc>编译模型对工具生态的长期压抑<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-11>>
+      <with|par-left|<quote|2tab>|3.3.2<space|2spc>编译模型对工具生态的长期压抑<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-15>>
 
-      <with|par-left|<quote|1tab>|3.4<space|2spc>对比：结构化与增量系统的设计范式<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-12>>
+      <with|par-left|<quote|1tab>|3.4<space|2spc>对比：结构化与增量系统的设计范式<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-16>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|4<space|2spc>TeX 在使用体验设计上的局限性><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-13><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|4<space|2spc>TeX 在使用体验设计上的局限性><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-17><vspace|0.5fn>
 
-      <with|par-left|<quote|1tab>|4.1<space|2spc>语言设计的内在矛盾：工程化的缺失<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-15>>
+      <with|par-left|<quote|1tab>|4.1<space|2spc>语言设计的内在矛盾：工程化的缺失<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-19>>
 
-      <with|par-left|<quote|1tab>|4.2<space|2spc>实际用户视角下的体验障碍<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-16>>
+      <with|par-left|<quote|1tab>|4.2<space|2spc>实际用户视角下的体验障碍<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-20>>
 
-      <with|par-left|<quote|1tab>|4.3<space|2spc>性能与部署的现实困境<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-17>>
+      <with|par-left|<quote|1tab>|4.3<space|2spc>性能与部署的现实困境<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-21>>
 
-      <with|par-left|<quote|1tab>|4.4<space|2spc>LaTeX3 的救赎与局限<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-18>>
+      <with|par-left|<quote|1tab>|4.4<space|2spc>LaTeX3 的救赎与局限<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-22>>
 
-      <with|par-left|<quote|1tab>|4.5<space|2spc>现代协作平台的局限：以 Overleaf 为例的批判性审视<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-19>>
+      <with|par-left|<quote|1tab>|4.5<space|2spc>现代协作平台的局限：以 Overleaf 为例的批判性审视<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-23>>
 
-      <with|par-left|<quote|2tab>|4.5.1<space|2spc>Overleaf 的主要改进<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-20>>
+      <with|par-left|<quote|2tab>|4.5.1<space|2spc>Overleaf 的主要改进<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-24>>
 
-      <with|par-left|<quote|2tab>|4.5.2<space|2spc>底层架构的制约<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-21>>
+      <with|par-left|<quote|2tab>|4.5.2<space|2spc>底层架构的制约<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-25>>
 
-      <with|par-left|<quote|2tab>|4.5.3<space|2spc>对技术演进路径的影响<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-22>>
+      <with|par-left|<quote|2tab>|4.5.3<space|2spc>对技术演进路径的影响<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-26>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|5<space|2spc>Mogan STEM：所见即所得的结构化编辑文档><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-23><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|5<space|2spc>Mogan STEM：所见即所得的结构化编辑文档><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-27><vspace|0.5fn>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-25><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-29><vspace|0.5fn>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|附录 A<space|2spc>Notes><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-26><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|附录 A<space|2spc>Notes><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-30><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
