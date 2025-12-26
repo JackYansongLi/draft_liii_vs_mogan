@@ -36,7 +36,7 @@
 
     <with|par-left|2tab|3.3.1<space|2spc>多轮编译：一种脆弱的权宜之计<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-14>>
 
-    <with|par-left|2tab|3.3.2<space|2spc>编译模型对工具生态的长期压抑<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-15>>
+    <with|par-left|2tab|3.3.2<space|2spc>批处理模型对工具生态的长期压抑<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-15>>
 
     <with|par-left|1tab|3.4<space|2spc>对比：结构化与增量系统的设计范式<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-16>>
 
@@ -401,59 +401,23 @@
 
   <subsection|补偿性机制与工具生态的异化>
 
-  为弥补上述核心设计的不足，LaTeX 生态催生了一系列复杂的补偿性机制，这些机制本身又带来了新的问题。
+  为弥补上述核心设计的不足，<LaTeX> 生态催生了一系列复杂的补偿性机制，这些机制本身又带来了新的问题。
 
   <subsubsection|多轮编译：一种脆弱的权宜之计>
 
-  LaTeX 中处理交叉引用、目录和参考文献所需的多次编译，实质是一种用以缓解内部状态缺失的补偿性策略。其标准流程涉及：
+  <LaTeX> 中交叉引用、目录和参考文献的正确生成，依赖多次编译以弥补内部状态缺失。典型流程为：首次编译生成 .aux、.toc 等辅助文件记录状态，后续编译读取这些文件填充交叉引用、页码或章节标题，若文档包含文献，还需插入 BibTeX、Biber 等外部工具。例如，对于带参考文献的文档，标准流程往往是 <verbatim|pdflatex> \<rightarrow\> <verbatim|bibtex> \<rightarrow\> <verbatim|pdflatex> \<rightarrow\> <verbatim|pdflatex>。
 
-  <\enumerate>
-    <item><strong|首次编译>：生成<nbsp><code*|.aux>、<code*|.toc><nbsp>等辅助文件以记录状态。
+  这一机制带来多种负担：状态碎片化，文档状态被分散在多个外部文件中；用户必须掌握复杂的“编译秘籍”，例如忘记运行 BibTeX，参考文献编号将全部显示为 <verbatim|??>；错误溯源困难，一个非法字符可能在 <verbatim|.bib> 文件中，却在 <verbatim|\\bibliography{refs}> 报错，错误信息与实际问题完全脱节。更极端的情况是，首次编译时交叉引用尚未生成，用户可能得到大量未定义编号或空表格，直到多轮编译完成后才能显示正确结果。这种通过外部副作用来弥补内部架构缺陷的做法，本质上是一种技术债。
 
-    <item><strong|后续编译>：读取先前生成的辅助文件以填充缺失信息。
+  <subsubsection|批处理模型对工具生态的长期压抑>
 
-    <item><strong|外部工具集成>：在编译序列中插入 BibTeX、Biber 或 MakeIndex 等外部程序。
-  </enumerate>
-
-  此机制的潜在成本巨大：
-
-  <\itemize>
-    <item><strong|状态碎片化>：文档状态被人为地分散到多个外部文件中，增加了管理的复杂性。
-
-    <item><strong|编译序列的隐性知识>：正确的编译顺序成为用户必须掌握的“秘籍”，而非系统自动处理。常见的带文献的编译需要4次，<code*|pdflatex> –\<gtr\> <verbatim|bibtex> –\<gtr\> <code*|pdflatex> –\<gtr\> <code*|pdflatex>。
-
-    <item><strong|错误溯源复杂化>：错误可能跨越多轮编译和多个工具，诊断难度呈指数级增长。例如参考文献中非法字符，报错位置出现在 <code*|\\printbibliography>，导致参考文献输出为空，错误信息与原始非法字符完全无关。
-  </itemize>
-
-  从系统设计视角看，这是通过外部副作用来弥补内部架构缺陷的典型“技术债”。
-
-  \;
-
-  <subsubsection|编译模型对工具生态的长期压抑>
-
-  TeX 的批处理设计深刻地限制了其周边工具生态的发展：
-
-  <\itemize>
-    <item><strong|即时预览难以实现>：编辑器中的“实时预览”功能，本质上仍是频繁触发后台编译，而非真正的即时渲染，存在延迟和不一致性。
-
-    <item><strong|IDE 功能受限>：精确的结构导航、代码重构、智能补全等现代IDE的核心功能，在缺乏结构化信息的情况下难以可靠实现。
-
-    <item><strong|自动化工具能力薄弱>：自动化格式化、静态校验等工具，大多依赖于对<code*|.tex>源码进行脆弱的正则表达式匹配，而非基于语法树的精确分析。
-  </itemize>
+  <TeX> 的批处理设计限制了周边工具的发展。实时预览在 <LaTeX> 编辑器中只能通过频繁触发后台编译模拟，存在明显延迟和版面不一致。例如在包含大量浮动体和公式的文档中，即便修改一个小段落，也可能导致分页重新计算，实时预览效果滞后；智能代码重构或语法补全在缺乏结构化文档树的情况下几乎无法实现；自动化工具大多依赖正则匹配，而非语法树分析，错误检查能力有限，容易漏报或误报。
 
   <subsection|对比：结构化与增量系统的设计范式>
 
-  与上述困境形成鲜明对比的是，GNU TeXmacs 等系统采用了截然不同的架构：
+  GNU <TeX>macs 等系统采用不同架构：文档在内存中保持结构化树表示，局部修改即可触发局部即时重绘，编辑阶段就进行结构合法性检查。例如，修改公式或浮动体只会重绘受影响区域，交叉引用与编号即时更新，用户始终面对可预测、可预览的文档状态。错误局限于局部模块，不会引发全局崩溃。
 
-  <\itemize>
-    <item><strong|持久化结构化文档表示>：文档在内存中始终以结构化树的形式存在。
-
-    <item><strong|即时且局部的排版更新>：任何局部修改都会触发局部区域的即时重绘。
-
-    <item><strong|编辑阶段的合法性保障>：在用户输入时就进行结构合法性检查，从源头防止错误。
-  </itemize>
-
-  在此模型中，排版输出是文档状态的直接函数映射，错误被严格限制在局部模块，用户始终面对一个一致且可预测的系统状态。这种差异并非界面层面的“用户友好性”提升，而是根植于系统架构的根本性重构，它证明了LaTeX的诸多核心缺陷是完全可以被避免的。
+  这一对比显示，<LaTeX> 的多轮编译与外部工具依赖并非不可避免，而是补偿性设计的结果，其局限性完全可以通过架构重构避免。<LaTeX> 的核心问题不是排版质量，而是其执行模型造成的全局依赖与状态管理缺陷。
 
   <section|TeX 在使用体验设计上的局限性>
 
@@ -475,9 +439,9 @@
 
   <subsection|语言设计的内在矛盾：工程化的缺失>
 
-  LaTeX2e 本质上是构建在 TeX 宏展开语言之上的一个宏集合，其设计蕴含着难以调和的内在矛盾。下表系统性地概述了这些矛盾点及其负面影响。
+  <LaTeXe> 本质上是构建在 TeX 宏展开语言之上的一个宏集合，社区在向<LaTeX>3推进，但是没有一个明确的发布日期，因为它是一个持续的、渐进的开发项目，已经集成到当前的 <LaTeXe> 内核，并且是当前许多大型宏包的基础，用户在日常使用中可能已在间接使用它，主要体现在性能改进和新命令的引入，而不是一个独立的重大版本发布。
 
-  todo：xparse 命令。
+  LaTeX2e 本质上是构建在 TeX 宏展开语言之上的一个宏集合，其设计蕴含着难以调和的内在矛盾。下表系统性地概述了这些矛盾点及其负面影响。
 
   <tabular|<tformat|<twith|table-hmode|min>|<twith|table-width|1par>|<cwith|1|-1|1|-1|cell-hyphen|t>|<cwith|1|-1|1|-1|cell-tborder|1ln>|<cwith|1|-1|1|-1|cell-bborder|1ln>|<cwith|1|-1|1|-1|cell-lborder|1ln>|<cwith|1|-1|1|-1|cell-rborder|1ln>|<table|<row|<\cell>
     矛盾点
@@ -500,7 +464,7 @@
   </cell>>|<row|<\cell>
     <strong|局部状态依赖分组 vs 编译器理解>
   </cell>|<\cell>
-    状态管理依赖 TeX 的分组回滚机制，而非明确的变量作用域。
+    状态管理依赖 <TeX> 的分组回滚机制，而非明确的变量作用域。
   </cell>|<\cell>
     编译器无法解析作用域，状态泄漏与逻辑错误难以检测。
   </cell>>|<row|<\cell>
@@ -512,12 +476,12 @@
   </cell>>|<row|<\cell>
     <strong|兼容性 vs 现代特性>
   </cell>|<\cell>
-    为维持与 LaTeX2e 的兼容性，新特性（如多可选参数）的实现方式笨拙。
+    为维持与 <LaTeXe> 的兼容性，新特性（如多可选参数）的实现方式笨拙。
   </cell>|<\cell>
-    需依赖<nbsp><code*|xparse><nbsp>等高级宏包或复杂的“黑科技”，学习与维护成本高。
+    需依赖<code*|xparse>等高级宏包或复杂的“黑科技”，学习与维护成本高。
   </cell>>>>>
 
-  一言以蔽之，LaTeX2e 可被视为一种“工程化严重不足的宏语言”。其用户体验与系统安全性高度依赖于非正式的约定与用户的自觉，而非语言内在的设计保障。
+  一言以蔽之，<LaTeXe> 可被视为一种“工程化严重不足的宏语言”。其用户体验与系统安全性高度依赖于非正式的约定与用户的自觉，而非语言内在的设计保障。
 
   <subsection|实际用户视角下的体验障碍>
 
@@ -558,7 +522,7 @@
   </cell>|<\cell>
     约定繁多，规则隐晦。
   </cell>|<\cell>
-    需要理解内部宏（如<nbsp><code*|@foo>）、分组机制、命名约定等大量隐性知识。
+    需要理解内部宏（如<code*|@foo>）、分组机制、命名约定等大量隐性知识。
   </cell>>|<row|<\cell>
     <strong|模块化薄弱>
   </cell>|<\cell>
@@ -689,26 +653,26 @@
 <\references>
   <\collection>
     <associate|auto-1|<tuple|2|2>>
-    <associate|auto-10|<tuple|1|6>>
-    <associate|auto-11|<tuple|4|7>>
-    <associate|auto-12|<tuple|4|7>>
-    <associate|auto-13|<tuple|3.3.1|8>>
-    <associate|auto-14|<tuple|1|8>>
-    <associate|auto-15|<tuple|<with|mode|<quote|math>|\<bullet\>>|8>>
-    <associate|auto-16|<tuple|<with|mode|<quote|math>|\<bullet\>>|9>>
+    <associate|auto-10|<tuple|1|7>>
+    <associate|auto-11|<tuple|4|8>>
+    <associate|auto-12|<tuple|4|8>>
+    <associate|auto-13|<tuple|3.3.1|9>>
+    <associate|auto-14|<tuple|3.3.2|9>>
+    <associate|auto-15|<tuple|3.4|9>>
+    <associate|auto-16|<tuple|4|9>>
     <associate|auto-17|<tuple|1|9>>
     <associate|auto-18|<tuple|1|9>>
     <associate|auto-19|<tuple|2|10>>
     <associate|auto-2|<tuple|1|2>>
-    <associate|auto-20|<tuple|4.2|10>>
+    <associate|auto-20|<tuple|4.2|11>>
     <associate|auto-21|<tuple|4.3|11>>
     <associate|auto-22|<tuple|<with|mode|<quote|math>|\<bullet\>>|11>>
-    <associate|auto-23|<tuple|4.5|11>>
-    <associate|auto-24|<tuple|4.5.1|11>>
-    <associate|auto-25|<tuple|<with|mode|<quote|math>|\<bullet\>>|11>>
+    <associate|auto-23|<tuple|4.5|12>>
+    <associate|auto-24|<tuple|4.5.1|12>>
+    <associate|auto-25|<tuple|<with|mode|<quote|math>|\<bullet\>>|12>>
     <associate|auto-26|<tuple|<with|mode|<quote|math>|\<bullet\>>|12>>
-    <associate|auto-27|<tuple|5|12>>
-    <associate|auto-28|<tuple|1|12>>
+    <associate|auto-27|<tuple|5|13>>
+    <associate|auto-28|<tuple|1|13>>
     <associate|auto-29|<tuple|3|13>>
     <associate|auto-3|<tuple|1|2>>
     <associate|auto-30|<tuple|1|13>>
@@ -773,7 +737,7 @@
 
       <with|par-left|<quote|2tab>|3.3.1<space|2spc>多轮编译：一种脆弱的权宜之计<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-14>>
 
-      <with|par-left|<quote|2tab>|3.3.2<space|2spc>编译模型对工具生态的长期压抑<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-15>>
+      <with|par-left|<quote|2tab>|3.3.2<space|2spc>批处理模型对工具生态的长期压抑<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-15>>
 
       <with|par-left|<quote|1tab>|3.4<space|2spc>对比：结构化与增量系统的设计范式<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-16>>
 
