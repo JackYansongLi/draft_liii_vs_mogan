@@ -52,7 +52,7 @@
 
     <with|par-left|1tab|4.5<space|2spc>L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X3 的贡献和制约<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-25>>
 
-    <with|par-left|1tab|4.6<space|2spc>现代协作平台的局限：以 Overleaf 为例的批判性审视<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-26>>
+    <with|par-left|1tab|4.6<space|2spc>现代协作平台的局限：审视 Overleaf 为例<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-26>>
 
     <with|par-left|2tab|4.6.1<space|2spc>Overleaf 的主要改进<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-27>>
 
@@ -642,10 +642,10 @@
     <associate|auto-23|<tuple|5|11>>
     <associate|auto-24|<tuple|4.5|12>>
     <associate|auto-25|<tuple|4.6|12>>
-    <associate|auto-26|<tuple|4.6|12>>
+    <associate|auto-26|<tuple|4.6.1|12>>
     <associate|auto-27|<tuple|<with|mode|<quote|math>|\<bullet\>>|12>>
     <associate|auto-28|<tuple|<with|mode|<quote|math>|\<bullet\>>|12>>
-    <associate|auto-29|<tuple|4.6.3|13>>
+    <associate|auto-29|<tuple|5|13>>
     <associate|auto-3|<tuple|1|2>>
     <associate|auto-30|<tuple|1|13>>
     <associate|auto-31|<tuple|3|13>>
@@ -729,7 +729,7 @@
 
       <with|par-left|<quote|1tab>|4.5<space|2spc>L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X3 的贡献和制约<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-25>>
 
-      <with|par-left|<quote|1tab>|4.6<space|2spc>现代协作平台的局限：以 Overleaf 为例的批判性审视<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-26>>
+      <with|par-left|<quote|1tab>|4.6<space|2spc>现代协作平台的局限：审视 Overleaf 为例<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-26>>
 
       <with|par-left|<quote|2tab>|4.6.1<space|2spc>Overleaf 的主要改进<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-27>>
 
