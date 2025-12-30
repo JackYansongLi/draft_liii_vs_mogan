@@ -567,7 +567,7 @@
 
   <section|Mogan STEM：所见即所得的结构化编辑器>
 
-  去年开始，<TeXmacs>的中国社区维护者们基于<TeXmacs>开发了Mogan STEM，Mogan STEM和<TeXmacs>是目前世界上唯一的所见即所得的结构化编辑器，<smart-ref|table:mogan-vs-other> 里对比了Mogan STEM和市面上的一些编辑器：
+  去年开始，<TeXmacs>的中国社区维护者们基于<TeXmacs>开发了Mogan STEM，Mogan STEM和<TeXmacs>是当前世界上仅有的所见即所得的结构化编辑器，如<smart-ref|table:mogan-vs-other> 里对比了Mogan STEM和市面上的一些编辑器：
 
   <big-table|<block|<tformat|<cwith|2|-1|2|-1|cell-halign|c>|<cwith|2|-1|2|-1|cell-background|<pattern|/Applications/MoganSTEM.app/Contents/Resources/share/moganlab/misc/patterns/vintage/ridged-brushed-medium.png||>>|<table|<row|<cell|编辑器>|<cell|所见即所得>|<cell|结构化>|<cell|支持Unicode>|<cell|<TeX>兼容>>|<row|<cell|Mogan STEM>|<cell|Yes>|<cell|Yes>|<cell|Yes>|<cell|部分>>|<row|<cell|<TeXmacs>>|<cell|Yes>|<cell|Yes>|<cell|部分>|<cell|部分>>|<row|<cell|<TeX>/<LaTeX>>|<cell|No>|<cell|Yes>|<cell|部分>|<cell|完全>>|<row|<cell|Word>|<cell|Yes>|<cell|No>|<cell|部分>|<cell|不兼容>>|<row|<cell|Lyx>|<cell|部分>|<cell|Yes>|<cell|部分>|<cell|完全>>|<row|<cell|Typst>|<cell|No>|<cell|Yes>|<cell|Yes>|<cell|部分>>>>>|<label|table:mogan-vs-other>Mogan STEM和同类编辑器的对比>
 
@@ -712,13 +712,13 @@
     <associate|auto-8|<tuple|1|5>>
     <associate|auto-9|<tuple|3|6>>
     <associate|bib-van_der_hoeven_gnu_2001|<tuple|A|15>>
-    <associate|eq:braket|<tuple|2|15>>
+    <associate|eq:braket|<tuple|1|15>>
     <associate|eq:tree-struc|<tuple|1|14>>
     <associate|example:around-in-mogan|<tuple|1|14>>
     <associate|figure:double-line|<tuple|4|15>>
     <associate|figure:frac-tree|<tuple|3|14>>
     <associate|figure:multiline-mogan|<tuple|5|15>>
-    <associate|footnote-1|<tuple|3|14>>
+    <associate|footnote-1|<tuple|1|14>>
     <associate|footnr-1|<tuple|3|14>>
     <associate|img:texlive-install|<tuple|2|10>>
     <associate|table:mogan-vs-other|<tuple|6|13>>
