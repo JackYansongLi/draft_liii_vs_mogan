@@ -62,11 +62,13 @@
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|5<space|2spc>Mogan STEM：所见即所得的结构化编辑器><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-30><vspace|0.5fn>
 
-    <with|par-left|1tab|5.1<space|2spc>树状数学公式与文档结构<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-32>>
+    <with|par-left|1tab|5.1<space|2spc>树状的数学公式与树状的文档结构<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-32>>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-37><vspace|0.5fn>
+    <with|par-left|1tab|5.2<space|2spc>函数式的符号表示<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-37>>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|附录 A<space|2spc>Notes><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-38><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-38><vspace|0.5fn>
+
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|附录 A<space|2spc>Notes><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-39><vspace|0.5fn>
   </table-of-contents>
 
   <section|<TeX> 的历史介绍>
@@ -337,7 +339,7 @@
 
   <subsection|统一语法之下的兼容性困境>
 
-  为应对不同需求（如现代字体、Unicode支持），<inactive|<hybrid|LaTeX>> 生态演化出多个并行的编译引擎，如 <verbatim|pdfLaTeX>、<verbatim|XeLaTeX> 和 <verbatim|LuaLaTeX>。这种分化非但不是优势，反而是系统设计碎片化的体现：
+  为应对不同需求（如现代字体、Unicode支持），<LaTeX> 生态演化出多个并行的编译引擎，如 <verbatim|pdfLaTeX>、<verbatim|XeLaTeX> 和 <verbatim|LuaLaTeX>。这种分化非但不是优势，反而是系统设计碎片化的体现：
 
   从用户角度看，这三种引擎均接受 <code*|.tex> 输入，并遵循 LaTeX 的宏接口；然而在系统层面，它们在以下关键方面存在本质差异：
 
@@ -695,14 +697,14 @@
     <associate|auto-3|<tuple|1|2>>
     <associate|auto-30|<tuple|5|13>>
     <associate|auto-31|<tuple|6|13>>
-    <associate|auto-32|<tuple|5.1|13>>
+    <associate|auto-32|<tuple|5.1|14>>
     <associate|auto-33|<tuple|3|14>>
     <associate|auto-34|<tuple|1|14>>
-    <associate|auto-35|<tuple|4|14>>
+    <associate|auto-35|<tuple|4|15>>
     <associate|auto-36|<tuple|5|15>>
     <associate|auto-37|<tuple|5.2|15>>
     <associate|auto-38|<tuple|2|15>>
-    <associate|auto-39|<tuple|A|?>>
+    <associate|auto-39|<tuple|A|15>>
     <associate|auto-4|<tuple|2|3>>
     <associate|auto-5|<tuple|3|3>>
     <associate|auto-6|<tuple|3.1|4>>
@@ -710,14 +712,14 @@
     <associate|auto-8|<tuple|3.1.2|5>>
     <associate|auto-9|<tuple|3|6>>
     <associate|bib-van_der_hoeven_gnu_2001|<tuple|1|15>>
-    <associate|eq:braket|<tuple|2|?>>
+    <associate|eq:braket|<tuple|2|15>>
     <associate|eq:tree-struc|<tuple|1|14>>
-    <associate|example:around-in-mogan|<tuple|1|15>>
-    <associate|figure:double-line|<tuple|4|14>>
+    <associate|example:around-in-mogan|<tuple|1|14>>
+    <associate|figure:double-line|<tuple|4|15>>
     <associate|figure:frac-tree|<tuple|3|14>>
-    <associate|figure:multiline-mogan|<tuple|5|14>>
-    <associate|footnote-1|<tuple|1|13>>
-    <associate|footnr-1|<tuple|1|13>>
+    <associate|figure:multiline-mogan|<tuple|5|15>>
+    <associate|footnote-1|<tuple|1|14>>
+    <associate|footnr-1|<tuple|1|14>>
     <associate|img:texlive-install|<tuple|2|10>>
     <associate|table:mogan-vs-other|<tuple|6|13>>
     <associate|texlive-size|<tuple|1|9>>
@@ -740,11 +742,11 @@
 
       <tuple|normal|<surround|<hidden-binding|<tuple|auto-33>|3>||Mogan公式的树状结构。>|<pageref|auto-33>>
 
-      <tuple|normal|<surround|<hidden-binding|<tuple|auto-34>|4>||Mogan多行内容的数据结构>|<pageref|auto-34>>
+      <tuple|normal|<with|mode|<quote|math>|<around*|\<nobracket\>|<around*|[|F<around*|(|x|)>|]>|\|>>的树状表示|<pageref|auto-34>>
 
-      <tuple|normal|<surround|<hidden-binding|<tuple|auto-35>|5>||两行文字中插入图片>|<pageref|auto-35>>
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-35>|4>||两行文字中插入图片>|<pageref|auto-35>>
 
-      <tuple|normal|<surround|<hidden-binding|<tuple|auto-36>|6>||>|<pageref|auto-36>>
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-36>|5>||Mogan多行内容的数据结构>|<pageref|auto-36>>
     </associate>
     <\associate|table>
       <tuple|normal|<surround|<hidden-binding|<tuple|auto-3>|1>||L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X 文件扩展名及其说明>|<pageref|auto-3>>
@@ -806,11 +808,13 @@
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|5<space|2spc>Mogan STEM：所见即所得的结构化编辑器><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-30><vspace|0.5fn>
 
-      <with|par-left|<quote|1tab>|5.1<space|2spc>树状数学公式与文档结构<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-32>>
+      <with|par-left|<quote|1tab>|5.1<space|2spc>树状的数学公式与树状的文档结构<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-32>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-37><vspace|0.5fn>
+      <with|par-left|<quote|1tab>|5.2<space|2spc>函数式的符号表示<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-37>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|附录 A<space|2spc>Notes><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-38><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-38><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|附录 A<space|2spc>Notes><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-39><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
