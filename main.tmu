@@ -655,17 +655,17 @@
 
   <subsection|参考文献的快速渲染>
 
-  以参考文献引用为例，在 <LaTeX> 体系中，<code*|\\cite> 只是一个宏接口，其实际引用关系需通过 <code*|.aux>、<code*|.bbl> 等中间文件间接建立。任何对文献条目的修改，通常都需要经历多轮全局编译过程，属于典型的批处理模型。而在 <TeXmacs> 中，引用关系本身即为文档树中的结构链接，更新参考文献时只需对文档树进行一次局部搜索，并在对应的叶子节点上重新渲染即可，无需对整篇文档进行重复解析。
+  以参考文献引用为例，在 <LaTeX> 体系中，<code*|\\cite> 只是一个宏接口，其实际引用关系需通过 <code*|.aux>、<code*|.bbl> 等中间文件间接建立。任何对文献条目的修改，通常都需要经历多轮全局编译过程，属于典型的批处理模型。而在 Mogan 中，引用关系本身即为文档树中的结构链接，更新参考文献时只需对文档树进行一次局部搜索，并在对应的叶子节点上重新渲染即可，无需对整篇文档进行重复解析。
 
-  <LaTeX> 在出参考文献的语法或宏错误时，可能会导致文档生成失败或者参考文献整体缺失；而 <TeXmacs> 采用交互式、增量式的渲染策略，即使局部结构存在问题，也不至于破坏整个文档的可视化结果。
+  <LaTeX> 在出参考文献的语法或宏错误时，可能会导致文档生成失败或者参考文献整体缺失；而 Mogan 采用交互式、增量式的渲染策略，即使局部结构存在问题，也不至于破坏整个文档的可视化结果。
 
   <subsection|按需加载的插件使用方式>
 
-  <TeXmacs> 采用整体式应用程序的安装方式，而非类似 <TeX> Live 的包仓库分发模型。其安装包包含一个完整、自洽的编辑与排版系统，包括核心可执行程序、内置的 Scheme 运行时、文档模型与渲染引擎等基础组件。用户在安装阶段无需理解或管理大量独立功能包，也不存在逐个安装宏包及其依赖关系的过程。功能扩展通常以插件形式存在，但这些插件并非在启动或安装时统一加载，而是随主程序分发，并在运行过程中、当文档结构首次触发相关功能需求时才被加载。这种按需加载机制使得系统的实际复杂度由文档内容决定，而非由安装时预置的功能集合决定。
+  Mogan 采用整体式应用程序的安装方式，而非类似 <TeX> Live 的包仓库分发模型。其安装包包含一个完整、自洽的编辑与排版系统，包括核心可执行程序、内置的 Scheme 运行时、文档模型与渲染引擎等基础组件。用户在安装阶段无需理解或管理大量独立功能包，也不存在逐个安装宏包及其依赖关系的过程。功能扩展通常以插件形式存在，但这些插件并非在启动或安装时统一加载，而是随主程序分发，并在运行过程中、当文档结构首次触发相关功能需求时才被加载。这种按需加载机制使得系统的实际复杂度由文档内容决定，而非由安装时预置的功能集合决定。
 
-  值得一提的是，<TeXmacs> 在开箱状态下仅需安装约百兆字节的程序，解压后占用数百兆字节本地空间，即可直接支持复杂数学文档的编辑与导出；相比之下，<LaTeX> 即使在极简安装情况下，也通常需要超过 1 GB 的本地发行环境，而完整发行版截至 2025 年已达到约 6 GB，才能提供相当规模与复杂度的功能。这一差异不仅体现在安装体积上，更源于两者在系统设计上的根本不同：<LaTeX> 将“未来可能用到的能力”前置为安装成本，通过宏语言和包生态维持兼容性，而 <TeXmacs> 则将复杂度推迟至运行阶段，并限制在实际执行路径之内，通过统一的文档树模型和运行时插件机制实现功能扩展。这种设计使得 <TeXmacs> 的复杂度主要由具体文档在运行时动态激活，而 LaTeX 的复杂度则主要体现在安装与配置阶段。
+  值得一提的是，Mogan 在开箱状态下仅需安装约百兆字节的程序，解压后占用数百兆字节本地空间，即可直接支持复杂数学文档的编辑与导出；相比之下，<LaTeX> 即使在极简安装情况下，也通常需要超过 1 GB 的本地发行环境，而完整发行版截至 2025 年已达到约 6 GB，才能提供相当规模与复杂度的功能。这一差异不仅体现在安装体积上，更源于两者在系统设计上的根本不同：<LaTeX> 将“未来可能用到的能力”前置为安装成本，通过宏语言和包生态维持兼容性，而 Mogan 则将复杂度推迟至运行阶段，并限制在实际执行路径之内，通过统一的文档树模型和运行时插件机制实现功能扩展。这种设计使得 Mogan 的复杂度主要由具体文档在运行时动态激活，而 LaTeX 的复杂度则主要体现在安装与配置阶段。
 
-  可以概括地说，<TeX> Live 安装的是一个不断累积的历史包仓库，而 <TeXmacs> 安装的是一个可演化的文档系统；前者的复杂度前置于安装阶段，后者则由文档运行时动态触发。
+  可以概括地说，<TeX> Live 安装的是一个不断累积的历史包仓库，而 Mogan 安装的是一个可演化的文档系统；前者的复杂度前置于安装阶段，后者则由文档运行时动态触发。
 
   <\bibliography|bib|tm-plain|liii>
     <\bib-list|1>
@@ -831,11 +831,7 @@
 
       <with|par-left|<quote|1tab>|5.4<space|2spc>按需加载的插件使用方式<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-39>>
 
-      <with|par-left|<quote|1tab>|5.5<space|2spc>优秀的大文档编译性能<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-40>>
-
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-41><vspace|0.5fn>
-
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|附录 A<space|2spc>Notes><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-42><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-40><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
