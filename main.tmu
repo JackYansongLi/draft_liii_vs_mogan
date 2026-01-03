@@ -585,7 +585,7 @@
 
   我们先以分式作为例子，在<TeX>中，分式被表示为 <verbatim|\\frac{1}{2}>，在编译器里 <verbatim|\\frac>, <verbatim|{1}>, <verbatim|{2}> 是被串行处理的。而在 Mogan STEM 中，<math|<frac|1|2>> 在底层被表示为 <verbatim|Scheme> 代码 <verbatim|(frac "1" "2")><\footnote>
     注意到Mogan STEM是所见即所得的，因此用户输入 <math|<frac|1|2>> 时并不是键入 <verbatim|(frac 1 2)>，而是通过 <key|Alt + f> 然后以所见即所得的方式输入的！
-  </footnote>, 在编译器层面这是个树状结构，如<smart-ref|figure:frac-tree>。
+  </footnote>, 这是个树状结构，如<smart-ref|figure:frac-tree>。
 
   <big-figure|<tree|<verbatim|frac>|"1"|"2">|<label|figure:frac-tree>Mogan公式的树状结构。>
 
@@ -615,13 +615,13 @@
     <big-figure*|<tree|<verbatim|around*>|"<verbatim|[>"|<tree|<verbatim|concat>|"<verbatim|F>"|<tree|<verbatim|around*>|"<verbatim|(>"|"<verbatim|x>"|"<verbatim|)>">>|"<verbatim|]>"|"<verbatim|\|>">|<math|<around*|\<nobracket\>|<around*|[|F<around*|(|x|)>|]>|\|>>的树状表示>
   </example>
 
-  不同于<TeX>，这样的树状结构不是在语法层面的，而是在编译器层面的，事实上许多多年的Mogan, <TeXmacs>用户甚至连一行<verbatim|Scheme>代码都不会写！编译器层面的树状结构有两个显而易见的好处：
+  不同于<TeX>，这样的树状结构不是在语法层面的，而是在渲染层面的，事实上许多多年的Mogan, <TeXmacs>用户甚至连一行<verbatim|Scheme>代码都不会写！渲染层面的树状结构有两个显而易见的好处：
 
   <\enumerate>
     <item>用户的错误输入只会影响局部！
 
     <\itemize>
-      <item>不会导致全局文件无法编译（<LaTeX>缺点）
+      <item>不会导致全局文件无法渲染（<LaTeX>缺点）
 
       <item>局部编辑不会导致全局排版混乱（Word缺点）
     </itemize>
@@ -629,7 +629,7 @@
     <item>CPU可以并行而非串行的渲染数据。（极大加快渲染速度）
   </enumerate>
 
-  我们再给一个例子，对于一个如<smart-ref|figure:double-line>双行的排版，编译器层面的表示是：
+  我们再给一个例子，对于一个如<smart-ref|figure:double-line>双行的排版，它的表示是：
 
   <\center>
     <\listing>
@@ -667,23 +667,11 @@
 
   可以概括地说，<TeX> Live 安装的是一个不断累积的历史包仓库，而 <TeXmacs> 安装的是一个可演化的文档系统；前者的复杂度前置于安装阶段，后者则由文档运行时动态触发。
 
-  <subsection|优秀的大文档编译性能>
-
-  todo xxxx
-
-  \;
-
   <\bibliography|bib|tm-plain|liii>
     <\bib-list|1>
       <bibitem*|1><label|bib-van_der_hoeven_gnu_2001>Joris Van Der Hoeven. <newblock>GNU TeXmacs, A free, structured, wysiwyg and technical text editor. <newblock><with|font-shape|italic|Cah. GUT>, (39-40):39-50, 2001.<newblock>
     </bib-list>
   </bibliography>
-
-  <appendix|Notes>
-
-  <\itemize>
-    <item>编译的时候决定排版结构。例如宏展开是在编译层面的，而不是先展开再编译。
-  </itemize>
 </body>
 
 <\initial>
@@ -728,7 +716,7 @@
     <associate|auto-36|<tuple|5|15>>
     <associate|auto-37|<tuple|2|15>>
     <associate|auto-38|<tuple|5.4|16>>
-    <associate|auto-39|<tuple|5.5|16>>
+    <associate|auto-39|<tuple|1|16>>
     <associate|auto-4|<tuple|2|3>>
     <associate|auto-40|<tuple|1|16>>
     <associate|auto-41|<tuple|1|16>>
@@ -738,7 +726,7 @@
     <associate|auto-7|<tuple|1|4>>
     <associate|auto-8|<tuple|1|5>>
     <associate|auto-9|<tuple|3|6>>
-    <associate|bib-van_der_hoeven_gnu_2001|<tuple|A|16>>
+    <associate|bib-van_der_hoeven_gnu_2001|<tuple|1|16>>
     <associate|eq:braket|<tuple|2|15>>
     <associate|eq:tree-struc|<tuple|1|14>>
     <associate|example:around-in-mogan|<tuple|1|14>>
