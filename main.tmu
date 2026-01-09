@@ -1,4 +1,4 @@
-<TMU|<tuple|1.1.0|2025.2.2>>
+<TMU|<tuple|1.1.0|2025.2.3>>
 
 <style|<tuple|generic|number-europe|chinese|preview-ref|smart-ref|comment|doc-tmu|goldfish>>
 
@@ -75,11 +75,15 @@
 
   <section|<TeX> 的历史介绍>
 
-  很长一段时间人们都认为所见即所得（WYSIWYG）和结构化编辑是不相容的，然而<TeXmacs>的出现证明了这是大错特错。为此，巴黎综合理工大学的Joris教授写了一篇评论，详见 Joris et al.<nbsp><cite|van_der_hoeven_gnu_2001>。<LaTeX> 的设计哲学引领了一系列类似的编辑软件的设计，除了前文提到的<TeXmacs>，还有LyX，以及最近很火的Typst。其中Typst和<TeXmacs>的公式渲染完全独立于 <TeX> 系统，而LyX则可被看为TeX的一个前端。这篇文章有许多对 <TeX> 系统的批判，但是我们想让读者清楚我们对 <TeX> 系统的态度，我们绝不是否定 <TeX> 的历史地位，也绝不认为在当时那个时代 <TeX> 是落后的。我们只是认为在今天，尤其是在AI工具发展的越来越快的当今时期，<TeX> 的底层设计是有许多问题的。
-
   在 <TeX> 的发展进程中，出现了众多基于 <TeX> 的二次开发成果，其中最著名的当属<LaTeX>。<LaTeX>是在TeX基础上构建的宏语言，它极大地简化了 <TeX> 的使用，让用户无需深入了解复杂的 <TeX> 指令，就能利用其强大的排版功能。<LaTeX>定义了许多符合人们排版习惯的命令和模板，使得科技文献、书籍等的排版变得更加高效和便捷，逐渐成为了事实上的科技文献排版标准。
 
   在学术领域， <TeX> 系统，尤其是<LaTeX>，凭借其出色的数学公式排版能力，成为了学术界的宠儿。美国数学学会（AMS）大力鼓励数学家们使用 <TeX> 系统向其期刊投稿，世界上众多一流的出版社，如 Wesley、IEEE 等，也广泛采用 <TeX> 系统来出版书籍和期刊。这使得 <TeX> 在学术论文、学术专著等的排版中占据了重要地位，成为了学术交流和知识传播的重要工具。
+
+  然而 <TeX> 当初的设计与其后续的开发方向导致了很多历史遗留的问题，这篇文章主要是介绍 <TeX> 的底层设计和为什么一些设计带来了严重的问题。
+
+  另一方面很长一段时间人们都认为所见即所得（WYSIWYG）和结构化编辑是不相容的，然而<TeXmacs>的出现证明了这是大错特错。为此，巴黎综合理工大学的Joris教授写了一篇评论，详见 Joris et al.<nbsp><cite|van_der_hoeven_gnu_2001>。<LaTeX> 的设计哲学引领了一系列类似的编辑软件的设计，除了前文提到的<TeXmacs>，还有LyX，以及最近很火的Typst。
+
+  其中Typst和<TeXmacs>的公式渲染完全独立于 <TeX> 系统，而LyX则可被看为TeX的一个前端。这篇文章有许多对 <TeX> 系统的批判，但是我们想让读者清楚我们对 <TeX> 系统的态度，我们绝不是否定 <TeX> 的历史地位，也绝不认为在当时那个时代 <TeX> 是落后的。我们只是认为在今天，尤其是在AI工具发展的越来越快的当今时期，<TeX> 的底层设计是有许多问题的。
 
   <section|<TeX> 的编译原理简介>
 
@@ -680,45 +684,46 @@
 
 <\references>
   <\collection>
-    <associate|auto-1|<tuple|2|2>>
-    <associate|auto-10|<tuple|1|6>>
-    <associate|auto-11|<tuple|4|7>>
+    <associate|auto-1|<tuple|1|1>>
+    <associate|auto-10|<tuple|3.1.3|6>>
+    <associate|auto-11|<tuple|3.2|7>>
     <associate|auto-12|<tuple|4|7>>
-    <associate|auto-13|<tuple|3.3.1|8>>
-    <associate|auto-14|<tuple|3.3.2|9>>
-    <associate|auto-15|<tuple|3.4|9>>
-    <associate|auto-16|<tuple|4|9>>
+    <associate|auto-13|<tuple|3.3|8>>
+    <associate|auto-14|<tuple|3.3.1|8>>
+    <associate|auto-15|<tuple|3.3.2|9>>
+    <associate|auto-16|<tuple|3.4|9>>
     <associate|auto-17|<tuple|4|9>>
-    <associate|auto-18|<tuple|1|9>>
+    <associate|auto-18|<tuple|4.1|9>>
     <associate|auto-19|<tuple|1|9>>
-    <associate|auto-2|<tuple|1|2>>
+    <associate|auto-2|<tuple|2|2>>
     <associate|auto-20|<tuple|2|10>>
-    <associate|auto-21|<tuple|4.3|11>>
-    <associate|auto-22|<tuple|5|11>>
+    <associate|auto-21|<tuple|4.2|10>>
+    <associate|auto-22|<tuple|4.3|11>>
     <associate|auto-23|<tuple|5|11>>
-    <associate|auto-24|<tuple|4.5|12>>
-    <associate|auto-25|<tuple|4.6|12>>
-    <associate|auto-26|<tuple|4.6.1|12>>
-    <associate|auto-27|<tuple|<with|mode|<quote|math>|\<bullet\>>|12>>
-    <associate|auto-28|<tuple|<with|mode|<quote|math>|\<bullet\>>|13>>
-    <associate|auto-29|<tuple|5|13>>
+    <associate|auto-24|<tuple|4.4|11>>
+    <associate|auto-25|<tuple|4.5|12>>
+    <associate|auto-26|<tuple|4.6|12>>
+    <associate|auto-27|<tuple|4.6.1|12>>
+    <associate|auto-28|<tuple|4.6.2|13>>
+    <associate|auto-29|<tuple|4.6.3|13>>
     <associate|auto-3|<tuple|1|2>>
-    <associate|auto-30|<tuple|6|13>>
+    <associate|auto-30|<tuple|5|13>>
     <associate|auto-31|<tuple|6|13>>
-    <associate|auto-32|<tuple|1|14>>
+    <associate|auto-32|<tuple|5.1|14>>
     <associate|auto-33|<tuple|3|14>>
     <associate|auto-34|<tuple|1|14>>
     <associate|auto-35|<tuple|4|15>>
     <associate|auto-36|<tuple|5|15>>
-    <associate|auto-37|<tuple|2|15>>
-    <associate|auto-38|<tuple|5.4|16>>
-    <associate|auto-39|<tuple|1|16>>
+    <associate|auto-37|<tuple|5.2|15>>
+    <associate|auto-38|<tuple|5.3|15>>
+    <associate|auto-39|<tuple|5.4|16>>
     <associate|auto-4|<tuple|2|3>>
-    <associate|auto-40|<tuple|1|16>>
-    <associate|auto-5|<tuple|3|4>>
-    <associate|auto-6|<tuple|3.1.1|4>>
-    <associate|auto-7|<tuple|1|4>>
-    <associate|auto-8|<tuple|1|5>>
+    <associate|auto-40|<tuple|5.4|16>>
+    <associate|auto-41|<tuple|5.4|?>>
+    <associate|auto-5|<tuple|3|3>>
+    <associate|auto-6|<tuple|3.1|4>>
+    <associate|auto-7|<tuple|3.1.1|4>>
+    <associate|auto-8|<tuple|3.1.2|5>>
     <associate|auto-9|<tuple|3|6>>
     <associate|bib-van_der_hoeven_gnu_2001|<tuple|1|16>>
     <associate|eq:braket|<tuple|2|15>>
@@ -727,8 +732,8 @@
     <associate|figure:double-line|<tuple|4|15>>
     <associate|figure:frac-tree|<tuple|3|14>>
     <associate|figure:multiline-mogan|<tuple|5|15>>
-    <associate|footnote-1|<tuple|3|14>>
-    <associate|footnr-1|<tuple|3|14>>
+    <associate|footnote-1|<tuple|1|14>>
+    <associate|footnr-1|<tuple|1|14>>
     <associate|img:texlive-install|<tuple|2|10>>
     <associate|table:mogan-vs-other|<tuple|6|13>>
     <associate|texlive-size|<tuple|1|9>>
@@ -771,61 +776,61 @@
       <tuple|normal|<surround|<hidden-binding|<tuple|auto-31>|6>||Mogan STEM和同类编辑器的对比>|<pageref|auto-31>>
     </associate>
     <\associate|toc>
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X 的历史介绍><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-1><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X 的历史介绍><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-1><vspace|0.5fn>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|2<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X 的编译原理简介><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-2><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|2<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X 的编译原理简介><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-2><vspace|0.5fn>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|3<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X 在编译设计上的根本性缺陷><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-5><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|3<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X 在编译设计上的根本性缺陷><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-5><vspace|0.5fn>
 
-      <with|par-left|<quote|1tab>|3.1<space|2spc>批处理模型的核心局限：单向性、弱语义与延迟反馈<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-6>>
+      <with|par-left|<quote|1tab>|3.1<space|2spc>批处理模型的核心局限：单向性、弱语义与延迟反馈<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-6>>
 
-      <with|par-left|<quote|2tab>|3.1.1<space|2spc>单向与一次性的处理流程<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-7>>
+      <with|par-left|<quote|2tab>|3.1.1<space|2spc>单向与一次性的处理流程<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-7>>
 
-      <with|par-left|<quote|2tab>|3.1.2<space|2spc>编译阶段与语义阶段的紧密耦合<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-8>>
+      <with|par-left|<quote|2tab>|3.1.2<space|2spc>编译阶段与语义阶段的紧密耦合<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-8>>
 
-      <with|par-left|<quote|2tab>|3.1.3<space|2spc>错误的滞后显现与模糊定位<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-10>>
+      <with|par-left|<quote|2tab>|3.1.3<space|2spc>错误的滞后显现与模糊定位<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-10>>
 
-      <with|par-left|<quote|1tab>|3.2<space|2spc>统一语法之下的兼容性困境<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-11>>
+      <with|par-left|<quote|1tab>|3.2<space|2spc>统一语法之下的兼容性困境<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-11>>
 
-      <with|par-left|<quote|1tab>|3.3<space|2spc>补偿性机制与工具生态的异化<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-13>>
+      <with|par-left|<quote|1tab>|3.3<space|2spc>补偿性机制与工具生态的异化<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-13>>
 
-      <with|par-left|<quote|2tab>|3.3.1<space|2spc>多轮编译：一种脆弱的权宜之计<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-14>>
+      <with|par-left|<quote|2tab>|3.3.1<space|2spc>多轮编译：一种脆弱的权宜之计<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-14>>
 
-      <with|par-left|<quote|2tab>|3.3.2<space|2spc>批处理模型对工具生态的长期压抑<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-15>>
+      <with|par-left|<quote|2tab>|3.3.2<space|2spc>批处理模型对工具生态的长期压抑<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-15>>
 
-      <with|par-left|<quote|1tab>|3.4<space|2spc>对比：结构化与增量系统的设计范式<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-16>>
+      <with|par-left|<quote|1tab>|3.4<space|2spc>对比：结构化与增量系统的设计范式<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-16>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|4<space|2spc>TeX 在使用体验设计上的局限性><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-17><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|4<space|2spc>TeX 在使用体验设计上的局限性><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-17><vspace|0.5fn>
 
-      <with|par-left|<quote|1tab>|4.1<space|2spc>发行版规模与部署模式的问题<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-18>>
+      <with|par-left|<quote|1tab>|4.1<space|2spc>发行版规模与部署模式的问题<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-18>>
 
-      <with|par-left|<quote|1tab>|4.2<space|2spc>性能的现实困境<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-21>>
+      <with|par-left|<quote|1tab>|4.2<space|2spc>性能的现实困境<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-21>>
 
-      <with|par-left|<quote|1tab>|4.3<space|2spc>语言设计的内在矛盾：工程化的缺失<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-22>>
+      <with|par-left|<quote|1tab>|4.3<space|2spc>语言设计的内在矛盾：工程化的缺失<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-22>>
 
-      <with|par-left|<quote|1tab>|4.4<space|2spc>实际用户视角下的体验障碍<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-24>>
+      <with|par-left|<quote|1tab>|4.4<space|2spc>实际用户视角下的体验障碍<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-24>>
 
-      <with|par-left|<quote|1tab>|4.5<space|2spc>L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X3 的贡献和制约<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-25>>
+      <with|par-left|<quote|1tab>|4.5<space|2spc>L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X3 的贡献和制约<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-25>>
 
-      <with|par-left|<quote|1tab>|4.6<space|2spc>现代协作平台的局限：审视 Overleaf 为例<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-26>>
+      <with|par-left|<quote|1tab>|4.6<space|2spc>现代协作平台的局限：审视 Overleaf 为例<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-26>>
 
-      <with|par-left|<quote|2tab>|4.6.1<space|2spc>Overleaf 的主要改进<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-27>>
+      <with|par-left|<quote|2tab>|4.6.1<space|2spc>Overleaf 的主要改进<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-27>>
 
-      <with|par-left|<quote|2tab>|4.6.2<space|2spc>底层架构的制约<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-28>>
+      <with|par-left|<quote|2tab>|4.6.2<space|2spc>底层架构的制约<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-28>>
 
-      <with|par-left|<quote|2tab>|4.6.3<space|2spc>对技术演进路径的影响<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-29>>
+      <with|par-left|<quote|2tab>|4.6.3<space|2spc>对技术演进路径的影响<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-29>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|5<space|2spc>Mogan STEM：所见即所得的结构化编辑器><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-30><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|5<space|2spc>Mogan STEM：所见即所得的结构化编辑器><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-30><vspace|0.5fn>
 
-      <with|par-left|<quote|1tab>|5.1<space|2spc>树状的数学公式与树状的文档结构<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-32>>
+      <with|par-left|<quote|1tab>|5.1<space|2spc>树状的数学公式与树状的文档结构<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-32>>
 
-      <with|par-left|<quote|1tab>|5.2<space|2spc>函数式的符号表示<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-37>>
+      <with|par-left|<quote|1tab>|5.2<space|2spc>函数式的符号表示<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-37>>
 
-      <with|par-left|<quote|1tab>|5.3<space|2spc>参考文献的快速渲染<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-38>>
+      <with|par-left|<quote|1tab>|5.3<space|2spc>参考文献的快速渲染<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-38>>
 
-      <with|par-left|<quote|1tab>|5.4<space|2spc>按需加载的插件使用方式<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-39>>
+      <with|par-left|<quote|1tab>|5.4<space|2spc>按需加载的插件使用方式<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-39>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|.>>>>|<htab|5mm>><no-break><pageref|auto-40><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-40><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
