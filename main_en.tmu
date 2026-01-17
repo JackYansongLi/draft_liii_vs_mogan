@@ -1,17 +1,19 @@
 <TMU|<tuple|1.1.0|2025.2.3>>
 
-<style|<tuple|generic|number-europe|chinese|preview-ref|smart-ref|comment|doc-tmu|goldfish>>
+<style|<tuple|generic|number-europe|preview-ref|smart-ref|comment|doc-tmu|goldfish>>
 
 <\body>
   <\hide-preamble>
     <assign|susmail|<macro|mail.sustech.edu.cn>>
   </hide-preamble>
 
-  <doc-data|<doc-title|<LaTeX>的编译原理与面临的困境>|<doc-author|<author-data|<author-name|李子强>|<\author-affiliation>
-    阿里巴巴
-  </author-affiliation>|<author-email|liziqiang.lzq@alibaba-inc.com>>>|<doc-author|<author-data|<author-name|李岩松>|<author-email|yansong@liii.pro>|<\author-affiliation>
-    德清三鲤网络科技有限公司
-  </author-affiliation>>>>
+  <doc-data|<doc-title|<LaTeX>的编译原理与面临的困境>|<doc-author|<author-data|<author-name|Ziqiang Li>|<\author-affiliation>
+    Alibaba
+  </author-affiliation>|<author-email|liziqiang.lzq@alibaba-inc.com>>>|<doc-author|<author-data|<author-name|Yansong Li>|<author-email|yansong@liii.pro>|<\author-affiliation>
+    Liii Network
+  </author-affiliation>>>|<doc-author|<author-data|<author-name|Xurui Liu>|<\author-affiliation>
+    Tsinghua University
+  </author-affiliation>|<author-email|xxxx>>>>
 
   <\table-of-contents|toc>
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|1<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X 的历史介绍><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-1><vspace|0.5fn>
@@ -832,7 +834,7 @@
 
       <with|par-left|<quote|1tab>|5.4<space|2spc>按需加载的插件使用方式<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-39>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-40><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Bibliography><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-40><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
