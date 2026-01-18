@@ -1,17 +1,19 @@
 <TMU|<tuple|1.1.0|2025.2.3>>
 
-<style|<tuple|generic|number-europe|chinese|preview-ref|smart-ref|comment|doc-tmu|goldfish>>
+<style|<tuple|generic|number-europe|preview-ref|smart-ref|comment|doc-tmu|goldfish>>
 
 <\body>
   <\hide-preamble>
     <assign|susmail|<macro|mail.sustech.edu.cn>>
   </hide-preamble>
 
-  <doc-data|<doc-title|<LaTeX>的编译原理与面临的困境>|<doc-author|<author-data|<author-name|李子强>|<\author-affiliation>
-    阿里巴巴
-  </author-affiliation>|<author-email|liziqiang.lzq@alibaba-inc.com>>>|<doc-author|<author-data|<author-name|李岩松>|<author-email|yansong@liii.pro>|<\author-affiliation>
-    德清三鲤网络科技有限公司
-  </author-affiliation>>>>
+  <doc-data|<doc-title|<LaTeX>的编译原理与面临的困境>|<doc-author|<author-data|<author-name|Ziqiang Li>|<\author-affiliation>
+    Alibaba
+  </author-affiliation>|<author-email|liziqiang.lzq@alibaba-inc.com>>>|<doc-author|<author-data|<author-name|Yansong Li>|<author-email|yansong@liii.pro>|<\author-affiliation>
+    Liii Network
+  </author-affiliation>>>|<doc-author|<author-data|<author-name|Xurui Liu>|<\author-affiliation>
+    Tsinghua University
+  </author-affiliation>|<author-email|xxxx>>>>
 
   <\table-of-contents|toc>
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|1<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X 的历史介绍><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-1><vspace|0.5fn>
@@ -75,7 +77,7 @@
 
   在 <TeX> 的发展进程中，出现了众多基于 <TeX> 的二次开发成果，其中最著名的当属<LaTeX>。<LaTeX>是在TeX基础上构建的宏语言，它极大地简化了 <TeX> 的使用，让用户无需深入了解复杂的 <TeX> 指令，就能利用其强大的排版功能。<LaTeX>定义了许多符合人们排版习惯的命令和模板，使得科技文献、书籍等的排版变得更加高效和便捷，逐渐成为了事实上的科技文献排版标准。
 
-  在学术领域， <TeX> 系统，尤其是<LaTeX>，凭借其出色的数学公式排版能力，成为了学术界的宠儿，<TeX> 的核心设计源于Knuth的开创性工作<cite|knuth1984texbook>。美国数学学会（AMS）大力鼓励数学家们使用 <TeX> 系统向其期刊投稿，世界上众多一流的出版社，如 Wesley、IEEE 等，也广泛采用 <TeX> 系统来出版书籍和期刊。这使得 <TeX> 在学术论文、学术专著等的排版中占据了重要地位，成为了学术交流和知识传播的重要工具。
+  在学术领域， <TeX> 系统，尤其是<LaTeX>，凭借其出色的数学公式排版能力，成为了学术界的宠儿。美国数学学会（AMS）大力鼓励数学家们使用 <TeX> 系统向其期刊投稿，世界上众多一流的出版社，如 Wesley、IEEE 等，也广泛采用 <TeX> 系统来出版书籍和期刊。这使得 <TeX> 在学术论文、学术专著等的排版中占据了重要地位，成为了学术交流和知识传播的重要工具。
 
   然而 <TeX> 当初的设计与其后续的开发方向导致了很多历史遗留的问题，这篇文章主要是介绍 <TeX> 的底层设计和为什么一些设计带来了严重的问题。
 
@@ -99,7 +101,7 @@
     \\end{document}
   </listing>
 
-  这是一个最小<LaTeX>代码例子，<LaTeX>源代码以一个<verbatim|\\documentclass{<text-dots>}>命令作为开头，Lamport的<LaTeX>框架简化了<TeX>的使用<cite|lamport1994document>，它规定了文档使用的文档类，紧接着我们可以调用<verbatim|<verbatim|>\\usepackage{<text-dots>}>导入宏包，然后我们使用<verbatim|\\begine{document}>和<verbatim|\\end{document}>来标记正文内容的开始位置和结束位置，最后将正文内容填写其中。
+  这是一个最小<LaTeX>代码例子，<LaTeX>源代码以一个<verbatim|\\documentclass{<text-dots>}>命令作为开头，它规定了文档使用的文档类，紧接着我们可以调用<verbatim|<verbatim|>\\usepackage{<text-dots>}>导入宏包，然后我们使用<verbatim|\\begine{document}>和<verbatim|\\end{document}>来标记正文内容的开始位置和结束位置，最后将正文内容填写其中。
 
   <verbatim|\\documentclass>和<verbatim|\\begine{document}>之间的位置称之为导言区，在这里除了可以使用<verbatim|\\usepackage>导入宏包之外，也可以对文档的全局宏定义和配置。当然也可以什么都不写。
 
@@ -281,7 +283,7 @@
 
   上述高度耦合的设计直接带来了多方面的负面影响。首先，静态分析工具难以介入。由于缺乏明确的语义边界，工具无法可靠地构建抽象语法树或结构模型，从而难以实现代码重构、语义检查或一致性验证等高级功能。
 
-  <LaTeX> 的编译结果强依赖指令的顺序，因此为了在特定位置插入或者执行自定义代码，<LaTeX> 引入了工程改良的解决方式，给用户提供了控制机制，用于允许用户或宏包作者在特定的执行时间点插入并执行自定义代码。这些机制并非基于显式的语义事件模型，而是依附于 <TeX> 的顺序执行流程，通过“截取执行时机”来协调不同宏包与文档结构之间的行为。从而实现延迟初始化、全局参数修补、辅助文件处理或版式调整等功能。在 <LaTeX> 核心系统中，常见的钩子指令主要包括以下四种：
+  <LaTeX> 的编译结果强依赖指令的顺序，因此为了在特定位置插入或者执行自定义代码，<LaTeX> 引入了工程改良的解决方式，给用户提供了控制机制，用于允许用户或宏包作者在特定的执行时间点插入并执行自定义代码。这些机制并非基于显式的语义事件模型，而是依附于 <TeX> 的顺序执行流程，通过“截取执行时机”来协调不同宏包与文档结构之间的行为。从而实现延迟初始化、全局参数修补、辅助文件处理或版式调整等功能。在 <LaTeX> 核心系统中，常见的相关指令主要包括以下四种：
 
   <big-table|<block|<tformat|<cwith|1|5|1|2|cell-hyphen|t>|<table|<row|<cell|指令>|<cell|说明>>|<row|<cell|<code*|\\AtBeginDocument>>|<cell|在文档主体开始处（<code*|\\begin{document}> 之后）执行指定代码>>|<row|<cell|<code*|\\AtEndDocument>>|<cell|在文档结束前（<code*|\\end{document}> 之前）执行指定代码>>|<row|<cell|<code*|\\AtEndOfPackage>>|<cell|在当前宏包加载完成时执行指定代码>>|<row|<cell|<code*|\\AtEndOfClass>>|<cell|在当前文档类加载完成时执行指定代码>>>>>|<LaTeX> 常见钩子指令及其说明>
 
@@ -425,14 +427,6 @@
 
   <TeX> 的批处理设计限制了周边工具的发展。实时预览在 <LaTeX> 编辑器中只能通过频繁触发后台编译模拟，存在明显延迟和版面不一致。例如在包含大量浮动体和公式的文档中，即便修改一个小段落，也可能导致分页重新计算，实时预览效果滞后；智能代码重构或语法补全在缺乏结构化文档树的情况下几乎无法实现；自动化工具大多依赖正则匹配，而非语法树分析，错误检查能力有限，容易漏报或误报。
 
-  这种结构性困境并非偶然，而是植根于 <LaTeX> 的批处理范式本身。<LaTeX> 技术领导 Frank Mittelbach 在一次访谈中坦承<cite|interview2021>：
-
-  <\quotation>
-    PN:“I try to look at this issue from the point of view of global and local, and interactivity is just like a... This is probably a change that happens very fast, and that you worried only about the local stuff, but the separation between local and global in LaTeX seems to be hard.”
-
-    FMi:“First of all, it is right now hard in TeX\<ldots\>”
-  </quotation>
-
   <subsection|对比：结构化与增量系统的设计范式>
 
   GNU <TeX>macs 等系统采用不同架构：文档在内存中保持结构化树表示，局部修改即可触发局部即时重绘，编辑阶段就进行结构合法性检查。例如，修改公式或浮动体只会重绘受影响区域，交叉引用与编号即时更新，用户始终面对可预测、可预览的文档状态。错误局限于局部模块，不会引发全局崩溃。
@@ -561,7 +555,7 @@
 
   <subsubsection|底层架构的制约>
 
-  尽管 Overleaf 在用户界面和工作流层面取得了显著进展，其底层仍完全依赖于传统的 LaTeX 编译机制<cite|overleaf_docs>，由此带来若干难以克服的限制：
+  尽管 Overleaf 在用户界面和工作流层面取得了显著进展，其底层仍完全依赖于传统的 LaTeX 编译机制，由此带来若干难以克服的限制：
 
   <\itemize>
     <item><strong|预览延迟问题>：所谓的“实时预览”本质上是周期性的远程编译与 PDF 回传，并非真正的即时渲染。当文档规模增大或包含复杂宏包（如 <verbatim|TikZ>、<verbatim|algorithm2e>）时，编译耗时显著增加，导致交互体验下降。
@@ -579,7 +573,7 @@
 
   <section|Mogan STEM：所见即所得的结构化编辑器>
 
-  去年开始，<TeXmacs>的中国社区维护者们基于<TeXmacs>开发了Mogan STEM<cite|moganstem2025>和商业版Liii STEM<cite|liiistem2025>，Mogan STEM和<TeXmacs>是当前世界上仅有的所见即所得的结构化编辑器，如<smart-ref|table:mogan-vs-other> 里对比了Mogan STEM和市面上的一些编辑器：
+  去年开始，<TeXmacs>的中国社区维护者们基于<TeXmacs>开发了Mogan STEM，Mogan STEM和<TeXmacs>是当前世界上仅有的所见即所得的结构化编辑器，如<smart-ref|table:mogan-vs-other> 里对比了Mogan STEM和市面上的一些编辑器：
 
   <big-table|<block|<tformat|<cwith|2|-1|2|-1|cell-halign|c>|<cwith|2|-1|2|-1|cell-background|<pattern|/Applications/MoganSTEM.app/Contents/Resources/share/moganlab/misc/patterns/vintage/ridged-brushed-medium.png||>>|<table|<row|<cell|编辑器>|<cell|所见即所得>|<cell|结构化>|<cell|支持Unicode>|<cell|<TeX>兼容>>|<row|<cell|Mogan STEM>|<cell|Yes>|<cell|Yes>|<cell|Yes>|<cell|部分>>|<row|<cell|<TeXmacs>>|<cell|Yes>|<cell|Yes>|<cell|部分>|<cell|部分>>|<row|<cell|<TeX>/<LaTeX>>|<cell|No>|<cell|Yes>|<cell|部分>|<cell|完全>>|<row|<cell|Word>|<cell|Yes>|<cell|No>|<cell|部分>|<cell|不兼容>>|<row|<cell|Lyx>|<cell|部分>|<cell|Yes>|<cell|部分>|<cell|完全>>|<row|<cell|Typst>|<cell|No>|<cell|Yes>|<cell|Yes>|<cell|部分>>>>>|<label|table:mogan-vs-other>Mogan STEM和同类编辑器的对比>
 
@@ -674,20 +668,10 @@
   可以概括地说，<TeX> Live 安装的是一个不断累积的历史包仓库，而 Mogan 安装的是一个可演化的文档系统；前者的复杂度前置于安装阶段，后者则由文档运行时动态触发。
 
   <\bibliography|bib|tm-plain|liii>
-    <\bib-list|7>
-      <bibitem*|1><label|bib-interview2021>Paulo<nbsp>Ney de<nbsp>Souza. <newblock>Interview with frank mittelbach, leader of the LaTeX project. <newblock><with|font-shape|italic|TUGboat (Provid)>, 42(2):114-120, 2021.<newblock>
+    <\bib-list|2>
+      <bibitem*|1><label|bib-liii_web>Liii Network. <newblock>What is liii stem? <newblock>10 2025. <newblock>Accessed: 2026-01-17.<newblock>
 
-      <bibitem*|2><label|bib-knuth1984texbook>Donald<nbsp>Ervin Knuth and Duane Bibby. <newblock><with|font-shape|italic|The texbook>, volume<nbsp>15. <newblock>Addison-Wesley Reading, 1984.<newblock>
-
-      <bibitem*|3><label|bib-lamport1994document>Leslie Lamport and A LaTex. <newblock>Document preparation system. <newblock>1994.<newblock>
-
-      <bibitem*|4><label|bib-liiistem2025>LiiiLabs. <newblock>What is liii stem? <newblock>mar 2025.<newblock>
-
-      <bibitem*|5><label|bib-moganstem2025>What is mogan stem. <newblock>mar 2025.<newblock>
-
-      <bibitem*|6><label|bib-overleaf_docs>Overleaf Team. <newblock>Overleaf documentation: learn latex. <newblock>2023.<newblock>
-
-      <bibitem*|7><label|bib-van_der_hoeven_gnu_2001>Joris Van Der Hoeven. <newblock>GNU TeXmacs, A free, structured, wysiwyg and technical text editor. <newblock><with|font-shape|italic|Cah. GUT>, (39-40):39-50, 2001.<newblock>
+      <bibitem*|2><label|bib-van_der_hoeven_gnu_2001>Joris Van Der Hoeven. <newblock>GNU TeXmacs, A free, structured, wysiwyg and technical text editor. <newblock><with|font-shape|italic|Cah. GUT>, (39-40):39-50, 2001.<newblock>
     </bib-list>
   </bibliography>
 </body>
@@ -708,7 +692,7 @@
     <associate|auto-12|<tuple|4|7>>
     <associate|auto-13|<tuple|3.3|8>>
     <associate|auto-14|<tuple|3.3.1|8>>
-    <associate|auto-15|<tuple|3.3.2|8>>
+    <associate|auto-15|<tuple|3.3.2|9>>
     <associate|auto-16|<tuple|3.4|9>>
     <associate|auto-17|<tuple|4|9>>
     <associate|auto-18|<tuple|4.1|9>>
@@ -742,13 +726,8 @@
     <associate|auto-7|<tuple|3.1.1|4>>
     <associate|auto-8|<tuple|3.1.2|5>>
     <associate|auto-9|<tuple|3|6>>
-    <associate|bib-interview2021|<tuple|1|16>>
-    <associate|bib-knuth1984texbook|<tuple|2|16>>
-    <associate|bib-lamport1994document|<tuple|3|16>>
-    <associate|bib-liiistem2025|<tuple|4|16>>
-    <associate|bib-moganstem2025|<tuple|5|16>>
-    <associate|bib-overleaf_docs|<tuple|6|16>>
-    <associate|bib-van_der_hoeven_gnu_2001|<tuple|7|16>>
+    <associate|bib-liii_web|<tuple|1|16>>
+    <associate|bib-van_der_hoeven_gnu_2001|<tuple|2|16>>
     <associate|eq:braket|<tuple|2|15>>
     <associate|eq:tree-struc|<tuple|1|14>>
     <associate|example:around-in-mogan|<tuple|1|14>>
@@ -766,19 +745,9 @@
 <\auxiliary>
   <\collection>
     <\associate|bib>
-      knuth1984texbook
-
       van_der_hoeven_gnu_2001
 
-      lamport1994document
-
-      interview2021
-
-      overleaf_docs
-
-      moganstem2025
-
-      liiistem2025
+      liii_web
     </associate>
     <\associate|figure>
       <tuple|normal|<\surround|<hidden-binding|<tuple|auto-19>|1>|>
@@ -865,7 +834,7 @@
 
       <with|par-left|<quote|1tab>|5.4<space|2spc>按需加载的插件使用方式<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-39>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-40><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Bibliography><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-40><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
