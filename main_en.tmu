@@ -70,7 +70,7 @@
 
     <with|par-left|1tab|5.4<space|2spc>按需加载的插件使用方式<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-39>>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|参考文献><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-40><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Bibliography><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-40><vspace|0.5fn>
   </table-of-contents>
 
   <section|<TeX> 的历史介绍>
@@ -81,7 +81,7 @@
 
   然而 <TeX> 当初的设计与其后续的开发方向导致了很多历史遗留的问题，这篇文章主要是介绍 <TeX> 的底层设计和为什么一些设计带来了严重的问题。
 
-  另一方面很长一段时间人们都认为所见即所得（WYSIWYG）和结构化编辑是不相容的，然而<TeXmacs>的出现证明了这是大错特错。为此，巴黎综合理工大学的Joris教授写了一篇评论，详见 Joris et al.<nbsp><cite|van_der_hoeven_gnu_2001|liii_web>。<LaTeX> 的设计哲学引领了一系列类似的编辑软件的设计，除了前文提到的<TeXmacs>，还有LyX，以及最近很火的Typst。
+  另一方面很长一段时间人们都认为所见即所得（WYSIWYG）和结构化编辑是不相容的，然而<TeXmacs>的出现证明了这是大错特错。为此，巴黎综合理工大学的Joris教授写了一篇评论，详见 Joris et al.<nbsp><cite|van_der_hoeven_gnu_2001|liiistem2025>。<LaTeX> 的设计哲学引领了一系列类似的编辑软件的设计，除了前文提到的<TeXmacs>，还有LyX，以及最近很火的Typst。
 
   其中Typst和<TeXmacs>的公式渲染完全独立于 <TeX> 系统，而LyX则可被看为TeX的一个前端。这篇文章有许多对 <TeX> 系统的批判，但是我们想让读者清楚我们对 <TeX> 系统的态度，我们绝不是否定 <TeX> 的历史地位，也绝不认为在当时那个时代 <TeX> 是落后的。我们只是认为在今天，尤其是在AI工具发展的越来越快的当今时期，<TeX> 的底层设计是有许多问题的。
 
@@ -669,7 +669,7 @@
 
   <\bibliography|bib|tm-plain|liii>
     <\bib-list|2>
-      <bibitem*|1><label|bib-liii_web>Liii Network. <newblock>What is liii stem? <newblock>10 2025. <newblock>Accessed: 2026-01-17.<newblock>
+      <bibitem*|1><label|bib-liiistem2025>Liii Network. <newblock>What is liii stem? <newblock>mar 2025.<newblock>
 
       <bibitem*|2><label|bib-van_der_hoeven_gnu_2001>Joris Van Der Hoeven. <newblock>GNU TeXmacs, A free, structured, wysiwyg and technical text editor. <newblock><with|font-shape|italic|Cah. GUT>, (39-40):39-50, 2001.<newblock>
     </bib-list>
@@ -726,7 +726,7 @@
     <associate|auto-7|<tuple|3.1.1|4>>
     <associate|auto-8|<tuple|3.1.2|5>>
     <associate|auto-9|<tuple|3|6>>
-    <associate|bib-liii_web|<tuple|1|16>>
+    <associate|bib-liiistem2025|<tuple|1|16>>
     <associate|bib-van_der_hoeven_gnu_2001|<tuple|2|16>>
     <associate|eq:braket|<tuple|2|15>>
     <associate|eq:tree-struc|<tuple|1|14>>
@@ -747,7 +747,7 @@
     <\associate|bib>
       van_der_hoeven_gnu_2001
 
-      liii_web
+      liiistem2025
     </associate>
     <\associate|figure>
       <tuple|normal|<\surround|<hidden-binding|<tuple|auto-19>|1>|>

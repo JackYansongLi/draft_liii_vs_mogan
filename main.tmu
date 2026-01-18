@@ -79,7 +79,7 @@
 
   然而 <TeX> 当初的设计与其后续的开发方向导致了很多历史遗留的问题，这篇文章主要是介绍 <TeX> 的底层设计和为什么一些设计带来了严重的问题。
 
-  另一方面很长一段时间人们都认为所见即所得（WYSIWYG）和结构化编辑是不相容的，然而<TeXmacs>的出现证明了这是大错特错。为此，巴黎综合理工大学的Joris教授写了一篇评论，详见 Joris et al.<nbsp><cite|van_der_hoeven_gnu_2001|liii_web>。<LaTeX> 的设计哲学引领了一系列类似的编辑软件的设计，除了前文提到的<TeXmacs>，还有LyX，以及最近很火的Typst。
+  另一方面很长一段时间人们都认为所见即所得（WYSIWYG）和结构化编辑是不相容的，然而<TeXmacs>的出现证明了这是大错特错。为此，巴黎综合理工大学的Joris教授写了一篇评论，详见 Joris et al.<nbsp><cite|van_der_hoeven_gnu_2001|liiistem2025>。<LaTeX> 的设计哲学引领了一系列类似的编辑软件的设计，除了前文提到的<TeXmacs>，还有LyX，以及最近很火的Typst。
 
   其中Typst和<TeXmacs>的公式渲染完全独立于 <TeX> 系统，而LyX则可被看为TeX的一个前端。这篇文章有许多对 <TeX> 系统的批判，但是我们想让读者清楚我们对 <TeX> 系统的态度，我们绝不是否定 <TeX> 的历史地位，也绝不认为在当时那个时代 <TeX> 是落后的。我们只是认为在今天，尤其是在AI工具发展的越来越快的当今时期，<TeX> 的底层设计是有许多问题的。
 
@@ -769,6 +769,8 @@
       knuth1984texbook
 
       van_der_hoeven_gnu_2001
+
+      liii_web
 
       lamport1994document
 
