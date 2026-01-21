@@ -16,59 +16,59 @@
   </author-affiliation>|<author-email|liuxr21@mails.tsinghua.edu.cn>>>>
 
   <\table-of-contents|toc>
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|1<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X 的历史介绍><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-1><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|1<space|2spc>A Brief History of TeX><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-1><vspace|0.5fn>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|2<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X 的编译原理简介><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-2><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|2<space|2spc>An Introduction to TeX Compilation Principles><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-2><vspace|0.5fn>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|3<space|2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X 在编译设计上的根本性缺陷><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-5><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|3<space|2spc>Fundamental Defects in T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X's Compilation Design><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-5><vspace|0.5fn>
 
-    <with|par-left|1tab|3.1<space|2spc>批处理模型的核心局限：单向性、弱语义与延迟反馈<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-6>>
+    <with|par-left|1tab|3.1<space|2spc>Core Limitations of the Batch Model: Unidirectionality, Weak Semantics, and Delayed Feedback<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-6>>
 
-    <with|par-left|2tab|3.1.1<space|2spc>单向与一次性的处理流程<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-7>>
+    <with|par-left|2tab|3.1.1<space|2spc>Unidirectional and One-off Processing Flow<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-7>>
 
-    <with|par-left|2tab|3.1.2<space|2spc>编译阶段与语义阶段的紧密耦合<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-8>>
+    <with|par-left|2tab|3.1.2<space|2spc>The Tight Coupling Between Compilation and Semantic Phases<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-8>>
 
-    <with|par-left|2tab|3.1.3<space|2spc>错误的滞后显现与模糊定位<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-10>>
+    <with|par-left|2tab|3.1.3<space|2spc>Lagged Manifestation and Ambiguous Localization of Errors<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-10>>
 
-    <with|par-left|1tab|3.2<space|2spc>统一语法之下的兼容性困境<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-11>>
+    <with|par-left|1tab|3.2<space|2spc>The Compatibility Dilemma Beneath a Unified Syntax<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-11>>
 
-    <with|par-left|1tab|3.3<space|2spc>补偿性机制与工具生态的异化<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-13>>
+    <with|par-left|1tab|3.3<space|2spc>Compensatory Mechanisms and the Alienation of the Tool Ecosystem<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-13>>
 
-    <with|par-left|2tab|3.3.1<space|2spc>多轮编译：一种脆弱的权宜之计<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-14>>
+    <with|par-left|2tab|3.3.1<space|2spc>Multi-pass Compilation: A Fragile Stopgap<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-14>>
 
-    <with|par-left|2tab|3.3.2<space|2spc>批处理模型对工具生态的长期压抑<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-15>>
+    <with|par-left|2tab|3.3.2<space|2spc>The Long-Term Suppression of the Tool Ecosystem by the Batch Model<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-15>>
 
-    <with|par-left|1tab|3.4<space|2spc>对比：结构化与增量系统的设计范式<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-16>>
+    <with|par-left|1tab|3.4<space|2spc>Comparison: Design Paradigms of Structured and Incremental Systems<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-16>>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|4<space|2spc>TeX 在使用体验设计上的局限性><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-17><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|4<space|2spc>Limitations of T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X in User Experience Design><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-17><vspace|0.5fn>
 
-    <with|par-left|1tab|4.1<space|2spc>发行版规模与部署模式的问题<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-18>>
+    <with|par-left|1tab|4.1<space|2spc>Issues with Distribution Scale and Deployment Models<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-18>>
 
-    <with|par-left|1tab|4.2<space|2spc>性能的现实困境<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-21>>
+    <with|par-left|1tab|4.2<space|2spc>The Real-World Performance Dilemma<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-21>>
 
-    <with|par-left|1tab|4.3<space|2spc>语言设计的内在矛盾：工程化的缺失<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-22>>
+    <with|par-left|1tab|4.3<space|2spc>Inherent Contradictions in Language Design: Absence of Engineering Standards<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-22>>
 
-    <with|par-left|1tab|4.4<space|2spc>实际用户视角下的体验障碍<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-24>>
+    <with|par-left|1tab|4.4<space|2spc><with|font-series|bold|User Experience Barriers from a Practical Perspective><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-24>>
 
-    <with|par-left|1tab|4.5<space|2spc>L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X3 的贡献和制约<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-25>>
+    <with|par-left|1tab|4.5<space|2spc>The Contributions and Constraints of L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X3<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-25>>
 
-    <with|par-left|1tab|4.6<space|2spc>现代协作平台的局限：审视 Overleaf 为例<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-26>>
+    <with|par-left|1tab|4.6<space|2spc>Limitations of Modern Collaboration Platforms: A Case Study of Overleaf<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-26>>
 
-    <with|par-left|2tab|4.6.1<space|2spc>Overleaf 的主要改进<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-27>>
+    <with|par-left|2tab|4.6.1<space|2spc>K<with|font-series|bold|ey Improvements by Overleaf><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-27>>
 
-    <with|par-left|2tab|4.6.2<space|2spc>底层架构的制约<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-28>>
+    <with|par-left|2tab|4.6.2<space|2spc>Constraints of the Underlying Architecture<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-28>>
 
-    <with|par-left|2tab|4.6.3<space|2spc>对技术演进路径的影响<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-29>>
+    <with|par-left|2tab|4.6.3<space|2spc>Impact on the Trajectory of Technological Evolution<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-29>>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|5<space|2spc>Mogan STEM：所见即所得的结构化编辑器><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-30><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|5<space|2spc>Mogan STEM：A WYSIWYG Structured Editor><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-30><vspace|0.5fn>
 
-    <with|par-left|1tab|5.1<space|2spc>树状的数学公式与树状的文档结构<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-32>>
+    <with|par-left|1tab|5.1<space|2spc>Tree-Structured Formulas and Document Structure<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-32>>
 
-    <with|par-left|1tab|5.2<space|2spc>函数式的符号表示<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-37>>
+    <with|par-left|1tab|5.2<space|2spc>Functional Symbol Representation<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-37>>
 
-    <with|par-left|1tab|5.3<space|2spc>参考文献的快速渲染<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-38>>
+    <with|par-left|1tab|5.3<space|2spc>Fast Reference Rendering<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-38>>
 
-    <with|par-left|1tab|5.4<space|2spc>按需加载的插件使用方式<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-39>>
+    <with|par-left|1tab|5.4<space|2spc>On-demand plugin loading<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-39>>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|Bibliography><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-40><vspace|0.5fn>
   </table-of-contents>
@@ -77,7 +77,7 @@
 
   Throughout the evolution of <TeX>, numerous derivatives have emerged, with <LaTeX> being the most prominent. Built as a macro language on top of <TeX>, <LaTeX> significantly simplifies its usage, allowing users to leverage <TeX>'s powerful typesetting capabilities without needing a deep understanding of intricate commands. By defining commands and templates that align with standard typesetting practices, <LaTeX> has made the production of scientific literature and books far more efficient and accessible, eventually becoming the de facto standard for scientific document preparation.
 
-  Thanks to its exceptional capabilities in typesetting mathematical formulas, the <TeX> system, especially <LaTeX> , has become the darling of the research community. The American Mathematical Society (AMS) strongly encourages mathematicians to submit manuscripts using <TeX>, and widespread adoption by world-class publishers such as Wesley and IEEE has made it a staple for books and journals. Consequently, <TeX> occupies a pivotal position in the production of academic papers and monographs, serving as a vital tool for scholarly communication and knowledge dissemination.
+  In the academic field, the TeX system and LaTeX in particular have become the darling of the scientific community thanks to its exceptional mathematical typesetting capabilities. The core design of TeX originates from the pioneering work of Donald Knuth <cite|knuth1984texbook>. The American Mathematical Society (AMS) strongly encourages mathematicians to submit manuscripts using <TeX>, and widespread adoption by world-class publishers such as Wesley and IEEE has made it a staple for books and journals. Consequently, <TeX> occupies a pivotal position in the production of academic papers and monographs, serving as a vital tool for scholarly communication and knowledge dissemination.
 
   However, TeX's original design and its subsequent development trajectory have resulted in numerous legacy issues. This article primarily examines the underlying architecture of TeX and explains why certain design choices have led to significant problems.
 
@@ -715,9 +715,9 @@
 
       <bibitem*|3><label|bib-lamport1994document>Leslie Lamport and A LaTex. <newblock>Document preparation system. <newblock>1994.<newblock>
 
-      <bibitem*|4><label|bib-liiistem2025>LiiiLabs. <newblock>What is liii stem? <newblock>mar 2025.<newblock>
+      <bibitem*|4><label|bib-moganstem2025>What is mogan stem. <newblock>mar 2025.<newblock>
 
-      <bibitem*|5><label|bib-moganstem2025>What is mogan stem. <newblock>mar 2025.<newblock>
+      <bibitem*|5><label|bib-liiistem2025>Liii Network. <newblock>What is liii stem? <newblock>mar 2025.<newblock>
 
       <bibitem*|6><label|bib-overleaf_docs>Overleaf Team. <newblock>Overleaf documentation: learn latex. <newblock>2023.<newblock>
 
@@ -776,12 +776,12 @@
     <associate|auto-7|<tuple|3.1.1|4>>
     <associate|auto-8|<tuple|3.1.2|6>>
     <associate|auto-9|<tuple|3|7>>
-    <associate|bib-interview2021|<tuple|1|?>>
-    <associate|bib-knuth1984texbook|<tuple|2|?>>
-    <associate|bib-lamport1994document|<tuple|3|?>>
-    <associate|bib-liiistem2025|<tuple|4|19>>
-    <associate|bib-moganstem2025|<tuple|5|?>>
-    <associate|bib-overleaf_docs|<tuple|6|?>>
+    <associate|bib-interview2021|<tuple|1|19>>
+    <associate|bib-knuth1984texbook|<tuple|2|19>>
+    <associate|bib-lamport1994document|<tuple|3|19>>
+    <associate|bib-liiistem2025|<tuple|5|19>>
+    <associate|bib-moganstem2025|<tuple|4|19>>
+    <associate|bib-overleaf_docs|<tuple|6|19>>
     <associate|bib-van_der_hoeven_gnu_2001|<tuple|7|19>>
     <associate|eq:braket|<tuple|2|18>>
     <associate|eq:tree-struc|<tuple|1|17>>
@@ -800,9 +800,21 @@
 <\auxiliary>
   <\collection>
     <\associate|bib>
+      knuth1984texbook
+
       van_der_hoeven_gnu_2001
 
-      liii_web
+      liiistem2025
+
+      lamport1994document
+
+      interview2021
+
+      overleaf_docs
+
+      moganstem2025
+
+      liiistem2025
     </associate>
     <\associate|figure>
       <tuple|normal|<\surround|<hidden-binding|<tuple|auto-19>|1>|>
