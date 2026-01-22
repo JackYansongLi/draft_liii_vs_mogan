@@ -1,4 +1,4 @@
-<TMU|<tuple|1.1.0|2025.2.3>>
+<TMU|<tuple|1.1.0|2026.1.1>>
 
 <style|<tuple|generic|number-europe|preview-ref|smart-ref|comment|doc-tmu|goldfish>>
 
@@ -7,7 +7,7 @@
     <assign|susmail|<macro|mail.sustech.edu.cn>>
   </hide-preamble>
 
-  <doc-data|<doc-title|<LaTeX> Compilation: Principles and Challenges>|<doc-author|<author-data|<author-name|Ziqiang Li>|<\author-affiliation>
+  <doc-data|<doc-title|<LaTeX> Compilation: Challenges in the Era of AI>|<doc-author|<author-data|<author-name|Ziqiang Li>|<\author-affiliation>
     Alibaba
   </author-affiliation>|<author-email|liziqiang.lzq@alibaba-inc.com>>>|<doc-author|<author-data|<author-name|Yansong Li>|<author-email|yansong@liii.pro>|<\author-affiliation>
     Liii Network
@@ -22,15 +22,15 @@
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|3<space|2spc>Fundamental Defects in T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X's Compilation Design><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-5><vspace|0.5fn>
 
-    <with|par-left|1tab|3.1<space|2spc>Core Limitations of the Batch Model: Unidirectionality, Weak Semantics, and Delayed Feedback<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-6>>
+    <with|par-left|1tab|3.1<space|2spc>Batch Model Limitations: Unidirectionality, Weak Semantics, and Delayed Feedback<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-6>>
 
     <with|par-left|2tab|3.1.1<space|2spc>Unidirectional and One-off Processing Flow<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-7>>
 
-    <with|par-left|2tab|3.1.2<space|2spc>The Tight Coupling Between Compilation and Semantic Phases<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-8>>
+    <with|par-left|2tab|3.1.2<space|2spc>Tight Coupling Between Compilation and Semantic Phases<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-8>>
 
     <with|par-left|2tab|3.1.3<space|2spc>Lagged Manifestation and Ambiguous Localization of Errors<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-10>>
 
-    <with|par-left|1tab|3.2<space|2spc>The Compatibility Dilemma Beneath a Unified Syntax<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-11>>
+    <with|par-left|1tab|3.2<space|2spc>Compatibility Dilemma Beneath a Unified Syntax<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-11>>
 
     <with|par-left|1tab|3.3<space|2spc>Compensatory Mechanisms and the Alienation of the Tool Ecosystem<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-13>>
 
@@ -75,37 +75,41 @@
 
   <section|A Brief History of <TeX>>
 
-  Throughout the evolution of <TeX>, numerous derivatives have emerged, with <LaTeX> being the most prominent. Built as a macro language on top of <TeX>, <LaTeX> significantly simplifies its usage, allowing users to leverage <TeX>'s powerful typesetting capabilities without needing a deep understanding of intricate commands. By defining commands and templates that align with standard typesetting practices, <LaTeX> has made the production of scientific literature and books far more efficient and accessible, eventually becoming the de facto standard for scientific document preparation.
+  Numerous derivatives of <TeX> have been emerged in past decades, with <LaTeX> being the most prominent. Built as a macro language on top of <TeX>, <LaTeX> significantly simplifies its usage, allowing users to leverage <TeX>'s powerful typesetting capabilities without needing a deep understanding of intricate commands. By defining commands and templates that align with standard typesetting practices, <LaTeX> has made the production of scientific literature and books far more efficient and accessible, eventually becoming the de facto standard for scientific document preparation.
 
-  In the academic field, the <TeX> system and <LaTeX> in particular have become the darling of the scientific community thanks to its exceptional mathematical typesetting capabilities. The core design of <TeX> originates from the pioneering work of Donald Knuth <cite|knuth1984texbook>. The American Mathematical Society (AMS) strongly encourages mathematicians to submit manuscripts using <TeX>, and widespread adoption by world-class publishers such as Wesley and IEEE has made it a staple for books and journals. Consequently, <TeX> occupies a pivotal position in the production of academic papers and monographs, serving as a vital tool for scholarly communication and knowledge dissemination.
+  In the academic field, the <TeX> system and <LaTeX> in particular have become the standard of the scientific community thanks to its exceptional mathematical typesetting capabilities. The core design of <TeX> originates from the pioneering work of Donald Knuth<nbsp><cite|knuth1984texbook>. The American Mathematical Society (AMS) strongly encourages mathematicians to submit manuscripts using <TeX>, and widespread adoption by world-class publishers such as Wesley and IEEE has made it a staple for books and journals. Consequently, <TeX> occupies a pivotal position in the production of academic papers and monographs, serving as a vital tool for scholarly communication and knowledge dissemination.
 
   However, <TeX>'s original design and its subsequent development trajectory have resulted in numerous legacy issues. This article primarily examines the underlying architecture of <TeX> and explains why certain design choices have led to significant problems.
 
   On another note, it was long believed that "What You See Is What You Get" (WYSIWYG) was incompatible with structured editing. The emergence of <TeX>macs, however, proved this assumption fundamentally incorrect. Professor Joris from École Polytechnique wrote a critique on this subject (see Joris et al.<nbsp><cite|van_der_hoeven_gnu_2001|liiistem2025>). The design philosophy of <LaTeX> has inspired a series of similar editing software; beyond the aforementioned <TeX>macs, these include LyX and the recently popular Typst.
 
-  Notably, the formula rendering in Typst and <TeX>macs is completely independent of the <TeX> system, whereas LyX serves as a front-end for <TeX>. While this article contains significant criticism of the <TeX> system, we wish to clarify our stance: we are by no means denying <TeX>'s historical status, nor do we suggest it was outdated for its time. We simply argue that today—especially in an era of rapidly advancing Ai tools—<TeX>'s underlying design presents many issues.
+  Notably, the formula rendering in Typst and <TeX>macs is completely independent of the <TeX> system, whereas LyX serves as a front-end for <TeX>. While this article contains significant criticism of the <TeX> system, we wish to clarify our stance: we are by no means denying <TeX>'s historical status, nor do we suggest it was outdated for its time. We simply argue that today—especially in an era of rapidly advancing AI tools—<TeX>'s underlying design presents many issues.
 
   <section|An Introduction to <TeX> Compilation Principles>
 
-  <\listing>
-    \\documentclass{article}
+  <\example>
+    <label|example:mimimal-latex-code><dueto|Minimal example of <LaTeX> code>
 
-    \\usepackage{siunitx}
+    <\listing>
+      \\documentclass{article}
 
-    \\begin{document}
+      \\usepackage{siunitx}
 
-    Hello, World! from \\LaTeX.
+      \\begin{document}
 
-    The speed of light is \\SI{299792458}{\\meter\\per\\second}.
+      Hello, World! from \\LaTeX.
 
-    \\end{document}
-  </listing>
+      The speed of light is \\SI{299792458}{\\meter\\per\\second}.
 
-  This is a minimal example of <LaTeX> code. The source code begins with the <code*|\\documentclass{...}> command. Lamport's <LaTeX> framework simplifies the use of <TeX> <cite|lamport1994document> by defining the document class used for the file. Immediately following this, we can use <code*|\\usepackage{...}> to import packages. We then use <code*|\\begin{document}> and <code*|\\end{document}> to mark the start and end of the body content, placing the text between them.
+      \\end{document}
+    </listing>
+  </example>
 
-  The area between <code*|\\documentclass> and <code*|\\begin{document}> is called the preamble. In addition to importing packages via <code*|\\usepackage>, this area is used for global macro definitions and document configuration. It can also be left empty.
+  <smart-ref|example:mimimal-latex-code> shows a minimal example of <LaTeX> code. The source code begins with the <code*|\\documentclass{...}> command. Lamport's <LaTeX> framework simplifies the use of <TeX><nbsp><cite|lamport1994document> by defining the document class used for the file. Immediately following this, we can use <code*|\\usepackage{...}> to import packages. We then use <code*|\\begin{document}> and <code*|\\end{document}> to mark the start and end of the body content, placing the text between them.
 
-  Finally, we can compile the code. Running <code*|pdflatex example.tex> will generate the <code*|example.pdf> file. Simultaneously, several auxiliary files are generated in the same directory. For instance, the <code*|.aux> file saves intermediate information such as cross-references, tables of contents, and numbering; consequently, documents often require multiple compilations to yield correct results. The <code*|.log> file records the complete compilation process and is the primary resource for locating warnings and errors. The <code*|.dvi> file stands for DeVice Independent file, an intermediate format unrelated to the specific output device.
+  The area between <code*|\\documentclass> and <code*|\\begin{document}> is called the <with|font-shape|italic|preamble>. In addition to importing packages via <code*|\\usepackage>, <with|font-shape|italic|preamble> is used for global macro definitions and document configurationm, which can also be left empty.
+
+  Finally, we can compile the code. Running <code*|pdflatex example.tex> generates the <code*|example.pdf> file. Simultaneously, several auxiliary files are generated in the same directory. For instance, the <code*|.aux> file saves intermediate information such as cross-references, tables of contents, and numbering; consequently, documents often require multiple compilations to yield correct results. The <code*|.log> file records the complete compilation process and is the primary resource for locating warnings and errors. The <code*|.dvi> file stands for <with|font-shape|italic|DeVice Independent file>, an intermediate format unrelated to the specific output device.
 
   Beyond the <code*|.tex> source files we write, every package and document class consists of files with specific extensions. The following files also frequently appear in <LaTeX> templates:
 
@@ -137,7 +141,7 @@
     \\end{document}
   </listing>
 
-  When compiling this code with <code*|pdflatex> for the first time, <LaTeX> cannot yet determine section numbers or the content of the table of contents (TOC). It can only record this information into auxiliary files during the typesetting process: section titles are written to the <code*|.toc> file, and numbering information for <code*|\\label{sec:intro}> is written to the <code*|.aux> file. Meanwhile, the <code*|\\ref{sec:intro}> in the body text is temporarily output as a placeholder. Consequently, the PDF generated from the first pass has an empty TOC, and cross-references appear as "??".
+  When compiling this code with <verbatim|pdflatex> for the first time, <LaTeX> cannot yet determine section numbers or the content of the table of contents (TOC). It can only record this information into auxiliary files during the typesetting process: section titles are written to the <code*|.toc> file, and numbering information for <code*|\\label{sec:intro}> is written to the <code*|.aux> file. Meanwhile, the <code*|\\ref{sec:intro}> in the body text is temporarily output as a placeholder. Consequently, the PDF generated from the first pass has an empty TOC, and cross-references appear as "??".
 
   During the second pass, <LaTeX> reads the <code*|.aux> and <code*|.toc> files generated previously, obtaining complete numbering and directory information to typeset them correctly into the document. Thus, the cross-references appear correctly, and the TOC is populated. This demonstrates that the <LaTeX> typesetting process is essentially an iterative workflow that relies on intermediate results to converge. Any feature involving global information or forward/backward dependencies almost inevitably requires multiple compilation passes to produce the final correct output.
 
@@ -155,9 +159,9 @@
 
   <section|Fundamental Defects in <TeX>'s Compilation Design>
 
-  The batch processing compilation model adopted by the <TeX> system was rational within the computing environment of its inception in the 1970s and 80s. However, in the context of contemporary academic writing, which emphasizes interactivity, instant feedback, and multi-platform publishing, this model exposes profound systemic tension. Its core issues lie in its one-off processing flow, weak semantic representation, and delayed error feedback mechanisms. These problems not only directly impair user experience but fundamentally constrain the evolution of the tool ecosystem.
+  The batch processing compilation model adopted by the <TeX> system was rational within the computing environment of its inception in the 1970s and 80s. However, in the context of contemporary academic writing, which emphasizes interactivity, instant feedback, and multi-platform publishing, this model exposes profound systemic tension. Its core issues lie in its <with|font-shape|italic|one-off processing flow>, <with|font-shape|italic|weak semantic representation>, and <with|font-shape|italic|delayed error feedback mechanisms>. These problems not only directly impair user experience but fundamentally constrain the evolution of the tool ecosystem.
 
-  <subsection|Core Limitations of the Batch Model: Unidirectionality, Weak Semantics, and Delayed Feedback>
+  <subsection|Batch Model Limitations: Unidirectionality, Weak Semantics, and Delayed Feedback>
 
   <TeX>'s compilation architecture is rooted in the batch processing paradigm. While capable of efficiently handling static documents, it struggles to adapt to the dynamic, iterative needs of modern writing.
 
@@ -195,13 +199,11 @@
     \;
 
     \\end{document}
-
-    \;
   </listing>
 
   When we compile this code with <with|font-family|tt|xelatex> for the first time, <with|font-family|tt|\\ref{eq:test}> displays as <with|font-family|tt|??>. This occurs because the equation's numbering information has not yet been generated; <TeX> cannot know the correct reference number during the current compilation pass. Only after the first pass concludes and the numbering information is written to the <with|font-family|tt|.aux> file can <TeX> read this information during the second compilation, allowing <with|font-family|tt|\\ref{eq:test}> to display the correct number.\ 
 
-  This demonstrates that <TeX>'s typesetting decisions are global and latent: the typesetting engine cannot accurately infer cross-references or numbering within the document before the first compilation finishes. Multiple passes are strictly required to obtain the final result.
+  The need of multiple pass demonstrates that <TeX>'s typesetting decisions are global and latent: the typesetting engine cannot accurately infer cross-references or numbering within the document before the first compilation finishes. Multiple passes are strictly required to obtain the final result.
 
   <with|font-series|bold|Inability to Implement Incremental Updates:> Local modifications cannot trigger local, efficient re-computation; the entire compilation process must be repeated. Even if only a single local element in the document is modified, <TeX> must re-execute the entire input stream from the beginning, re-expanding macros, re-paginating, and re-calculating all layouts.
 
@@ -261,7 +263,7 @@
 
   This characteristic stands in sharp contrast to the incremental update and continuous feedback mechanisms prevalent in modern editors, significantly constraining user iteration efficiency.
 
-  <subsubsection|The Tight Coupling Between Compilation and Semantic Phases>
+  <subsubsection|Tight Coupling Between Compilation and Semantic Phases>
 
   In the <TeX> system, syntax parsing, macro expansion, semantic interpretation, and typesetting decisions do not form a clear stratified structure; instead, they are deeply coupled within a single execution path. Macro expansion assumes the role of "semantic modeling" while simultaneously triggering specific typesetting behaviors, thereby conflating abstract structure with layout details. While this design offered high flexibility in the early days, it has exposed serious deficiencies in the context of modern document engineering.
 
@@ -359,7 +361,7 @@
     Mogan STEM effectively mitigates this issue at the system level. By introducing implicit <code*|around> tags and explicit structural wrapping, the editor maintains a verifiable structural state during the input phase, preventing error propagation. See <smart-ref|example:around-in-mogan> for details.
   </remark>
 
-  <subsection|The Compatibility Dilemma Beneath a Unified Syntax>
+  <subsection|Compatibility Dilemma Beneath a Unified Syntax>
 
   To address varying requirements (such as modern fonts and Unicode support), the <LaTeX> ecosystem has evolved multiple parallel compilation engines, such as <verbatim|pdfLaTeX>、<verbatim|XeLaTeX> and <verbatim|LuaLaTeX>. This differentiation, rather than being a strength, is a manifestation of system design fragmentation.
 
@@ -430,7 +432,7 @@
   <with|font-series|bold|Increased Cognitive Load:> These factors compel users to learn not just <LaTeX> syntax, but also how to select and configure the appropriate compilation engine to achieve their desired document output.
 
   <\subsection>
-    Compensatory Mechanisms and the Alienation of the Tool Ecosystem
+    Alienation of the Tool Ecosystem
   </subsection>
 
   To compensate for the aforementioned core design deficiencies, the <LaTeX> ecosystem has spawned a series of complex compensatory mechanisms, which have in turn introduced new problems.
@@ -453,7 +455,7 @@
 
   \;
 
-  <subsubsection|The Long-Term Suppression of the Tool Ecosystem by the Batch Model>
+  <subsubsection|Long-Term Suppression of the Tool Ecosystem>
 
   The batch processing design of <TeX> has stifled the development of peripheral tools. Real-time preview in <LaTeX> editors is merely a simulation achieved by frequently triggering background compilations, which suffers from significant latency and layout inconsistencies. For example, in documents containing numerous floating objects and formulas, even modifying a small paragraph can trigger a global re-calculation of pagination, causing the preview to lag. Furthermore, features like intelligent code refactoring or syntax completion are virtually impossible to implement effectively without a structured document tree. Most automation tools rely on regular expression matching rather than syntax tree analysis, leading to limited error-checking capabilities and a high propensity for false positives or missed errors.
 
@@ -505,7 +507,7 @@
 
   For users, this cross-platform inconsistency undermines system comprehensibility and predictability. The same project may yield vastly different compilation experiences on a personal computer, a lab server, or a cloud environment, making 'performance issues' difficult to reproduce, isolate, or optimize. In collaborative scenarios, this variance amplifies into actual collaboration friction, effectively influencing workflow rhythm and tool selection.Furthermore, <LaTeX>'s reliance on a multi-stage compilation workflow exacerbates runtime performance costs. Functions such as bibliography management, indexing, and cross-referencing are typically offloaded to multiple external tools, requiring users to run multiple compilation rounds to achieve stable output. This design choice is not driven by performance optimization, but by the language's inherent inability to express complex dependencies within a single compilation pass. Consequently, the overhead of repeated disk I/O, redundant scanning, and process startup is systematically offloaded onto the user.
 
-  <subsection|Inherent Contradictions in Language Design: Absence of Engineering Standards>
+  <subsection|Intrinsic Weekness: Absence of Engineering Standards>
 
   <LaTeXe> \ is fundamentally a collection of macros built upon the <TeX> macro expansion mechanism. Its abstraction capabilities rely primarily on untyped text substitution and grouping scopes, rather than explicit language-level structures. Although the community has actively advanced the <LaTeX>3 project in recent years to ameliorate this situation, the project has not been released as a standalone version. Instead, it has adopted a strategy of progressive evolution, gradually integrating into the existing <LaTeXe> kernel. Currently, the <verbatim|expl3> programming layer provided by <LaTeX>3 serves as the foundation for numerous large-scale packages. Consequently, users often utilize its mechanisms indirectly and unconsciously in their daily workflows. The impact of this shift is primarily reflected in improved interface consistency, maintainability, and engineering capabilities, accompanied by a degree of performance enhancement.
 
@@ -551,7 +553,7 @@
 
   In summary, <LaTeXe> can be viewed as a macro language with a severe deficit in engineering rigor. Its system stability, maintainability, and user experience depend heavily on informal conventions and user experience, rather than structural guarantees provided by the language design itself. This deficiency not only increases the complexity of extension and debugging but also establishes an unavoidable historical burden that constrains future systemic evolution.
 
-  <subsection|<with|font-series|bold|User Experience Barriers from a Practical Perspective>>
+  <subsection|User Experience Barriers from a Practical Perspective>
 
   The structural contradictions in language design discussed above do not remain abstract concepts. Instead, they directly translate into tangible user experience barriers repeatedly encountered during document composition, package combination, and troubleshooting. These issues do not stem from isolated implementation defects or inadequate documentation, but are intrinsic to the macro expansion mechanism and engineering constraints upon which <LaTeXe> relies.
 
@@ -576,7 +578,7 @@
   In response to <LaTeX>'s structural deficiencies regarding collaboration support and usability, the academic community has advanced a series of improvement measures. Among these, online collaboration platforms, represented by <with|font-series|bold|Overleaf>, have emerged as the most influential solution in recent years. By providing an integrated cloud-based environment, Overleaf has significantly improved the onboarding experience and multi-user collaboration workflows for <LaTeX>. However, viewed from the perspective of system architecture, Overleaf's design does not address the fundamental issues of <LaTeX>'s core model. Its role is closer to the encapsulation and optimization of existing workflows rather than a revolution of the underlying paradigm.
 
   <\subsubsection>
-    K<with|font-series|bold|ey Improvements by Overleaf>
+    Key Improvements by Overleaf
   </subsubsection>
 
   Overleaf has effectively mitigated several obstacles inherent in traditional <LaTeX> usage through the following mechanisms:
@@ -681,7 +683,7 @@
 
   This corresponds to the tree structure shown in <smart-ref|figure:multiline-mogan>. As the figure demonstrates, in Mogan, each line of content and every image block maps to an independent leaf node within the tree. Consequently, modifying an image (e.g., resizing or replacing it) triggers a re-render of only that specific leaf node, without disrupting the layout of surrounding lines. This design effectively resolves the issue common in unstructured editors like Word, where local modifications often lead to global layout chaos.
 
-  <big-figure|<tree|<verbatim|document>|“First line”|<tree|<verbatim|figure>|image>|“Second line”>|<label|figure:multiline-mogan>Mogan's multi-line data structure>
+  <big-figure|<tree|<verbatim|document>|“第一行”|<tree|<verbatim|figure>|image>|“第二行”>|<label|figure:multiline-mogan>Mogan's multi-line data structure. 第一行 represents “line 1” and 第二行 represents “line 2”.>
 
   <subsection|Functional Symbol Representation>
 
@@ -783,7 +785,8 @@
     <associate|bib-van_der_hoeven_gnu_2001|<tuple|7|20>>
     <associate|eq:braket|<tuple|2|19>>
     <associate|eq:tree-struc|<tuple|1|18>>
-    <associate|example:around-in-mogan|<tuple|1|18>>
+    <associate|example:around-in-mogan|<tuple|2|18>>
+    <associate|example:mimimal-latex-code|<tuple|1|2>>
     <associate|figure:double-line|<tuple|4|19>>
     <associate|figure:frac-tree|<tuple|3|18>>
     <associate|figure:multiline-mogan|<tuple|5|19>>
@@ -829,7 +832,7 @@
 
       <tuple|normal|<surround|<hidden-binding|<tuple|auto-35>|4>||Image insertion between lines>|<pageref|auto-35>>
 
-      <tuple|normal|<surround|<hidden-binding|<tuple|auto-36>|5>||Mogan's multi-line data structure>|<pageref|auto-36>>
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-36>|5>||Mogan's multi-line data structure. 第一行 represents “line 1” and 第二行 represents “line 2”>|<pageref|auto-36>>
     </associate>
     <\associate|table>
       <tuple|normal|<surround|<hidden-binding|<tuple|auto-3>|1>||L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X file extensions and their descriptions>|<pageref|auto-3>>
@@ -851,15 +854,15 @@
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|3<space|2spc>Fundamental Defects in T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X's Compilation Design><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-5><vspace|0.5fn>
 
-      <with|par-left|<quote|1tab>|3.1<space|2spc>Core Limitations of the Batch Model: Unidirectionality, Weak Semantics, and Delayed Feedback<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-6>>
+      <with|par-left|<quote|1tab>|3.1<space|2spc>Batch Model Limitations: Unidirectionality, Weak Semantics, and Delayed Feedback<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-6>>
 
       <with|par-left|<quote|2tab>|3.1.1<space|2spc>Unidirectional and One-off Processing Flow<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-7>>
 
-      <with|par-left|<quote|2tab>|3.1.2<space|2spc>The Tight Coupling Between Compilation and Semantic Phases<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-8>>
+      <with|par-left|<quote|2tab>|3.1.2<space|2spc>Tight Coupling Between Compilation and Semantic Phases<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-8>>
 
       <with|par-left|<quote|2tab>|3.1.3<space|2spc>Lagged Manifestation and Ambiguous Localization of Errors<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-10>>
 
-      <with|par-left|<quote|1tab>|3.2<space|2spc>The Compatibility Dilemma Beneath a Unified Syntax<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-11>>
+      <with|par-left|<quote|1tab>|3.2<space|2spc>Compatibility Dilemma Beneath a Unified Syntax<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-11>>
 
       <with|par-left|<quote|1tab>|3.3<space|2spc>Compensatory Mechanisms and the Alienation of the Tool Ecosystem<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-13>>
 
