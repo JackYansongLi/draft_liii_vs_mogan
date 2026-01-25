@@ -1,4 +1,4 @@
-<TMU|<tuple|1.1.0|2026.1.1>>
+<TMU|<tuple|1.1.0|2026.1.2>>
 
 <style|<tuple|generic|number-europe|preview-ref|smart-ref|comment|doc-tmu|goldfish>>
 
@@ -7,7 +7,9 @@
     <assign|susmail|<macro|mail.sustech.edu.cn>>
   </hide-preamble>
 
-  <doc-data|<doc-title|<LaTeX> Compilation: Challenges in the Era of AI>|<doc-author|<author-data|<author-name|Ziqiang Li>|<\author-affiliation>
+  <doc-data|<doc-title|<LaTeX> Compilation: Challenges in the Era of LLMs>|<doc-author|<author-data|<author-name|Tianyou Liu<math|<rprime|\<dag\>>>>|<author-email|12511307@<susmail>>|<\author-affiliation>
+    Southern University of Science and Technology
+  </author-affiliation>>>|<doc-author|<author-data|<author-name|Ziqiang Li<math|<rprime|\<dag\>>>>|<\author-affiliation>
     Alibaba
   </author-affiliation>|<author-email|liziqiang.lzq@alibaba-inc.com>>>|<doc-author|<author-data|<author-name|Yansong Li>|<author-email|yansong@liii.pro>|<\author-affiliation>
     Liii Network
@@ -705,7 +707,21 @@
 
   In summary, <TeX> Live installs an ever-accumulating repository of historical packages, whereas Mogan installs an evolvable document system. The complexity of the former is front-loaded to the installation phase, while the latter is dynamically triggered by the document at runtime.
 
-  \;
+  <section|Numerical experiments>
+
+  <\itemize>
+    <item>Big document/paper rendering.
+
+    <item>XML/LaTeX AI generation correction rate. (without fine-tuning, 补全含大量自定义macro的一个文档)
+
+    <\itemize>
+      <item>LaTeX连定理都需要自己定义，因此每个人用的macro的tag都不一样，theorem, thm, tm<text-dots>
+    </itemize>
+
+    <item>宏冲突，amsmath, acmmath
+
+    <item>Debug
+  </itemize>
 
   <\bibliography|bib|tm-plain|liii>
     <\bib-list|7>
@@ -752,25 +768,26 @@
     <associate|auto-21|<tuple|4.2|13>>
     <associate|auto-22|<tuple|4.3|14>>
     <associate|auto-23|<tuple|5|14>>
-    <associate|auto-24|<tuple|4.4|15>>
+    <associate|auto-24|<tuple|4.4|14>>
     <associate|auto-25|<tuple|4.5|15>>
     <associate|auto-26|<tuple|4.6|16>>
     <associate|auto-27|<tuple|4.6.1|16>>
     <associate|auto-28|<tuple|4.6.2|16>>
-    <associate|auto-29|<tuple|4.6.3|17>>
+    <associate|auto-29|<tuple|4.6.3|16>>
     <associate|auto-3|<tuple|1|3>>
     <associate|auto-30|<tuple|5|17>>
     <associate|auto-31|<tuple|6|17>>
     <associate|auto-32|<tuple|5.1|17>>
-    <associate|auto-33|<tuple|3|18>>
+    <associate|auto-33|<tuple|3|17>>
     <associate|auto-34|<tuple|1|18>>
-    <associate|auto-35|<tuple|4|19>>
+    <associate|auto-35|<tuple|4|18>>
     <associate|auto-36|<tuple|5|19>>
     <associate|auto-37|<tuple|5.2|19>>
     <associate|auto-38|<tuple|5.3|19>>
-    <associate|auto-39|<tuple|5.4|20>>
+    <associate|auto-39|<tuple|5.4|19>>
     <associate|auto-4|<tuple|2|3>>
-    <associate|auto-40|<tuple|5.4|20>>
+    <associate|auto-40|<tuple|6|20>>
+    <associate|auto-41|<tuple|<with|mode|<quote|math>|\<bullet\>>|20>>
     <associate|auto-5|<tuple|3|4>>
     <associate|auto-6|<tuple|3.1|4>>
     <associate|auto-7|<tuple|3.1.1|4>>
@@ -784,14 +801,14 @@
     <associate|bib-overleaf_docs|<tuple|6|20>>
     <associate|bib-van_der_hoeven_gnu_2001|<tuple|7|20>>
     <associate|eq:braket|<tuple|2|19>>
-    <associate|eq:tree-struc|<tuple|1|18>>
-    <associate|example:around-in-mogan|<tuple|2|18>>
+    <associate|eq:tree-struc|<tuple|1|17>>
+    <associate|example:around-in-mogan|<tuple|2|17>>
     <associate|example:mimimal-latex-code|<tuple|1|2>>
-    <associate|figure:double-line|<tuple|4|19>>
-    <associate|figure:frac-tree|<tuple|3|18>>
+    <associate|figure:double-line|<tuple|4|18>>
+    <associate|figure:frac-tree|<tuple|3|17>>
     <associate|figure:multiline-mogan|<tuple|5|19>>
-    <associate|footnote-1|<tuple|1|18>>
-    <associate|footnr-1|<tuple|1|18>>
+    <associate|footnote-1|<tuple|1|17>>
+    <associate|footnr-1|<tuple|1|17>>
     <associate|img:texlive-install|<tuple|2|13>>
     <associate|table:mogan-vs-other|<tuple|6|17>>
     <associate|texlive-size|<tuple|1|12>>
@@ -832,7 +849,7 @@
 
       <tuple|normal|<surround|<hidden-binding|<tuple|auto-35>|4>||Image insertion between lines>|<pageref|auto-35>>
 
-      <tuple|normal|<surround|<hidden-binding|<tuple|auto-36>|5>||Mogan's multi-line data structure. 第一行 represents “line 1” and 第二行 represents “line 2”>|<pageref|auto-36>>
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-36>|5>||Mogan's multi-line data structure. 第一行 represents “line 1” and 第二行 represents “line 2”.>|<pageref|auto-36>>
     </associate>
     <\associate|table>
       <tuple|normal|<surround|<hidden-binding|<tuple|auto-3>|1>||L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X file extensions and their descriptions>|<pageref|auto-3>>
@@ -864,11 +881,11 @@
 
       <with|par-left|<quote|1tab>|3.2<space|2spc>Compatibility Dilemma Beneath a Unified Syntax<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-11>>
 
-      <with|par-left|<quote|1tab>|3.3<space|2spc>Compensatory Mechanisms and the Alienation of the Tool Ecosystem<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-13>>
+      <with|par-left|<quote|1tab>|3.3<space|2spc>Alienation of the Tool Ecosystem<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-13>>
 
       <with|par-left|<quote|2tab>|3.3.1<space|2spc>Multi-pass Compilation: A Fragile Stopgap<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-14>>
 
-      <with|par-left|<quote|2tab>|3.3.2<space|2spc>The Long-Term Suppression of the Tool Ecosystem by the Batch Model<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-15>>
+      <with|par-left|<quote|2tab>|3.3.2<space|2spc>Long-Term Suppression of the Tool Ecosystem<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-15>>
 
       <with|par-left|<quote|1tab>|3.4<space|2spc>Comparison: Design Paradigms of Structured and Incremental Systems<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-16>>
 
@@ -878,15 +895,15 @@
 
       <with|par-left|<quote|1tab>|4.2<space|2spc>The Real-World Performance Dilemma<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-21>>
 
-      <with|par-left|<quote|1tab>|4.3<space|2spc>Inherent Contradictions in Language Design: Absence of Engineering Standards<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-22>>
+      <with|par-left|<quote|1tab>|4.3<space|2spc>Intrinsic Weekness: Absence of Engineering Standards<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-22>>
 
-      <with|par-left|<quote|1tab>|4.4<space|2spc><with|font-series|<quote|bold>|User Experience Barriers from a Practical Perspective><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-24>>
+      <with|par-left|<quote|1tab>|4.4<space|2spc>User Experience Barriers from a Practical Perspective<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-24>>
 
       <with|par-left|<quote|1tab>|4.5<space|2spc>The Contributions and Constraints of L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X3<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-25>>
 
       <with|par-left|<quote|1tab>|4.6<space|2spc>Limitations of Modern Collaboration Platforms: A Case Study of Overleaf<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-26>>
 
-      <with|par-left|<quote|2tab>|4.6.1<space|2spc>K<with|font-series|<quote|bold>|ey Improvements by Overleaf><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-27>>
+      <with|par-left|<quote|2tab>|4.6.1<space|2spc>Key Improvements by Overleaf<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-27>>
 
       <with|par-left|<quote|2tab>|4.6.2<space|2spc>Constraints of the Underlying Architecture<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-28>>
 
@@ -902,7 +919,9 @@
 
       <with|par-left|<quote|1tab>|5.4<space|2spc>On-demand plugin loading<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-39>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Bibliography><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-40><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|6<space|2spc>Numerical experiments><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-40><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Bibliography><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-41><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
