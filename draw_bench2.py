@@ -9,7 +9,7 @@ benchmarks = [
     "ChatGPT-5.2",
 ]
 
-data_path = "error-repairing.txt"
+data_path = "debugging.txt"
 
 with open(data_path, "r", encoding="utf-8") as f:
     rows = [
