@@ -9,7 +9,7 @@ benchmarks = [
     "ChatGPT-5.2",
 ]
 
-data_path = "debugging.txt"
+data_path = "writing.txt"
 
 with open(data_path, "r", encoding="utf-8") as f:
     rows = [
@@ -32,8 +32,8 @@ highlight_names = {
 }
 
 series_colors = {
-    "LaTeX":   "#CBDEC0",
-    "TeXmacs": "#43CA00",
+    "LaTeX":   "#CFBCB2",
+    "TeXmacs": "#CA4A00",
 }
 
 plt.rcParams.update({
@@ -95,7 +95,7 @@ ax.legend(
     bbox_to_anchor=(0.01, 1.02),
     frameon=False,
     handlelength=1.8,
-    columnspacing=8,
+    columnspacing=1.5,
 )
 
 plt.tight_layout(rect=[0.00, 0.00, 1.00, 1.00])

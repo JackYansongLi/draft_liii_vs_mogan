@@ -765,15 +765,19 @@
 
   <subsubsection|Targeted editing>
 
-  We have <with|font-series|bold|writing> test on the following 4 outstanding LLMs.
+  We have <with|font-series|bold|writing> tests on the following 4 outstanding LLMs. One editing task is to complete a paper with a lot of redefined macros, commands and customiszed <code*|.sty> package files. Another is to merge two documents (a series of math theorems and their proofs) written in two different styles and even include conflict packages. We did the two tests on 5 large documents.
 
-  <\big-figure|>
-    <label|figure:targeted-editing>Test on targeted editing
+  The <TeXmacs> group with standardized grammar and structure shows its dramatic advantages again and reaches high accuracy as illustrated in <smart-ref|figure:writing> because of the grammatical consistency so that the hallucinations and randomness from LLMs are strictly limited.
+
+  <\big-figure|<image|writing.png|0.8par|||>>
+    <label|figure:writing>Test on targeted editing
   </big-figure>
+
+  Furthermore, if you try to merge contexts from two documents with different styles, it is just a copy-and-paste case in Mogan STEM.
 
   <subsubsection|Error repairing>
 
-  We have <with|font-series|bold|debugging> test on the following 4 outstanding LLMs by feeding error samples. These errror samples include unclosed bracket or environment, wrong command usage, undefined cross-references and conflict or self-recursive macros.
+  We have <with|font-series|bold|debugging> tests on the following 4 outstanding LLMs by feeding error samples. These errror samples include unclosed bracket or environment, wrong command usage, undefined cross-references and conflict or self-recursive macros.
 
   We give the error messages to the LLMs. <LaTeX> group consumes a lot of tokens and thinks for a long time to solve most of the error samples thanks to LLM's increadible attention. <TeXmacs> group locates the problems very fast and reaches nearly 100% accuracy as illustrated in <smart-ref|figure:debugging> because the error in <code*|.tmu> files only influences the closest tree-tag ancestor. So the error message is quiet clear for LLMs to understand and then correct them with ease.
 
@@ -861,9 +865,9 @@
     <associate|auto-46|<tuple|8|22>>
     <associate|auto-47|<tuple|6.2.2|22>>
     <associate|auto-48|<tuple|9|22>>
-    <associate|auto-49|<tuple|6.2.3|22>>
+    <associate|auto-49|<tuple|6.2.3|23>>
     <associate|auto-5|<tuple|3|4>>
-    <associate|auto-50|<tuple|10|22>>
+    <associate|auto-50|<tuple|10|23>>
     <associate|auto-51|<tuple|6.3|23>>
     <associate|auto-52|<tuple|6.3|23>>
     <associate|auto-6|<tuple|3.1|4>>
@@ -881,14 +885,14 @@
     <associate|eq:tree-struc|<tuple|1|18>>
     <associate|example:around-in-mogan|<tuple|2|18>>
     <associate|example:mimimal-latex-code|<tuple|1|2>>
-    <associate|figure:debugging|<tuple|10|22>>
+    <associate|figure:debugging|<tuple|10|23>>
     <associate|figure:double-line|<tuple|4|19>>
     <associate|figure:frac-tree|<tuple|3|18>>
     <associate|figure:full-compile|<tuple|6|21>>
     <associate|figure:inc-update|<tuple|7|21>>
     <associate|figure:multiline-mogan|<tuple|5|19>>
     <associate|figure:reading|<tuple|8|22>>
-    <associate|figure:targeted-editing|<tuple|9|22>>
+    <associate|figure:writing|<tuple|9|22>>
     <associate|footnote-1|<tuple|1|18>>
     <associate|footnr-1|<tuple|1|18>>
     <associate|img:texlive-install|<tuple|2|13>>
