@@ -55,6 +55,6 @@ def create_prefix_dataset(input_file, output_file):
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("Usage: python convert_to_jsonl.py <input_raw_txt> <output_jsonl>")
-        print("Example: python convert_to_jsonl.py raw_latex.txt train_latex.jsonl")
+        print("Example: python convert_to_jsonl.py complex_latex.txt train_latex.jsonl")
     else:
         create_prefix_dataset(sys.argv[1], sys.argv[2])

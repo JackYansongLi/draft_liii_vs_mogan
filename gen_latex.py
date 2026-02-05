@@ -61,7 +61,8 @@ def gen_expr(depth):
     try:
         if structure_type == 'op':
             op = random.choice(['+', '-', '=', '\\approx', '\\times', '\\cdot'])
-            return f"{gen_expr(depth-1)}{" "}{op}{" "}{gen_expr(depth-1)}"
+            sep = " "
+            return f"{gen_expr(depth-1)}{sep}{op}{sep}{gen_expr(depth-1)}"
         
         elif structure_type == 'frac':
             return format_frac(gen_expr(depth-1), gen_expr(depth-1))

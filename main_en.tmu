@@ -791,13 +791,13 @@
 
   <subsection|Efficiency in machine learning>
 
-  Give <TeXmacs> files use tree structure while <LaTeX> files use linear macro flow, it is usually harder for models to predict the new token in <LaTeX> than <TeXmacs>. We make a parallel fine-tuning experiment which gives the formula's instruction and it's preffix and asks the model to complete the whole formula. <smart-ref|figure:fine-tune> is the experiment of LoRA based on Qwen2.5-7B-Instruct with 1000 formulas. The formulas cover fractions, radicals, subscripts and superscripts, matrices, piecewises, integrals and summations, limits, logical quantifiers, composite functions, nested parentheses and so on.
+  Given that <TeXmacs> files use tree structure while <LaTeX> files use linear macro flow, it is usually harder for models to predict the new token in <LaTeX> than <TeXmacs>. We make a parallel fine-tuning experiment which gives the formula's instruction and it's preffix and asks the model to complete the whole formula. <smart-ref|figure:fine-tune> is the experiment of LoRA based on Qwen2.5-7B-Instruct with 1000 formulas. The formulas cover fractions, radicals, subscripts and superscripts, matrices, piecewises, integrals and summations, limits, logical quantifiers, composite functions, nested parentheses and so on.
 
   <\big-figure|<image|fine-tune.png|0.8par|||>>
     <label|figure:fine-tune>Experiment of LoRA based on Qwen2.5-7B-Instruct
   </big-figure>
 
-  The result shows that <TeXmacs> is a better choice in machine learning. We believe that if the LLMs today were trained by <TeXmacs> corpus instead of <LaTeX>, their math writing skills would reach a higher level.
+  As illustrated in <smart-ref|figure:fine-tune>, <TeXmacs> group's loss converges to around 0.4 while <LaTeX>'s converges to around 0.7. The result shows that <TeXmacs> is a better choice in machine learning. We believe that if the LLMs today were trained by <TeXmacs> corpus instead of <LaTeX>, their math writing skills would reach a higher level.
 
   <\bibliography|bib|tm-plain|liii>
     <\bib-list|7>
