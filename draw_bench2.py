@@ -24,16 +24,16 @@ if data.shape != (2, 4):
 
 series_names = [
     "LaTeX",
-    "TeXmacs",
+    "Mogan",
 ]
 
 highlight_names = {
-    "TeXmacs"
+    "Mogan"
 }
 
 series_colors = {
-    "LaTeX":   "#CFBCB2",
-    "TeXmacs": "#CA4A00",
+    "LaTeX":   "#CFDDC3",
+    "Mogan": "#76C63E",
 }
 
 plt.rcParams.update({

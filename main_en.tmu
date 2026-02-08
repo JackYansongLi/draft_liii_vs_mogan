@@ -86,7 +86,9 @@
 
     <with|par-left|1tab|6.3<space|2spc>Efficiency in machine learning<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-51>>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Bibliography><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-53><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix A<space|2spc>Machine configuration><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-53><vspace|0.5fn>
+
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Bibliography><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-55><vspace|0.5fn>
   </table-of-contents>
 
   <section|A Brief History of <TeX>>
@@ -751,13 +753,13 @@
 
   <subsection|Performance in LLM tasks>
 
-  We highly recommend using <TeXmacs> documents to train LLMs instead of <LaTeX> as the highly standardized grammar and structured tree-node tags in <TeXmacs> <code*|.tmu> files help the models locate the targets quickly, complete the contexts properly and debug the structure efficiently. We will explain this in the following three dimensions.
+  We highly recommend using Mogan documents to train LLMs instead of <LaTeX> as the highly standardized grammar and structured tree-node tags in Mogan <code*|.tmu> files help the models locate the targets quickly, complete the contexts properly and debug the structure efficiently. We will explain this in the following three dimensions.
 
   <subsubsection|Structure understanding>
 
   We have <with|font-series|bold|reading> tests on the following 4 outstanding LLMs. Each of which has 20 questions about the article's structure from 5 papers (e.g. "count the number of subsections", "where is Definition 4.4 first cited", "which definitions/lemmas are directly used in the proof of Lemma 6.4?"). There is 100 points in total with 5 points per question.
 
-  Even if it is not a fair comparision as the LLMs have trained by <LaTeX> corpus before, <TeXmacs> group took the lead for the most, as illustrated in <smart-ref|figure:reading>.
+  Even if it is not a fair comparision as the LLMs have trained by <LaTeX> corpus before, Mogan group took the lead for the most, as illustrated in <smart-ref|figure:reading>.
 
   <\big-figure|<image|reading.png|0.8par|||>>
     <label|figure:reading>Test on structure understanding
@@ -767,7 +769,7 @@
 
   We have <with|font-series|bold|writing> tests on the following 4 outstanding LLMs. One editing task is to complete a paper with a lot of redefined macros, commands and customiszed <code*|.sty> package files. Another is to merge two documents (a series of math theorems and their proofs) written in two different styles and even include conflict packages. We did the two tests on 5 large documents.
 
-  The <TeXmacs> group with standardized grammar and structure shows its dramatic advantages again and reaches high accuracy as illustrated in <smart-ref|figure:writing> because of the grammatical consistency so that the hallucinations and randomness from LLMs are strictly limited.
+  The Mogan group with standardized grammar and structure shows its dramatic advantages again and reaches high accuracy as illustrated in <smart-ref|figure:writing> because of the grammatical consistency so that the hallucinations and randomness from LLMs are strictly limited.
 
   <\big-figure|<image|writing.png|0.8par|||>>
     <label|figure:writing>Test on targeted editing
@@ -779,7 +781,7 @@
 
   We have <with|font-series|bold|debugging> tests on the following 4 outstanding LLMs by feeding error samples. These errror samples include unclosed bracket or environment, wrong command usage, undefined cross-references and conflict or self-recursive macros.
 
-  We give the error messages to the LLMs. <LaTeX> group consumes a lot of tokens and thinks for a long time to solve most of the error samples thanks to LLM's increadible attention. <TeXmacs> group locates the problems very fast and reaches nearly 100% accuracy as illustrated in <smart-ref|figure:debugging> because the error in <code*|.tmu> files only influences the closest tree-tag ancestor. So the error message is quiet clear for LLMs to understand and then correct them with ease.
+  We give the error messages to the LLMs. <LaTeX> group consumes a lot of tokens and thinks for a long time to solve most of the error samples thanks to LLM's increadible attention. Mogan group locates the problems very fast and reaches nearly 100% accuracy as illustrated in <smart-ref|figure:debugging> because the error in <code*|.tmu> files only influences the closest tree-tag ancestor. So the error message is quiet clear for LLMs to understand and then correct them with ease.
 
   <\big-figure|<image|debugging.png|0.8par|||>>
     <label|figure:debugging>Test on error repairing
@@ -791,13 +793,19 @@
 
   <subsection|Efficiency in machine learning>
 
-  Given that <TeXmacs> files use tree structure while <LaTeX> files use linear macro flow, it is usually harder for models to predict the new token in <LaTeX> than <TeXmacs>. We make a parallel fine-tuning experiment which gives the formula's instruction and it's preffix and asks the model to complete the whole formula. <smart-ref|figure:fine-tune> is the experiment of LoRA based on Qwen2.5-7B-Instruct with 1000 formulas. The formulas cover fractions, radicals, subscripts and superscripts, matrices, piecewises, integrals and summations, limits, logical quantifiers, composite functions, nested parentheses and so on.
+  Given that Mogan files use tree structure while <LaTeX> files use linear macro flow, it is usually harder for models to predict the new token in <LaTeX> than Mogan. We make a parallel fine-tuning experiment which gives the formula's instruction and it's preffix and asks the model to complete the whole formula. <smart-ref|figure:fine-tune> is the experiment of LoRA based on Qwen2.5-7B-Instruct with 1000 formulas. The formulas cover fractions, radicals, subscripts and superscripts, matrices, piecewises, integrals and summations, limits, logical quantifiers, composite functions, nested parentheses and so on.
 
   <\big-figure|<image|fine-tune.png|0.8par|||>>
     <label|figure:fine-tune>Experiment of LoRA based on Qwen2.5-7B-Instruct
   </big-figure>
 
-  As illustrated in <smart-ref|figure:fine-tune>, <TeXmacs> group's loss converges to around 0.4 while <LaTeX>'s converges to around 0.7. The result shows that <TeXmacs> is a better choice in machine learning. We believe that if the LLMs today were trained by <TeXmacs> corpus instead of <LaTeX>, their math writing skills would reach a higher level.
+  As illustrated in <smart-ref|figure:fine-tune>, Mogan group's loss converges to around 0.4 while <LaTeX>'s converges to around 0.7. The result shows that Mogan is a better choice in machine learning. We believe that if the LLMs today were trained by Mogan corpus instead of <LaTeX>, their math writing skills would reach a higher level.
+
+  <appendix|Machine configuration>
+
+  <\big-table|<tabular|<tformat|<cwith|1|-1|1|-1|cell-tborder|1ln>|<cwith|1|-1|1|-1|cell-bborder|1ln>|<cwith|1|-1|1|-1|cell-lborder|1ln>|<cwith|1|-1|1|-1|cell-rborder|1ln>|<table|<row|<cell|CPU>|<cell|Intel Ultra 9 285H>>|<row|<cell|GPU>|<cell|Geforce RTX 5080>>|<row|<cell|RAM>|<cell|32GB LPDDR5X>>>>>>
+    Machine configuration in numerical experiments
+  </big-table>
 
   <\bibliography|bib|tm-plain|liii>
     <\bib-list|7>
@@ -876,18 +884,20 @@
     <associate|auto-50|<tuple|10|22>>
     <associate|auto-51|<tuple|6.3|23>>
     <associate|auto-52|<tuple|11|23>>
-    <associate|auto-53|<tuple|11|23>>
+    <associate|auto-53|<tuple|A|23>>
+    <associate|auto-54|<tuple|7|23>>
+    <associate|auto-55|<tuple|7|23>>
     <associate|auto-6|<tuple|3.1|4>>
     <associate|auto-7|<tuple|3.1.1|5>>
     <associate|auto-8|<tuple|3.1.2|6>>
     <associate|auto-9|<tuple|3|7>>
     <associate|bib-interview2021|<tuple|1|23>>
-    <associate|bib-knuth1984texbook|<tuple|2|23>>
-    <associate|bib-lamport1994document|<tuple|3|23>>
-    <associate|bib-liiistem2025|<tuple|5|23>>
-    <associate|bib-moganstem2025|<tuple|4|23>>
-    <associate|bib-overleaf_docs|<tuple|6|23>>
-    <associate|bib-van_der_hoeven_gnu_2001|<tuple|7|23>>
+    <associate|bib-knuth1984texbook|<tuple|2|24>>
+    <associate|bib-lamport1994document|<tuple|3|24>>
+    <associate|bib-liiistem2025|<tuple|5|24>>
+    <associate|bib-moganstem2025|<tuple|4|24>>
+    <associate|bib-overleaf_docs|<tuple|6|24>>
+    <associate|bib-van_der_hoeven_gnu_2001|<tuple|7|24>>
     <associate|eq:braket|<tuple|2|19>>
     <associate|eq:tree-struc|<tuple|1|17>>
     <associate|example:around-in-mogan|<tuple|2|17>>
@@ -981,6 +991,10 @@
       <tuple|normal|<surround|<hidden-binding|<tuple|auto-23>|5>||Core Structural Contradictions in L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X<with|mode|<quote|math>|><space|0.2spc>2<move|<with|mode|<quote|math>|\<varepsilon\>>|-0.0fn|-0.15fn> Language Design and their Engineering Consequences>|<pageref|auto-23>>
 
       <tuple|normal|<surround|<hidden-binding|<tuple|auto-31>|6>||Comparison between Mogan STEM and alternative editors>|<pageref|auto-31>>
+
+      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-54>|7>|>
+        Machine configuration in numerical experiments
+      </surround>|<pageref|auto-54>>
     </associate>
     <\associate|toc>
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>A Brief History of T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-1><vspace|0.5fn>
@@ -1051,7 +1065,9 @@
 
       <with|par-left|<quote|1tab>|6.3<space|2spc>Efficiency in machine learning<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-51>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Bibliography><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-53><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix A<space|2spc>Machine configuration><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-53><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Bibliography><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-55><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>

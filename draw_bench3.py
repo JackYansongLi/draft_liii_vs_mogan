@@ -63,7 +63,7 @@ def main():
 
 	if texmacs_path and os.path.isfile(texmacs_path):
 		steps, losses = parse_jsonl_loss(texmacs_path)
-		plot_loss(ax, steps, losses, TEXMACS_COLOR, 'TeXmacs Loss', SMOOTH_WINDOW)
+		plot_loss(ax, steps, losses, TEXMACS_COLOR, 'Mogan Loss', SMOOTH_WINDOW)
 	else:
 		print(f'Warning: cannot read {texmacs_path}')
 	if latex_path:
