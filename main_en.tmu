@@ -1,4 +1,4 @@
-<TMU|<tuple|1.1.0|2026.1.3>>
+<TMU|<tuple|1.1.0|2026.1.4>>
 
 <style|<tuple|generic|number-europe|preview-ref|smart-ref|comment|doc-tmu|goldfish>>
 
@@ -746,6 +746,8 @@
   We also did benchmarks when doing incremental update on those documents. The update includes adding new sections and tables in the paragraph, modifying the relations between labels and references, and rearrange the positions of contexts slightly. Each of them is tightly associated with daily paper writing.
 
   As illustrated in <smart-ref|figure:inc-update>, Mogan STEM shows remarkable advantages over <LaTeX> when doing incremental update on papers, which has a critical influence on writing.
+
+  The last group is an exception because the paper is very long (120 pages). So it take time for Mogan STEM to render all the elements and put it into the editor buffer. The IO overhead accounts for a large proportion.
 
   <\big-figure|<image|inc-update.png|0.8par|||>>
     <label|figure:inc-update>Benchmark on incremental update
