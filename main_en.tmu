@@ -1,4 +1,4 @@
-<TMU|<tuple|1.1.0|2026.1.5>>
+<TMU|<tuple|1.1.0|2026.1.4>>
 
 <style|<tuple|generic|number-europe|preview-ref|smart-ref|comment|doc-tmu|goldfish|reduced-margins>>
 
@@ -74,21 +74,23 @@
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|6<space|2spc>Numerical experiments><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-40><vspace|0.5fn>
 
-    <with|par-left|1tab|6.1<space|2spc>Benchmark on compiling/rendering<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-41>>
+    <with|par-left|1tab|6.1<space|2spc>Benchmark on compiling/rendering time<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-41>>
 
     <with|par-left|1tab|6.2<space|2spc>Performance in LLM tasks<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-44>>
 
-    <with|par-left|2tab|6.2.1<space|2spc>Structure understanding<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-45>>
+    <with|par-left|2tab|6.2.1<space|2spc>Document structure locating<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-45>>
 
-    <with|par-left|2tab|6.2.2<space|2spc>Targeted editing<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-47>>
+    <with|par-left|2tab|6.2.2<space|2spc>Document style writing and merging<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-47>>
 
-    <with|par-left|2tab|6.2.3<space|2spc>Error repairing<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-49>>
+    <with|par-left|2tab|6.2.3<space|2spc>Document debugging using error messages<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-49>>
 
-    <with|par-left|1tab|6.3<space|2spc>Efficiency in machine learning<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-51>>
+    <with|par-left|1tab|6.3<space|2spc>Efficiency in fine-tuning<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-52>>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix A<space|2spc>Machine configuration><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-53><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Bibliography><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-54><vspace|0.5fn>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Bibliography><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-55><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix A<space|2spc>Machine configuration><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-55><vspace|0.5fn>
+
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix B<space|2spc>Prompt questions><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-57><vspace|0.5fn>
   </table-of-contents>
 
   <section|A Brief History of <TeX>>
@@ -125,7 +127,7 @@
 
   <smart-ref|example:mimimal-latex-code> shows a minimal example of <LaTeX> code. The source code begins with the <code*|\\documentclass{...}> command. Lamport's <LaTeX> framework simplifies the use of <TeX><nbsp><cite|lamport1994document> by defining the document class used for the file. Immediately following this, we can use <code*|\\usepackage{...}> to import packages. We then use <code*|\\begin{document}> and <code*|\\end{document}> to mark the start and end of the body content, placing the text between them.
 
-  The area between <code*|\\documentclass> and <code*|\\begin{document}> is called the <with|font-shape|italic|preamble>. In addition to importing packages via <code*|\\usepackage>, <with|font-shape|italic|preamble> is used for global macro definitions and document configurationm, which can also be left empty.
+  The area between <code*|\\documentclass> and <code*|\\begin{document}> is called the <with|font-shape|italic|preamble>. In addition to importing packages via <code*|\\usepackage>, <with|font-shape|italic|preamble> is used for global macro definitions and document configuration, which can also be left empty.
 
   Finally, we can compile the code. Running <code*|pdflatex example.tex> generates the <code*|example.pdf> file. Simultaneously, several auxiliary files are generated in the same directory. For instance, the <code*|.aux> file saves intermediate information such as cross-references, tables of contents, and numbering; consequently, documents often require multiple compilations to yield correct results. The <code*|.log> file records the complete compilation process and is the primary resource for locating warnings and errors. The <code*|.dvi> file stands for <with|font-shape|italic|DeVice Independent file>, an intermediate format unrelated to the specific output device.
 
@@ -527,7 +529,7 @@
 
   Furthermore, <LaTeX>'s reliance on a multi-stage compilation workflow exacerbates runtime performance costs. Functions such as bibliography management, indexing, and cross-referencing are typically offloaded to multiple external tools, requiring users to run multiple compilation rounds to achieve stable output. This design choice is not driven by performance optimization, but by the language's inherent inability to express complex dependencies within a single compilation pass. Consequently, the overhead of repeated disk I/O, redundant scanning, and process startup is systematically offloaded onto the user.
 
-  <subsection|Intrinsic Weekness: Absence of Engineering Standards>
+  <subsection|Intrinsic Weakness: Absence of Engineering Standards>
 
   <LaTeXe> \ is fundamentally a collection of macros built upon the <TeX> macro expansion mechanism. Its abstraction capabilities rely primarily on untyped text substitution and grouping scopes, rather than explicit language-level structures. Although the community has actively advanced the <LaTeX>3 project in recent years to ameliorate this situation, the project has not been released as a standalone version. Instead, it follows a strategy of progressive evolution, gradually integrating into the existing <LaTeXe> kernel. Currently, the <verbatim|expl3> programming layer provided by <LaTeX>3 serves as the foundation for numerous large-scale packages. Consequently, users often utilize its mechanisms indirectly and unconsciously in their daily workflows. This transition primarily results in improved interface consistency, maintainability, and engineering capabilities, accompanied by a degree of performance enhancement.
 
@@ -729,7 +731,7 @@
 
   <section|Numerical experiments>
 
-  To verify the beneficial of using Mogan STEM compared to <LaTeX>, we designed and conducted experiments on fast compiling/rendering, LLM tasks, and machine learning.
+  To verify the beneficial of using Mogan STEM compared to <LaTeX>, we designed and conducted experiments on fast compiling/rendering, LLM tasks performance, and fine-tuning.
 
   <subsection|Benchmark on compiling/rendering time>
 
@@ -739,11 +741,7 @@
     t<rsub|compling>+t<rsub|rendering>+t<rsub|IO>,
   </equation*>
 
-  where <math|t<rsub|compling>> is the compiling time, <math|t<rsub|rendering>> is the rendering time, and <math|t<rsub|IO>> is the <with|font-shape|italic|extra> <text|I/O> overhead for WYSIWYG editing. As shown in <smart-ref|figure:full-compile>, even with the extra I/O process, Mogan STEM outperforms <LaTeX> in compiling/rendering time for most documents. Note that for document <with|font-family|tt|arXiv:2502.17655>, Mogan STEM compile and render slower than <LaTeX>, the exception is due to the size of the documents, it has 120 pages. Therefore, the I/O overhead accounts for a large proportion.
-
-  \;
-
-  \;
+  where <math|t<rsub|compling>> is the compiling time, <math|t<rsub|rendering>> is the rendering time, and <math|t<rsub|IO>> is the <with|font-shape|italic|extra> I/O overhead for WYSIWYG editing. As shown in <smart-ref|figure:full-compile>, even with the extra I/O process, Mogan STEM outperforms <LaTeX> in compiling/rendering time for most documents. Note that for document <with|font-family|tt|arXiv:2502.17655>, Mogan STEM compile and render slower than <LaTeX>, the exception is due to the size of the documents, it has 120 pages. Therefore, the I/O overhead accounts for a large proportion.
 
   <\big-figure|<image|full-compile.png|0.8par|||>>
     <label|figure:full-compile>Benchmark on full compilation. Each bar represents the average of three trials.
@@ -755,87 +753,87 @@
     <label|figure:inc-update>Benchmark on incremental update
   </big-figure>
 
-  <subsection|Performance in LLM editing>
+  <subsection|Performance in LLM tasks>
 
   We highly recommend using <with|font-family|tt|.tmu> to train LLMs instead of <with|font-family|tt|.tex>. The highly standardized grammar and structured tree-node tags in <code*|.tmu> files help the models locate the targets faster, complete the contexts properly, and debug the illed structure efficiently. We will explain this in the following three dimensions.
 
-  <subsubsection|Document structure understanding>
+  <subsubsection|Document structure locating>
 
-  We have <with|font-series|bold|reading> tests on the following 4 outstanding LLMs. Each of which has 20 questions about the article's structure from 5 papers (e.g. "count the number of subsections", "where is Definition 4.4 first cited", "which definitions/lemmas are directly used in the proof of Lemma 6.4?"). There is 100 points in total with 5 points per question.
+  To evaluate the LLM's grasp of document structure, we have tests on the following 4 outstanding LLMs. Each test has 20 questions (shown in Appendix B) about the article's structure from <with|font-family|tt|arXiv:2502.17655>. For each answer, we rate
 
-  Even if it is not a fair comparison as the LLMs have trained by <LaTeX> corpus before, Mogan group took the lead for the most, as illustrated in <smart-ref|figure:reading>.
+  <\equation*>
+    score=max<around*|(|0,<choice|<tformat|<table|<row|<cell|5-<around*|\<lfloor\>|<frac|T|1\<times\>10<rsup|4>>|\<rfloor\>>>|<cell|<text|, right answer>>>|<row|<cell|0>|<cell|<text|, wrong answer>>>>>>|)>
+  </equation*>
+
+  where <math|T> is the request token includes the input, thinking, output, and the using of MCP tools. The total score for the 20 questions are 100 points, as illustrated in <smart-ref|figure:reading>.
+
+  Even if it is not a fair comparison as the LLMs have trained by <LaTeX> corpus before, Mogan group took the lead for the most. The reason is that the file structure in Mogan have higher information density and even reference number are written in <with|font-family|tt|.tmu> file after instant compilation. But for <LaTeX>, LLM need to count the enviroment in the whole document. So the LLM can locate the enviroment quickly in Mogan group.
 
   <\big-figure|<image|reading.png|0.6par|||>>
-    <label|figure:reading>Test on structure understanding
+    <label|figure:reading>Test on document structure locating
   </big-figure>
 
-  <subsubsection|Targeted editing>
+  <subsubsection|Document style writing and merging>
 
-  <\enumerate>
-    <item>
+  To verify the benifit of using structured and standard grammar for LLM writing, we ask the LLMs to do two things.
 
-    <item>
+  One is to generate two files: <with|font-family|tt|theorems.tex> and <with|font-family|tt|proofs.tex>. The former is a large collection of math theorems in a style that includes a lot of newly-defined macros, \ redefined commands and packages. The latter is the collection of proofs to the theorems above but disordered. And it has different macro style and even includes conflict packages compared to the former. The connection between these two files is the cross-references of each theorem and equation. The LLM should guarantee that <with|font-family|tt|theorems.tex> and <with|font-family|tt|proofs.tex> generated can be compiled successfully alone.
 
-    <item>
+  Another is to merge the two files generated by each LLM. The merged file should be written in the same style as the given <with|font-family|tt|theorems.tex>. The LLM should guarantee that the merged file can be compiled successfully and the proofs are placed properly below their theorems according to cross-references.
 
-    <item>
-  </enumerate>
+  We use Mogan STEM to generate <with|font-family|tt|theorems.tmu> and <with|font-family|tt|proofs.tmu> from their <with|font-family|tt|.tex> version, the task for Mogan group is similar.
 
-  We have <with|font-series|bold|writing> tests on the following 4 outstanding LLMs. One editing task is to complete a paper with a lot of redefined macros, commands and customized <code*|.sty> package files. Another is to merge two documents (a series of math theorems and their proofs) written in two different styles and even include conflict packages. We did the two tests on 5 large documents.
+  The first part has 20 points (1 task, generate two files). The second part has 80 points (4 tasks, merge two files generated by 4 LLMs). The materials are shown in attachments. For each task, we rate
 
-  The Mogan group with standardized grammar and structure shows its dramatic advantages again and reaches high accuracy as illustrated in <smart-ref|figure:writing> because of the grammatical consistency so that the hallucinations and randomness from LLMs are strictly limited.
+  <\equation*>
+    score=max<around*|(|0,<choice|<tformat|<table|<row|<cell|20-2\<times\>E<rsub|ref>-<around*|\<lfloor\>|<frac|T|1\<times\>10<rsup|4>>|\<rfloor\>>-E<rsub|sty>>|<cell|<text|, success on the first try>>>|<row|<cell|10-2\<times\>E<rsub|ref>-<around*|\<lfloor\>|<frac|T|1\<times\>10<rsup|4>>|\<rfloor\>>-E<rsub|sty>>|<cell|<text|, success on the second try>>>|<row|<cell|0>|<cell|<text|, fail within two tries>>>>>>|)>
+  </equation*>
+
+  where <math|T> is the request token includes the input, thinkinig, output, and the using of MCP tools, <math|E<rsub|ref>> is the number of reference failing ("??" appears but compilation succeeds), <math|E<rsub|sty>> is the number where the style of merged file have the usage from <with|font-family|tt|proofs.tex> (we required LLM to write merged file in the style of <with|font-family|tt|theorems.tex>, so macros or commands in <with|font-family|tt|proofs.tex> are not accepted).
+
+  As illustrated in <smart-ref|figure:writing>, Mogan group with standardized grammar and structure leads on all LLMs. The reason is that Mogan files have grammatical consistency so that the LLMs do not need to tackle with conflicts and unified usage from two different styles. The hallucinations and randomness from LLMs are strictly limited as well.
 
   <\big-figure|<image|writing.png|0.6par|||>>
-    <label|figure:writing>Test on targeted editing
+    <label|figure:writing>Test on document style writing and merging
   </big-figure>
 
-  Furthermore, if you try to merge contexts from two documents with different styles, it is just a copy-and-paste case in Mogan STEM.
+  Furthermore, merging contexts from two documents with different styles is just a copy-and-paste case in Mogan STEM.
 
-  <subsubsection|Debugging>
+  <subsubsection|Document debugging using error messages>
 
-  We have <with|font-series|bold|debugging> tests on the following 4 outstanding LLMs by feeding error samples. These errror samples include unclosed bracket or environment, wrong command usage, undefined cross-references and conflict or self-recursive macros.
+  Debugging illed documents is a common usage of LLM co-writing. We construct illed documents (originate from <with|font-family|tt|arXiv:2502.17655>), feed the error messages to LLMs, and ask them to fix it. The test have 20 illed samples as shown in <smart-ref|table:ill-dist>. Each illness have 5 points, we rate
 
-  We give the error messages to the LLMs. <LaTeX> group consumes a lot of tokens and thinks for a long time to solve most of the error samples thanks to LLM's incredible attention. Mogan group locates the problems very fast and reaches nearly 100% accuracy as illustrated in <smart-ref|figure:debugging> because the error in <code*|.tmu> files only influences the closest tree-tag ancestor. So the error message is quiet clear for LLMs to understand and then correct them with ease.
+  <\equation*>
+    score=max<around*|(|0,<choice|<tformat|<table|<row|<cell|5-<around*|\<lfloor\>|<frac|T|1\<times\>10<rsup|4>>|\<rfloor\>>>|<cell|<text|, right answer>>>|<row|<cell|0>|<cell|<text|, wrong answer>>>>>>|)>
+  </equation*>
+
+  where <math|T> is the request token includes the input, thinking, output, and the using of MCP tools. The total score for the 20 samples are 100 points, as illustrated in <smart-ref|figure:debugging>.
+
+  <\big-table|<tabular|<tformat|<cwith|1|-1|1|-1|cell-tborder|1ln>|<cwith|1|-1|1|-1|cell-bborder|1ln>|<cwith|1|-1|1|-1|cell-lborder|1ln>|<cwith|1|-1|1|-1|cell-rborder|1ln>|<table|<row|<cell|<with|font-series|bold|illness>>|<cell|<with|font-series|bold|amount>>>|<row|<cell|unclosed bracket>|<cell|4>>|<row|<cell|unclosed environment>|<cell|5>>|<row|<cell|wrong command usage>|<cell|4>>|<row|<cell|undefined cross-reference>|<cell|3>>|<row|<cell|conflict packages>|<cell|2>>|<row|<cell|self-recursive macros>|<cell|2>>>>>>
+    <label|table:ill-dist>Distribution of illness in samples
+  </big-table>
+
+  <LaTeX> group thinks for a long time to solve most of the error samples. Mogan group locates the problems quickly and solve all of the error samples (only two samples consume more than 10k tokens). The reason is that the illness in <code*|.tmu> files only influences the closest tree-tag ancestor. So the error message in Mogan STEM is quiet clear for LLMs to understand and correct them easily. In contrast, <LaTeX>'s error messages usually detach from their root causes in large documents and the logs are very long.
 
   <\big-figure|<image|debugging.png|0.6par|||>>
-    <label|figure:debugging>Test on error repairing
+    <label|figure:debugging>Test on document debugging using error messages
   </big-figure>
 
-  In fact, documents written in <code*|.tmu> file do not have problems like unclosed environment or self-recursive macros if it is done by Mogan STEM. In addition, Mogan STEM provides a WYSIWYG and intuitive user interface. If there is anything wrong in <code*|.tmu> file, when opened by Mogan STEM, it is always clear to see where they are. And the rest part can be rendered correctly instead of being terminated in compilation like <LaTeX>.
+  In fact, <code*|.tmu> file do not have problems like unclosed environment or self-recursive macros if it is written by Mogan STEM. In addition, Mogan STEM provides a WYSIWYG and intuitive user interface. If there is anything wrong in <code*|.tmu> file, when opened by Mogan STEM, it is always clear to see where they are. And the rest part can be rendered correctly instead of being terminated in compilation like <LaTeX>.
 
   <subsection|Efficiency in fine-tuning>
 
-  Recall that Mogan uses tree structure while <LaTeX> uses linear macro flow. Benifit from the tree structure, it is easier for models to predict the new token in Mogan than in <LaTeX>.\ 
+  Recall that Mogan uses tree structure while <LaTeX> uses linear macro flow. Benifit from the tree structure, it is easier for models to predict the new token in Mogan than in <LaTeX>.
 
-  \;
+  We did a parallel SFT experiment. We generate 1000 random formulas written in <LaTeX> and convert them to the Mogan S-expression by Mogan STEM. The formulas cover fractions, radicals, subscripts and superscripts, matrices, piecewise, integrals and summations, limits, logical quantifiers, composite functions, and nested parentheses. The materials are shown in attachments. Then we cut the formulas into two part. We give the prefix part to the model and let it complete the whole formula.
 
-  \;
-
-  We make a parallel fine-tuning experiment which gives the formula's instruction and it's prefix and asks the model to complete the whole formula.\ 
-
-  <\enumerate>
-    <item>
-
-    <item>
-
-    <item>
-
-    <item>
-  </enumerate>
-
-  \;
-
-  <smart-ref|figure:fine-tune> shows the experiment of LoRA based on Qwen2.5-7B-Instruct with 1000 formulas. The formulas cover fractions, radicals, subscripts and superscripts, matrices, piecewise, integrals and summations, limits, logical quantifiers, composite functions, nested parentheses and so on.
-
-  As illustrated in <smart-ref|figure:fine-tune>, Mogan group's loss converges to around 0.4 while <LaTeX>'s converges to around 0.7. The result shows that Mogan is a better choice in machine learning. We believe that if the LLMs today were trained by Mogan corpus instead of <LaTeX>, their math writing skills would reach a higher level.
+  <smart-ref|figure:fine-tune> shows the experiment of LoRA based on Qwen2.5-7B-Instruct on 1000 formulas in 289 steps, Mogan group's loss converges to around 0.4 while <LaTeX>'s converges to around 0.7. The reason is that Mogan's S-expression have lower information entropy so that the model have more certainty for the next token compaired to <LaTeX>.
 
   <\big-figure|<image|fine-tune.png|0.6par|||>>
     <label|figure:fine-tune>Experiment of LoRA based on Qwen2.5-7B-Instruct
   </big-figure>
 
-  \;
-
-  \;
+  <new-page>
 
   <\bibliography|bib|tm-plain|liii>
     <\bib-list|7>
@@ -863,7 +861,51 @@
     Machine configuration in numerical experiments
   </big-table>
 
-  <appendix|Prompts and xxx>
+  <appendix|Questions in experiment 6.2.1>
+
+  You are a expert in <LaTeX>. Your task is to read <with|font-family|tt|main.tex> and answer the following questions:
+
+  <\enumerate>
+    <item>Count the number of sections.
+
+    <item>Count the number of subsections.
+
+    <item>Count the number of figures and tables.
+
+    <item>Count the number of cross references and bibliography references.
+
+    <item>In which section does Equation 10.15 appear?
+
+    <item>In which subsection does Equation 8.66 appear?
+
+    <item>Is there a direct proof below the Equation 12.1?
+
+    <item>In what context does formula A.3 appear?
+
+    <item>In which environment is Definition 4.4 first cited?
+
+    <item>What is the number of the first equation after the first citation of Definition 4.4?
+
+    <item>In which environment is Definition 7.1 first cited?
+
+    <item>What is the number of the first equation after the first citation of Definition 7.1?
+
+    <item>How many steps are there in the proof of Lemma 6.4?
+
+    <item>Which definition or lemma numbers are directly used in the proof of Lemma 6.4?
+
+    <item>How many steps are there in the proof of Lemma 8.3?
+
+    <item>Which definition or lemma numbers are directly used in the proof of Lemma 8.3?
+
+    <item>In which section does Citation 1 first appear?
+
+    <item>In which subsection does Citation 6 first appear?
+
+    <item>What was Citation 25 originally used to prove?
+
+    <item>Has Citation 31 appeared in the article?
+  </enumerate>
 </body>
 
 <\initial>
@@ -915,46 +957,48 @@
     <associate|auto-42|<tuple|6|16>>
     <associate|auto-43|<tuple|7|16>>
     <associate|auto-44|<tuple|6.2|16>>
-    <associate|auto-45|<tuple|6.2.1|16>>
+    <associate|auto-45|<tuple|6.2.1|17>>
     <associate|auto-46|<tuple|8|17>>
     <associate|auto-47|<tuple|6.2.2|17>>
-    <associate|auto-48|<tuple|9|17>>
-    <associate|auto-49|<tuple|6.2.3|17>>
+    <associate|auto-48|<tuple|9|18>>
+    <associate|auto-49|<tuple|6.2.3|18>>
     <associate|auto-5|<tuple|3|3>>
-    <associate|auto-50|<tuple|10|18>>
-    <associate|auto-51|<tuple|6.3|18>>
-    <associate|auto-52|<tuple|11|18>>
+    <associate|auto-50|<tuple|7|18>>
+    <associate|auto-51|<tuple|10|18>>
+    <associate|auto-52|<tuple|6.3|19>>
     <associate|auto-53|<tuple|11|19>>
-    <associate|auto-54|<tuple|A|19>>
-    <associate|auto-55|<tuple|7|19>>
-    <associate|auto-56|<tuple|B|?>>
+    <associate|auto-54|<tuple|11|20>>
+    <associate|auto-55|<tuple|A|21>>
+    <associate|auto-56|<tuple|8|21>>
+    <associate|auto-57|<tuple|B|21>>
     <associate|auto-6|<tuple|3.1|4>>
     <associate|auto-7|<tuple|3.1.1|4>>
     <associate|auto-8|<tuple|3.1.2|5>>
     <associate|auto-9|<tuple|3|6>>
-    <associate|bib-interview2021|<tuple|1|19>>
-    <associate|bib-knuth1984texbook|<tuple|2|19>>
-    <associate|bib-lamport1994document|<tuple|3|19>>
-    <associate|bib-liiistem2025|<tuple|5|19>>
-    <associate|bib-moganstem2025|<tuple|4|19>>
-    <associate|bib-overleaf_docs|<tuple|6|19>>
-    <associate|bib-van_der_hoeven_gnu_2001|<tuple|7|19>>
+    <associate|bib-interview2021|<tuple|1|20>>
+    <associate|bib-knuth1984texbook|<tuple|2|20>>
+    <associate|bib-lamport1994document|<tuple|3|20>>
+    <associate|bib-liiistem2025|<tuple|5|20>>
+    <associate|bib-moganstem2025|<tuple|4|20>>
+    <associate|bib-overleaf_docs|<tuple|6|20>>
+    <associate|bib-van_der_hoeven_gnu_2001|<tuple|7|20>>
     <associate|eq:braket|<tuple|2|15>>
     <associate|eq:tree-struc|<tuple|1|14>>
     <associate|example:around-in-mogan|<tuple|2|14>>
     <associate|example:mimimal-latex-code|<tuple|1|2>>
     <associate|figure:debugging|<tuple|10|18>>
     <associate|figure:double-line|<tuple|4|14>>
-    <associate|figure:fine-tune|<tuple|11|18>>
+    <associate|figure:fine-tune|<tuple|11|19>>
     <associate|figure:frac-tree|<tuple|3|13>>
     <associate|figure:full-compile|<tuple|6|16>>
     <associate|figure:inc-update|<tuple|7|16>>
     <associate|figure:multiline-mogan|<tuple|5|15>>
     <associate|figure:reading|<tuple|8|17>>
-    <associate|figure:writing|<tuple|9|17>>
+    <associate|figure:writing|<tuple|9|18>>
     <associate|footnote-1|<tuple|1|13>>
     <associate|footnr-1|<tuple|1|13>>
     <associate|img:texlive-install|<tuple|2|10>>
+    <associate|table:ill-dist|<tuple|7|18>>
     <associate|table:mogan-vs-other|<tuple|6|13>>
     <associate|texlive-size|<tuple|1|9>>
   </collection>
@@ -997,7 +1041,7 @@
       <tuple|normal|<surround|<hidden-binding|<tuple|auto-36>|5>||Mogan's multi-line data structure. 第一行 represents “line 1” and 第二行 represents “line 2”.>|<pageref|auto-36>>
 
       <tuple|normal|<\surround|<hidden-binding|<tuple|auto-42>|6>|>
-        Benchmark on full compilation
+        Benchmark on full compilation. Each bar represents the average of three trials.
       </surround>|<pageref|auto-42>>
 
       <tuple|normal|<\surround|<hidden-binding|<tuple|auto-43>|7>|>
@@ -1005,20 +1049,20 @@
       </surround>|<pageref|auto-43>>
 
       <tuple|normal|<\surround|<hidden-binding|<tuple|auto-46>|8>|>
-        Test on structure understanding
+        Test on document structure locating
       </surround>|<pageref|auto-46>>
 
       <tuple|normal|<\surround|<hidden-binding|<tuple|auto-48>|9>|>
-        Test on targeted editing
+        Test on document style writing and merging
       </surround>|<pageref|auto-48>>
 
-      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-50>|10>|>
-        Test on error repairing
-      </surround>|<pageref|auto-50>>
+      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-51>|10>|>
+        Test on document debugging using error messages
+      </surround>|<pageref|auto-51>>
 
-      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-52>|11>|>
+      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-53>|11>|>
         Experiment of LoRA based on Qwen2.5-7B-Instruct
-      </surround>|<pageref|auto-52>>
+      </surround>|<pageref|auto-53>>
     </associate>
     <\associate|table>
       <tuple|normal|<surround|<hidden-binding|<tuple|auto-3>|1>||L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X file extensions and their descriptions>|<pageref|auto-3>>
@@ -1033,9 +1077,13 @@
 
       <tuple|normal|<surround|<hidden-binding|<tuple|auto-31>|6>||Comparison between Mogan STEM and alternative editors>|<pageref|auto-31>>
 
-      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-54>|7>|>
+      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-50>|7>|>
+        Distribution of illness in samples
+      </surround>|<pageref|auto-50>>
+
+      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-56>|8>|>
         Machine configuration in numerical experiments
-      </surround>|<pageref|auto-54>>
+      </surround>|<pageref|auto-56>>
     </associate>
     <\associate|toc>
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>A Brief History of T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-1><vspace|0.5fn>
@@ -1068,7 +1116,7 @@
 
       <with|par-left|<quote|1tab>|4.2<space|2spc>Real-World Performance Dilemma<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-21>>
 
-      <with|par-left|<quote|1tab>|4.3<space|2spc>Intrinsic Weekness: Absence of Engineering Standards<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-22>>
+      <with|par-left|<quote|1tab>|4.3<space|2spc>Intrinsic Weakness: Absence of Engineering Standards<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-22>>
 
       <with|par-left|<quote|1tab>|4.4<space|2spc>User Experience Barriers from a Practical Perspective<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-24>>
 
@@ -1094,21 +1142,23 @@
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|6<space|2spc>Numerical experiments><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-40><vspace|0.5fn>
 
-      <with|par-left|<quote|1tab>|6.1<space|2spc>Benchmark on compiling/rendering<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-41>>
+      <with|par-left|<quote|1tab>|6.1<space|2spc>Benchmark on compiling/rendering time<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-41>>
 
       <with|par-left|<quote|1tab>|6.2<space|2spc>Performance in LLM tasks<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-44>>
 
-      <with|par-left|<quote|2tab>|6.2.1<space|2spc>Structure understanding<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-45>>
+      <with|par-left|<quote|2tab>|6.2.1<space|2spc>Document structure locating<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-45>>
 
-      <with|par-left|<quote|2tab>|6.2.2<space|2spc>Targeted editing<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-47>>
+      <with|par-left|<quote|2tab>|6.2.2<space|2spc>Document style writing and merging<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-47>>
 
-      <with|par-left|<quote|2tab>|6.2.3<space|2spc>Error repairing<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-49>>
+      <with|par-left|<quote|2tab>|6.2.3<space|2spc>Document debugging using error messages<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-49>>
 
-      <with|par-left|<quote|1tab>|6.3<space|2spc>Efficiency in machine learning<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-51>>
+      <with|par-left|<quote|1tab>|6.3<space|2spc>Efficiency in fine-tuning<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-52>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix A<space|2spc>Machine configuration><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-53><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Bibliography><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-54><vspace|0.5fn>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Bibliography><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-55><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix A<space|2spc>Machine configuration><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-55><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix B<space|2spc>Questions in experiment 6.2.1><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-57><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>

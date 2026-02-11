@@ -86,7 +86,7 @@ ax.set_xticks(x)
 ax.set_xticklabels(benchmarks, ha="center")
 ax.tick_params(axis="x", pad=10)
 
-ax.set_ylabel("Accuracy (%)")
+ax.set_ylabel("Total   Score")
 ax.set_ylim(0, 100)
 
 ax.legend(
