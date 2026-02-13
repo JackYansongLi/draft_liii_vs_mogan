@@ -1,4 +1,4 @@
-<TMU|<tuple|1.1.0|2026.1.4>>
+<TMU|<tuple|1.1.0|2026.1.5>>
 
 <style|<tuple|generic|number-europe|preview-ref|smart-ref|comment|doc-tmu|goldfish|reduced-margins>>
 
@@ -641,7 +641,7 @@
 
   The core technical challenge in achieving the WYSIWYG capability of Mogan STEM lies in the representation and rendering of mathematical formulas. Unlike <TeX>, which represents formulas through layout-oriented markup in the form of typesetting instructions, Mogan STEM adopts a tree-based, functional representation for both mathematical formulas and the document structure itself. The following discussion evaluates this mechanism with specific examples.
 
-  <subsection|Tree-Structured Formulas and Document Structure>
+  <subsection|Tree-Structured Formulas and Document Structure><label|sec:tree-struc-on-mogan>
 
   Unlike <LaTeX>'s compilation model, which centers on linear text and macro expansion, <TeX>macs features an explicit tree-based document structure designed from the outset. Document components—such as chapters, formulas, citations, and typesetting elements—exist as structured nodes, rather than being implicitly embedded within macro calls or token streams. This architectural distinction directly impacts citation updates, compilation efficiency, and the interactive user experience.
 
@@ -755,43 +755,53 @@
 
   <subsection|Performance in LLM tasks>
 
-  We highly recommend using <with|font-family|tt|.tmu> to train LLMs instead of <with|font-family|tt|.tex>. The highly standardized grammar and structured tree-node tags in <code*|.tmu> files help the models locate the targets faster, complete the contexts properly, and debug the illed structure efficiently. We will explain this in the following three dimensions.
+  We highly recommend using <with|font-family|tt|.tmu> to train LLMs instead of <with|font-family|tt|.tex>. The highly standardized grammar and structured tree-node tags in <code*|.tmu> files help the models locate the targets faster, complete the contexts properly, and debug the illed structure efficiently. The beneficial are summarized as three dimensions: <unfolded-comment|+1o0lqAo319uNxBC0|+1o0lqAo319uNxBC1|comment|Jack Yansong Li|1770948133||complete this.>, which will be discussed in the rest of this subsection.
 
   <subsubsection|Document structure locating>
 
-  To evaluate the LLM's grasp of document structure, we have tests on the following 4 outstanding LLMs. Each test has 20 questions (shown in Appendix B) about the article's structure from <with|font-family|tt|arXiv:2502.17655>. For each answer, we rate
+  To evaluate the LLM's grasp of document structure, we designed tests on 4 LLMs. Each test has 20 questions (attached in \ <smart-ref|app:20ques>) about the article's structure from <with|font-family|tt|arXiv:2502.17655>. For each answer, we take
+
+  <\unfolded-comment|+1o0lqAo319uNxBCA|+1o0lqAo319uNxBCB|comment|Jack Yansong Li|1770949798|>
+    \;
+
+    <\equation*>
+      u<rsub|stru>=max<around*|(|0,<choice|<tformat|<table|<row|<cell|5-<around*|\<lfloor\>|<frac|T|1\<times\>10<rsup|4>>|\<rfloor\>>>|<cell|<text|, right answer>>>|<row|<cell|0>|<cell|<text|, wrong answer>>>>>>|)>,
+    </equation*>
+  </unfolded-comment>
 
   <\equation*>
-    score=max<around*|(|0,<choice|<tformat|<table|<row|<cell|5-<around*|\<lfloor\>|<frac|T|1\<times\>10<rsup|4>>|\<rfloor\>>>|<cell|<text|, right answer>>>|<row|<cell|0>|<cell|<text|, wrong answer>>>>>>|)>
+    score=max<around*|(|0,<choice|<tformat|<table|<row|<cell|5-<around*|\<lfloor\>|<frac|T|1\<times\>10<rsup|4>>|\<rfloor\>>>|<cell|<text|, right answer>>>|<row|<cell|0>|<cell|<text|, wrong answer>>>>>>|)>,
   </equation*>
 
-  where <math|T> is the request token includes the input, thinking, output, and the using of MCP tools. The total score for the 20 questions are 100 points, as illustrated in <smart-ref|figure:reading>.
+  where <math|T> is the token usage for the input, thinking, output, and MCP tools. The total score for the 20 questions are 100, as illustrated in <smart-ref|figure:reading>. <unfolded-comment|+1o0lqAo319uNxBC4|+1o0lqAo319uNxBC5|comment|Jack Yansong Li|1770948855||explain the use of <math|10<rsup|4>>>
 
-  Even if it is not a fair comparison as the LLMs have trained by <LaTeX> corpus before, Mogan group took the lead for the most. The reason is that the file structure in Mogan have higher information density and even reference number are written in <with|font-family|tt|.tmu> file after instant compilation. But for <LaTeX>, LLM need to count the enviroment in the whole document. So the LLM can locate the enviroment quickly in Mogan group.
+  Even if it is not a fair comparison as the LLMs have trained inherently by <LaTeX> corpus before, Mogan took the lead for the most LLMs. The reason is that the file structure in Mogan have higher information density and even reference number are written in <with|font-family|tt|.tmu> file after instant compilation, while in <LaTeX>, LLM need to count the enviroment in the whole document. So the LLM can locate the enviroment quickly in Mogan group. <unfolded-comment|+1o0lqAo319uNxBC2|+1o0lqAo319uNxBC3|comment|Jack Yansong Li|1770948547||数值xxxxx>
 
   <\big-figure|<image|reading.png|0.6par|||>>
     <label|figure:reading>Test on document structure locating
   </big-figure>
 
-  <subsubsection|Document style writing and merging>
+  <subsubsection|Merging files with distinct macros alias, redefined macros, and more>
 
-  To verify the benifit of using structured and standard grammar for LLM writing, we ask the LLMs to do two things.
+  <unfolded-comment|+1o0lqAo319uNxBC8|+1o0lqAo319uNxBC9|comment|Jack Yansong Li|1770949471||The jargon “style” may confuse some readers. Try to give an example. For instance, “The <with|font-family|tt|theorems.tex> and <with|font-family|tt|proofs.tex> have distinct macro names for the same macros. For example, the theorem environments are defined in the name <verbatim|theorem> in <verbatim|theorem.tex> but <verbatim|thm> in <verbatim|proofs.tex>.”>
 
-  One is to generate two files: <with|font-family|tt|theorems.tex> and <with|font-family|tt|proofs.tex>. The former is a large collection of math theorems in a style that includes a lot of newly-defined macros, \ redefined commands and packages. The latter is the collection of proofs to the theorems above but disordered. And it has different macro style and even includes conflict packages compared to the former. The connection between these two files is the cross-references of each theorem and equation. The LLM should guarantee that <with|font-family|tt|theorems.tex> and <with|font-family|tt|proofs.tex> generated can be compiled successfully alone.
+  To verify the benefit of generating precise structured and standard grammar for LLM writing, we ask the LLMs to complete two jobs. <unfolded-comment|+1o0lqAo319uNxBC6|+1o0lqAo319uNxBC7|comment|Jack Yansong Li|1770948938||replace jobs>
 
-  Another is to merge the two files generated by each LLM. The merged file should be written in the same style as the given <with|font-family|tt|theorems.tex>. The LLM should guarantee that the merged file can be compiled successfully and the proofs are placed properly below their theorems according to cross-references.
+  Job 1 to generate two files: <with|font-family|tt|theorems.tex> and <with|font-family|tt|proofs.tex>. The former is a large collection of mathematical theorems in a style that includes a lot of newly-defined macros, \ redefined commands, and packages. <verbatim|proofs.tex> is the collection of proofs to the theorems above but disordered and has different macro style. <verbatim|proofs.tex> even includes conflict packages compared to the <with|font-family|tt|theorems.tex>. The connection between these two files is the cross-references of each theorem and equation. The LLM should guarantee that <with|font-family|tt|theorems.tex> and <with|font-family|tt|proofs.tex> generated can be compiled successfully alone.
 
-  We use Mogan STEM to generate <with|font-family|tt|theorems.tmu> and <with|font-family|tt|proofs.tmu> from their <with|font-family|tt|.tex> version, the task for Mogan group is similar. We guarantee that the context in two versions are identical after rendering.
+  Job 2 is to merge the two files generated by each LLM. The merged file should be written in the same style as the leading file <with|font-family|tt|theorems.tex>. The LLM should guarantee that the merged file can be compiled successfully and the proofs are placed properly below their theorems according to cross-references.
 
-  The first part has 20 points (1 task, generate two files). The second part has 80 points (4 tasks, merge two files generated by 4 LLMs). For each task, we rate
+  We use Mogan STEM to generate <with|font-family|tt|theorems.tmu> and <with|font-family|tt|proofs.tmu> diretly from their <with|font-family|tt|.tex> version, the task in Mogan is similar. The context in both Mogan and <LaTeX> are identical after rendering, which is guaranteed by the <LaTeX> importing engine built-in Mogan.
+
+  The Job 1 has 20 points (1 task, generate two files). The Job 2 has 80 points (4 tasks, merge two files generated by 4 LLMs). For each task, we rate
 
   <\equation*>
     score=max<around*|(|0,<choice|<tformat|<table|<row|<cell|20-2\<times\>E<rsub|ref>-<around*|\<lfloor\>|<frac|T|1\<times\>10<rsup|4>>|\<rfloor\>>-E<rsub|sty>>|<cell|<text|, success on the first try>>>|<row|<cell|10-2\<times\>E<rsub|ref>-<around*|\<lfloor\>|<frac|T|1\<times\>10<rsup|4>>|\<rfloor\>>-E<rsub|sty>>|<cell|<text|, success on the second try>>>|<row|<cell|0>|<cell|<text|, fail within two tries>>>>>>|)>
   </equation*>
 
-  where <math|T> is the request token includes the input, thinkinig, output, and the using of MCP tools, <math|E<rsub|ref>> is the number of reference failing ("??" appears but compilation succeeds), <math|E<rsub|sty>> is the number where the style of merged file have the usage from <with|font-family|tt|proofs.tex> (we required LLM to write merged file in the style of <with|font-family|tt|theorems.tex>, so macros or commands in <with|font-family|tt|proofs.tex> are not accepted).
+  where <math|T> is the token usage includes the input, thinking, output, and the using of MCP tools, <math|E<rsub|ref>> is the number of reference failing (i.e., "??" appears but compilation succeeds), <math|E<rsub|sty>> is the number where the style of merged file have the usage from <with|font-family|tt|proofs.tex> (we required LLM to write merged file in the style of <with|font-family|tt|theorems.tex>, so macros or commands in <with|font-family|tt|proofs.tex> are not accepted).
 
-  As illustrated in <smart-ref|figure:writing>, Mogan group with standardized grammar and structure leads on all LLMs. The reason is that Mogan files have grammatical consistency so that the LLMs do not need to tackle with conflicts and unified usage from two different styles. The hallucinations and randomness from LLMs are strictly limited as well.
+  As illustrated in <smart-ref|figure:writing>, Mogan gains higher score on all LLMs. The reason is that Mogan files have grammatical consistency so that the LLMs do not need to tackle with conflicts and unified usage from two different styles. The hallucinations and randomness from LLMs are strictly limited as well.
 
   <\big-figure|<image|writing.png|0.6par|||>>
     <label|figure:writing>Test on document style writing and merging
@@ -801,19 +811,19 @@
 
   <subsubsection|Document debugging using error messages>
 
-  Debugging illed documents is a common usage of LLM co-writing. We construct illed documents (originate from <with|font-family|tt|arXiv:2502.17655>), feed the error messages to LLMs, and ask them to fix it. The test have 20 illed samples as shown in <smart-ref|table:ill-dist>. Each illness have 5 points, we rate
+  Debugging illed documents is a common usage of LLM co-writing. We constructed servral illed documents (originate from <with|font-family|tt|arXiv:2502.17655>), feed the error messages to LLMs, and ask them to fix it. The test have 20 illed samples as shown in <smart-ref|table:ill-dist>. Each illness have 5 points, we take
 
   <\equation*>
     score=max<around*|(|0,<choice|<tformat|<table|<row|<cell|5-<around*|\<lfloor\>|<frac|T|1\<times\>10<rsup|4>>|\<rfloor\>>>|<cell|<text|, right answer>>>|<row|<cell|0>|<cell|<text|, wrong answer>>>>>>|)>
   </equation*>
 
-  where <math|T> is the request token includes the input, thinking, output, and the using of MCP tools. The total score for the 20 samples are 100 points, as illustrated in <smart-ref|figure:debugging>.
+  where <math|T> is the token usage includes the input, thinking, output, and the MCP tools. The total score for the 20 samples are 100 points, as illustrated in <smart-ref|figure:debugging>.
 
   <\big-table|<tabular|<tformat|<cwith|1|-1|1|-1|cell-tborder|1ln>|<cwith|1|-1|1|-1|cell-bborder|1ln>|<cwith|1|-1|1|-1|cell-lborder|1ln>|<cwith|1|-1|1|-1|cell-rborder|1ln>|<table|<row|<cell|<with|font-series|bold|illness>>|<cell|<with|font-series|bold|amount>>>|<row|<cell|unclosed bracket>|<cell|4>>|<row|<cell|unclosed environment>|<cell|5>>|<row|<cell|wrong command usage>|<cell|4>>|<row|<cell|undefined cross-reference>|<cell|3>>|<row|<cell|conflict packages>|<cell|2>>|<row|<cell|self-recursive macros>|<cell|2>>>>>>
     <label|table:ill-dist>Distribution of illness in samples
   </big-table>
 
-  <LaTeX> group thinks for a long time to solve most of the error samples. Mogan group locates the problems quickly and solve all of the error samples (only two samples consume more than 10k tokens). The reason is that the illness in <code*|.tmu> files only influences the closest tree-tag ancestor. So the error message in Mogan STEM is quiet clear for LLMs to understand and correct them easily. In contrast, <LaTeX>'s error messages usually detach from their root causes in large documents and the logs are very long.
+  <LaTeX> group thinks for a long time to solve most of the error samples. Mogan group locates the problems quickly and solve all of the error samples (only two samples consume more than 10k tokens). The reason is that the illness in <code*|.tmu> files only influences the closest tree-tag ancestor (as discussed in <smart-ref|sec:tree-struc-on-mogan>). So the error message in Mogan STEM is quiet clear for LLMs to understand and correct them easily. In contrast, <LaTeX>'s error messages usually detach from their root causes in large documents and the logs are very long.
 
   <\big-figure|<image|debugging.png|0.6par|||>>
     <label|figure:debugging>Test on document debugging using error messages
@@ -823,11 +833,11 @@
 
   <subsection|Efficiency in fine-tuning>
 
-  Recall that Mogan uses tree structure while <LaTeX> uses linear macro flow. Benifit from the tree structure, it is easier for models to predict the new token in Mogan than in <LaTeX>.
+  Recall that Mogan uses tree structure while <LaTeX> uses linear macro flow. Benefit from the tree structure, it is easier for models to predict the new token in Mogan than in <LaTeX>.
 
   We did a parallel supervised<nbsp>fine-tuning (SFT) experiment. We generate 1000 random formulas written in <LaTeX> and convert them to the Mogan S-expression by Mogan STEM. We guarantee that the formulas in two versions are identical after rendering. The formulas cover fractions, radicals, subscripts and superscripts, matrices, piecewise, integrals and summations, limits, logical quantifiers, composite functions, and nested parentheses. Then we cut the formulas into two part. We give the prefix part to the model and let it complete the whole formula.
 
-  <smart-ref|figure:fine-tune> shows the experiment of low rank adaptation (LoRA) based on Qwen2.5-7B-Instruct on 1000 formulas in 289 steps, Mogan group's loss converges to around 0.4 while <LaTeX>'s converges to around 0.7. The reason is that Mogan's S-expression have lower information entropy. <LaTeX> document has a lot of syntax noise. For example, the writing <code*|\\frac{a}{b}> and <code*|{a \\over b}> are equivalent, the writing <code*|x^{2}> and <code*|x^2> are also equivalent. So the model have more certainty to predict the next token compaired to <LaTeX>.
+  <smart-ref|figure:fine-tune> shows the experiment of low rank adaptation (LoRA) based on Qwen2.5-7B-Instruct on 1000 formulas in 289 steps, Mogan group's loss converges to around 0.4 while <LaTeX>'s converges to around 0.7. The reason is that Mogan's S-expression have lower information entropy. <LaTeX> document has a lot of syntax noise. For example, the writing <code*|\\frac{a}{b}> and <code*|{a \\over b}> are equivalent, the writing <code*|x^{2}> and <code*|x^2> are also equivalent. So the model have more certainty to predict the next token compared to <LaTeX>.
 
   <\big-figure|<image|fine-tune.png|0.6par|||>>
     <label|figure:fine-tune>Experiment of LoRA based on Qwen2.5-7B-Instruct
@@ -863,9 +873,9 @@
     Machine configuration in numerical experiments
   </big-table>
 
-  <appendix|Questions in experiment 6.2.1>
+  <appendix|Questions for evaluate structure locating><label|app:20ques>
 
-  You are a expert in <LaTeX>. Your task is to read <with|font-family|tt|main.tex> and answer the following questions:
+  You are an expert in <LaTeX>. Your task is to read the <with|font-family|tt|main.tex> and answer the following questions:
 
   <\enumerate>
     <item>Count the number of sections.
@@ -908,6 +918,10 @@
 
     <item>Has Citation 31 appeared in the article?
   </enumerate>
+
+  <appendix|Discussion of Mogan v.s. Markdown>
+
+  <unfolded-comment|+1o0lqAo319uNxBCC|+1o0lqAo319uNxBCD|comment|Jack Yansong Li|1770950146||for markdown, we need to fine tune on .tmu. Howvever, we are poor>
 </body>
 
 <\initial>
@@ -920,6 +934,7 @@
 
 <\references>
   <\collection>
+    <associate|app:20ques|<tuple|B|?>>
     <associate|auto-1|<tuple|1|2>>
     <associate|auto-10|<tuple|3.1.3|6>>
     <associate|auto-11|<tuple|3.2|7>>
@@ -973,6 +988,7 @@
     <associate|auto-55|<tuple|A|21>>
     <associate|auto-56|<tuple|8|21>>
     <associate|auto-57|<tuple|B|21>>
+    <associate|auto-58|<tuple|C|?>>
     <associate|auto-6|<tuple|3.1|4>>
     <associate|auto-7|<tuple|3.1.1|4>>
     <associate|auto-8|<tuple|3.1.2|5>>
@@ -1000,6 +1016,7 @@
     <associate|footnote-1|<tuple|1|13>>
     <associate|footnr-1|<tuple|1|13>>
     <associate|img:texlive-install|<tuple|2|10>>
+    <associate|sec:tree-struc-on-mogan|<tuple|5.1|?>>
     <associate|table:ill-dist|<tuple|7|18>>
     <associate|table:mogan-vs-other|<tuple|6|13>>
     <associate|texlive-size|<tuple|1|9>>
