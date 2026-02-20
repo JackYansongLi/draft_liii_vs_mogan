@@ -1,4 +1,4 @@
-<TMU|<tuple|1.1.0|2026.1.4>>
+<TMU|<tuple|1.1.0|2026.1.5>>
 
 <style|<tuple|generic|number-europe|preview-ref|smart-ref|comment|doc-tmu|goldfish|reduced-margins>>
 
@@ -17,82 +17,88 @@
     Tsinghua University
   </author-affiliation>|<author-email|liuxr21@mails.tsinghua.edu.cn>>>>
 
+  <abstract-data|<\abstract>
+    As large language models (LLMs) increasingly assist scientific writing, limitations of the <TeX> become more and more visible and costly. This paper analyzes <TeX>'s fundamental defects in compilation and user experience design to illustrate its limitations on compilation efficiency, generated semantics, error localization, and tool ecosystem. As an alternative, <with|font-series|bold|Mogan STEM>, a WYSIWYG structured editor outperforms <LaTeX> in the above aspects by its efficient data structure, fast rendering, \ and on-demand plugin loading. Extensive experiments are conducted to verify the benifits on compilation/rendering time, performance in LLM tasks, and efficiency in fine-tuning due to Mogan's lower information entropy.
+  </abstract>>
+
   <\table-of-contents|toc>
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|1<space|2spc>A Brief History of T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-1><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Abstract><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-1><vspace|0.5fn>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|2<space|2spc>An Introduction to T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X Compilation Principles><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-2><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|1<space|2spc>A Brief History of T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-2><vspace|0.5fn>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|3<space|2spc>Fundamental Defects in T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X's Compilation Design><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-5><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|2<space|2spc>An Introduction to T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X Compilation Principles><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-3><vspace|0.5fn>
 
-    <with|par-left|1tab|3.1<space|2spc>Batch Model Limitations: Unidirectionality, Weak Semantics, and Delayed Feedback<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-6>>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|3<space|2spc>Fundamental Defects in T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X's Compilation Design><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-6><vspace|0.5fn>
 
-    <with|par-left|2tab|3.1.1<space|2spc>Unidirectional and One-off Processing Flow<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-7>>
+    <with|par-left|1tab|3.1<space|2spc>Batch Model Limitations: Unidirectionality, Weak Semantics, and Delayed Feedback<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-7>>
 
-    <with|par-left|2tab|3.1.2<space|2spc>Tight Coupling Between Compilation and Semantic Phases<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-8>>
+    <with|par-left|2tab|3.1.1<space|2spc>Unidirectional and One-off Processing Flow<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-8>>
 
-    <with|par-left|2tab|3.1.3<space|2spc>Lagged Manifestation and Ambiguous Localization of Errors<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-10>>
+    <with|par-left|2tab|3.1.2<space|2spc>Tight Coupling Between Compilation and Semantic Phases<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-9>>
 
-    <with|par-left|1tab|3.2<space|2spc>Compatibility Dilemma Beneath a Unified Syntax<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-11>>
+    <with|par-left|2tab|3.1.3<space|2spc>Lagged Manifestation and Ambiguous Localization of Errors<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-11>>
 
-    <with|par-left|1tab|3.3<space|2spc>Alienation of the Tool Ecosystem<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-13>>
+    <with|par-left|1tab|3.2<space|2spc>Compatibility Dilemma Beneath a Unified Syntax<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-12>>
 
-    <with|par-left|2tab|3.3.1<space|2spc>Multi-pass Compilation: A Fragile Stopgap<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-14>>
+    <with|par-left|1tab|3.3<space|2spc>Alienation of the Tool Ecosystem<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-14>>
 
-    <with|par-left|2tab|3.3.2<space|2spc>Long-Term Suppression of the Tool Ecosystem<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-15>>
+    <with|par-left|2tab|3.3.1<space|2spc>Multi-pass Compilation: A Fragile Stopgap<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-15>>
 
-    <with|par-left|1tab|3.4<space|2spc>Comparison: Design Paradigms of Structured and Incremental Systems<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-16>>
+    <with|par-left|2tab|3.3.2<space|2spc>Long-Term Suppression of the Tool Ecosystem<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-16>>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|4<space|2spc>Limitations of T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X in User Experience Design><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-17><vspace|0.5fn>
+    <with|par-left|1tab|3.4<space|2spc>Comparison: Design Paradigms of Structured and Incremental Systems<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-17>>
 
-    <with|par-left|1tab|4.1<space|2spc>Issues with Distribution Scale and Deployment Models<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-18>>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|4<space|2spc>Limitations of T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X in User Experience Design><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-18><vspace|0.5fn>
 
-    <with|par-left|1tab|4.2<space|2spc>Real-World Performance Dilemma<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-21>>
+    <with|par-left|1tab|4.1<space|2spc>Issues with Distribution Scale and Deployment Models<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-19>>
 
-    <with|par-left|1tab|4.3<space|2spc>Intrinsic Weakness: Absence of Engineering Standards<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-22>>
+    <with|par-left|1tab|4.2<space|2spc>Real-World Performance Dilemma<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-22>>
 
-    <with|par-left|1tab|4.4<space|2spc>User Experience Barriers from a Practical Perspective<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-24>>
+    <with|par-left|1tab|4.3<space|2spc>Intrinsic Weakness: Absence of Engineering Standards<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-23>>
 
-    <with|par-left|1tab|4.5<space|2spc>Contributions and Constraints of L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X3<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-25>>
+    <with|par-left|1tab|4.4<space|2spc>User Experience Barriers from a Practical Perspective<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-25>>
 
-    <with|par-left|1tab|4.6<space|2spc>Limitations of Modern Collaboration Platforms: A Case Study of Overleaf<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-26>>
+    <with|par-left|1tab|4.5<space|2spc>Contributions and Constraints of L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|0|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X3<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-26>>
 
-    <with|par-left|2tab|4.6.1<space|2spc>Key Improvements by Overleaf<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-27>>
+    <with|par-left|1tab|4.6<space|2spc>Limitations of Modern Collaboration Platforms: A Case Study of Overleaf<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-27>>
 
-    <with|par-left|2tab|4.6.2<space|2spc>Constraints of Underlying Architecture<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-28>>
+    <with|par-left|2tab|4.6.1<space|2spc>Key Improvements by Overleaf<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-28>>
 
-    <with|par-left|2tab|4.6.3<space|2spc>Impact on Trajectory of Technological Evolution<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-29>>
+    <with|par-left|2tab|4.6.2<space|2spc>Constraints of Underlying Architecture<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-29>>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|5<space|2spc>Mogan STEM：A WYSIWYG Structured Editor><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-30><vspace|0.5fn>
+    <with|par-left|2tab|4.6.3<space|2spc>Impact on Trajectory of Technological Evolution<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-30>>
 
-    <with|par-left|1tab|5.1<space|2spc>Tree-Structured Formulas and Document Structure<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-32>>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|5<space|2spc>Mogan STEM：A WYSIWYG Structured Editor><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-31><vspace|0.5fn>
 
-    <with|par-left|1tab|5.2<space|2spc>Functional Symbol Representation<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-37>>
+    <with|par-left|1tab|5.1<space|2spc>Tree-Structured Formulas and Document Structure<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-33>>
 
-    <with|par-left|1tab|5.3<space|2spc>Fast Reference Rendering<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-38>>
+    <with|par-left|1tab|5.2<space|2spc>Functional Symbol Representation<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-38>>
 
-    <with|par-left|1tab|5.4<space|2spc>On-demand plugin loading<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-39>>
+    <with|par-left|1tab|5.3<space|2spc>Fast Reference Rendering<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-39>>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|6<space|2spc>Numerical experiments><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-40><vspace|0.5fn>
+    <with|par-left|1tab|5.4<space|2spc>On-demand plugin loading<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-40>>
 
-    <with|par-left|1tab|6.1<space|2spc>Benchmark on compiling/rendering time<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-41>>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|6<space|2spc>Numerical experiments><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-41><vspace|0.5fn>
 
-    <with|par-left|1tab|6.2<space|2spc>Performance in LLM tasks<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-44>>
+    <with|par-left|1tab|6.1<space|2spc>Benchmark on compiling/rendering time<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-42>>
 
-    <with|par-left|2tab|6.2.1<space|2spc>Locating document structure<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-45>>
+    <with|par-left|1tab|6.2<space|2spc>Performance in LLM tasks<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-45>>
 
-    <with|par-left|2tab|6.2.2<space|2spc>Merging files with distinct doc-styles<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-47>>
+    <with|par-left|2tab|6.2.1<space|2spc>Locating document structure<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-46>>
 
-    <with|par-left|2tab|6.2.3<space|2spc>Debugging illed document using error messages<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-49>>
+    <with|par-left|2tab|6.2.2<space|2spc>Merging files with distinct doc-styles<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-48>>
 
-    <with|par-left|1tab|6.3<space|2spc>Efficiency in fine-tuning<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-52>>
+    <with|par-left|2tab|6.2.3<space|2spc>Debugging illed document using error messages<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-50>>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Bibliography><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-54><vspace|0.5fn>
+    <with|par-left|1tab|6.3<space|2spc>Efficiency in fine-tuning<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-53>>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix A<space|2spc>Machine configuration><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-55><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Bibliography><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-55><vspace|0.5fn>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix B<space|2spc>Questions for evaluate structure locating><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-57><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix A<space|2spc>Machine configuration><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-56><vspace|0.5fn>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix C<space|2spc>Discussion of Mogan v.s. Markdown><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-58><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix B<space|2spc>Questions for evaluate structure locating><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-58><vspace|0.5fn>
+
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix C<space|2spc>Discussion of Mogan v.s. Markdown><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-59><vspace|0.5fn>
   </table-of-contents>
 
   <section|A Brief History of <TeX>>
@@ -727,7 +733,7 @@
 
   It is noteworthy that Mogan requires an installation package of merely one hundred megabytes, occupying only several hundred megabytes of local storage upon extraction, yet it offers immediate, out-of-the-box support for the editing and export of complex mathematical documents. In stark contrast, even a minimalist <LaTeX> installation typically demands a local environment exceeding 1 GB, while a full distribution reaches approximately 6 GB in 2025.
 
-  This disparity stems from a fundamental divergence in system design. <LaTeX> front-loads "potential future capabilities" as an installation cost, maintaining compatibility through its macro language and package ecosystem. Conversely, Mogan defers complexity to runtime, confining it within the actual execution path. It achieves extensibility via a unified document tree model and a runtime plugin mechanism. Consequently, Mogan's complexity activates dynamically \ by specific documents at runtime, whereas <LaTeX>'s complexity manifests primarily during the installation and configuration phases.
+  This disparity stems from a fundamental divergence in system design. <LaTeX> front-loads "potential future capabilities" as an installation cost, maintaining compatibility through its macro language and package ecosystem. Conversely, Mogan defers complexity to runtime, confining it within the actual execution path. It achieves extensibility via a unified document tree model and a runtime plugin mechanism. Consequently, Mogan's complexity activates dynamically by specific documents at runtime, whereas <LaTeX>'s complexity manifests primarily during the installation and configuration phases.
 
   In summary, <TeX> Live installs an ever-accumulating repository of historical packages, whereas Mogan installs an evolvable document system. The complexity of the former is front-loaded to the installation phase, while the latter is triggered by the document at runtime.
 
@@ -921,7 +927,7 @@
 
   In fact, we have already discuss the fine-tuning efficiency of Mogan S-expression and Markdown inline formula (wrapped by <code*|$>) in <smart-ref|sec:eff-in-sft> because Markdown inline formula use the same structure as <LaTeX>.
 
-  Besides, we need to conduct a series of experiments to evaluate their extensibility, semantic richness, typographic precision, and so on. Given by the the huge gap between Mogan and Markdown in application scenarios, design such a series of experiments for fair is not easy. Limited by our budget, here is as far as we can go.
+  Besides, we need to conduct a series of experiments to evaluate their extensibility, semantic richness, typographic precision, and more. Given by the the huge gap between Mogan and Markdown in application scenarios, design such a series of experiments for fair is not easy. Limited by our budget, here is as far as we go.
 </body>
 
 <\initial>
@@ -937,64 +943,65 @@
     <associate|app:20ques|<tuple|B|22>>
     <associate|app:ms|<tuple|A|22>>
     <associate|app:vs|<tuple|C|22>>
-    <associate|auto-1|<tuple|1|2>>
-    <associate|auto-10|<tuple|3.1.3|6>>
-    <associate|auto-11|<tuple|3.2|7>>
-    <associate|auto-12|<tuple|4|7>>
-    <associate|auto-13|<tuple|3.3|8>>
-    <associate|auto-14|<tuple|3.3.1|8>>
-    <associate|auto-15|<tuple|3.3.2|8>>
-    <associate|auto-16|<tuple|3.4|9>>
-    <associate|auto-17|<tuple|4|9>>
-    <associate|auto-18|<tuple|4.1|9>>
-    <associate|auto-19|<tuple|1|9>>
-    <associate|auto-2|<tuple|2|2>>
-    <associate|auto-20|<tuple|2|10>>
-    <associate|auto-21|<tuple|4.2|10>>
-    <associate|auto-22|<tuple|4.3|11>>
-    <associate|auto-23|<tuple|5|11>>
-    <associate|auto-24|<tuple|4.4|11>>
-    <associate|auto-25|<tuple|4.5|12>>
-    <associate|auto-26|<tuple|4.6|12>>
-    <associate|auto-27|<tuple|4.6.1|12>>
-    <associate|auto-28|<tuple|4.6.2|13>>
-    <associate|auto-29|<tuple|4.6.3|13>>
-    <associate|auto-3|<tuple|1|2>>
-    <associate|auto-30|<tuple|5|13>>
-    <associate|auto-31|<tuple|6|13>>
-    <associate|auto-32|<tuple|5.1|13>>
-    <associate|auto-33|<tuple|3|13>>
-    <associate|auto-34|<tuple|1|14>>
-    <associate|auto-35|<tuple|4|14>>
-    <associate|auto-36|<tuple|5|15>>
-    <associate|auto-37|<tuple|5.2|15>>
-    <associate|auto-38|<tuple|5.3|15>>
-    <associate|auto-39|<tuple|5.4|15>>
-    <associate|auto-4|<tuple|2|3>>
-    <associate|auto-40|<tuple|6|15>>
-    <associate|auto-41|<tuple|6.1|16>>
-    <associate|auto-42|<tuple|6|16>>
-    <associate|auto-43|<tuple|7|16>>
-    <associate|auto-44|<tuple|6.2|17>>
-    <associate|auto-45|<tuple|6.2.1|17>>
-    <associate|auto-46|<tuple|8|17>>
-    <associate|auto-47|<tuple|6.2.2|17>>
-    <associate|auto-48|<tuple|9|18>>
-    <associate|auto-49|<tuple|6.2.3|18>>
-    <associate|auto-5|<tuple|3|3>>
-    <associate|auto-50|<tuple|7|19>>
-    <associate|auto-51|<tuple|10|19>>
-    <associate|auto-52|<tuple|6.3|19>>
-    <associate|auto-53|<tuple|11|20>>
-    <associate|auto-54|<tuple|11|21>>
-    <associate|auto-55|<tuple|A|22>>
-    <associate|auto-56|<tuple|8|22>>
-    <associate|auto-57|<tuple|B|22>>
-    <associate|auto-58|<tuple|C|22>>
-    <associate|auto-6|<tuple|3.1|4>>
-    <associate|auto-7|<tuple|3.1.1|4>>
-    <associate|auto-8|<tuple|3.1.2|5>>
-    <associate|auto-9|<tuple|3|6>>
+    <associate|auto-1|<tuple|?|1>>
+    <associate|auto-10|<tuple|3|6>>
+    <associate|auto-11|<tuple|3.1.3|6>>
+    <associate|auto-12|<tuple|3.2|7>>
+    <associate|auto-13|<tuple|4|7>>
+    <associate|auto-14|<tuple|3.3|8>>
+    <associate|auto-15|<tuple|3.3.1|8>>
+    <associate|auto-16|<tuple|3.3.2|8>>
+    <associate|auto-17|<tuple|3.4|9>>
+    <associate|auto-18|<tuple|4|9>>
+    <associate|auto-19|<tuple|4.1|9>>
+    <associate|auto-2|<tuple|1|2>>
+    <associate|auto-20|<tuple|1|9>>
+    <associate|auto-21|<tuple|2|10>>
+    <associate|auto-22|<tuple|4.2|10>>
+    <associate|auto-23|<tuple|4.3|11>>
+    <associate|auto-24|<tuple|5|11>>
+    <associate|auto-25|<tuple|4.4|11>>
+    <associate|auto-26|<tuple|4.5|12>>
+    <associate|auto-27|<tuple|4.6|12>>
+    <associate|auto-28|<tuple|4.6.1|12>>
+    <associate|auto-29|<tuple|4.6.2|13>>
+    <associate|auto-3|<tuple|2|2>>
+    <associate|auto-30|<tuple|4.6.3|13>>
+    <associate|auto-31|<tuple|5|13>>
+    <associate|auto-32|<tuple|6|13>>
+    <associate|auto-33|<tuple|5.1|13>>
+    <associate|auto-34|<tuple|3|13>>
+    <associate|auto-35|<tuple|1|14>>
+    <associate|auto-36|<tuple|4|14>>
+    <associate|auto-37|<tuple|5|15>>
+    <associate|auto-38|<tuple|5.2|15>>
+    <associate|auto-39|<tuple|5.3|15>>
+    <associate|auto-4|<tuple|1|3>>
+    <associate|auto-40|<tuple|5.4|15>>
+    <associate|auto-41|<tuple|6|15>>
+    <associate|auto-42|<tuple|6.1|16>>
+    <associate|auto-43|<tuple|6|16>>
+    <associate|auto-44|<tuple|7|16>>
+    <associate|auto-45|<tuple|6.2|17>>
+    <associate|auto-46|<tuple|6.2.1|17>>
+    <associate|auto-47|<tuple|8|17>>
+    <associate|auto-48|<tuple|6.2.2|17>>
+    <associate|auto-49|<tuple|9|18>>
+    <associate|auto-5|<tuple|2|3>>
+    <associate|auto-50|<tuple|6.2.3|18>>
+    <associate|auto-51|<tuple|7|19>>
+    <associate|auto-52|<tuple|10|19>>
+    <associate|auto-53|<tuple|6.3|19>>
+    <associate|auto-54|<tuple|11|20>>
+    <associate|auto-55|<tuple|11|21>>
+    <associate|auto-56|<tuple|A|22>>
+    <associate|auto-57|<tuple|8|22>>
+    <associate|auto-58|<tuple|B|22>>
+    <associate|auto-59|<tuple|C|22>>
+    <associate|auto-6|<tuple|3|4>>
+    <associate|auto-7|<tuple|3.1|4>>
+    <associate|auto-8|<tuple|3.1.1|4>>
+    <associate|auto-9|<tuple|3.1.2|5>>
     <associate|bib-interview2021|<tuple|1|21>>
     <associate|bib-knuth1984texbook|<tuple|2|21>>
     <associate|bib-lamport1994document|<tuple|3|21>>
@@ -1046,143 +1053,145 @@
       liiistem2025
     </associate>
     <\associate|figure>
-      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-19>|1>|>
+      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-20>|1>|>
         TeX Live ISO Size Trends
-      </surround>|<pageref|auto-19>>
-
-      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-20>|2>|>
-        TeX Live Installer
       </surround>|<pageref|auto-20>>
 
-      <tuple|normal|<surround|<hidden-binding|<tuple|auto-33>|3>||The Tree Structure of Mogan Formulas>|<pageref|auto-33>>
+      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-21>|2>|>
+        TeX Live Installer
+      </surround>|<pageref|auto-21>>
 
-      <tuple|normal|tree representation of <with|mode|<quote|math>|<around*|\<nobracket\>|<around*|[|F<around*|(|x|)>|]>|\|>>|<pageref|auto-34>>
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-34>|3>||The Tree Structure of Mogan Formulas>|<pageref|auto-34>>
 
-      <tuple|normal|<surround|<hidden-binding|<tuple|auto-35>|4>||Image insertion between lines>|<pageref|auto-35>>
+      <tuple|normal|tree representation of <with|mode|<quote|math>|<around*|\<nobracket\>|<around*|[|F<around*|(|x|)>|]>|\|>>|<pageref|auto-35>>
 
-      <tuple|normal|<surround|<hidden-binding|<tuple|auto-36>|5>||Mogan's multi-line data structure. 第一行 represents “line 1” and 第二行 represents “line 2”.>|<pageref|auto-36>>
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-36>|4>||Image insertion between lines>|<pageref|auto-36>>
 
-      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-42>|6>|>
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-37>|5>||Mogan's multi-line data structure. 第一行 represents “line 1” and 第二行 represents “line 2”.>|<pageref|auto-37>>
+
+      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-43>|6>|>
         Benchmark on full compilation. Each bar represents the average of three trials.
-      </surround>|<pageref|auto-42>>
-
-      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-43>|7>|>
-        Benchmark on incremental update. Each bar represents the average of three trials.
       </surround>|<pageref|auto-43>>
 
-      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-46>|8>|>
+      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-44>|7>|>
+        Benchmark on incremental update. Each bar represents the average of three trials.
+      </surround>|<pageref|auto-44>>
+
+      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-47>|8>|>
         Test on locating document structure
-      </surround>|<pageref|auto-46>>
+      </surround>|<pageref|auto-47>>
 
-      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-48>|9>|>
+      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-49>|9>|>
         Test on merging files with distinct doc-styles
-      </surround>|<pageref|auto-48>>
+      </surround>|<pageref|auto-49>>
 
-      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-51>|10>|>
+      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-52>|10>|>
         Test on debugging illed document using error messages
-      </surround>|<pageref|auto-51>>
+      </surround>|<pageref|auto-52>>
 
-      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-53>|11>|>
+      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-54>|11>|>
         Experiment of LoRA based on Qwen2.5-7B-Instruct
-      </surround>|<pageref|auto-53>>
+      </surround>|<pageref|auto-54>>
     </associate>
     <\associate|table>
-      <tuple|normal|<surround|<hidden-binding|<tuple|auto-3>|1>||L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X file extensions and their descriptions>|<pageref|auto-3>>
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-4>|1>||L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X file extensions and their descriptions>|<pageref|auto-4>>
 
-      <tuple|normal|<surround|<hidden-binding|<tuple|auto-4>|2>||L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X auxiliary file extensions, tools, and descriptions>|<pageref|auto-4>>
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-5>|2>||L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X auxiliary file extensions, tools, and descriptions>|<pageref|auto-5>>
 
-      <tuple|normal|<surround|<hidden-binding|<tuple|auto-9>|3>||Common L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X Hook Directives and Descriptions>|<pageref|auto-9>>
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-10>|3>||Common L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X Hook Directives and Descriptions>|<pageref|auto-10>>
 
-      <tuple|normal|<surround|<hidden-binding|<tuple|auto-12>|4>|| <no-break><specific|screen|<resize|<move|<with|color|<quote|white>|->|-0.3em|>|0em||0em|>>Comparison of L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X Engines>|<pageref|auto-12>>
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-13>|4>|| <no-break><specific|screen|<resize|<move|<with|color|<quote|white>|->|-0.3em|>|0em||0em|>>Comparison of L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X Engines>|<pageref|auto-13>>
 
-      <tuple|normal|<surround|<hidden-binding|<tuple|auto-23>|5>||Core Structural Contradictions in L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X<with|mode|<quote|math>|><space|0.2spc>2<move|<with|mode|<quote|math>|\<varepsilon\>>|-0.0fn|-0.15fn> Language Design and their Engineering Consequences>|<pageref|auto-23>>
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-24>|5>||Core Structural Contradictions in L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X<with|mode|<quote|math>|><space|0.2spc>2<move|<with|mode|<quote|math>|\<varepsilon\>>|-0.0fn|-0.15fn> Language Design and their Engineering Consequences>|<pageref|auto-24>>
 
-      <tuple|normal|<surround|<hidden-binding|<tuple|auto-31>|6>||Comparison between Mogan STEM and alternative editors>|<pageref|auto-31>>
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-32>|6>||Comparison between Mogan STEM and alternative editors>|<pageref|auto-32>>
 
-      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-50>|7>|>
+      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-51>|7>|>
         Distribution of illness in samples
-      </surround>|<pageref|auto-50>>
+      </surround>|<pageref|auto-51>>
 
-      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-56>|8>|>
+      <tuple|normal|<\surround|<hidden-binding|<tuple|auto-57>|8>|>
         Machine configuration in numerical experiments
-      </surround>|<pageref|auto-56>>
+      </surround>|<pageref|auto-57>>
     </associate>
     <\associate|toc>
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>A Brief History of T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-1><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Abstract><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-1><vspace|0.5fn>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|2<space|2spc>An Introduction to T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X Compilation Principles><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-2><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>A Brief History of T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-2><vspace|0.5fn>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|3<space|2spc>Fundamental Defects in T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X's Compilation Design><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-5><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|2<space|2spc>An Introduction to T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X Compilation Principles><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-3><vspace|0.5fn>
 
-      <with|par-left|<quote|1tab>|3.1<space|2spc>Batch Model Limitations: Unidirectionality, Weak Semantics, and Delayed Feedback<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-6>>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|3<space|2spc>Fundamental Defects in T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X's Compilation Design><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-6><vspace|0.5fn>
 
-      <with|par-left|<quote|2tab>|3.1.1<space|2spc>Unidirectional and One-off Processing Flow<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-7>>
+      <with|par-left|<quote|1tab>|3.1<space|2spc>Batch Model Limitations: Unidirectionality, Weak Semantics, and Delayed Feedback<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-7>>
 
-      <with|par-left|<quote|2tab>|3.1.2<space|2spc>Tight Coupling Between Compilation and Semantic Phases<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-8>>
+      <with|par-left|<quote|2tab>|3.1.1<space|2spc>Unidirectional and One-off Processing Flow<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-8>>
 
-      <with|par-left|<quote|2tab>|3.1.3<space|2spc>Lagged Manifestation and Ambiguous Localization of Errors<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-10>>
+      <with|par-left|<quote|2tab>|3.1.2<space|2spc>Tight Coupling Between Compilation and Semantic Phases<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-9>>
 
-      <with|par-left|<quote|1tab>|3.2<space|2spc>Compatibility Dilemma Beneath a Unified Syntax<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-11>>
+      <with|par-left|<quote|2tab>|3.1.3<space|2spc>Lagged Manifestation and Ambiguous Localization of Errors<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-11>>
 
-      <with|par-left|<quote|1tab>|3.3<space|2spc>Alienation of the Tool Ecosystem<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-13>>
+      <with|par-left|<quote|1tab>|3.2<space|2spc>Compatibility Dilemma Beneath a Unified Syntax<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-12>>
 
-      <with|par-left|<quote|2tab>|3.3.1<space|2spc>Multi-pass Compilation: A Fragile Stopgap<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-14>>
+      <with|par-left|<quote|1tab>|3.3<space|2spc>Alienation of the Tool Ecosystem<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-14>>
 
-      <with|par-left|<quote|2tab>|3.3.2<space|2spc>Long-Term Suppression of the Tool Ecosystem<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-15>>
+      <with|par-left|<quote|2tab>|3.3.1<space|2spc>Multi-pass Compilation: A Fragile Stopgap<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-15>>
 
-      <with|par-left|<quote|1tab>|3.4<space|2spc>Comparison: Design Paradigms of Structured and Incremental Systems<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-16>>
+      <with|par-left|<quote|2tab>|3.3.2<space|2spc>Long-Term Suppression of the Tool Ecosystem<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-16>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|4<space|2spc>Limitations of T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X in User Experience Design><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-17><vspace|0.5fn>
+      <with|par-left|<quote|1tab>|3.4<space|2spc>Comparison: Design Paradigms of Structured and Incremental Systems<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-17>>
 
-      <with|par-left|<quote|1tab>|4.1<space|2spc>Issues with Distribution Scale and Deployment Models<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-18>>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|4<space|2spc>Limitations of T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X in User Experience Design><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-18><vspace|0.5fn>
 
-      <with|par-left|<quote|1tab>|4.2<space|2spc>Real-World Performance Dilemma<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-21>>
+      <with|par-left|<quote|1tab>|4.1<space|2spc>Issues with Distribution Scale and Deployment Models<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-19>>
 
-      <with|par-left|<quote|1tab>|4.3<space|2spc>Intrinsic Weakness: Absence of Engineering Standards<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-22>>
+      <with|par-left|<quote|1tab>|4.2<space|2spc>Real-World Performance Dilemma<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-22>>
 
-      <with|par-left|<quote|1tab>|4.4<space|2spc>User Experience Barriers from a Practical Perspective<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-24>>
+      <with|par-left|<quote|1tab>|4.3<space|2spc>Intrinsic Weakness: Absence of Engineering Standards<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-23>>
 
-      <with|par-left|<quote|1tab>|4.5<space|2spc>Contributions and Constraints of L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X3<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-25>>
+      <with|par-left|<quote|1tab>|4.4<space|2spc>User Experience Barriers from a Practical Perspective<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-25>>
 
-      <with|par-left|<quote|1tab>|4.6<space|2spc>Limitations of Modern Collaboration Platforms: A Case Study of Overleaf<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-26>>
+      <with|par-left|<quote|1tab>|4.5<space|2spc>Contributions and Constraints of L<rsup|<space|-0.8spc><move|A|0fn|-0.1fn>><space|-0.2spc>T<rsub|<space|-0.4spc><move|<resize|<with|math-level|<quote|0>|E>||||0.5fn>|0fn|-0.1fn>><space|-0.4spc>X3<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-26>>
 
-      <with|par-left|<quote|2tab>|4.6.1<space|2spc>Key Improvements by Overleaf<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-27>>
+      <with|par-left|<quote|1tab>|4.6<space|2spc>Limitations of Modern Collaboration Platforms: A Case Study of Overleaf<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-27>>
 
-      <with|par-left|<quote|2tab>|4.6.2<space|2spc>Constraints of Underlying Architecture<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-28>>
+      <with|par-left|<quote|2tab>|4.6.1<space|2spc>Key Improvements by Overleaf<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-28>>
 
-      <with|par-left|<quote|2tab>|4.6.3<space|2spc>Impact on Trajectory of Technological Evolution<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-29>>
+      <with|par-left|<quote|2tab>|4.6.2<space|2spc>Constraints of Underlying Architecture<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-29>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|5<space|2spc>Mogan STEM：A WYSIWYG Structured Editor><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-30><vspace|0.5fn>
+      <with|par-left|<quote|2tab>|4.6.3<space|2spc>Impact on Trajectory of Technological Evolution<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-30>>
 
-      <with|par-left|<quote|1tab>|5.1<space|2spc>Tree-Structured Formulas and Document Structure<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-32>>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|5<space|2spc>Mogan STEM：A WYSIWYG Structured Editor><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-31><vspace|0.5fn>
 
-      <with|par-left|<quote|1tab>|5.2<space|2spc>Functional Symbol Representation<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-37>>
+      <with|par-left|<quote|1tab>|5.1<space|2spc>Tree-Structured Formulas and Document Structure<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-33>>
 
-      <with|par-left|<quote|1tab>|5.3<space|2spc>Fast Reference Rendering<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-38>>
+      <with|par-left|<quote|1tab>|5.2<space|2spc>Functional Symbol Representation<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-38>>
 
-      <with|par-left|<quote|1tab>|5.4<space|2spc>On-demand plugin loading<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-39>>
+      <with|par-left|<quote|1tab>|5.3<space|2spc>Fast Reference Rendering<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-39>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|6<space|2spc>Numerical experiments><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-40><vspace|0.5fn>
+      <with|par-left|<quote|1tab>|5.4<space|2spc>On-demand plugin loading<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-40>>
 
-      <with|par-left|<quote|1tab>|6.1<space|2spc>Benchmark on compiling/rendering time<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-41>>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|6<space|2spc>Numerical experiments><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-41><vspace|0.5fn>
 
-      <with|par-left|<quote|1tab>|6.2<space|2spc>Performance in LLM tasks<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-44>>
+      <with|par-left|<quote|1tab>|6.1<space|2spc>Benchmark on compiling/rendering time<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-42>>
 
-      <with|par-left|<quote|2tab>|6.2.1<space|2spc>Locating document structure<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-45>>
+      <with|par-left|<quote|1tab>|6.2<space|2spc>Performance in LLM tasks<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-45>>
 
-      <with|par-left|<quote|2tab>|6.2.2<space|2spc>Merging files with distinct doc-styles<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-47>>
+      <with|par-left|<quote|2tab>|6.2.1<space|2spc>Locating document structure<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-46>>
 
-      <with|par-left|<quote|2tab>|6.2.3<space|2spc>Debugging illed document using error messages<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-49>>
+      <with|par-left|<quote|2tab>|6.2.2<space|2spc>Merging files with distinct doc-styles<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-48>>
 
-      <with|par-left|<quote|1tab>|6.3<space|2spc>Efficiency in fine-tuning<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-52>>
+      <with|par-left|<quote|2tab>|6.2.3<space|2spc>Debugging illed document using error messages<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-50>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Bibliography><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-54><vspace|0.5fn>
+      <with|par-left|<quote|1tab>|6.3<space|2spc>Efficiency in fine-tuning<datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-53>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix A<space|2spc>Machine configuration><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-55><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Bibliography><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-55><vspace|0.5fn>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix B<space|2spc>Questions for evaluate structure locating><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-57><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix A<space|2spc>Machine configuration><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-56><vspace|0.5fn>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix C<space|2spc>Discussion of Mogan v.s. Markdown><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-58><vspace|0.5fn>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix B<space|2spc>Questions for evaluate structure locating><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-58><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix C<space|2spc>Discussion of Mogan v.s. Markdown><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-59><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
