@@ -48,7 +48,7 @@ line = ax.plot(
     color="#0080CA",
     markerfacecolor="#0080CA",
     markeredgecolor="white",
-    markeredgewidth=1.2,
+    markeredgewidth=0.8,
     zorder=3,
     label="TeX Live ISO Size"
 )

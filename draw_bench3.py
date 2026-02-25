@@ -10,6 +10,14 @@ SMOOTH_WINDOW = 7
 TEXMACS_COLOR = "#0044C1"
 LATEX_COLOR = "#7c1313"
 
+plt.rcParams.update({
+	"font.family": "serif",
+	"axes.labelsize": 12,
+	"xtick.labelsize": 10,
+	"ytick.labelsize": 10,
+	"legend.fontsize": 10,
+})
+
 
 def moving_avg(xs: List[float], k: int) -> List[float]:
 	if k <= 1:
