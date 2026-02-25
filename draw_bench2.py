@@ -9,32 +9,16 @@ benchmarks = [
     "ChatGPT-5.2",
 ]
 
-data_path = "writing.txt"
+series_names = ["LaTeX", "Mogan"]
+highlight_names = {"Mogan"}
+series_colors = {"LaTeX": "#CFDDC3", "Mogan": "#76C63E"}
 
-with open(data_path, "r", encoding="utf-8") as f:
-    rows = [
-        list(map(float, re.split(r"[,\s]+", line.strip())))
-        for line in f if line.strip()
-    ]
-
-data = np.array(rows, dtype=float)
-
-if data.shape != (2, 4):
-    raise ValueError(f"Expect 2 rows x 4 cols, got {data.shape}. Check your data.")
-
-series_names = [
-    "LaTeX",
-    "Mogan",
+# Only varying configs
+charts = [
+    {"name": "writing", "data_path": "writing.txt", "ylabel": "Total   Utility", "ylim": (0, 105)},
+    {"name": "reading", "data_path": "reading.txt", "ylabel": "Score", "ylim": (0, 100)},
+    {"name": "debugging", "data_path": "debugging.txt", "ylabel": "Score", "ylim": (0, 108)},
 ]
-
-highlight_names = {
-    "Mogan"
-}
-
-series_colors = {
-    "LaTeX":   "#CFDDC3",
-    "Mogan": "#76C63E",
-}
 
 plt.rcParams.update({
     "font.family": "serif",
@@ -44,61 +28,73 @@ plt.rcParams.update({
     "legend.fontsize": 10,
 })
 
-fig, ax = plt.subplots(figsize=(11, 6))
-
-x = np.arange(len(benchmarks))
-n = len(series_names)
 bar_w = 0.30
-offsets = (np.arange(n) - (n - 1) / 2) * (bar_w + 0.02)
+offsets = (np.arange(len(series_names)) - (len(series_names) - 1) / 2) * (bar_w + 0.02)
 
-ax.set_axisbelow(True)
-ax.yaxis.grid(True, linestyle="--", linewidth=0.7, alpha=0.25)
+for cfg in charts:
+    with open(cfg["data_path"], "r", encoding="utf-8") as f:
+        rows = [
+            list(map(float, re.split(r"[,\s]+", line.strip())))
+            for line in f if line.strip()
+        ]
 
-for sp in ax.spines.values():
-    sp.set_color("#D0D0D0")
-    sp.set_linewidth(1.0)
+    data = np.array(rows, dtype=float)
 
-for i, name in enumerate(series_names):
-    vals = data[i]
-    bars = ax.bar(
-        x + offsets[i],
-        vals,
-        width=bar_w,
-        label=name,
-        color=series_colors[name],
-        edgecolor="white",
-        linewidth=0.8,
-        zorder=3,
-    )
+    if data.shape != (2, 4):
+        raise ValueError(f"Expect 2 rows x 4 cols, got {data.shape}. Check your data.")
 
-    for b, v in zip(bars, vals):
-        ax.text(
-            b.get_x() + b.get_width() / 2,
-            b.get_height(),
-            f"{int(v)}",
-            ha="center",
-            va="bottom",
-            fontsize=12,
-            fontweight="bold" if name in highlight_names else "normal",
+    fig, ax = plt.subplots(figsize=(11, 6))
+
+    x = np.arange(len(benchmarks))
+
+    ax.set_axisbelow(True)
+    ax.yaxis.grid(True, linestyle="--", linewidth=0.7, alpha=0.25)
+
+    for sp in ax.spines.values():
+        sp.set_color("#D0D0D0")
+        sp.set_linewidth(1.0)
+
+    for i, name in enumerate(series_names):
+        vals = data[i]
+        bars = ax.bar(
+            x + offsets[i],
+            vals,
+            width=bar_w,
+            label=name,
+            color=series_colors[name],
+            edgecolor="white",
+            linewidth=0.8,
+            zorder=3,
         )
 
-ax.set_xticks(x)
-ax.set_xticklabels(benchmarks, ha="center")
-ax.tick_params(axis="x", pad=10)
+        for b, v in zip(bars, vals):
+            ax.text(
+                b.get_x() + b.get_width() / 2,
+                b.get_height(),
+                f"{int(v)}",
+                ha="center",
+                va="bottom",
+                fontsize=12,
+                fontweight="bold" if name in highlight_names else "normal",
+            )
 
-ax.set_ylabel("Total   Utility")
-ax.set_ylim(0, 105)
+    ax.set_xticks(x)
+    ax.set_xticklabels(benchmarks, ha="center")
+    ax.tick_params(axis="x", pad=10)
 
-ax.legend(
-    ncol=2,
-    loc="upper left",
-    bbox_to_anchor=(0.01, 1.02),
-    frameon=False,
-    handlelength=1.8,
-    columnspacing=1.5,
-)
+    ax.set_ylabel(cfg["ylabel"])
+    ax.set_ylim(*cfg["ylim"])
 
-plt.tight_layout(rect=[0.00, 0.00, 1.00, 1.00])
-plt.savefig("writing.pdf", bbox_inches="tight")
-plt.savefig("writing.png", dpi=300, bbox_inches="tight", facecolor="white")
-plt.show()
+    ax.legend(
+        ncol=2,
+        loc="upper left",
+        bbox_to_anchor=(0.01, 1.02),
+        frameon=False,
+        handlelength=1.8,
+        columnspacing=1.5,
+    )
+
+    plt.tight_layout(rect=[0.00, 0.00, 1.00, 1.00])
+    plt.savefig(f"{cfg['name']}.pdf", bbox_inches="tight")
+    plt.savefig(f"{cfg['name']}.png", dpi=300, bbox_inches="tight", facecolor="white")
+    plt.show()
