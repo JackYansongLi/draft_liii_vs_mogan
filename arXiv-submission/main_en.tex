@@ -1,0 +1,588 @@
+\documentclass{article}
+
+\usepackage[preprint]{neurips_2025}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{natbib}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+\newtcolorbox[auto counter,number within=section]{example}[1][]{
+  colback=gray!10,
+  colframe=gray!50,
+  fonttitle=\bfseries,
+  title=Example~\thetcbcounter: #1,
+  breakable
+}
+
+\title{\LaTeX{} Compilation: Challenges in the Era of LLMs}
+
+\author{%
+  Tianyou Liu$^\dag$ \\
+  Southern University of Science and Technology \\
+  \texttt{12511307@mail.sustech.edu.cn} \\
+  \And
+  Ziqiang Li$^\dag$ \\
+  Alibaba \\
+  \texttt{liziqiang.lzq@alibaba-inc.com} \\
+  \And
+  Yansong Li \\
+  Liii Network \\
+  \texttt{yansong@liii.pro} \\
+  \And
+  Xurui Liu \\
+  Tsinghua University \\
+  \texttt{liuxr21@mails.tsinghua.edu.cn} \\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+As large language models (LLMs) increasingly assist scientific writing, limitations and significant token cost of the TeX become more and more visible. This paper analyzes TeX's fundamental defects in compilation and user experience design to illustrate its limitations on compilation efficiency, generated semantics, error localization, and tool ecosystem in the era of LLMs. As an alternative, \textbf{Mogan STEM}, a WYSIWYG structured editor is introduced. Mogan outperforms TeX in the above aspects by its efficient data structure, fast rendering, and on-demand plugin loading. Extensive experiments are conducted to verify the benefits on compilation/rendering time, performance in LLM tasks. What's more, we show that due to Mogan's lower information entropy, it is more efficient to use \texttt{.tmu} (document format of Mogan) to fine-tune LLMs than TeX. Therefore, we launch an appeal for larger experiments on LLM training using the \texttt{.tmu} format.
+\end{abstract}
+
+\section{A Brief History of \TeX}
+
+Numerous derivatives of TeX have been emerged in past decades, with LaTeX being the most prominent. Built as a macro language on top of TeX, LaTeX significantly simplifies its usage, allowing users to leverage TeX's powerful typesetting capabilities without needing a deep understanding of intricate commands. By defining commands and templates that align with standard typesetting practices, LaTeX has made the production of scientific literature and books far more efficient and accessible, eventually becoming the de facto standard for scientific document preparation.
+
+In the academic field, the TeX system and LaTeX in particular have become the standard of the scientific community thanks to its exceptional mathematical typesetting capabilities. The core design of TeX originates from the pioneering work of Donald Knuth \citep{knuth1984texbook}. The American Mathematical Society (AMS) strongly encourages mathematicians to submit manuscripts using TeX, and widespread adoption by world-class publishers such as Wesley and IEEE has made it a staple for books and journals. Consequently, TeX occupies a pivotal position in the production of academic papers and monographs, serving as a vital tool for scholarly communication and knowledge dissemination.
+
+However, TeX's original design and its subsequent development trajectory have resulted in numerous legacy issues. This article primarily examines the underlying architecture of TeX and explains why certain design choices have led to significant problems.
+
+On another note, it was long believed that ``What You See Is What You Get'' (WYSIWYG) was incompatible with structured editing. The emergence of TeXmacs, however, proved this assumption fundamentally incorrect. Professor Joris from \'Ecole Polytechnique wrote a critique on this subject (see Joris et al.~\citep{van_der_hoeven_gnu_2001, liiistem2025}). The design philosophy of LaTeX has inspired a series of similar editing software; beyond the aforementioned TeXmacs, these include LyX and the recently popular Typst.
+
+Notably, the formula rendering in Typst and TeXmacs is completely independent of the TeX system, whereas LyX serves as a front-end for TeX. While this article contains significant criticism of the TeX system, we wish to clarify our stance: we are by no means denying TeX's historical status, nor do we suggest it was outdated for its time. We simply argue that today---especially in an era of rapidly advancing AI tools---TeX's underlying design presents many issues.
+
+\section{An Introduction to \TeX{} Compilation Principles}
+
+\begin{example}[Minimal example of LaTeX code]
+\label{ex:minimal}
+\begin{verbatim}
+\documentclass{article}
+\usepackage{siunitx}
+\begin{document}
+Hello, World! from \LaTeX.
+The speed of light is \SI{299792458}{\meter\per\second}.
+\end{document}
+\end{verbatim}
+\end{example}
+
+Example~\ref{ex:minimal} shows a minimal example of LaTeX code. The source code comprises two parts: the preamble, which includes the \verb|\documentclass| and \verb|\usepackage| commands, and the document body, which is enclosed within the \verb|\begin{document}| and \verb|\end{document}| environment. The preamble serves as the configuration section for the document, where global settings such as page layout, fonts, and macro definitions are specified. The \verb|\documentclass| command is used to select a document template (class) that controls the overall structure and formatting. The \verb|\usepackage| command imports packages that provide additional functionality, such as mathematical symbols, special characters, or custom formatting options.
+
+\begin{table}[htbp]
+\centering
+\caption{\LaTeX{} file extensions and their descriptions}
+\label{tab:latex-ext}
+\begin{tabular}{ll}
+\toprule
+\textbf{Extension} & \textbf{Description} \\
+\midrule
+\texttt{.tex} & Source file containing document content \\
+\texttt{.sty} & Style file (package) \\
+\texttt{.cls} & Class file defining document structure \\
+\texttt{.bst} & BibTeX bibliography style file \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:latex-ext} lists the main file extensions used in the LaTeX ecosystem. The source code is written in plain text using a text editor and saved with a \texttt{.tex} extension. The LaTeX engine then processes this source file to generate the final output. The engine reads the source file sequentially, expanding macros and processing commands to produce a document in the desired output format (typically DVI or PDF).
+
+\begin{table}[htbp]
+\centering
+\caption{\LaTeX{} auxiliary file extensions, tools, and descriptions}
+\label{tab:latex-aux}
+\begin{tabular}{lll}
+\toprule
+\textbf{Extension} & \textbf{Tool} & \textbf{Description} \\
+\midrule
+\texttt{.aux} & \texttt{latex}/\texttt{pdflatex} & Auxiliary file for cross-references \\
+\texttt{.log} & \texttt{latex}/\texttt{pdflatex} & Log file containing compilation messages \\
+\texttt{.toc} & \texttt{latex}/\texttt{pdflatex} & Table of contents file \\
+\texttt{.bbl} & \texttt{bibtex} & Bibliography file \\
+\texttt{.blg} & \texttt{bibtex} & Bibliography log file \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:latex-aux} shows the auxiliary files generated during compilation. The compilation process typically involves multiple passes: the first pass generates auxiliary files, and subsequent passes use these files to resolve cross-references, citations, and other dynamic elements. This multi-pass approach is necessary because LaTeX is a batch-processing system that does not maintain state between runs.
+
+\section{Fundamental Defects in \TeX{}'s Compilation Design}
+\label{sec:fundamental}
+
+\subsection{Batch Model Limitations: Unidirectionality, Weak Semantics, and Delayed Feedback}
+
+\subsubsection{Unidirectional and One-off Processing Flow}
+
+The core workflow of TeX is inherently unidirectional and batch-oriented. It sequentially reads the source file from beginning to end, expanding macros and processing commands in a single pass. This design, while simple and efficient for its original purpose, creates significant limitations for modern document editing workflows.
+
+The unidirectional nature means that once the compiler has processed a section of the document, it cannot go back to modify it based on information that appears later. This is particularly problematic for cross-references, where the target may appear after the reference itself. The typical workaround is to use multiple compilation passes, but this introduces significant overhead and complexity.
+
+\subsubsection{Tight Coupling Between Compilation and Semantic Phases}
+
+In TeX, the lexical analysis, parsing, and semantic analysis phases are tightly coupled. The macro expansion mechanism, which is central to TeX's operation, operates at the character level without clear separation between these phases. This design choice has several consequences:
+
+\begin{itemize}
+    \item \textbf{Fragile Parsing:} The parser must handle expanded macros, making it difficult to provide meaningful error messages.
+    \item \textbf{Limited Optimization:} Without clear phase separation, optimizations that could be applied at specific stages are difficult to implement.
+    \item \textbf{Debugging Difficulties:} Errors may manifest far from their actual source due to macro expansion.
+\end{itemize}
+
+\subsubsection{Lagged Manifestation and Ambiguous Localization of Errors}
+
+TeX's error reporting is notorious for being cryptic and unhelpful. When an error occurs, the compiler often reports it at a location far removed from the actual source of the problem. This is due to several factors:
+
+\begin{enumerate}
+    \item Macro expansion can propagate errors across large portions of the document.
+    \item The batch processing model means that errors accumulate before being reported.
+    \item Error messages are often technical and do not provide actionable guidance.
+\end{enumerate}
+
+For example, a missing brace several pages earlier might cause an error message that appears to indicate a problem in a completely different location. This makes debugging LaTeX documents a time-consuming and frustrating experience, especially for users who are not deeply familiar with the system.
+
+\subsection{Compatibility Dilemma Beneath a Unified Syntax}
+
+LaTeX's success has created a massive ecosystem of packages and classes, each extending the language in various ways. However, this extension mechanism relies on macro redefinition, which is inherently fragile. When two packages attempt to redefine the same command, conflicts can arise that are difficult to diagnose and resolve.
+
+\begin{table}[htbp]
+\centering
+\caption{Common \LaTeX{} Hook Directives and Descriptions}
+\label{tab:latex-hooks}
+\begin{tabular}{lp{10cm}}
+\toprule
+\textbf{Hook} & \textbf{Description} \\
+\midrule
+\texttt{\textbackslash AtBeginDocument} & Executed at the beginning of the document body \\
+\texttt{\textbackslash AtEndDocument} & Executed at the end of the document \\
+\texttt{\textbackslash AtBeginDvi} & Executed when the first page is shipped out \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:latex-hooks} shows some common hook directives. While hooks provide a mechanism for packages to coordinate their initialization, they cannot fully resolve the fundamental tension between extensibility and compatibility. The order of package loading becomes critical, and users must often engage in trial-and-error to find a working configuration.
+
+\subsection{Alienation of the Tool Ecosystem}
+
+\subsubsection{Multi-pass Compilation: A Fragile Stopgap}
+
+In LaTeX, the accurate generation of cross-references, tables of contents, and bibliographies relies on multiple compilation passes to make up for the absence of internal state. The typical workflow involves a first pass that generates auxiliary files (like \texttt{.aux} and \texttt{.toc}) to record state, followed by subsequent passes that read these files to populate cross-references, page numbers, or chapter titles.
+
+If the document includes citations, external tools such as BibTeX or Biber must also be integrated into the process. For example, the standard procedure for a document with references often follows the sequence: \texttt{pdflatex} $\rightarrow$ \texttt{bibtex} $\rightarrow$ \texttt{pdflatex} $\rightarrow$ \texttt{pdflatex}.
+
+This mechanism imposes several burdens:
+
+\begin{itemize}
+    \item \textbf{State Fragmentation:} Document state is scattered across multiple external files.
+    \item \textbf{Cognitive Load:} Users must master complex ``compilation rituals.'' For instance, failure to run BibTeX results in all citation numbers appearing as \texttt{??}.
+    \item \textbf{Debugging Difficulties:} Error tracing is notoriously difficult because errors in auxiliary files (e.g., corrupted \texttt{.aux} files) are hard to diagnose.
+\end{itemize}
+
+\subsubsection{Long-Term Suppression of the Tool Ecosystem}
+
+The complexity of the LaTeX compilation pipeline has suppressed innovation in the tool ecosystem. Building tools that interact with LaTeX requires understanding the intricate details of the compilation process, the various auxiliary files, and the interactions between different packages. This high barrier to entry has limited the development of sophisticated tools for LaTeX document analysis, refactoring, and collaboration.
+
+\subsection{Comparison: Design Paradigms of Structured and Incremental Systems}
+
+In contrast to TeX's batch-oriented design, modern structured editors like Mogan STEM adopt an incremental approach. Documents are represented as structured trees rather than flat text, and changes are propagated immediately through the document structure. This enables:
+
+\begin{itemize}
+    \item \textbf{Immediate Feedback:} Changes are visible instantly without waiting for compilation.
+    \item \textbf{Precise Error Localization:} Errors are associated with specific nodes in the document tree.
+    \item \textbf{Semantic Understanding:} The editor maintains a rich representation of the document structure.
+\end{itemize}
+
+\section{Limitations of \TeX{} in User Experience Design}
+\label{sec:ux}
+
+\subsection{Issues with Distribution Scale and Deployment Models}
+
+\begin{table}[htbp]
+\centering
+\caption{Comparison between Mogan STEM and alternative editors}
+\label{tab:comparison}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Feature} & \textbf{Mogan} & \textbf{LaTeX} & \textbf{Markdown} \\
+\midrule
+WYSIWYG & Yes & No & Partial \\
+Structured editing & Yes & No & No \\
+Math rendering & Native & Engine-dependent & Limited \\
+Plugin system & On-demand & Pre-installed & Limited \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:comparison} provides a comparison of features across different editors. TeX Live, the standard LaTeX distribution, has grown to an enormous size due to the accumulation of historical packages. This creates significant challenges for deployment, especially in constrained environments.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{figure/texlive-size.png}
+\caption{TeX Live ISO Size Trends}
+\label{fig:texlive-size}
+\end{figure}
+
+Figure~\ref{fig:texlive-size} shows the growth of TeX Live over time. Figure~\ref{fig:texlive-installer} illustrates the complex installation interface. In contrast, Mogan STEM uses an on-demand plugin loading mechanism, where features are only loaded when needed. This significantly reduces the installation size and startup time.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{figure/texlive-installer.png}
+\caption{TeX Live Installer}
+\label{fig:texlive-installer}
+\end{figure}
+
+\subsection{Real-World Performance Dilemma}
+
+The performance of LaTeX compilation degrades significantly with document complexity. Documents with extensive cross-references, bibliographies, or complex mathematical content require multiple passes and can take minutes to compile. This creates a frustrating edit-compile-view cycle that interrupts the writing flow.
+
+\subsection{Intrinsic Weakness: Absence of Engineering Standards}
+
+LaTeX lacks formal engineering standards for package development. While the \texttt{lppl} license provides some guidance, there are no enforced standards for:
+
+\begin{itemize}
+    \item Package documentation quality
+    \item API stability and versioning
+    \item Error handling and reporting
+    \item Testing and validation
+\end{itemize}
+
+This has led to a fragmented ecosystem where package quality varies widely, and compatibility issues are common.
+
+\subsection{User Experience Barriers from a Practical Perspective}
+
+For users, the LaTeX experience is characterized by:
+
+\begin{enumerate}
+    \item \textbf{Steep Learning Curve:} Understanding macro expansion, package interactions, and compilation workflows requires significant investment.
+    \item \textbf{Cryptic Error Messages:} Error messages often require deep knowledge of TeX internals to interpret.
+    \item \textbf{Fragile Workflows:} Small changes can break the compilation in unexpected ways.
+    \item \textbf{Limited Tooling:} Compared to modern IDEs, LaTeX editors offer limited refactoring, navigation, and debugging capabilities.
+\end{enumerate}
+
+\subsection{Contributions and Constraints of \LaTeX3}
+
+LaTeX3 represents an effort to modernize the LaTeX codebase by introducing a more structured programming layer (\texttt{expl3}). While these improvements address some of the technical debt accumulated over decades, they remain constrained by the need for backward compatibility. The improvements are incremental rather than fundamental, and users must still engage with the legacy macro system for many tasks.
+
+\subsection{Limitations of Modern Collaboration Platforms: A Case Study of Overleaf}
+
+\subsubsection{Key Improvements by Overleaf}
+
+Overleaf has addressed some of LaTeX's usability issues by providing:
+
+\begin{itemize}
+    \item Real-time collaboration features
+    \item Simplified compilation management
+    \item Version control integration
+    \item Template libraries for common document types
+\end{itemize}
+
+\subsubsection{Constraints of Underlying Architecture}
+
+However, Overleaf cannot overcome the fundamental limitations of LaTeX's architecture:
+
+\begin{itemize}
+    \item Compilation is still batch-oriented and slow
+    \item Error messages remain cryptic
+    \item Real-time preview requires frequent recompilation
+    \item Collaboration is at the text level, not the semantic level
+\end{itemize}
+
+\subsubsection{Impact on Trajectory of Technological Evolution}
+
+By providing a veneer of usability over LaTeX's fundamental limitations, platforms like Overleaf may have inadvertently slowed the adoption of genuinely superior alternatives. Users who might otherwise seek better solutions are satisfied with incremental improvements to the existing system.
+
+\section{Mogan STEM: A WYSIWYG Structured Editor}
+\label{sec:mogan}
+
+Mogan STEM is a WYSIWYG structured editor designed to address the limitations of LaTeX while maintaining its strengths in scientific typesetting. The key innovations of Mogan STEM include:
+
+\subsection{Tree-Structured Formulas and Document Structure}
+\label{sec:tree-struc-on-mogan}
+
+Unlike LaTeX's linear macro-based representation, Mogan STEM represents documents as structured trees. This enables precise semantic understanding and manipulation of document elements.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{figure/frac-tree.png}
+\caption{The Tree Structure of Mogan Formulas}
+\label{fig:frac-tree}
+\end{figure}
+
+Figure~\ref{fig:frac-tree} illustrates how mathematical expressions are represented as trees in Mogan STEM. Each node has a specific type and contains its children in a well-defined structure. This representation enables:
+
+\begin{itemize}
+    \item Precise cursor positioning and navigation
+    \item Structural selection and manipulation
+    \item Semantic-aware editing operations
+\end{itemize}
+
+\begin{equation}
+\label{eq:tree-struc}
+\text{Tree}(f) = \begin{cases}
+    (\text{leaf}, v) & \text{if } f \text{ is atomic} \\
+    (\text{op}, [\text{Tree}(c_1), \ldots, \text{Tree}(c_n)]) & \text{otherwise}
+\end{cases}
+\end{equation}
+
+Equation~\ref{eq:tree-struc} shows the recursive definition of the tree structure for formulas. Figure~\ref{fig:tree-representation} shows a tree representation of a mathematical expression.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{figure/tree-representation.png}
+\caption{Tree representation of mathematical expression}
+\label{fig:tree-representation}
+\end{figure}
+
+This tree structure exists at the rendering level, not the syntax level. Figure~\ref{fig:double-line} illustrates image insertion between lines, and Figure~\ref{fig:multiline-mogan} shows Mogan's multi-line data structure.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{figure/double-line.png}
+\caption{Image insertion between lines}
+\label{fig:double-line}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{figure/multiline-mogan.png}
+\caption{Mogan's multi-line data structure}
+\label{fig:multiline-mogan}
+\end{figure}
+
+\subsection{Functional Symbol Representation}
+
+Mogan STEM uses a functional representation for symbols and operators. This provides a clean, compositional semantics for document elements. For example, a fraction is represented as:
+
+\begin{equation}
+\label{eq:braket}
+\text{frac}(a, b) \mapsto \frac{a}{b}
+\end{equation}
+
+This functional approach contrasts with LaTeX's macro-based approach, where \verb|\frac{a}{b}| relies on positional arguments and implicit grouping.
+
+\subsection{Fast Reference Rendering}
+
+Cross-references in Mogan STEM are maintained as bidirectional links in the document tree. When a label is updated, all references to it are automatically updated without requiring a full recompilation. This provides immediate visual feedback and eliminates the need for multi-pass compilation.
+
+\subsection{On-demand plugin loading}
+
+Mogan STEM's architecture supports on-demand loading of features and document types. Unlike LaTeX, where the entire distribution must be installed upfront, Mogan loads only the components needed for the current document. This significantly reduces installation size and startup time.
+
+\section{Numerical experiments}
+\label{sec:experiments}
+
+To verify the beneficial of using Mogan STEM compared to LaTeX, we designed and conducted experiments on fast compiling/rendering, LLM tasks performance, and fine-tuning.
+
+\subsection{Benchmark on compiling/rendering time}
+
+Limited by the design of LaTeX, the compilation process requires significant time for documents that are rich in cross-references, tables of contents, and bibliographies. We chose 6 papers from arXiv that satisfies the richness as benchmark documents (machine configuration is attached in Appendix~\ref{app:ms}). Note that Mogan STEM is a WYSIWYG editor, therefore the comparison is unfair! The time consumption for Mogan STEM is
+\[
+t_{\text{compiling}} + t_{\text{rendering}} + t_{\text{IO}},
+\]
+where $t_{\text{compiling}}$ is the compiling time, $t_{\text{rendering}}$ is the rendering time, and $t_{\text{IO}}$ is the \emph{extra} I/O overhead for WYSIWYG editing.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{figure/full-compile.png}
+\caption{Benchmark on full compilation. Each bar represents the average of three trials.}
+\label{fig:full-compile}
+\end{figure}
+
+Figure~\ref{fig:full-compile} shows the results. Even with the extra I/O process, Mogan STEM outperforms LaTeX in compiling/rendering time for most documents. Note that for document \texttt{arXiv:2502.17655}, Mogan STEM compile and render slower than LaTeX, the exception is due to the size of the documents, it has 120 pages. Therefore, the I/O overhead accounts for a large proportion.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{figure/inc-update.png}
+\caption{Benchmark on incremental update. Each bar represents the average of three trials.}
+\label{fig:inc-update}
+\end{figure}
+
+Figure~\ref{fig:inc-update} shows the results for incremental updates. Mogan STEM shows remarkable advantages over LaTeX when doing incremental update on all 6 documents. Note that for document \texttt{arXiv:2502.17655}, Mogan STEM outperforms LaTeX, which seems to be a contradiction to the result of compiling time experiment. The reason for such ``contradiction'' is due to the I/O overhead, in Mogan STEM, the I/O process only activated when the user open the document. Therefore, for incremental updates, $t_{\text{IO}} = 0$.
+
+\subsection{Performance in LLM tasks}
+
+We highly recommend using \texttt{.tmu} to train LLMs instead of \texttt{.tex}. The highly standardized grammar and structured tree-node tags in \texttt{.tmu} files help the models locate the targets faster, complete the contexts properly, and debug the illed structure efficiently. The beneficial are summarized as three dimensions: locating document structure, merging files with distinct doc-styles, and debugging illed document using error messages, which will be discussed in the rest of this subsection.
+
+\subsubsection{Locating document structure}
+
+To evaluate the LLM's grasp of document structure, we designed tests on 4 LLMs. Each test has 20 questions (attached in Appendix~\ref{app:20ques}) about the article's structure from \texttt{arXiv:2502.17655}. For each answer, we take
+\[
+u_s = \max\left(0, \begin{cases}
+5 - \left\lfloor \frac{T}{1 \times 10^4} \right\rfloor & \text{, right answer} \\
+0 & \text{, wrong answer}
+\end{cases} \right),
+\]
+where $T$ is the token usage for the input, thinking, output, and MCP tools, $\sum u_s \in [0, 100]$.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{figure/reading.png}
+\caption{Test on locating document structure}
+\label{fig:reading}
+\end{figure}
+
+Figure~\ref{fig:reading} illustrates the results. Even if it is not a fair comparison as the LLMs have trained inherently by LaTeX corpus before, Mogan took the lead for the most LLMs. The reason is that the file structure in Mogan have higher information density and even references are updated and written in \texttt{.tmu} file after incremental update, while in LaTeX, LLM need to count the environment in the whole document in order to get the real displayed environment number after LaTeX compilation.
+
+\subsubsection{Merging files with distinct doc-styles}
+\label{sec:doc-style}
+
+We define \emph{doc-style} informally as the style of macro naming and command usage in a document. Documents could have distinct macros aliases, redefined macros, and more.
+
+We ask the LLMs to complete two assignments. Assignment 1 is to generate two files: \texttt{theorems.tex} and \texttt{proofs.tex}. Assignment 2 is to merge the two files generated by each LLM.
+
+For each task, we take
+\[
+u_m = \max\left(0, \begin{cases}
+20 - 2 \times E_{\text{ref}} - \left\lfloor \frac{T}{1 \times 10^4} \right\rfloor - E_{\text{sty}} & \text{, success on the first try} \\
+10 - 2 \times E_{\text{ref}} - \left\lfloor \frac{T}{1 \times 10^4} \right\rfloor - E_{\text{sty}} & \text{, success on the second try} \\
+0 & \text{, fail within two tries}
+\end{cases} \right),
+\]
+where $T$ is the token usage, $E_{\text{ref}}$ is the number of reference failing, $E_{\text{sty}}$ is the number where the merged file have the doc-style of \texttt{proofs.tex}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{figure/writing.png}
+\caption{Test on merging files with distinct doc-styles}
+\label{fig:writing}
+\end{figure}
+
+Figure~\ref{fig:writing} shows that Mogan gains higher score on all LLMs. The reason is that Mogan files have grammatical consistency so that the LLMs do not need to tackle with conflicts and unify usage from two distinct doc-styles. Furthermore, merging contexts from two documents with distinct doc-styles is just a copy-and-paste case in Mogan STEM.
+
+\subsubsection{Debugging illed document using error messages}
+
+Debugging illed documents is a common usage of LLM co-writing. We constructed several illed documents (originate from \texttt{arXiv:2502.17655}), feed the error messages to LLMs, and ask them to fix it. The test have 20 illed samples as shown in Table~\ref{tab:ill-dist}.
+
+\begin{table}[htbp]
+\centering
+\caption{Distribution of illness in samples}
+\label{tab:ill-dist}
+\begin{tabular}{lc}
+\toprule
+\textbf{Illness} & \textbf{Amount} \\
+\midrule
+Unclosed bracket & 4 \\
+Unclosed environment & 5 \\
+Wrong command usage & 4 \\
+Undefined cross-reference & 3 \\
+Conflict packages & 2 \\
+Self-recursive macros & 2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For each illness, we take
+\[
+u_d = \max\left(0, \begin{cases}
+5 - \left\lfloor \frac{T}{1 \times 10^4} \right\rfloor & \text{, right answer} \\
+0 & \text{, wrong answer}
+\end{cases} \right),
+\]
+where $T$ is the token usage, $\sum u_d \in [0, 100]$.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{figure/debugging.png}
+\caption{Test on debugging illed document using error messages}
+\label{fig:debugging}
+\end{figure}
+
+Figure~\ref{fig:debugging} shows the results. LaTeX group thinks for a long time to solve most of the error samples. Mogan group locates the problems quickly and solve all of the error samples (only two samples consume more than 10k tokens). The reason is that the illness in \texttt{.tmu} files only influences the closest tree-tag ancestor (as discussed in Section~\ref{sec:tree-struc-on-mogan}). So the error message in Mogan STEM is quiet clear for LLMs to understand and correct them easily. In contrast, LaTeX's error messages usually detach from their root causes in large documents and the logs are very long.
+
+In fact, \texttt{.tmu} file do not have problems like unclosed environment or self-recursive macros if it is written by Mogan STEM. In addition, Mogan STEM provides a WYSIWYG and intuitive user interface. If there is anything wrong in \texttt{.tmu} file, when opened by Mogan STEM, it is always clear to see where they are.
+
+\subsection{Efficiency in fine-tuning}
+\label{sec:eff-in-sft}
+
+Recall that Mogan uses tree structure while LaTeX uses linear macro flow. Benefit from the tree structure, it is easier for models to predict the new token in Mogan than in LaTeX.
+
+We conducted a parallel supervised fine-tuning (SFT) experiment (machine configuration is shown in Appendix~\ref{app:ms}). We generate 1000 random formulas written in LaTeX and convert them to the Mogan S-expression by Mogan STEM. We guarantee that the formulas in both Mogan and LaTeX are identical after rendering. The formulas cover fractions, radicals, subscripts and superscripts, matrices, piecewise, integrals and summations, limits, logical quantifiers, composite functions, and nested parentheses. Next, we cut the formulas into two parts. We give the prefix part to the model and let it complete the rest.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{figure/fine-tune.png}
+\caption{Experiment of LoRA based on Qwen2.5-7B-Instruct}
+\label{fig:fine-tune}
+\end{figure}
+
+Figure~\ref{fig:fine-tune} shows the experiment of low rank adaptation (LoRA) based on Qwen2.5-7B-Instruct on 1000 formulas in 289 steps, Mogan group's loss converges to around 0.4 while LaTeX's converges to around 0.7. The reason is that Mogan's S-expression have lower information entropy. LaTeX document has a lot of syntax noise. For example, the code \verb|\frac{a}{b}| and \verb|{a \over b}| in LaTeX are equivalent after rendering, the code \verb|x^{2}| and \verb|x^2| are also equivalent after rendering. So the model has less certainty to predict the next token in LaTeX compare to Mogan.
+
+Note that LaTeX documents have weaker grammatical consistency than Mogan, It is a burden for the model to predict the proper command in line with a macro definitions in preamble, especially in large documents written in several distinct doc-styles (discussed in Section~\ref{sec:doc-style}) when training.
+
+Moreover, discussions of Mogan versus Markdown are attached in Appendix~\ref{app:vs}.
+
+\bibliography{references}
+\bibliographystyle{plainnat}
+
+\appendix
+
+\section{Machine configuration}
+\label{app:ms}
+
+\begin{table}[htbp]
+\centering
+\caption{Machine configuration in numerical experiments}
+\label{tab:machine}
+\begin{tabular}{ll}
+\toprule
+\textbf{Component} & \textbf{Specification} \\
+\midrule
+CPU & Intel Ultra 9 285H \\
+GPU & GeForce RTX 5080 \\
+RAM & 32GB LPDDR5X \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Prompts for evaluate structure locating}
+\label{app:20ques}
+
+You are an expert in LaTeX. Your task is to read the \texttt{main.tex} and answer the following questions:
+
+\begin{enumerate}
+    \item Count the number of sections.
+    \item Count the number of subsections.
+    \item Count the number of figures and tables.
+    \item Count the number of cross references and bibliography references.
+    \item In which section does Equation 10.15 appear?
+    \item In which subsection does Equation 8.66 appear?
+    \item Is there a direct proof below the Equation 12.1?
+    \item In what context does formula A.3 appear?
+    \item In which environment is Definition 4.4 first cited?
+    \item What is the number of the first equation after the first citation of Definition 4.4?
+    \item In which environment is Definition 7.1 first cited?
+    \item What is the number of the first equation after the first citation of Definition 7.1?
+    \item How many steps are there in the proof of Lemma 6.4?
+    \item Which definition or lemma numbers are directly used in the proof of Lemma 6.4?
+    \item How many steps are there in the proof of Lemma 8.3?
+    \item Which definition or lemma numbers are directly used in the proof of Lemma 8.3?
+    \item In which section does Citation 1 first appear?
+    \item In which subsection does Citation 6 first appear?
+    \item What was Citation 25 originally used to prove?
+    \item Has Citation 31 appeared in the article?
+\end{enumerate}
+
+\section{Discussion of Mogan v.s. Markdown}
+\label{app:vs}
+
+Markdown is a lightweight markup language with concise typography syntax. It is designed for daily notes with light typesetting demand. If the user need customized template, page or text style, and advanced typesetting demand like references, Markdown is hard to write and face serious ecosystem fragmentation and cross-platform compatibility issues. In that case, Mogan will be a better choice.
+
+In fact, we have already discuss in Section~\ref{sec:eff-in-sft} the fine-tuning efficiency of Mogan's S-expression and LaTeX's grammar. The same LaTeX grammar is also adopted by Markdown for mathematical formulas, which means that the same conclusion also holds for Markdown.
+
+Besides, we need to conduct a series of experiments to evaluate their extensibility, semantic richness, typographic precision, and more. Given by the the huge gap between Mogan and Markdown in application scenarios, design such a series of experiments for fair is not easy. Limited by our budget, here is as far as we go.
+
+\end{document}
