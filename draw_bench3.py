@@ -79,6 +79,8 @@ def main():
 	ax.grid(True, alpha=0.3)
 	fig.tight_layout()
 
+	plt.savefig("fine-tune.pdf", bbox_inches="tight")
+	plt.savefig("fine-tune.png", dpi=300, bbox_inches="tight", facecolor="white")
 	plt.show()
 
 

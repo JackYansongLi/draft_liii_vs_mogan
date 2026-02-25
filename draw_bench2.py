@@ -87,7 +87,7 @@ ax.set_xticklabels(benchmarks, ha="center")
 ax.tick_params(axis="x", pad=10)
 
 ax.set_ylabel("Total   Utility")
-ax.set_ylim(0, 100)
+ax.set_ylim(0, 105)
 
 ax.legend(
     ncol=2,
@@ -99,4 +99,6 @@ ax.legend(
 )
 
 plt.tight_layout(rect=[0.00, 0.00, 1.00, 1.00])
+plt.savefig("writing.pdf", bbox_inches="tight")
+plt.savefig("writing.png", dpi=300, bbox_inches="tight", facecolor="white")
 plt.show()

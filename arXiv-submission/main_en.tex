@@ -120,7 +120,7 @@ Table~\ref{tab:latex-ext} lists the main file extensions used in the LaTeX ecosy
 \end{tabular}
 \end{table}
 
-Table~\ref{tab:latex-aux} shows the auxiliary files generated during compilation. The compilation process typically involves multiple passes: the first pass generates auxiliary files, and subsequent passes use these files to resolve cross-references, citations, and other dynamic elements. This multi-pass approach is necessary because LaTeX is a batch-processing system that does not maintain state between runs.
+Table~\ref{tab:latex-aux} shows the auxiliary files generated during compilation. The compilation process typically involves multiple passes: the first pass generates auxiliary files, and subsequent passes use these files to resolve cross-references, citations, and other dynamic elements. This multi-pass approach is necessary because LaTeX is a batch-processing system that does not maintain state between runs \citep{lamport1994document}.
 
 \section{Fundamental Defects in \TeX{}'s Compilation Design}
 \label{sec:fundamental}
@@ -260,7 +260,7 @@ LaTeX lacks formal engineering standards for package development. While the \tex
     \item Testing and validation
 \end{itemize}
 
-This has led to a fragmented ecosystem where package quality varies widely, and compatibility issues are common.
+This has led to a fragmented ecosystem where package quality varies widely, and compatibility issues are common \citep{interview2021}.
 
 \subsection{User Experience Barriers from a Practical Perspective}
 
@@ -278,6 +278,8 @@ For users, the LaTeX experience is characterized by:
 LaTeX3 represents an effort to modernize the LaTeX codebase by introducing a more structured programming layer (\texttt{expl3}). While these improvements address some of the technical debt accumulated over decades, they remain constrained by the need for backward compatibility. The improvements are incremental rather than fundamental, and users must still engage with the legacy macro system for many tasks.
 
 \subsection{Limitations of Modern Collaboration Platforms: A Case Study of Overleaf}
+
+In response to LaTeX's structural deficiencies regarding collaboration support and usability, the academic community has advanced a series of improvement measures. Among these, online collaboration platforms, exemplified by Overleaf, have significantly streamlined the user experience and reduced the technical barrier to entry \citep{overleaf_docs}.
 
 \subsubsection{Key Improvements by Overleaf}
 
@@ -308,7 +310,7 @@ By providing a veneer of usability over LaTeX's fundamental limitations, platfor
 \section{Mogan STEM: A WYSIWYG Structured Editor}
 \label{sec:mogan}
 
-Mogan STEM is a WYSIWYG structured editor designed to address the limitations of LaTeX while maintaining its strengths in scientific typesetting. The key innovations of Mogan STEM include:
+Mogan STEM is a WYSIWYG structured editor designed to address the limitations of LaTeX while maintaining its strengths in scientific typesetting \citep{moganstem2025, liiistem2025}. The key innovations of Mogan STEM include:
 
 \subsection{Tree-Structured Formulas and Document Structure}
 \label{sec:tree-struc-on-mogan}

@@ -110,4 +110,6 @@ ax.legend(
 )
 
 plt.tight_layout(rect=[0.00, 0.00, 1.00, 1.00])
+plt.savefig("full-compile.pdf", bbox_inches="tight")
+plt.savefig("full-compile.png", dpi=300, bbox_inches="tight", facecolor="white")
 plt.show()
