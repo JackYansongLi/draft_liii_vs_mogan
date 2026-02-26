@@ -21,7 +21,7 @@ Beyond the \verb|.tex| source files we write, every package and document class c
 \centering
 \caption{\LaTeX{} file extensions and their descriptions}
 \label{tab:latex-ext}
-\begin{tabular}{lll}
+\begin{tabular}{llp{7.5cm}}
 \toprule
 \textbf{File Extension} & \textbf{File Type} & \textbf{Description} \\
 \midrule
@@ -39,21 +39,21 @@ Beyond the \verb|.tex| source files we write, every package and document class c
 \centering
 \caption{\LaTeX{} auxiliary file extensions, tools, and descriptions}
 \label{tab:latex-aux}
-\begin{tabular}{lll}
+\begin{tabular}{llp{7.5cm}}
 \toprule
-\textbf{Extension} & \textbf{Tool} & \textbf{Description} \\
+\textbf{Extension} & \textbf{Related Tool / Source} & \textbf{Description} \\
 \midrule
-\texttt{.log} & Typesetting Engine & Records the compilation process \\
-\texttt{.aux} & \texttt{latex} & Main auxiliary file for cross-references, TOC, citations \\
-\texttt{.toc} & \texttt{latex} & Table of contents file \\
-\texttt{.lof} & \texttt{latex} & List of figures file \\
-\texttt{.lot} & \texttt{latex} & List of tables file \\
-\texttt{.bbl} & \texttt{bibtex} & Bibliography file \\
-\texttt{.blg} & \texttt{bibtex} & BibTeX log file \\
-\texttt{.idx} & \texttt{latex} & Raw index file for \texttt{makeindex} \\
-\texttt{.ind} & \texttt{makeindex} & Formatted index file \\
-\texttt{.ilg} & \texttt{makeindex} & \texttt{makeindex} log file \\
-\texttt{.out} & \texttt{hyperref} & PDF bookmarks file \\
+\texttt{.log} & Typesetting Engine & Records the compilation process; used for error debugging. \\
+\texttt{.aux} & \texttt{latex} & Main auxiliary file; records cross-references, TOC, citations, etc. \\
+\texttt{.toc} & \texttt{latex} & Records content for the Table of Contents. \\
+\texttt{.lof} & \texttt{latex} & Records content for the List of Figures. \\
+\texttt{.lot} & \texttt{latex} & Records content for the List of Tables. \\
+\texttt{.bbl} & \texttt{bibtex} & The generated bibliography record file. \\
+\texttt{.blg} & \texttt{bibtex} & Log file for the BibTeX compilation process. \\
+\texttt{.idx} & \texttt{latex} & Raw index record file to be processed by \texttt{makeindex}. \\
+\texttt{.ind} & \texttt{makeindex} & Formatted index file generated after processing \texttt{.idx}. \\
+\texttt{.ilg} & \texttt{makeindex} & Log file for \texttt{makeindex}. \\
+\texttt{.out} & \texttt{hyperref} package & Record file for generating PDF bookmarks. \\
 \bottomrule
 \end{tabular}
 \end{table}

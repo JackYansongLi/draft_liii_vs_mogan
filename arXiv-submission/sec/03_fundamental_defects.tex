@@ -148,6 +148,24 @@ To address varying requirements (such as modern fonts and Unicode support), the 
 
 From a user's perspective, all three engines accept \texttt{.tex} input and adhere to the LaTeX macro interface. However, at the system level, they exhibit fundamental differences in the following key aspects:
 
+\begin{table}[htbp]
+\centering
+\caption{Comparison of \LaTeX{} Engines}
+\label{tab:latex-engines}
+\resizebox{0.99\textwidth}{!}{%
+\begin{tabular}{llll}
+\toprule
+\textbf{Dimension} & \textbf{pdfLaTeX} & \textbf{XeLaTeX} & \textbf{LuaLaTeX} \\
+\midrule
+Native Encoding Support & 8-bit (requires \texttt{inputenc}) & Native Unicode & Native Unicode \\
+Font System & Type1 / limited OpenType & System Fonts (OpenType) & OpenType (via Lua) \\
+Extension Mechanism & TeX primitives & TeX + XeTeX primitives & TeX + Lua VM \\
+External Programmability & Very Weak & Very Weak & Strong (Lua) \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
 \textbf{Compatibility Burden:} A single document may require switching between engines to resolve specific issues, forcing users to understand the subtle differences and limitations of each engine.
 
 Take the use of Emojis as an example. If a document requires the direct inclusion of Unicode Emojis, \texttt{pdfLaTeX} is mechanically incapable of supporting such characters. While \texttt{XeLaTeX} possesses native Unicode support, in practice, it often degrades Emojis to monochrome glyphs or suffers from missing characters due to insufficient font coverage. \texttt{LuaLaTeX} offers the theoretically most complete support path, handling complex characters via OpenType fonts and the Lua layer. However, this 'enhanced capability' comes at a price: \texttt{LuaLaTeX}'s compilation speed is typically significantly slower than \texttt{XeLaTeX}, and it introduces an additional dependency on the Lua runtime, expanding both the source of errors and the scope of debugging. Under these constraints, a compromise workflow that actually exists in reality involves: compiling the main body with \texttt{XeLaTeX} for speed and layout stability; separately compiling pages or chapters containing Emojis using \texttt{LuaLaTeX}; and finally stitching the output results from different engines together at the PDF level.
@@ -171,14 +189,14 @@ Consequently, although both methods "appear to use the same \texttt{.bib} file,"
 \centering
 \caption{Common \LaTeX{} Hook Directives and Descriptions}
 \label{tab:latex-hooks}
-\begin{tabular}{lp{10cm}}
+\begin{tabular}{lp{9.5cm}}
 \toprule
 \textbf{Directive} & \textbf{Description} \\
 \midrule
-\texttt{\textbackslash AtBeginDocument} & Executes code at the beginning of the document body \\
-\texttt{\textbackslash AtEndDocument} & Executes code before the document ends \\
-\texttt{\textbackslash AtEndOfPackage} & Executes code immediately after the current package finishes loading \\
-\texttt{\textbackslash AtEndOfClass} & Executes code immediately after the current document class finishes loading \\
+\texttt{\textbackslash AtBeginDocument} & Executes code at the beginning of the document body (after \texttt{\textbackslash begin\{document\}}). \\
+\texttt{\textbackslash AtEndDocument} & Executes code before the document ends (before \texttt{\textbackslash end\{document\}}). \\
+\texttt{\textbackslash AtEndOfPackage} & Executes code immediately after the current package finishes loading. \\
+\texttt{\textbackslash AtEndOfClass} & Executes code immediately after the current document class finishes loading. \\
 \bottomrule
 \end{tabular}
 \end{table}
