@@ -1,12 +1,38 @@
 \section{Mogan STEM: A WYSIWYG Structured Editor}
 \label{sec:mogan}
 
-Mogan STEM is a WYSIWYG structured editor designed to address the limitations of LaTeX while maintaining its strengths in scientific typesetting \cite{moganstem2025, liiistem2025}. The key innovations of Mogan STEM include:
+Since last year, the maintainers of the Chinese TeXmacs community have developed Mogan STEM~\cite{moganstem2025} and a commercial version, Liii STEM~\cite{liiistem2025}, based on GNU TeXmacs. Currently, Mogan STEM and TeXmacs stand as the world's only WYSIWYG structured editors. Table~\ref{tab:mogan-vs-other} compares Mogan STEM with several other editors currently available on the market.
+
+\begin{table}[htbp]
+\centering
+\caption{Comparison between Mogan STEM and alternative editors}
+\label{tab:mogan-vs-other}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Editor} & \textbf{WYSIWYG} & \textbf{Structured} & \textbf{Unicode Support} & \textbf{\TeX{} Compatibility} \\
+\midrule
+\textbf{Mogan STEM} & Yes & Yes & Yes & Partial \\
+\textbf{TeXmacs} & Yes & Yes & Partial & Partial \\
+\textbf{TeX/LaTeX} & No & Yes & Partial & Full \\
+\textbf{Word} & Yes & No & Partial & Incompatible \\
+\textbf{LyX} & Partial & Yes & Partial & Full \\
+\textbf{Typst} & No & Yes & Yes & Partial \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The core technical challenge in achieving the WYSIWYG capability of Mogan STEM lies in the representation and rendering of mathematical formulas. Unlike TeX, which represents formulas through layout-oriented markup in the form of typesetting instructions, Mogan STEM adopts a tree-based, functional representation for both mathematical formulas and the document structure itself. The following discussion evaluates this mechanism with specific examples.
+
+Mogan STEM is a WYSIWYG structured editor designed to address the limitations of LaTeX while maintaining its strengths in scientific typesetting~\cite{moganstem2025, liiistem2025}. The key innovations of Mogan STEM include:
 
 \subsection{Tree-Structured Formulas and Document Structure}
 \label{sec:tree-struc-on-mogan}
 
+Unlike LaTeX's compilation model, which centers on linear text and macro expansion, TeXmacs features an explicit tree-based document structure designed from the outset. Document components---such as chapters, formulas, citations, and typesetting elements---exist as structured nodes, rather than being implicitly embedded within macro calls or token streams. This architectural distinction directly impacts citation updates, compilation efficiency, and the interactive user experience.
+
 Unlike LaTeX's linear macro-based representation, Mogan STEM represents documents as structured trees. This enables precise semantic understanding and manipulation of document elements.
+
+A fraction serves as a primary example of this difference. In TeX, a fraction is represented as \verb|\frac{1}{2}|; internally, the compiler processes \verb|\frac|, \verb|{1}|, and \verb|{2}| serially. In Mogan STEM, however, the fraction is represented at the underlying layer as the Scheme code \verb|(frac "1" "2")|.\footnote{Note that Mogan STEM is \textbf{WYSIWYG}; therefore, when inputting the fraction, the user does not type \texttt{(frac 1 2)}, but instead presses \texttt{Alt+f} to input it visually!} This forms a tree structure, as illustrated in Figure~\ref{fig:frac-tree}.
 
 \begin{figure}[htbp]
 \centering
@@ -65,7 +91,26 @@ Equation~\ref{eq:tree-struc} shows the recursive definition of the tree structur
 \label{fig:tree-representation}
 \end{figure}
 
-This tree structure exists at the rendering level, not the syntax level. Figure~\ref{fig:double-line} illustrates image insertion between lines, and Figure~\ref{fig:multiline-mogan} shows Mogan's multi-line data structure.
+This tree structure exists at the rendering level, not the syntax level. In fact, many long-time users of Mogan and TeXmacs cannot write a single line of Scheme code! This rendering-level tree structure offers two distinct advantages:
+
+Consider the following mathematical expression:
+\begin{equation}
+\int_{a}^{b} f(x) \mathrm{d}x = \left[ F(x) \right] \big|_{a}^{b}
+\label{eq:integral-example}
+\end{equation}
+
+Its Scheme representation is as follows:
+\begin{lstlisting}[caption={Scheme representation of integral expression},label={lst:scheme-integral}]
+(math (concat (big "int") (rsub "a") (rsup "b")
+       "f" (around* "(" "x" ")") "d" "x" "="
+       (around* "<nobracket>" (around* "["
+         (concat "F" (around* "(" "x" ")")) "]") "|")
+       (rsub "a") (rsup "b")))
+\end{lstlisting}
+
+Note that the segment $\left[ F(x) \right] |$ is managed via the tree structure. Consequently, even if a user omits a parenthesis or two, this omission does not negatively affect the rendering of the entire mathematical expression in Mogan.
+
+Figure~\ref{fig:double-line} illustrates image insertion between lines, and Figure~\ref{fig:multiline-mogan} shows Mogan's multi-line data structure.
 
 \begin{figure}[htbp]
 \centering

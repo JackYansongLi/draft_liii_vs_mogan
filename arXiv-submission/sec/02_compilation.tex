@@ -1,36 +1,39 @@
 \section{An Introduction to \TeX{} Compilation Principles}
 
-\begin{example}[Minimal example of LaTeX code]
-\label{ex:minimal}
-\begin{verbatim}
+\begin{lstlisting}[caption={Minimal example of LaTeX code},label={lst:minimal}]
 \documentclass{article}
 \usepackage{siunitx}
 \begin{document}
 Hello, World! from \LaTeX.
 The speed of light is \SI{299792458}{\meter\per\second}.
 \end{document}
-\end{verbatim}
-\end{example}
+\end{lstlisting}
 
-Example~\ref{ex:minimal} shows a minimal example of LaTeX code. The source code comprises two parts: the preamble, which includes the \verb|\documentclass| and \verb|\usepackage| commands, and the document body, which is enclosed within the \verb|\begin{document}| and \verb|\end{document}| environment. The preamble serves as the configuration section for the document, where global settings such as page layout, fonts, and macro definitions are specified. The \verb|\documentclass| command is used to select a document template (class) that controls the overall structure and formatting. The \verb|\usepackage| command imports packages that provide additional functionality, such as mathematical symbols, special characters, or custom formatting options.
+Listing~\ref{lst:minimal} shows a minimal example of LaTeX code. The source code begins with the \verb|\documentclass| command. Lamport's LaTeX framework simplifies the use of TeX~\cite{lamport1994document} by defining the document class used for the file. Immediately following this, we can use \verb|\usepackage| to import packages. We then use \verb|\begin{document}| and \verb|\end{document}| to mark the start and end of the body content, placing the text between them.
+
+The area between \verb|\documentclass| and \verb|\begin{document}| is called the \textit{preamble}. In addition to importing packages via \verb|\usepackage|, \textit{preamble} is used for global macro definitions and document configuration, which can also be left empty.
+
+Finally, we can compile the code. Running \verb|pdflatex example.tex| generates the \verb|example.pdf| file. Simultaneously, several auxiliary files are generated in the same directory. For instance, the \verb|.aux| file saves intermediate information such as cross-references, tables of contents, and numbering; consequently, documents often require multiple compilations to yield correct results. The \verb|.log| file records the complete compilation process and is the primary resource for locating warnings and errors. The \verb|.dvi| file stands for \textit{DeVice Independent file}, an intermediate format unrelated to the specific output device.
+
+Beyond the \verb|.tex| source files we write, every package and document class consists of files with specific extensions. The following files also frequently appear in LaTeX templates:
 
 \begin{table}[htbp]
 \centering
 \caption{\LaTeX{} file extensions and their descriptions}
 \label{tab:latex-ext}
-\begin{tabular}{ll}
+\begin{tabular}{lll}
 \toprule
-\textbf{Extension} & \textbf{Description} \\
+\textbf{File Extension} & \textbf{File Type} & \textbf{Description} \\
 \midrule
-\texttt{.sty} & Package file \\
-\texttt{.cls} & Document class file \\
-\texttt{.bib} & BibTeX database file \\
-\texttt{.bst} & BibTeX style file \\
+\texttt{.sty} & Package file & The package name corresponds to the filename without the extension. \\
+\texttt{.cls} & Document class file & The document class name corresponds to the filename without the extension. \\
+\texttt{.bib} & BibTeX database file & A database file storing bibliographic information. \\
+\texttt{.bst} & BibTeX style file & A template file defining the formatting style for bibliographies. \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Table~\ref{tab:latex-ext} lists the main file extensions used in the LaTeX ecosystem. The source code is written in plain text using a text editor and saved with a \texttt{.tex} extension. The LaTeX engine then processes this source file to generate the final output. The engine reads the source file sequentially, expanding macros and processing commands to produce a document in the desired output format (typically DVI or PDF).
+\LaTeX{} generates numerous auxiliary files and logs during the compilation process. Features such as cross-references, bibliographies, tables of contents, and indices require an initial compilation to generate auxiliary files, followed by a subsequent compilation to read these files and produce the correct result. Therefore, complex \LaTeX{} source code often requires multiple compilation passes:
 
 \begin{table}[htbp]
 \centering
@@ -55,7 +58,23 @@ Table~\ref{tab:latex-ext} lists the main file extensions used in the LaTeX ecosy
 \end{tabular}
 \end{table}
 
-Table~\ref{tab:latex-aux} shows the auxiliary files generated during compilation. The compilation process typically involves multiple passes: the first pass generates auxiliary files, and subsequent passes use these files to resolve cross-references, citations, and other dynamic elements. This multi-pass approach is necessary because LaTeX is a batch-processing system that does not maintain state between runs \cite{lamport1994document}.
+To intuitively understand why \LaTeX{} documents often require multiple compilations, consider the following minimal example containing cross-references and a table of contents:
+
+\begin{lstlisting}[caption={Cross-reference example},label={lst:crossref}]
+\documentclass{article}
+\usepackage{hyperref}
+
+\begin{document}
+\tableofcontents
+
+\section{Introduction}\label{sec:intro}
+See Section~\ref{sec:intro}.
+\end{document}
+\end{lstlisting}
+
+When compiling this code with \verb|pdflatex| for the first time, \LaTeX{} cannot yet determine section numbers or the content of the table of contents (TOC). The compiler records this information into auxiliary files during the typesetting process: section titles are written to the \verb|.toc| file, and numbering information for \verb|\label{sec:intro}| is written to the \verb|.aux| file. Meanwhile, the \verb|\ref{sec:intro}| in the body text is temporarily output as a placeholder. Consequently, the PDF generated from the first pass has an empty TOC, and cross-references appear as "??".
+
+During the second pass, \LaTeX{} reads the \verb|.aux| and \verb|.toc| files generated previously, obtaining complete numbering and directory information to typeset them correctly into the document. Thus, the cross-references appear correctly, and the TOC is populated. This process demonstrates that the \LaTeX{} typesetting process is essentially an iterative workflow that relies on intermediate results to converge. Any feature involving global information or forward/backward dependencies almost inevitably requires multiple compilation passes to produce the final correct output.
 
 In practice, the typesetting result is determined by the underlying engine. Common engines include:
 

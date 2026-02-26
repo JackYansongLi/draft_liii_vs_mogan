@@ -14,24 +14,32 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{listings}
+
+% LaTeX code style with line numbers
+\lstdefinestyle{latexstyle}{
+    language=[LaTeX]TeX,
+    backgroundcolor=\color{white},
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red!70!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=6pt,
+    frame=single,
+    rulecolor=\color{black!20},
+    breaklines=true,
+    showstringspaces=false
+}
+
+\lstset{style=latexstyle}
 \usepackage{caption}
 \usepackage{subcaption}
-\usepackage{tcolorbox}
 \usepackage{tikz}
 \usetikzlibrary{trees}
 
 % Define remark environment
 \newenvironment{remark}{\begin{quote}\textbf{Remark:}}{\end{quote}}
-
-\tcbuselibrary{skins,breakable}
-
-\newtcolorbox[auto counter,number within=section]{example}[1][]{
-  colback=gray!10,
-  colframe=gray!50,
-  fonttitle=\bfseries,
-  title=Example~\thetcbcounter: #1,
-  breakable
-}
 
 \title{\LaTeX{} Compilation: Challenges in the Era of LLMs}
 

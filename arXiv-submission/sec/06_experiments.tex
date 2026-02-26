@@ -20,6 +20,8 @@ where $t_{\text{compiling}}$ is the compiling time, $t_{\text{rendering}}$ is th
 
 Figure~\ref{fig:full-compile} shows the results. Even with the extra I/O process, Mogan STEM outperforms LaTeX in compiling/rendering time for most documents. Note that for document \texttt{arXiv:2502.17655}, Mogan STEM compile and render slower than LaTeX, the exception is due to the size of the documents, it has 120 pages. Therefore, the I/O overhead accounts for a large proportion.
 
+Another limitation of LaTeX is the slow incremental updates. We also conducted an experiment on incremental updates. The update includes adding new sections, adding tables in some paragraphs, modifying the relations between labels and references, and rearrange the positions of contexts slightly. As shown in Figure~\ref{fig:inc-update}, Mogan STEM shows remarkable advantages over LaTeX when doing incremental update on all 6 documents. Note that for document \texttt{arXiv:2502.17655}, Mogan STEM outperforms LaTeX, which seems to be a contradiction to the result of compiling time experiment. The reason for such ``contradiction'' is due to the I/O overhead, in Mogan STEM, the I/O process only activated when the user open the document. Therefore, for incremental updates, $t_{\text{IO}}=0$.
+
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.8\textwidth]{figure/inc-update.pdf}
@@ -27,7 +29,7 @@ Figure~\ref{fig:full-compile} shows the results. Even with the extra I/O process
 \label{fig:inc-update}
 \end{figure}
 
-Figure~\ref{fig:inc-update} shows the results for incremental updates. Mogan STEM shows remarkable advantages over LaTeX when doing incremental update on all 6 documents. Note that for document \texttt{arXiv:2502.17655}, Mogan STEM outperforms LaTeX, which seems to be a contradiction to the result of compiling time experiment. The reason for such ``contradiction'' is due to the I/O overhead, in Mogan STEM, the I/O process is triggered by user's operation, so the I/O overhead is amortized by user's interaction.
+Figure~\ref{fig:inc-update} shows the results for incremental updates. Mogan STEM shows remarkable advantages over LaTeX when doing incremental update on all 6 documents. The reason for such ``contradiction'' is due to the I/O overhead, in Mogan STEM, the I/O process is triggered by user's operation, so the I/O overhead is amortized by user's interaction.
 
 \subsection{Performance in LLM tasks}
 
@@ -42,7 +44,7 @@ u_s = \max\left(0, \begin{cases}
 0 & \text{, wrong answer}
 \end{cases} \right),
 \]
-where $T$ is the token usage for the input, thinking, output, and MCP tools, $\sum u_s \in [0, 100]$.
+where $T$ is the token usage for the input, thinking, output, and MCP tools, $\sum u_s \in [0, 100]$. The reason for using 10k tokens as a scale is that when LLM had high confidence and located the structure accurately, it always consumed less than 10k tokens per question on our material of experiment. Higher token usage means more loops of thinking and more times of MCP tools using, which represents lower efficiency and costs more money.
 
 \begin{figure}[htbp]
 \centering
@@ -51,14 +53,18 @@ where $T$ is the token usage for the input, thinking, output, and MCP tools, $\s
 \label{fig:reading}
 \end{figure}
 
-Figure~\ref{fig:reading} illustrates the results. Even if it is not a fair comparison as the LLMs have trained inherently by LaTeX corpus before, Mogan took the lead for the most LLMs. The reason is that the file structure in Mogan have higher information density and even references are updated and written in \texttt{.tmu} file after incremental update, while in LaTeX, LLM need to count the environment in the whole document in order to get the real displayed environment number after LaTeX compilation.
+Figure~\ref{fig:reading} illustrates the results. Even if it is not a fair comparison as the LLMs have trained inherently by LaTeX corpus before, Mogan took the lead for the most LLMs. The reason is that the file structure in Mogan have higher information density and even references are updated and written (e.g., \verb|<associate|sec:tree-struc-on-mogan|<tuple|5.1|13>>|, where \verb|sec:tree-struc-on-mogan| is the label name, \verb|5.1| is the section number, and \verb|13| is the page number) in \texttt{.tmu} file after incremental update, while in LaTeX, LLM need to count the enviroment in the whole document in order to get the real displayed enviroment number after LaTeX compilation. So the LLM can locate the enviroment quickly in Mogan.
 
 \subsubsection{Merging files with distinct doc-styles}
 \label{sec:doc-style}
 
-We define \emph{doc-style} informally as the style of macro naming and command usage in a document. Documents could have distinct macros aliases, redefined macros, and more.
+We define \emph{doc-style} informally as the style of macro naming and command usage in a document. Documents could have distinct macros aliases, redefined macros, and more. For example, the theorem environments could be named \verb|theorem| in one but \verb|thm| in another. The same macro could have different meaning if \verb|\norm| is defined as \verb|\left\lVert #1 \right\rVert| in one but \verb|\mid #1 \mid| in another. The same command could have different usage if \verb|\R| is defined as \verb|\mathbb{R}| in one but \verb|\textcolor{red}{#1}| in another.
 
-We ask the LLMs to complete two assignments. Assignment 1 is to generate two files: \texttt{theorems.tex} and \texttt{proofs.tex}. Assignment 2 is to merge the two files generated by each LLM.
+To verify the benefit of generating precise structured and standard grammar for LLM writing, we ask the LLMs to complete two assignments.
+
+Assignment 1 is to generate two files: \texttt{theorems.tex} and \texttt{proofs.tex}. \texttt{theorems.tex} is a large collection of mathematical theorems in a doc-style that includes a lot of newly-defined macros, redefined commands, and packages. \texttt{proofs.tex} is the collection of proofs to the theorems above but disordered and has distinct doc-style. \texttt{proofs.tex} even includes conflict packages compared to the \texttt{theorems.tex}. The connection between these two files is the cross-references of each theorem and equation. The LLM should guarantee that \texttt{theorems.tex} and \texttt{proofs.tex} generated can be compiled successfully alone.
+
+Assignment 2 is to merge the two files generated by each LLM.
 
 For each task, we take
 \[

@@ -1,7 +1,11 @@
 \section{Fundamental Defects in \TeX{}'s Compilation Design}
 \label{sec:fundamental}
 
+The batch processing compilation model adopted by the TeX system was rational within the computing environment of its inception in the 1970s and 80s. However, in the context of contemporary academic writing, which emphasizes interactivity, instant feedback, and multi-platform publishing, this model exposes profound systemic tension. Its core issues lie in its \textit{one-off processing flow}, \textit{weak semantic representation}, and \textit{delayed error feedback mechanisms}. These problems not only directly impair user experience but fundamentally constrain the evolution of the tool ecosystem.
+
 \subsection{Batch Model Limitations: Unidirectionality, Weak Semantics, and Delayed Feedback}
+
+TeX's compilation architecture is rooted in the batch processing paradigm. While capable of efficiently handling static documents, it struggles to adapt to the dynamic, iterative needs of modern writing.
 
 \subsubsection{Unidirectional and One-off Processing Flow}
 
@@ -11,7 +15,7 @@ The unidirectional nature means that once the compiler has processed a section o
 
 \textbf{Delayed Manifestation of Global State:} The overall typesetting state is only evaluable after the full compilation cycle concludes. TeX's typesetting decisions (pagination, float positioning, citation numbering, etc.) rely on global information, which is often only determined after the document has been fully read and executed. Consequently, users cannot verify whether the document is "typeset correctly" before compilation is complete.
 
-\begin{verbatim}
+\begin{lstlisting}[caption={Cross-reference before definition},label={lst:xref-before-def}]
 \documentclass{ctexart}
 \begin{document}
 
@@ -25,7 +29,7 @@ As shown in Equation~\ref{eq:test}.
 \end{equation}
 
 \end{document}
-\end{verbatim}
+\end{lstlisting}
 
 When this code is compiled with \texttt{xelatex} for the first time, \texttt{\textbackslash ref\{eq:test\}} displays as \texttt{??}. This discrepancy occurs because the equation's numbering information remains ungenerated; TeX cannot know the correct reference number during the current compilation pass. Only after the first pass concludes and the numbering information is written to the \texttt{.aux} file can TeX read this information during the second compilation, enabling \texttt{\textbackslash ref\{eq:test\}} to display the correct number.
 
@@ -33,7 +37,7 @@ This requirement for multiple passes demonstrates that TeX's typesetting decisio
 
 \textbf{Inability to Implement Incremental Updates:} Local modifications cannot trigger efficient, localized re-computation; instead, the entire compilation process requires repetition. Even if only a single local element in the document is modified, TeX must re-execute the entire input stream from the beginning, re-expanding macros, re-paginating, and re-calculating all layouts.
 
-\begin{verbatim}
+\begin{lstlisting}[caption={Incremental update example},label={lst:incremental}]
 \documentclass{ctexart}
 \usepackage{lipsum}
 \begin{document}
@@ -45,7 +49,7 @@ Some text, some text, some text.
 More text, more text, more text.
 
 \end{document}
-\end{verbatim}
+\end{lstlisting}
 
 Suppose we delete line 7, \texttt{\textbackslash lipsum[2-8]}, which originally generated multiple paragraphs occupying significant vertical space. Keeping the rest of the code unchanged, semantically, this is merely a local modification to the internal content of the first section; it does not touch the structure of the second section or anything following it.
 
@@ -55,7 +59,7 @@ This example clearly demonstrates that within TeX's execution model, there is no
 
 \textbf{Lack of Visualization Upon Interruption:} Once compilation is interrupted by an error, users cannot obtain reliable partial results for preview. TeX typically aborts the output process immediately, preventing users from seeing "what has been typeset so far."
 
-\begin{verbatim}
+\begin{lstlisting}[caption={Missing argument error},label={lst:missing-arg}]
 \documentclass{ctexart}
 \newcommand{\mycmd}[1]{\textbf{#1}}
 \begin{document}
@@ -66,7 +70,7 @@ This page contains perfectly correct content.
 The content following this theoretically does not
 depend on this command.
 \end{document}
-\end{verbatim}
+\end{lstlisting}
 
 When this document is compiled with \texttt{xelatex}, the process fails to complete, generating only \texttt{.aux} and \texttt{.log} files. The error prompt is \texttt{Runaway argument?}. This occurs because TeX detects an incomplete or missing argument during macro processing (in this case, \texttt{\textbackslash mycmd} lacks a necessary argument), causing macro expansion to exceed its expected scope. Consequently, subsequent content cannot be typeset, and the entire PDF output fails. Users are forced to analyze the log to locate the error, unable to verify the pages that were already successfully typeset.
 
@@ -94,8 +98,7 @@ TeX's error reporting is notorious for being cryptic and unhelpful. When an erro
 
 For example, a missing brace several pages earlier might cause an error message that appears to indicate a problem in a completely different location. This makes debugging LaTeX documents a time-consuming and frustrating experience, especially for users who are not deeply familiar with the system.
 
-\begin{example}[$\backslash$mycmd missing argument]
-\begin{verbatim}
+\begin{lstlisting}[caption={Missing argument error},label={lst:mycmd-error}]
 \documentclass{ctexart}
 \newcommand{\mycmd}[1]{\textbf{#1}}
 \begin{document}
@@ -106,24 +109,20 @@ This page contains perfectly correct content.
 The content following this theoretically does not
 depend on this command.
 \end{document}
-\end{verbatim}
-\end{example}
+\end{lstlisting}
 
-Example~1 shows a missing argument error. The error message \texttt{Runaway argument?} may not clearly indicate the actual problem.
+Listing~\ref{lst:mycmd-error} shows a missing argument error. The error message \texttt{Runaway argument?} may not clearly indicate the actual problem.
 
-\begin{example}[Nested section commands]
-\begin{verbatim}
+\begin{lstlisting}[caption={Nested section commands},label={lst:nested-section}]
 \documentclass{ctexart}
 \begin{document}
 \section{aaa \subsection{bbb}}
 \end{document}
-\end{verbatim}
-\end{example}
+\end{lstlisting}
 
-Example~2 shows an invalid nested section command, which produces the error: ``LaTeX Error: Not allowed in LR mode.''
+Listing~\ref{lst:nested-section} shows an invalid nested section command, which produces the error: ``LaTeX Error: Not allowed in LR mode.''
 
-\begin{example}[Unclosed brace in $\backslash$frac]
-\begin{verbatim}
+\begin{lstlisting}[caption={Unclosed brace in frac},label={lst:unclosed-frac}]
 \documentclass{ctexart}
 \begin{document}
 \begin{equation}
@@ -133,10 +132,9 @@ a^3 - b^3 = \left(a-b\right) \left(a^2+ab+b^2
 x=\frac{-b\pm \sqrt{b^{2}-4ac}}{2a
 \end{equation}
 \end{document}
-\end{verbatim}
-\end{example}
+\end{lstlisting}
 
-Example~3 shows an unclosed brace in a \verb|\frac| command, which also produces a \texttt{Runaway argument?} error.
+Listing~\ref{lst:unclosed-frac} shows an unclosed brace in a \verb|\frac| command, which also produces a \texttt{Runaway argument?} error.
 
 Both scenarios illustrate a fundamental constraint: TeX does not maintain a structural state model capable of immediate verification. Instead, it relies on the passive exposure of issues when the execution process fails. This is one of the root causes of its "lagged manifestation and ambiguous localization" of errors.
 
@@ -156,10 +154,10 @@ Take the use of Emojis as an example. If a document requires the direct inclusio
 
 A similar compatibility burden appears in the bibliography processing chain. While LaTeX superficially provides a unified \texttt{.bib} data source format, during the actual compilation process, users must choose between different backends like \texttt{bibtex} and \texttt{biber}. These two differ fundamentally in character encoding, sorting rules, and data models.
 
-\begin{verbatim}
+\begin{lstlisting}[caption={BibTeX vs BibLaTeX},label={lst:bibtex-biber}]
 \bibliography{ref/refs}   % References compiled using BibTeX
 % \printbibliography       % References compiled using BibLaTeX/Biber
-\end{verbatim}
+\end{lstlisting}
 
 Visually, these commands differ by only a single line, yet they correspond to two nearly incompatible toolchains. The former triggers the traditional \texttt{bibtex} workflow: the \texttt{.bib} file is parsed by \texttt{bibtex} to generate a \texttt{.bbl} file, employing a data model constrained by 8-bit encoding and a rigid \texttt{.bst} styling mechanism. The latter implicitly requires the \texttt{biblatex} package and the \texttt{biber} backend. It adopts an internal Unicode data model while offloading significantly more logic, specifically sorting, filtering, and formatting, to the macro layer.
 
