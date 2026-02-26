@@ -11,7 +11,7 @@ Unlike LaTeX's linear macro-based representation, Mogan STEM represents document
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    level 1/.style={sibling distance=20mm, level distance=12mm},
+    level 1/.style={sibling distance=15mm, level distance=10mm},
     every node/.style={align=center}
 ]
 \node {\texttt{frac}}
@@ -43,9 +43,9 @@ Equation~\ref{eq:tree-struc} shows the recursive definition of the tree structur
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    level 1/.style={sibling distance=25mm, level distance=15mm},
-    level 2/.style={sibling distance=18mm, level distance=15mm},
-    level 3/.style={sibling distance=12mm, level distance=15mm},
+    level 1/.style={sibling distance=15mm, level distance=10mm},
+    level 2/.style={sibling distance=12mm, level distance=10mm},
+    level 3/.style={sibling distance=12mm, level distance=10mm},
     every node/.style={align=center}
 ]
 \node {\texttt{around*}}
@@ -61,7 +61,7 @@ Equation~\ref{eq:tree-struc} shows the recursive definition of the tree structur
     child {node {\texttt{"]"}}}
     child {node {\texttt{" | "}}};
 \end{tikzpicture}
-\caption{Tree representation of mathematical expression}
+\caption{tree representation of $ [F (x)] |$}
 \label{fig:tree-representation}
 \end{figure}
 
@@ -77,8 +77,8 @@ This tree structure exists at the rendering level, not the syntax level. Figure~
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    level 1/.style={sibling distance=30mm, level distance=10mm},
-    level 2/.style={sibling distance=30mm, level distance=10mm},
+    level 1/.style={sibling distance=25mm, level distance=10mm},
+    level 2/.style={sibling distance=25mm, level distance=10mm},
     every node/.style={align=center}
 ]
 \node {\texttt{document}}
