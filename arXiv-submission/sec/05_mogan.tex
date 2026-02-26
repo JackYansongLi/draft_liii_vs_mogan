@@ -10,7 +10,14 @@ Unlike LaTeX's linear macro-based representation, Mogan STEM represents document
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.6\textwidth]{figure/frac-tree.png}
+\begin{tikzpicture}[
+    level 1/.style={sibling distance=20mm, level distance=12mm},
+    every node/.style={align=center}
+]
+\node {\texttt{frac}}
+    child {node {\texttt{"1"}}}
+    child {node {\texttt{"2"}}};
+\end{tikzpicture}
 \caption{The Tree Structure of Mogan Formulas}
 \label{fig:frac-tree}
 \end{figure}
@@ -35,7 +42,25 @@ Equation~\ref{eq:tree-struc} shows the recursive definition of the tree structur
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.8\textwidth]{figure/tree-representation.png}
+\begin{tikzpicture}[
+    level 1/.style={sibling distance=25mm, level distance=15mm},
+    level 2/.style={sibling distance=18mm, level distance=15mm},
+    level 3/.style={sibling distance=12mm, level distance=15mm},
+    every node/.style={align=center}
+]
+\node {\texttt{around*}}
+    child {node {\texttt{"["}}}
+    child {node {\texttt{concat}}
+        child {node {\texttt{"F"}}}
+        child {node {\texttt{around*}}
+            child {node {\texttt{"("}}}
+            child {node {\texttt{"x"}}}
+            child {node {\texttt{")"}}}
+        }
+    }
+    child {node {\texttt{"]"}}}
+    child {node {\texttt{" | "}}};
+\end{tikzpicture}
 \caption{Tree representation of mathematical expression}
 \label{fig:tree-representation}
 \end{figure}
@@ -44,14 +69,25 @@ This tree structure exists at the rendering level, not the syntax level. Figure~
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.8\textwidth]{figure/double-line.png}
+\includegraphics[width=0.3\textwidth]{figure/double-line.png}
 \caption{Image insertion between lines}
 \label{fig:double-line}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.6\textwidth]{figure/multiline-mogan.png}
+\begin{tikzpicture}[
+    level 1/.style={sibling distance=30mm, level distance=10mm},
+    level 2/.style={sibling distance=30mm, level distance=10mm},
+    every node/.style={align=center}
+]
+\node {\texttt{document}}
+    child {node {``Mogan Logo''}}
+    child {node {\texttt{figure}}
+        child {node {image}}
+    }
+    child {node {``WYSIWYG Writing''}};
+\end{tikzpicture}
 \caption{Mogan's multi-line data structure}
 \label{fig:multiline-mogan}
 \end{figure}
