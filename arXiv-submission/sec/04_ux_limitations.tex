@@ -1,27 +1,9 @@
 \section{Limitations of \TeX{} in User Experience Design}
 \label{sec:ux}
 
+\TeX{} and its derivative, the LaTeX ecosystem, have long occupied a central position in the field of academic typesetting. However, the overall user experience has failed to evolve in sync with the advancement of computing environments and user expectations. From the continuous bloating of distribution sizes to the performance and interaction barriers imposed by the compilation model, and further to the long-standing engineering defects in language design, the TeX ecosystem falls short in modern writing contexts---particularly regarding "usability," "maintainability," and "adaptability to modern workflows." This section analyzes the limitations of TeX's user experience design from multiple dimensions, including deployment costs, language structure, and practical user experience.
+
 \subsection{Issues with Distribution Scale and Deployment Models}
-
-\begin{table}[htbp]
-\centering
-\caption{Comparison between Mogan STEM and alternative editors}
-\label{tab:comparison}
-\begin{tabular}{lcccc}
-\toprule
-\textbf{Editor} & \textbf{WYSIWYG} & \textbf{Structured} & \textbf{Unicode Support} & \textbf{\TeX{} Compatibility} \\
-\midrule
-\textbf{Mogan STEM} & Yes & Yes & Yes & Partial \\
-\textbf{TeXmacs} & Yes & Yes & Partial & Partial \\
-\textbf{TeX/LaTeX} & No & Yes & Partial & Full \\
-\textbf{Word} & Yes & No & Partial & Incompatible \\
-\textbf{LyX} & Partial & Yes & Partial & Full \\
-\textbf{Typst} & No & Yes & Yes & Partial \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Table~\ref{tab:comparison} provides a comparison of features across different editors. TeX Live, the standard LaTeX distribution, has grown to an enormous size due to the accumulation of historical packages. This creates significant challenges for deployment, especially in constrained environments.
 
 \begin{figure}[htbp]
 \centering

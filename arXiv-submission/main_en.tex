@@ -20,6 +20,9 @@
 \usepackage{tikz}
 \usetikzlibrary{trees}
 
+% Define remark environment
+\newenvironment{remark}{\begin{quote}\textbf{Remark:}}{\end{quote}}
+
 \tcbuselibrary{skins,breakable}
 
 \newtcolorbox[auto counter,number within=section]{example}[1][]{
@@ -50,9 +53,13 @@
   \texttt{liuxr21@mails.tsinghua.edu.cn} \\
 }
 
+\newcommand{\dagfootnote}{\let\thefootnote\relax\footnotetext{$^\dag$These authors contributed equally to this work.}}
+
 \begin{document}
 
 \maketitle
+
+\dagfootnote
 
 \input{sec/00_abstract.tex}
 

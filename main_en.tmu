@@ -96,7 +96,7 @@
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix A<space|2spc>Machine configuration><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-56><vspace|0.5fn>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix B<space|2spc>Questions for evaluate structure locating><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-58><vspace|0.5fn>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix B<space|2spc>Prompts for evaluate structure locating><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-58><vspace|0.5fn>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix C<space|2spc>Discussion of Mogan v.s. Markdown><datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.05fn>.<space|0.05fn>>>>>|<htab|5mm>><no-break><pageref|auto-59><vspace|0.5fn>
   </table-of-contents>
@@ -950,7 +950,7 @@
     <associate|auto-13|<tuple|4|7>>
     <associate|auto-14|<tuple|3.3|8>>
     <associate|auto-15|<tuple|3.3.1|8>>
-    <associate|auto-16|<tuple|3.3.2|8>>
+    <associate|auto-16|<tuple|3.3.2|9>>
     <associate|auto-17|<tuple|3.4|9>>
     <associate|auto-18|<tuple|4|9>>
     <associate|auto-19|<tuple|4.1|9>>
@@ -970,7 +970,7 @@
     <associate|auto-31|<tuple|5|13>>
     <associate|auto-32|<tuple|6|13>>
     <associate|auto-33|<tuple|5.1|13>>
-    <associate|auto-34|<tuple|3|13>>
+    <associate|auto-34|<tuple|3|14>>
     <associate|auto-35|<tuple|1|14>>
     <associate|auto-36|<tuple|4|14>>
     <associate|auto-37|<tuple|5|15>>
@@ -1016,14 +1016,14 @@
     <associate|figure:debugging|<tuple|10|19>>
     <associate|figure:double-line|<tuple|4|14>>
     <associate|figure:fine-tune|<tuple|11|20>>
-    <associate|figure:frac-tree|<tuple|3|13>>
+    <associate|figure:frac-tree|<tuple|3|14>>
     <associate|figure:full-compile|<tuple|6|16>>
     <associate|figure:inc-update|<tuple|7|16>>
     <associate|figure:multiline-mogan|<tuple|5|15>>
     <associate|figure:reading|<tuple|8|17>>
     <associate|figure:writing|<tuple|9|18>>
-    <associate|footnote-1|<tuple|1|13>>
-    <associate|footnr-1|<tuple|1|13>>
+    <associate|footnote-1|<tuple|1|14>>
+    <associate|footnr-1|<tuple|1|14>>
     <associate|img:texlive-install|<tuple|2|10>>
     <associate|sec:doc-style|<tuple|6.2.2|17>>
     <associate|sec:eff-in-sft|<tuple|6.3|19>>
@@ -1059,7 +1059,7 @@
       </surround>|<pageref|auto-20>>
 
       <tuple|normal|<\surround|<hidden-binding|<tuple|auto-21>|2>|>
-        TeX Live Installer in Chinese
+        TeX Live Installer
       </surround>|<pageref|auto-21>>
 
       <tuple|normal|<surround|<hidden-binding|<tuple|auto-34>|3>||The Tree Structure of Mogan Formulas>|<pageref|auto-34>>
@@ -1068,7 +1068,7 @@
 
       <tuple|normal|<surround|<hidden-binding|<tuple|auto-36>|4>||Image insertion between lines>|<pageref|auto-36>>
 
-      <tuple|normal|<surround|<hidden-binding|<tuple|auto-37>|5>||Mogan's multi-line data structure. 第一行 represents “line 1” and 第二行 represents “line 2”.>|<pageref|auto-37>>
+      <tuple|normal|<surround|<hidden-binding|<tuple|auto-37>|5>||Mogan's multi-line data structure.>|<pageref|auto-37>>
 
       <tuple|normal|<\surround|<hidden-binding|<tuple|auto-43>|6>|>
         Benchmark on full compilation. Each bar represents the average of three trials.
