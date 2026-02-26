@@ -9,13 +9,13 @@ The speed of light is \SI{299792458}{\meter\per\second}.
 \end{document}
 \end{lstlisting}
 
-Listing~\ref{lst:minimal} shows a minimal example of LaTeX code. The source code begins with the \verb|\documentclass| command. Lamport's LaTeX framework simplifies the use of TeX~\cite{lamport1994document} by defining the document class used for the file. Immediately following this, we can use \verb|\usepackage| to import packages. We then use \verb|\begin{document}| and \verb|\end{document}| to mark the start and end of the body content, placing the text between them.
+Listing~\ref{lst:minimal} shows a minimal example of \LaTeX{} code. The source code begins with the \verb|\documentclass| command. Lamport's \LaTeX{} framework simplifies the use of \TeX{}~\cite{lamport1994document} by defining the document class used for the file. Immediately following this, we can use \verb|\usepackage| to import packages. We then use \verb|\begin{document}| and \verb|\end{document}| to mark the start and end of the body content, placing the text between them.
 
 The area between \verb|\documentclass| and \verb|\begin{document}| is called the \textit{preamble}. In addition to importing packages via \verb|\usepackage|, \textit{preamble} is used for global macro definitions and document configuration, which can also be left empty.
 
 Finally, we can compile the code. Running \verb|pdflatex example.tex| generates the \verb|example.pdf| file. Simultaneously, several auxiliary files are generated in the same directory. For instance, the \verb|.aux| file saves intermediate information such as cross-references, tables of contents, and numbering; consequently, documents often require multiple compilations to yield correct results. The \verb|.log| file records the complete compilation process and is the primary resource for locating warnings and errors. The \verb|.dvi| file stands for \textit{DeVice Independent file}, an intermediate format unrelated to the specific output device.
 
-Beyond the \verb|.tex| source files we write, every package and document class consists of files with specific extensions. The following files also frequently appear in LaTeX templates:
+Beyond the \verb|.tex| source files we write, every package and document class consists of files with specific extensions. The following files also frequently appear in \LaTeX{} templates:
 
 \begin{table}[htbp]
 \centering
@@ -79,7 +79,7 @@ During the second pass, \LaTeX{} reads the \verb|.aux| and \verb|.toc| files gen
 In practice, the typesetting result is determined by the underlying engine. Common engines include:
 
 \begin{itemize}
-    \item \textbf{pdfLaTeX}: The most traditional and compatible engine. It generates PDFs directly but has limited support for Unicode and system fonts, relying mostly on TeX's own font system.
+    \item \textbf{pdfLaTeX}: The most traditional and compatible engine. It generates PDFs directly but has limited support for Unicode and system fonts, relying mostly on \TeX{}'s own font system.
     \item \textbf{XeLaTeX}: Renowned for excellent Unicode support and the ability to call operating system fonts directly. It is highly suitable for multi-language typesetting (such as CJK), though its compilation speed and package compatibility is often more complex than pdfLaTeX.
     \item \textbf{LuaLaTeX}: Builds upon XeLaTeX by introducing Lua scripting as a programmable extension layer. This mechanism allows for dynamic customization of typesetting logic, offering the most power but also the highest complexity, with a strong dependency on the quality of templates and packages.
 \end{itemize}

@@ -1,7 +1,7 @@
 \section{Limitations of \TeX{} in User Experience Design}
 \label{sec:ux}
 
-\TeX{} and its derivative, the LaTeX ecosystem, have long occupied a central position in the field of academic typesetting. However, the overall user experience has failed to evolve in sync with the advancement of computing environments and user expectations. From the continuous bloating of distribution sizes to the performance and interaction barriers imposed by the compilation model, and further to the long-standing engineering defects in language design, the TeX ecosystem falls short in modern writing contexts---particularly regarding "usability," "maintainability," and "adaptability to modern workflows." This section analyzes the limitations of TeX's user experience design from multiple dimensions, including deployment costs, language structure, and practical user experience.
+\TeX{} and its derivative, the \LaTeX{} ecosystem, have long occupied a central position in the field of academic typesetting. However, the overall user experience has failed to evolve in sync with the advancement of computing environments and user expectations. From the continuous bloating of distribution sizes to the performance and interaction barriers imposed by the compilation model, and further to the long-standing engineering defects in language design, the \TeX{} ecosystem falls short in modern writing contexts---particularly regarding "usability," "maintainability," and "adaptability to modern workflows." This section analyzes the limitations of \TeX{}'s user experience design from multiple dimensions, including deployment costs, language structure, and practical user experience.
 
 \subsection{Issues with Distribution Scale and Deployment Models}
 
@@ -23,11 +23,11 @@ Figure~\ref{fig:texlive-size} shows the growth of TeX Live over time. Figure~\re
 
 \subsection{Real-World Performance Dilemma}
 
-The performance of LaTeX compilation degrades significantly with document complexity. Documents with extensive cross-references, bibliographies, or complex mathematical content require multiple passes and can take minutes to compile. This creates a frustrating edit-compile-view cycle that interrupts the writing flow.
+The performance of \LaTeX{} compilation degrades significantly with document complexity. Documents with extensive cross-references, bibliographies, or complex mathematical content require multiple passes and can take minutes to compile. This creates a frustrating edit-compile-view cycle that interrupts the writing flow.
 
 \subsection{Intrinsic Weakness: Absence of Engineering Standards}
 
-LaTeX lacks formal engineering standards for package development. While the \texttt{lppl} license provides some guidance, there are no enforced standards for:
+\LaTeX{} lacks formal engineering standards for package development. While the \texttt{lppl} license provides some guidance, there are no enforced standards for:
 
 \begin{itemize}
     \item Package documentation quality
@@ -57,26 +57,26 @@ Compatibility vs.\ Modern Features & To maintain compatibility with \LaTeX2e, im
 
 \subsection{User Experience Barriers from a Practical Perspective}
 
-For users, the LaTeX experience is characterized by:
+For users, the \LaTeX{} experience is characterized by:
 
 \begin{enumerate}
     \item \textbf{Steep Learning Curve:} Understanding macro expansion, package interactions, and compilation workflows requires significant investment.
-    \item \textbf{Cryptic Error Messages:} Error messages often require deep knowledge of TeX internals to interpret.
+    \item \textbf{Cryptic Error Messages:} Error messages often require deep knowledge of \TeX{} internals to interpret.
     \item \textbf{Fragile Workflows:} Small changes can break the compilation in unexpected ways.
-    \item \textbf{Limited Tooling:} Compared to modern IDEs, LaTeX editors offer limited refactoring, navigation, and debugging capabilities.
+    \item \textbf{Limited Tooling:} Compared to modern IDEs, \LaTeX{} editors offer limited refactoring, navigation, and debugging capabilities.
 \end{enumerate}
 
 \subsection{Contributions and Constraints of \LaTeX3}
 
-LaTeX3 represents an effort to modernize the LaTeX codebase by introducing a more structured programming layer (\texttt{expl3}). While these improvements address some of the technical debt accumulated over decades, they remain constrained by the need for backward compatibility. The improvements are incremental rather than fundamental, and users must still engage with the legacy macro system for many tasks.
+\LaTeX3 represents an effort to modernize the \LaTeX{} codebase by introducing a more structured programming layer (\texttt{expl3}). While these improvements address some of the technical debt accumulated over decades, they remain constrained by the need for backward compatibility. The improvements are incremental rather than fundamental, and users must still engage with the legacy macro system for many tasks.
 
 \subsection{Limitations of Modern Collaboration Platforms: A Case Study of Overleaf}
 
-In response to LaTeX's structural deficiencies regarding collaboration support and usability, the academic community has advanced a series of improvement measures. Among these, online collaboration platforms, exemplified by Overleaf, have significantly streamlined the user experience and reduced the technical barrier to entry \cite{overleaf_docs}.
+In response to \LaTeX{}'s structural deficiencies regarding collaboration support and usability, the academic community has advanced a series of improvement measures. Among these, online collaboration platforms, exemplified by Overleaf, have significantly streamlined the user experience and reduced the technical barrier to entry \cite{overleaf_docs}.
 
 \subsubsection{Key Improvements by Overleaf}
 
-Overleaf has addressed some of LaTeX's usability issues by providing:
+Overleaf has addressed some of \LaTeX{}'s usability issues by providing:
 
 \begin{itemize}
     \item Real-time collaboration features
@@ -87,7 +87,7 @@ Overleaf has addressed some of LaTeX's usability issues by providing:
 
 \subsubsection{Constraints of Underlying Architecture}
 
-However, Overleaf cannot overcome the fundamental limitations of LaTeX's architecture:
+However, Overleaf cannot overcome the fundamental limitations of \LaTeX{}'s architecture:
 
 \begin{itemize}
     \item Compilation is still batch-oriented and slow
@@ -98,4 +98,4 @@ However, Overleaf cannot overcome the fundamental limitations of LaTeX's archite
 
 \subsubsection{Impact on Trajectory of Technological Evolution}
 
-By providing a veneer of usability over LaTeX's fundamental limitations, platforms like Overleaf may have inadvertently slowed the adoption of genuinely superior alternatives. Users who might otherwise seek better solutions are satisfied with incremental improvements to the existing system.
+By providing a veneer of usability over \LaTeX{}'s fundamental limitations, platforms like Overleaf may have inadvertently slowed the adoption of genuinely superior alternatives. Users who might otherwise seek better solutions are satisfied with incremental improvements to the existing system.

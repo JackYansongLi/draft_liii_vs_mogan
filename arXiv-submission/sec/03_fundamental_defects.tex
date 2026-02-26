@@ -96,7 +96,7 @@ TeX's error reporting is notorious for being cryptic and unhelpful. When an erro
     \item Error messages are often technical and do not provide actionable guidance.
 \end{enumerate}
 
-For example, a missing brace several pages earlier might cause an error message that appears to indicate a problem in a completely different location. This makes debugging LaTeX documents a time-consuming and frustrating experience, especially for users who are not deeply familiar with the system.
+For example, a missing brace several pages earlier might cause an error message that appears to indicate a problem in a completely different location. This makes debugging \LaTeX{} documents a time-consuming and frustrating experience, especially for users who are not deeply familiar with the system.
 
 \begin{lstlisting}[caption={Missing argument error},label={lst:mycmd-error}]
 \documentclass{ctexart}
@@ -120,7 +120,7 @@ Listing~\ref{lst:mycmd-error} shows a missing argument error. The error message 
 \end{document}
 \end{lstlisting}
 
-Listing~\ref{lst:nested-section} shows an invalid nested section command, which produces the error: ``LaTeX Error: Not allowed in LR mode.''
+Listing~\ref{lst:nested-section} shows an invalid nested section command, which produces the error: ``\LaTeX{} Error: Not allowed in LR mode.''
 
 \begin{lstlisting}[caption={Unclosed brace in frac},label={lst:unclosed-frac}]
 \documentclass{ctexart}
@@ -144,9 +144,9 @@ Mogan STEM effectively mitigates this issue at the system level. By introducing 
 
 \subsection{Compatibility Dilemma Beneath a Unified Syntax}
 
-To address varying requirements (such as modern fonts and Unicode support), the LaTeX ecosystem has evolved multiple parallel compilation engines, such as \texttt{pdfLaTeX}, \texttt{XeLaTeX} and \texttt{LuaLaTeX}. This differentiation, rather than being a strength, is a manifestation of system design fragmentation.
+To address varying requirements (such as modern fonts and Unicode support), the \LaTeX{} ecosystem has evolved multiple parallel compilation engines, such as \texttt{pdfLaTeX}, \texttt{XeLaTeX} and \texttt{LuaLaTeX}. This differentiation, rather than being a strength, is a manifestation of system design fragmentation.
 
-From a user's perspective, all three engines accept \texttt{.tex} input and adhere to the LaTeX macro interface. However, at the system level, they exhibit fundamental differences in the following key aspects:
+From a user's perspective, all three engines accept \texttt{.tex} input and adhere to the \LaTeX{} macro interface. However, at the system level, they exhibit fundamental differences in the following key aspects:
 
 \begin{table}[htbp]
 \centering
@@ -159,7 +159,7 @@ From a user's perspective, all three engines accept \texttt{.tex} input and adhe
 \midrule
 Native Encoding Support & 8-bit (requires \texttt{inputenc}) & Native Unicode & Native Unicode \\
 Font System & Type1 / limited OpenType & System Fonts (OpenType) & OpenType (via Lua) \\
-Extension Mechanism & TeX primitives & TeX + XeTeX primitives & TeX + Lua VM \\
+Extension Mechanism & \TeX{} primitives & \TeX{} + Xe\TeX{} primitives & \TeX{} + Lua VM \\
 External Programmability & Very Weak & Very Weak & Strong (Lua) \\
 \bottomrule
 \end{tabular}%
@@ -170,7 +170,7 @@ External Programmability & Very Weak & Very Weak & Strong (Lua) \\
 
 Take the use of Emojis as an example. If a document requires the direct inclusion of Unicode Emojis, \texttt{pdfLaTeX} is mechanically incapable of supporting such characters. While \texttt{XeLaTeX} possesses native Unicode support, in practice, it often degrades Emojis to monochrome glyphs or suffers from missing characters due to insufficient font coverage. \texttt{LuaLaTeX} offers the theoretically most complete support path, handling complex characters via OpenType fonts and the Lua layer. However, this 'enhanced capability' comes at a price: \texttt{LuaLaTeX}'s compilation speed is typically significantly slower than \texttt{XeLaTeX}, and it introduces an additional dependency on the Lua runtime, expanding both the source of errors and the scope of debugging. Under these constraints, a compromise workflow that actually exists in reality involves: compiling the main body with \texttt{XeLaTeX} for speed and layout stability; separately compiling pages or chapters containing Emojis using \texttt{LuaLaTeX}; and finally stitching the output results from different engines together at the PDF level.
 
-A similar compatibility burden appears in the bibliography processing chain. While LaTeX superficially provides a unified \texttt{.bib} data source format, during the actual compilation process, users must choose between different backends like \texttt{bibtex} and \texttt{biber}. These two differ fundamentally in character encoding, sorting rules, and data models.
+A similar compatibility burden appears in the bibliography processing chain. While \LaTeX{} superficially provides a unified \texttt{.bib} data source format, during the actual compilation process, users must choose between different backends like \texttt{bibtex} and \texttt{biber}. These two differ fundamentally in character encoding, sorting rules, and data models.
 
 \begin{lstlisting}[caption={BibTeX vs BibLaTeX},label={lst:bibtex-biber}]
 \bibliography{ref/refs}   % References compiled using BibTeX
@@ -181,9 +181,9 @@ Visually, these commands differ by only a single line, yet they correspond to tw
 
 Consequently, although both methods "appear to use the same \texttt{.bib} file," they diverge significantly in character encoding support, linguistic processing capabilities, style customization, and compilation steps. A smooth migration cannot be achieved by simply swapping commands. From the user's perspective, this implies that bibliography management is not a stable, interchangeable module, but rather deeply coupled with the engine and packages. Users must not only understand \texttt{.bib} syntax but also explicitly identify which call path their document is entering for bibliography processing. This further exacerbates the cognitive burden regarding tool selection and workflow configuration.
 
-\textbf{Ecosystem Fragmentation:} Certain packages support only specific engines, degrading document portability. A common example is the \texttt{fontspec} package, used for loading system fonts (OpenType/TrueType) and Unicode settings. Under pdfLaTeX, this triggers a fatal error (\texttt{cannot-use-pdftex}) because pdfTeX lacks native Unicode support.
+\textbf{Ecosystem Fragmentation:} Certain packages support only specific engines, degrading document portability. A common example is the \texttt{fontspec} package, used for loading system fonts (OpenType/TrueType) and Unicode settings. Under pdfLaTeX, this triggers a fatal error (\texttt{cannot-use-pdftex}) because pdf\TeX{} lacks native Unicode support.
 
-\textbf{Increased Cognitive Load:} These factors compel users to learn not just LaTeX syntax, but also how to select and configure the appropriate compilation engine to achieve their desired document output.
+\textbf{Increased Cognitive Load:} These factors compel users to learn not just \LaTeX{} syntax, but also how to select and configure the appropriate compilation engine to achieve their desired document output.
 
 \begin{table}[htbp]
 \centering
@@ -207,7 +207,7 @@ Table~\ref{tab:latex-hooks} shows some common hook directives. While hooks provi
 
 \subsubsection{Multi-pass Compilation: A Fragile Stopgap}
 
-In LaTeX, the accurate generation of cross-references, tables of contents, and bibliographies relies on multiple compilation passes to make up for the absence of internal state. The typical workflow involves a first pass that generates auxiliary files (like \texttt{.aux} and \texttt{.toc}) to record state, followed by subsequent passes that read these files to populate cross-references, page numbers, or chapter titles.
+In \LaTeX{}, the accurate generation of cross-references, tables of contents, and bibliographies relies on multiple compilation passes to make up for the absence of internal state. The typical workflow involves a first pass that generates auxiliary files (like \texttt{.aux} and \texttt{.toc}) to record state, followed by subsequent passes that read these files to populate cross-references, page numbers, or chapter titles.
 
 If the document includes citations, external tools such as BibTeX or Biber must also be integrated into the process. For example, the standard procedure for a document with references often follows the sequence: \texttt{pdflatex} $\rightarrow$ \texttt{bibtex} $\rightarrow$ \texttt{pdflatex} $\rightarrow$ \texttt{pdflatex}.
 
@@ -221,18 +221,18 @@ This mechanism imposes several burdens:
 
 \subsubsection{Long-Term Suppression of the Tool Ecosystem}
 
-The batch processing design of TeX has stifled the development of peripheral tools. Real-time preview in LaTeX editors is merely a simulation achieved by frequently triggering background compilations, which suffers from significant latency and layout inconsistencies. For example, in documents containing numerous floating objects and formulas, even modifying a small paragraph can trigger a global re-calculation of pagination, causing the preview to lag. Furthermore, features like intelligent code refactoring or syntax completion are virtually impossible to implement effectively without a structured document tree. Most automation tools rely on regular expression matching rather than syntax tree analysis, leading to limited error-checking capabilities and a high propensity for false positives or missed errors.
+The batch processing design of \TeX{} has stifled the development of peripheral tools. Real-time preview in \LaTeX{} editors is merely a simulation achieved by frequently triggering background compilations, which suffers from significant latency and layout inconsistencies. For example, in documents containing numerous floating objects and formulas, even modifying a small paragraph can trigger a global re-calculation of pagination, causing the preview to lag. Furthermore, features like intelligent code refactoring or syntax completion are virtually impossible to implement effectively without a structured document tree. Most automation tools rely on regular expression matching rather than syntax tree analysis, leading to limited error-checking capabilities and a high propensity for false positives or missed errors.
 
-This structural dilemma is not accidental; rather, it is rooted in the batch-processing paradigm of LaTeX itself. Frank Mittelbach, the technical lead for LaTeX, candidly admitted in an interview~\cite{interview2021}:
+This structural dilemma is not accidental; rather, it is rooted in the batch-processing paradigm of \LaTeX{} itself. Frank Mittelbach, the technical lead for \LaTeX{}, candidly admitted in an interview~\cite{interview2021}:
 
 \begin{quote}
-PN: "I try to look at this issue from the point of view of global and local, and interactivity is just like a... This is probably a change that happens very fast, and that you worried only about the local stuff, but the separation between local and global in LaTeX seems to be hard."
+PN: "I try to look at this issue from the point of view of global and local, and interactivity is just like a... This is probably a change that happens very fast, and that you worried only about the local stuff, but the separation between local and global in \LaTeX{} seems to be hard."
 
-FMi: "First of all, it is right now hard in TeX\ldots"
+FMi: "First of all, it is right now hard in \TeX{}\ldots"
 \end{quote}
 
 \subsection{Comparison: Design Paradigms of Structured and Incremental Systems}
 
-Systems like GNU TeXmacs adopt a distinct architecture: the document maintains a structured tree representation in memory, where local modifications trigger immediate local repainting, and structural validity checks occur during the editing phase. For instance, modifying a formula or a floating object redraws only the affected region. Cross-references and numbering update instantly, ensuring the user always interacts with a predictable and previewable document state. Errors are isolated within local modules, preventing global system crashes.
+Systems like GNU \TeX{}macs adopt a distinct architecture: the document maintains a structured tree representation in memory, where local modifications trigger immediate local repainting, and structural validity checks occur during the editing phase. For instance, modifying a formula or a floating object redraws only the affected region. Cross-references and numbering update instantly, ensuring the user always interacts with a predictable and previewable document state. Errors are isolated within local modules, preventing global system crashes.
 
-This contrast shows that LaTeX's need for multiple compilation rounds and external tools is not unavoidable and instead results from a compensatory design strategy. These limitations could be completely bypassed by refactoring the architecture. Ultimately, the fundamental problem of LaTeX lies not the quality of its typesetting, but the defects of global dependency and state management inherent in its execution model.
+This contrast shows that \LaTeX{}'s need for multiple compilation rounds and external tools is not unavoidable and instead results from a compensatory design strategy. These limitations could be completely bypassed by refactoring the architecture. Ultimately, the fundamental problem of \LaTeX{} lies not the quality of its typesetting, but the defects of global dependency and state management inherent in its execution model.

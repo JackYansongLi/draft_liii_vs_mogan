@@ -1,11 +1,11 @@
 \section{Numerical experiments}
 \label{sec:experiments}
 
-To verify the beneficial of using Mogan STEM compared to LaTeX, we designed and conducted experiments on fast compiling/rendering, LLM tasks performance, and fine-tuning.
+To verify the beneficial of using Mogan STEM compared to \LaTeX{}, we designed and conducted experiments on fast compiling/rendering, LLM tasks performance, and fine-tuning.
 
 \subsection{Benchmark on compiling/rendering time}
 
-Limited by the design of LaTeX, the compilation process requires significant time for documents that are rich in cross-references, tables of contents, and bibliographies. We chose 6 papers from arXiv that satisfies the richness as benchmark documents (machine configuration is attached in Appendix~\ref{app:ms}). Note that Mogan STEM is a WYSIWYG editor, therefore the comparison is unfair! The time consumption for Mogan STEM is
+Limited by the design of \LaTeX{}, the compilation process requires significant time for documents that are rich in cross-references, tables of contents, and bibliographies. We chose 6 papers from arXiv that satisfies the richness as benchmark documents (machine configuration is attached in Appendix~\ref{app:ms}). Note that Mogan STEM is a WYSIWYG editor, therefore the comparison is unfair! The time consumption for Mogan STEM is
 \[
 t_{\text{compiling}} + t_{\text{rendering}} + t_{\text{IO}},
 \]
@@ -18,9 +18,9 @@ where $t_{\text{compiling}}$ is the compiling time, $t_{\text{rendering}}$ is th
 \label{fig:full-compile}
 \end{figure}
 
-Figure~\ref{fig:full-compile} shows the results. Even with the extra I/O process, Mogan STEM outperforms LaTeX in compiling/rendering time for most documents. Note that for document \texttt{arXiv:2502.17655}, Mogan STEM compile and render slower than LaTeX, the exception is due to the size of the documents, it has 120 pages. Therefore, the I/O overhead accounts for a large proportion.
+Figure~\ref{fig:full-compile} shows the results. Even with the extra I/O process, Mogan STEM outperforms \LaTeX{} in compiling/rendering time for most documents. Note that for document \texttt{arXiv:2502.17655}, Mogan STEM compile and render slower than \LaTeX{}, the exception is due to the size of the documents, it has 120 pages. Therefore, the I/O overhead accounts for a large proportion.
 
-Another limitation of LaTeX is the slow incremental updates. We also conducted an experiment on incremental updates. The update includes adding new sections, adding tables in some paragraphs, modifying the relations between labels and references, and rearrange the positions of contexts slightly. As shown in Figure~\ref{fig:inc-update}, Mogan STEM shows remarkable advantages over LaTeX when doing incremental update on all 6 documents. Note that for document \texttt{arXiv:2502.17655}, Mogan STEM outperforms LaTeX, which seems to be a contradiction to the result of compiling time experiment. The reason for such ``contradiction'' is due to the I/O overhead, in Mogan STEM, the I/O process only activated when the user open the document. Therefore, for incremental updates, $t_{\text{IO}}=0$.
+Another limitation of \LaTeX{} is the slow incremental updates. We also conducted an experiment on incremental updates. The update includes adding new sections, adding tables in some paragraphs, modifying the relations between labels and references, and rearrange the positions of contexts slightly. As shown in Figure~\ref{fig:inc-update}, Mogan STEM shows remarkable advantages over \LaTeX{} when doing incremental update on all 6 documents. Note that for document \texttt{arXiv:2502.17655}, Mogan STEM outperforms \LaTeX{}, which seems to be a contradiction to the result of compiling time experiment. The reason for such ``contradiction'' is due to the I/O overhead, in Mogan STEM, the I/O process only activated when the user open the document. Therefore, for incremental updates, $t_{\text{IO}}=0$.
 
 \begin{figure}[htbp]
 \centering
@@ -29,7 +29,7 @@ Another limitation of LaTeX is the slow incremental updates. We also conducted a
 \label{fig:inc-update}
 \end{figure}
 
-Figure~\ref{fig:inc-update} shows the results for incremental updates. Mogan STEM shows remarkable advantages over LaTeX when doing incremental update on all 6 documents. The reason for such ``contradiction'' is due to the I/O overhead, in Mogan STEM, the I/O process is triggered by user's operation, so the I/O overhead is amortized by user's interaction.
+Figure~\ref{fig:inc-update} shows the results for incremental updates. Mogan STEM shows remarkable advantages over \LaTeX{} when doing incremental update on all 6 documents. The reason for such ``contradiction'' is due to the I/O overhead, in Mogan STEM, the I/O process is triggered by user's operation, so the I/O overhead is amortized by user's interaction.
 
 \subsection{Performance in LLM tasks}
 
@@ -53,7 +53,7 @@ where $T$ is the token usage for the input, thinking, output, and MCP tools, $\s
 \label{fig:reading}
 \end{figure}
 
-Figure~\ref{fig:reading} illustrates the results. Even if it is not a fair comparison as the LLMs have trained inherently by LaTeX corpus before, Mogan took the lead for the most LLMs. The reason is that the file structure in Mogan have higher information density and even references are updated and written (e.g., \verb|<associate|sec:tree-struc-on-mogan|<tuple|5.1|13>>|, where \verb|sec:tree-struc-on-mogan| is the label name, \verb|5.1| is the section number, and \verb|13| is the page number) in \texttt{.tmu} file after incremental update, while in LaTeX, LLM need to count the enviroment in the whole document in order to get the real displayed enviroment number after LaTeX compilation. So the LLM can locate the enviroment quickly in Mogan.
+Figure~\ref{fig:reading} illustrates the results. Even if it is not a fair comparison as the LLMs have trained inherently by \LaTeX{} corpus before, Mogan took the lead for the most LLMs. The reason is that the file structure in Mogan have higher information density and even references are updated and written (e.g., \verb|<associate|sec:tree-struc-on-mogan|<tuple|5.1|13>>|, where \verb|sec:tree-struc-on-mogan| is the label name, \verb|5.1| is the section number, and \verb|13| is the page number) in \texttt{.tmu} file after incremental update, while in \LaTeX{}, LLM need to count the enviroment in the whole document in order to get the real displayed enviroment number after \LaTeX{} compilation. So the LLM can locate the enviroment quickly in Mogan.
 
 \subsubsection{Merging files with distinct doc-styles}
 \label{sec:doc-style}
@@ -123,16 +123,16 @@ where $T$ is the token usage, $\sum u_d \in [0, 100]$.
 \label{fig:debugging}
 \end{figure}
 
-Figure~\ref{fig:debugging} shows the results. LaTeX group thinks for a long time to solve most of the error samples. Mogan group locates the problems quickly and solve all of the error samples (only two samples consume more than 10k tokens). The reason is that the illness in \texttt{.tmu} files only influences the closest tree-tag ancestor (as discussed in Section~\ref{sec:tree-struc-on-mogan}). So the error message in Mogan STEM is quiet clear for LLMs to understand and correct them easily. In contrast, LaTeX's error messages usually detach from their root causes in large documents and the logs are very long.
+Figure~\ref{fig:debugging} shows the results. \LaTeX{} group thinks for a long time to solve most of the error samples. Mogan group locates the problems quickly and solve all of the error samples (only two samples consume more than 10k tokens). The reason is that the illness in \texttt{.tmu} files only influences the closest tree-tag ancestor (as discussed in Section~\ref{sec:tree-struc-on-mogan}). So the error message in Mogan STEM is quiet clear for LLMs to understand and correct them easily. In contrast, \LaTeX{}'s error messages usually detach from their root causes in large documents and the logs are very long.
 
 In fact, \texttt{.tmu} file do not have problems like unclosed environment or self-recursive macros if it is written by Mogan STEM. In addition, Mogan STEM provides a WYSIWYG and intuitive user interface. If there is anything wrong in \texttt{.tmu} file, when opened by Mogan STEM, it is always clear to see where they are.
 
 \subsection{Efficiency in fine-tuning}
 \label{sec:eff-in-sft}
 
-Recall that Mogan uses tree structure while LaTeX uses linear macro flow. Benefit from the tree structure, it is easier for models to predict the new token in Mogan than in LaTeX.
+Recall that Mogan uses tree structure while \LaTeX{} uses linear macro flow. Benefit from the tree structure, it is easier for models to predict the new token in Mogan than in \LaTeX{}.
 
-We conducted a parallel supervised fine-tuning (SFT) experiment (machine configuration is shown in Appendix~\ref{app:ms}). We generate 1000 random formulas written in LaTeX and convert them to the Mogan S-expression by Mogan STEM. We guarantee that the formulas in both Mogan and LaTeX are identical after rendering. The formulas cover fractions, radicals, subscripts and superscripts, matrices, piecewise, integrals and summations, limits, logical quantifiers, composite functions, and nested parentheses. Next, we cut the formulas into two parts. We give the prefix part to the model and let it complete the rest.
+We conducted a parallel supervised fine-tuning (SFT) experiment (machine configuration is shown in Appendix~\ref{app:ms}). We generate 1000 random formulas written in \LaTeX{} and convert them to the Mogan S-expression by Mogan STEM. We guarantee that the formulas in both Mogan and \LaTeX{} are identical after rendering. The formulas cover fractions, radicals, subscripts and superscripts, matrices, piecewise, integrals and summations, limits, logical quantifiers, composite functions, and nested parentheses. Next, we cut the formulas into two parts. We give the prefix part to the model and let it complete the rest.
 
 \begin{figure}[htbp]
 \centering
@@ -141,8 +141,8 @@ We conducted a parallel supervised fine-tuning (SFT) experiment (machine configu
 \label{fig:fine-tune}
 \end{figure}
 
-Figure~\ref{fig:fine-tune} shows the experiment of low rank adaptation (LoRA) based on Qwen2.5-7B-Instruct on 1000 formulas in 289 steps, Mogan group's loss converges to around 0.4 while LaTeX's converges to around 0.7. The reason is that Mogan's S-expression have lower information entropy. LaTeX document has a lot of syntax noise. For example, the code \verb|\frac{a}{b}| and \verb|{a \over b}| in LaTeX are equivalent after rendering, the code \verb|x^{2}| and \verb|x^2| are also equivalent after rendering. So the model has less certainty to predict the next token in LaTeX compare to Mogan.
+Figure~\ref{fig:fine-tune} shows the experiment of low rank adaptation (LoRA) based on Qwen2.5-7B-Instruct on 1000 formulas in 289 steps, Mogan group's loss converges to around 0.4 while \LaTeX{}'s converges to around 0.7. The reason is that Mogan's S-expression have lower information entropy. \LaTeX{} document has a lot of syntax noise. For example, the code \verb|\frac{a}{b}| and \verb|{a \over b}| in \LaTeX{} are equivalent after rendering, the code \verb|x^{2}| and \verb|x^2| are also equivalent after rendering. So the model has less certainty to predict the next token in \LaTeX{} compare to Mogan.
 
-Note that LaTeX documents have weaker grammatical consistency than Mogan, It is a burden for the model to predict the proper command in line with a macro definitions in preamble, especially in large documents written in several distinct doc-styles (discussed in Section~\ref{sec:doc-style}) when training.
+Note that \LaTeX{} documents have weaker grammatical consistency than Mogan, It is a burden for the model to predict the proper command in line with a macro definitions in preamble, especially in large documents written in several distinct doc-styles (discussed in Section~\ref{sec:doc-style}) when training.
 
 Moreover, discussions of Mogan versus Markdown are attached in Appendix~\ref{app:vs}.
