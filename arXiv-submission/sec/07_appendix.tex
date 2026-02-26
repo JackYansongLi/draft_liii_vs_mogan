@@ -1,0 +1,59 @@
+\bibliography{references}
+\bibliographystyle{unsrt}
+
+\appendix
+
+\section{Machine configuration}
+\label{app:ms}
+
+\begin{table}[htbp]
+\centering
+\caption{Machine configuration in numerical experiments}
+\label{tab:machine}
+\begin{tabular}{ll}
+\toprule
+\textbf{Component} & \textbf{Specification} \\
+\midrule
+CPU & Intel Ultra 9 285H \\
+GPU & GeForce RTX 5080 \\
+RAM & 32GB LPDDR5X \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Prompts for evaluate structure locating}
+\label{app:20ques}
+
+You are an expert in LaTeX. Your task is to read the \texttt{main.tex} and answer the following questions:
+
+\begin{enumerate}
+    \item Count the number of sections.
+    \item Count the number of subsections.
+    \item Count the number of figures and tables.
+    \item Count the number of cross references and bibliography references.
+    \item In which section does Equation 10.15 appear?
+    \item In which subsection does Equation 8.66 appear?
+    \item Is there a direct proof below the Equation 12.1?
+    \item In what context does formula A.3 appear?
+    \item In which environment is Definition 4.4 first cited?
+    \item What is the number of the first equation after the first citation of Definition 4.4?
+    \item In which environment is Definition 7.1 first cited?
+    \item What is the number of the first equation after the first citation of Definition 7.1?
+    \item How many steps are there in the proof of Lemma 6.4?
+    \item Which definition or lemma numbers are directly used in the proof of Lemma 6.4?
+    \item How many steps are there in the proof of Lemma 8.3?
+    \item Which definition or lemma numbers are directly used in the proof of Lemma 8.3?
+    \item In which section does Citation 1 first appear?
+    \item In which subsection does Citation 6 first appear?
+    \item What was Citation 25 originally used to prove?
+    \item Has Citation 31 appeared in the article?
+\end{enumerate}
+
+\section{Discussion of Mogan v.s. Markdown}
+\label{app:vs}
+
+Markdown is a lightweight markup language with concise typography syntax. It is designed for daily notes with light typesetting demand. If the user need customized template, page or text style, and advanced typesetting demand like references, Markdown is hard to write and face serious ecosystem fragmentation and cross-platform compatibility issues. In that case, Mogan will be a better choice.
+
+In fact, we have already discuss in Section~\ref{sec:eff-in-sft} the fine-tuning efficiency of Mogan's S-expression and LaTeX's grammar. The same LaTeX grammar is also adopted by Markdown for mathematical formulas, which means that the same conclusion also holds for Markdown.
+
+Besides, we need to conduct a series of experiments to evaluate their extensibility, semantic richness, typographic precision, and more. Given by the the huge gap between Mogan and Markdown in application scenarios, design such a series of experiments for fair is not easy. Limited by our budget, here is as far as we go.

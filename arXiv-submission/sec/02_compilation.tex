@@ -1,0 +1,52 @@
+\section{An Introduction to \TeX{} Compilation Principles}
+
+\begin{example}[Minimal example of LaTeX code]
+\label{ex:minimal}
+\begin{verbatim}
+\documentclass{article}
+\usepackage{siunitx}
+\begin{document}
+Hello, World! from \LaTeX.
+The speed of light is \SI{299792458}{\meter\per\second}.
+\end{document}
+\end{verbatim}
+\end{example}
+
+Example~\ref{ex:minimal} shows a minimal example of LaTeX code. The source code comprises two parts: the preamble, which includes the \verb|\documentclass| and \verb|\usepackage| commands, and the document body, which is enclosed within the \verb|\begin{document}| and \verb|\end{document}| environment. The preamble serves as the configuration section for the document, where global settings such as page layout, fonts, and macro definitions are specified. The \verb|\documentclass| command is used to select a document template (class) that controls the overall structure and formatting. The \verb|\usepackage| command imports packages that provide additional functionality, such as mathematical symbols, special characters, or custom formatting options.
+
+\begin{table}[htbp]
+\centering
+\caption{\LaTeX{} file extensions and their descriptions}
+\label{tab:latex-ext}
+\begin{tabular}{ll}
+\toprule
+\textbf{Extension} & \textbf{Description} \\
+\midrule
+\texttt{.tex} & Source file containing document content \\
+\texttt{.sty} & Style file (package) \\
+\texttt{.cls} & Class file defining document structure \\
+\texttt{.bst} & BibTeX bibliography style file \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:latex-ext} lists the main file extensions used in the LaTeX ecosystem. The source code is written in plain text using a text editor and saved with a \texttt{.tex} extension. The LaTeX engine then processes this source file to generate the final output. The engine reads the source file sequentially, expanding macros and processing commands to produce a document in the desired output format (typically DVI or PDF).
+
+\begin{table}[htbp]
+\centering
+\caption{\LaTeX{} auxiliary file extensions, tools, and descriptions}
+\label{tab:latex-aux}
+\begin{tabular}{lll}
+\toprule
+\textbf{Extension} & \textbf{Tool} & \textbf{Description} \\
+\midrule
+\texttt{.aux} & \texttt{latex}/\texttt{pdflatex} & Auxiliary file for cross-references \\
+\texttt{.log} & \texttt{latex}/\texttt{pdflatex} & Log file containing compilation messages \\
+\texttt{.toc} & \texttt{latex}/\texttt{pdflatex} & Table of contents file \\
+\texttt{.bbl} & \texttt{bibtex} & Bibliography file \\
+\texttt{.blg} & \texttt{bibtex} & Bibliography log file \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:latex-aux} shows the auxiliary files generated during compilation. The compilation process typically involves multiple passes: the first pass generates auxiliary files, and subsequent passes use these files to resolve cross-references, citations, and other dynamic elements. This multi-pass approach is necessary because LaTeX is a batch-processing system that does not maintain state between runs \citep{lamport1994document}.

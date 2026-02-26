@@ -1,0 +1,83 @@
+\section{Fundamental Defects in \TeX{}'s Compilation Design}
+\label{sec:fundamental}
+
+\subsection{Batch Model Limitations: Unidirectionality, Weak Semantics, and Delayed Feedback}
+
+\subsubsection{Unidirectional and One-off Processing Flow}
+
+The core workflow of TeX is inherently unidirectional and batch-oriented. It sequentially reads the source file from beginning to end, expanding macros and processing commands in a single pass. This design, while simple and efficient for its original purpose, creates significant limitations for modern document editing workflows.
+
+The unidirectional nature means that once the compiler has processed a section of the document, it cannot go back to modify it based on information that appears later. This is particularly problematic for cross-references, where the target may appear after the reference itself. The typical workaround is to use multiple compilation passes, but this introduces significant overhead and complexity.
+
+\subsubsection{Tight Coupling Between Compilation and Semantic Phases}
+
+In TeX, the lexical analysis, parsing, and semantic analysis phases are tightly coupled. The macro expansion mechanism, which is central to TeX's operation, operates at the character level without clear separation between these phases. This design choice has several consequences:
+
+\begin{itemize}
+    \item \textbf{Fragile Parsing:} The parser must handle expanded macros, making it difficult to provide meaningful error messages.
+    \item \textbf{Limited Optimization:} Without clear phase separation, optimizations that could be applied at specific stages are difficult to implement.
+    \item \textbf{Debugging Difficulties:} Errors may manifest far from their actual source due to macro expansion.
+\end{itemize}
+
+\subsubsection{Lagged Manifestation and Ambiguous Localization of Errors}
+
+TeX's error reporting is notorious for being cryptic and unhelpful. When an error occurs, the compiler often reports it at a location far removed from the actual source of the problem. This is due to several factors:
+
+\begin{enumerate}
+    \item Macro expansion can propagate errors across large portions of the document.
+    \item The batch processing model means that errors accumulate before being reported.
+    \item Error messages are often technical and do not provide actionable guidance.
+\end{enumerate}
+
+For example, a missing brace several pages earlier might cause an error message that appears to indicate a problem in a completely different location. This makes debugging LaTeX documents a time-consuming and frustrating experience, especially for users who are not deeply familiar with the system.
+
+\subsection{Compatibility Dilemma Beneath a Unified Syntax}
+
+LaTeX's success has created a massive ecosystem of packages and classes, each extending the language in various ways. However, this extension mechanism relies on macro redefinition, which is inherently fragile. When two packages attempt to redefine the same command, conflicts can arise that are difficult to diagnose and resolve.
+
+\begin{table}[htbp]
+\centering
+\caption{Common \LaTeX{} Hook Directives and Descriptions}
+\label{tab:latex-hooks}
+\begin{tabular}{lp{10cm}}
+\toprule
+\textbf{Hook} & \textbf{Description} \\
+\midrule
+\texttt{\textbackslash AtBeginDocument} & Executed at the beginning of the document body \\
+\texttt{\textbackslash AtEndDocument} & Executed at the end of the document \\
+\texttt{\textbackslash AtBeginDvi} & Executed when the first page is shipped out \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:latex-hooks} shows some common hook directives. While hooks provide a mechanism for packages to coordinate their initialization, they cannot fully resolve the fundamental tension between extensibility and compatibility. The order of package loading becomes critical, and users must often engage in trial-and-error to find a working configuration.
+
+\subsection{Alienation of the Tool Ecosystem}
+
+\subsubsection{Multi-pass Compilation: A Fragile Stopgap}
+
+In LaTeX, the accurate generation of cross-references, tables of contents, and bibliographies relies on multiple compilation passes to make up for the absence of internal state. The typical workflow involves a first pass that generates auxiliary files (like \texttt{.aux} and \texttt{.toc}) to record state, followed by subsequent passes that read these files to populate cross-references, page numbers, or chapter titles.
+
+If the document includes citations, external tools such as BibTeX or Biber must also be integrated into the process. For example, the standard procedure for a document with references often follows the sequence: \texttt{pdflatex} $\rightarrow$ \texttt{bibtex} $\rightarrow$ \texttt{pdflatex} $\rightarrow$ \texttt{pdflatex}.
+
+This mechanism imposes several burdens:
+
+\begin{itemize}
+    \item \textbf{State Fragmentation:} Document state is scattered across multiple external files.
+    \item \textbf{Cognitive Load:} Users must master complex ``compilation rituals.'' For instance, failure to run BibTeX results in all citation numbers appearing as \texttt{??}.
+    \item \textbf{Debugging Difficulties:} Error tracing is notoriously difficult because errors in auxiliary files (e.g., corrupted \texttt{.aux} files) are hard to diagnose.
+\end{itemize}
+
+\subsubsection{Long-Term Suppression of the Tool Ecosystem}
+
+The complexity of the LaTeX compilation pipeline has suppressed innovation in the tool ecosystem. Building tools that interact with LaTeX requires understanding the intricate details of the compilation process, the various auxiliary files, and the interactions between different packages. This high barrier to entry has limited the development of sophisticated tools for LaTeX document analysis, refactoring, and collaboration.
+
+\subsection{Comparison: Design Paradigms of Structured and Incremental Systems}
+
+In contrast to TeX's batch-oriented design, modern structured editors like Mogan STEM adopt an incremental approach. Documents are represented as structured trees rather than flat text, and changes are propagated immediately through the document structure. This enables:
+
+\begin{itemize}
+    \item \textbf{Immediate Feedback:} Changes are visible instantly without waiting for compilation.
+    \item \textbf{Precise Error Localization:} Errors are associated with specific nodes in the document tree.
+    \item \textbf{Semantic Understanding:} The editor maintains a rich representation of the document structure.
+\end{itemize}

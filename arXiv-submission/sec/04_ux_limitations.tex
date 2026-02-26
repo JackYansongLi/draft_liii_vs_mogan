@@ -1,0 +1,100 @@
+\section{Limitations of \TeX{} in User Experience Design}
+\label{sec:ux}
+
+\subsection{Issues with Distribution Scale and Deployment Models}
+
+\begin{table}[htbp]
+\centering
+\caption{Comparison between Mogan STEM and alternative editors}
+\label{tab:comparison}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Feature} & \textbf{Mogan} & \textbf{LaTeX} & \textbf{Markdown} \\
+\midrule
+WYSIWYG & Yes & No & Partial \\
+Structured editing & Yes & No & No \\
+Math rendering & Native & Engine-dependent & Limited \\
+Plugin system & On-demand & Pre-installed & Limited \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:comparison} provides a comparison of features across different editors. TeX Live, the standard LaTeX distribution, has grown to an enormous size due to the accumulation of historical packages. This creates significant challenges for deployment, especially in constrained environments.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{figure/iso_size.pdf}
+\caption{TeX Live ISO Size Trends}
+\label{fig:texlive-size}
+\end{figure}
+
+Figure~\ref{fig:texlive-size} shows the growth of TeX Live over time. Figure~\ref{fig:texlive-installer} illustrates the complex installation interface. In contrast, Mogan STEM uses an on-demand plugin loading mechanism, where features are only loaded when needed. This significantly reduces the installation size and startup time.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{figure/texlive-installer.png}
+\caption{TeX Live Installer}
+\label{fig:texlive-installer}
+\end{figure}
+
+\subsection{Real-World Performance Dilemma}
+
+The performance of LaTeX compilation degrades significantly with document complexity. Documents with extensive cross-references, bibliographies, or complex mathematical content require multiple passes and can take minutes to compile. This creates a frustrating edit-compile-view cycle that interrupts the writing flow.
+
+\subsection{Intrinsic Weakness: Absence of Engineering Standards}
+
+LaTeX lacks formal engineering standards for package development. While the \texttt{lppl} license provides some guidance, there are no enforced standards for:
+
+\begin{itemize}
+    \item Package documentation quality
+    \item API stability and versioning
+    \item Error handling and reporting
+    \item Testing and validation
+\end{itemize}
+
+This has led to a fragmented ecosystem where package quality varies widely, and compatibility issues are common \citep{interview2021}.
+
+\subsection{User Experience Barriers from a Practical Perspective}
+
+For users, the LaTeX experience is characterized by:
+
+\begin{enumerate}
+    \item \textbf{Steep Learning Curve:} Understanding macro expansion, package interactions, and compilation workflows requires significant investment.
+    \item \textbf{Cryptic Error Messages:} Error messages often require deep knowledge of TeX internals to interpret.
+    \item \textbf{Fragile Workflows:} Small changes can break the compilation in unexpected ways.
+    \item \textbf{Limited Tooling:} Compared to modern IDEs, LaTeX editors offer limited refactoring, navigation, and debugging capabilities.
+\end{enumerate}
+
+\subsection{Contributions and Constraints of \LaTeX3}
+
+LaTeX3 represents an effort to modernize the LaTeX codebase by introducing a more structured programming layer (\texttt{expl3}). While these improvements address some of the technical debt accumulated over decades, they remain constrained by the need for backward compatibility. The improvements are incremental rather than fundamental, and users must still engage with the legacy macro system for many tasks.
+
+\subsection{Limitations of Modern Collaboration Platforms: A Case Study of Overleaf}
+
+In response to LaTeX's structural deficiencies regarding collaboration support and usability, the academic community has advanced a series of improvement measures. Among these, online collaboration platforms, exemplified by Overleaf, have significantly streamlined the user experience and reduced the technical barrier to entry \citep{overleaf_docs}.
+
+\subsubsection{Key Improvements by Overleaf}
+
+Overleaf has addressed some of LaTeX's usability issues by providing:
+
+\begin{itemize}
+    \item Real-time collaboration features
+    \item Simplified compilation management
+    \item Version control integration
+    \item Template libraries for common document types
+\end{itemize}
+
+\subsubsection{Constraints of Underlying Architecture}
+
+However, Overleaf cannot overcome the fundamental limitations of LaTeX's architecture:
+
+\begin{itemize}
+    \item Compilation is still batch-oriented and slow
+    \item Error messages remain cryptic
+    \item Real-time preview requires frequent recompilation
+    \item Collaboration is at the text level, not the semantic level
+\end{itemize}
+
+\subsubsection{Impact on Trajectory of Technological Evolution}
+
+By providing a veneer of usability over LaTeX's fundamental limitations, platforms like Overleaf may have inadvertently slowed the adoption of genuinely superior alternatives. Users who might otherwise seek better solutions are satisfied with incremental improvements to the existing system.
