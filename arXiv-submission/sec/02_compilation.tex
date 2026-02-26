@@ -22,10 +22,10 @@ Example~\ref{ex:minimal} shows a minimal example of LaTeX code. The source code 
 \toprule
 \textbf{Extension} & \textbf{Description} \\
 \midrule
-\texttt{.tex} & Source file containing document content \\
-\texttt{.sty} & Style file (package) \\
-\texttt{.cls} & Class file defining document structure \\
-\texttt{.bst} & BibTeX bibliography style file \\
+\texttt{.sty} & Package file \\
+\texttt{.cls} & Document class file \\
+\texttt{.bib} & BibTeX database file \\
+\texttt{.bst} & BibTeX style file \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -40,13 +40,63 @@ Table~\ref{tab:latex-ext} lists the main file extensions used in the LaTeX ecosy
 \toprule
 \textbf{Extension} & \textbf{Tool} & \textbf{Description} \\
 \midrule
-\texttt{.aux} & \texttt{latex}/\texttt{pdflatex} & Auxiliary file for cross-references \\
-\texttt{.log} & \texttt{latex}/\texttt{pdflatex} & Log file containing compilation messages \\
-\texttt{.toc} & \texttt{latex}/\texttt{pdflatex} & Table of contents file \\
+\texttt{.log} & Typesetting Engine & Records the compilation process \\
+\texttt{.aux} & \texttt{latex} & Main auxiliary file for cross-references, TOC, citations \\
+\texttt{.toc} & \texttt{latex} & Table of contents file \\
+\texttt{.lof} & \texttt{latex} & List of figures file \\
+\texttt{.lot} & \texttt{latex} & List of tables file \\
 \texttt{.bbl} & \texttt{bibtex} & Bibliography file \\
-\texttt{.blg} & \texttt{bibtex} & Bibliography log file \\
+\texttt{.blg} & \texttt{bibtex} & BibTeX log file \\
+\texttt{.idx} & \texttt{latex} & Raw index file for \texttt{makeindex} \\
+\texttt{.ind} & \texttt{makeindex} & Formatted index file \\
+\texttt{.ilg} & \texttt{makeindex} & \texttt{makeindex} log file \\
+\texttt{.out} & \texttt{hyperref} & PDF bookmarks file \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Table~\ref{tab:latex-aux} shows the auxiliary files generated during compilation. The compilation process typically involves multiple passes: the first pass generates auxiliary files, and subsequent passes use these files to resolve cross-references, citations, and other dynamic elements. This multi-pass approach is necessary because LaTeX is a batch-processing system that does not maintain state between runs \citep{lamport1994document}.
+Table~\ref{tab:latex-aux} shows the auxiliary files generated during compilation. The compilation process typically involves multiple passes: the first pass generates auxiliary files, and subsequent passes use these files to resolve cross-references, citations, and other dynamic elements. This multi-pass approach is necessary because LaTeX is a batch-processing system that does not maintain state between runs \cite{lamport1994document}.
+
+In practice, the typesetting result is determined by the underlying engine. Common engines include:
+
+\begin{itemize}
+    \item \textbf{pdfLaTeX}: The most traditional and compatible engine. It generates PDFs directly but has limited support for Unicode and system fonts, relying mostly on TeX's own font system.
+    \item \textbf{XeLaTeX}: Renowned for excellent Unicode support and the ability to call operating system fonts directly. It is highly suitable for multi-language typesetting (such as CJK), though its compilation speed and package compatibility is often more complex than pdfLaTeX.
+    \item \textbf{LuaLaTeX}: Builds upon XeLaTeX by introducing Lua scripting as a programmable extension layer. This mechanism allows for dynamic customization of typesetting logic, offering the most power but also the highest complexity, with a strong dependency on the quality of templates and packages.
+\end{itemize}
+
+\begin{table}[htbp]
+\centering
+\caption{Comparison of \LaTeX{} Engines}
+\label{tab:latex-engines}
+\begin{tabular}{llll}
+\toprule
+\textbf{Dimension} & \textbf{pdfLaTeX} & \textbf{XeLaTeX} & \textbf{LuaLaTeX} \\
+\midrule
+Native Encoding Support & 8-bit (requires \texttt{inputenc}) & Native Unicode & Native Unicode \\
+Font System & Type1 / limited OpenType & System Fonts (OpenType) & OpenType (via Lua) \\
+Extension Mechanism & TeX primitives & TeX + XeTeX primitives & TeX + Lua VM \\
+External Programmability & Very Weak & Very Weak & Strong (Lua) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{example}[Cross-reference before definition]
+\begin{verbatim}
+\documentclass{ctexart}
+\begin{document}
+
+As shown in Equation~\ref{eq:test}.
+
+\newpage
+
+\begin{equation}
+  E = mc^2
+\label{eq:test}
+\end{equation}
+
+\end{document}
+\end{verbatim}
+\end{example}
+
+Example~4 shows a cross-reference before its definition. The first compilation shows \texttt{??} for the reference, requiring a second pass to resolve.

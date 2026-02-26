@@ -7,14 +7,16 @@
 \centering
 \caption{Comparison between Mogan STEM and alternative editors}
 \label{tab:comparison}
-\begin{tabular}{lccc}
+\begin{tabular}{lcccc}
 \toprule
-\textbf{Feature} & \textbf{Mogan} & \textbf{LaTeX} & \textbf{Markdown} \\
+\textbf{Editor} & \textbf{WYSIWYG} & \textbf{Structured} & \textbf{Unicode Support} & \textbf{\TeX{} Compatibility} \\
 \midrule
-WYSIWYG & Yes & No & Partial \\
-Structured editing & Yes & No & No \\
-Math rendering & Native & Engine-dependent & Limited \\
-Plugin system & On-demand & Pre-installed & Limited \\
+\textbf{Mogan STEM} & Yes & Yes & Yes & Partial \\
+\textbf{TeXmacs} & Yes & Yes & Partial & Partial \\
+\textbf{TeX/LaTeX} & No & Yes & Partial & Full \\
+\textbf{Word} & Yes & No & Partial & Incompatible \\
+\textbf{LyX} & Partial & Yes & Partial & Full \\
+\textbf{Typst} & No & Yes & Yes & Partial \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -52,7 +54,24 @@ LaTeX lacks formal engineering standards for package development. While the \tex
     \item Testing and validation
 \end{itemize}
 
-This has led to a fragmented ecosystem where package quality varies widely, and compatibility issues are common \citep{interview2021}.
+This has led to a fragmented ecosystem where package quality varies widely, and compatibility issues are common \cite{interview2021}.
+
+\begin{table}[htbp]
+\centering
+\caption{Core Structural Contradictions in \LaTeX2e\ Language Design and their Engineering Consequences}
+\label{tab:latex-contradictions}
+\begin{tabular}{p{3.5cm}p{5cm}p{4cm}}
+\toprule
+\textbf{Contradiction} & \textbf{Description} & \textbf{Impact} \\
+\midrule
+Global Naming vs.\ Modularity & \LaTeX2e\ lacks namespaces; all commands and variables share a global symbol table & High risk of package conflicts; loading order directly affects behavior; system fragility \\
+Text Substitution vs.\ Structured Interfaces & Macros are essentially untyped token substitutions, lacking parameter signatures and type systems & Static checking is difficult; function interfaces are uncomposable; parameter passing is error-prone \\
+Local State via Grouping vs.\ Compiler Awareness & State management relies on TeX's grouping and rollback mechanism rather than explicit variable scoping & Compilers cannot resolve scope; state leakage and logical errors are difficult to detect \\
+Conventional Interfaces vs.\ Automatic Verification & Interface constraints rely on documentation and voluntary compliance, not language-level enforcement & Parameter types/counts cannot be statically verified; errors are only exposed at runtime \\
+Compatibility vs.\ Modern Features & To maintain compatibility with \LaTeX2e, implementation of new features is cumbersome & Requires reliance on advanced packages like \texttt{xparse} or complex hacks; high learning and maintenance costs \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \subsection{User Experience Barriers from a Practical Perspective}
 
@@ -71,7 +90,7 @@ LaTeX3 represents an effort to modernize the LaTeX codebase by introducing a mor
 
 \subsection{Limitations of Modern Collaboration Platforms: A Case Study of Overleaf}
 
-In response to LaTeX's structural deficiencies regarding collaboration support and usability, the academic community has advanced a series of improvement measures. Among these, online collaboration platforms, exemplified by Overleaf, have significantly streamlined the user experience and reduced the technical barrier to entry \citep{overleaf_docs}.
+In response to LaTeX's structural deficiencies regarding collaboration support and usability, the academic community has advanced a series of improvement measures. Among these, online collaboration platforms, exemplified by Overleaf, have significantly streamlined the user experience and reduced the technical barrier to entry \cite{overleaf_docs}.
 
 \subsubsection{Key Improvements by Overleaf}
 
