@@ -32,7 +32,7 @@ Unlike \LaTeX{}'s compilation model, which centers on linear text and macro expa
 
 Unlike \LaTeX{}'s linear macro-based representation, Mogan STEM represents documents as structured trees. This enables precise semantic understanding and manipulation of document elements.
 
-A fraction serves as a primary example of this difference. In \TeX{}, a fraction is represented as \verb|\frac{1}{2}|; internally, the compiler processes \verb|\frac|, \verb|{1}|, and \verb|{2}| serially. In Mogan STEM, however, the fraction is represented at the underlying layer as the Scheme code \verb|(frac "1" "2")|.\footnote{Note that Mogan STEM is \text{{\bfseries{WYSIWYG}}}; therefore, when inputting $\frac{1}{2}$, the user does not type \texttt{(frac 1 2)}, but instead presses \keys[,]{\Altwin,F} to input it visually!} This forms a tree structure, as illustrated in Figure~\ref{fig:frac-tree}.
+A fraction serves as a primary example of this difference. In \TeX{}, a fraction is represented as \verb|\frac{1}{2}|; internally, the compiler processes \verb|\frac|, \verb|{1}|, and \verb|{2}| serially. In Mogan STEM, however, the fraction is represented at the underlying layer as the Scheme code \verb|(frac "1" "2")|.\footnote{Note that Mogan STEM is \textbf{WYSIWYG}; therefore, when inputting $\frac{1}{2}$, the user does not type \texttt{(frac 1 2)}, but instead presses \keys{Alt+f} to input it visually!} This forms a tree structure, as illustrated in Figure~\ref{fig:frac-tree}.
 
 
 \begin{figure}[htbp]
@@ -88,11 +88,21 @@ Equation~\ref{eq:tree-struc} shows the recursive definition of the tree structur
     child {node {\texttt{"]"}}}
     child {node {\texttt{" | "}}};
 \end{tikzpicture}
-\caption{tree representation of $ [F (x)] |$}
+\caption{Tree representation of $ [F (x)] |$}
 \label{fig:tree-representation}
 \end{figure}
 
-This tree structure exists at the rendering level, not the syntax level. In fact, many long-time users of Mogan and TeXmacs cannot write a single line of Scheme code! This rendering-level tree structure offers two distinct advantages:
+Unlike \TeX{}, this tree structure exists at the rendering level, not the syntax level. In fact, many long-time users of Mogan and \TeX{}macs cannot write a single line of Scheme code! This rendering-level tree structure offers two distinct advantages:
+
+\begin{enumerate}
+    \item \textbf{Local Scoping of Input Errors:}
+    \begin{itemize}
+        \item Errors do not cause the entire document to fail rendering (a major drawback of \LaTeX{}).
+        \item Local edits do not trigger global layout instability (a major drawback of MS Word).
+    \end{itemize}
+    
+    \item \textbf{Parallel Processing:} The CPU renders data in parallel rather than serially, which significantly accelerates rendering speed.
+\end{enumerate}
 
 Consider the following mathematical expression:
 \begin{equation}
@@ -137,6 +147,11 @@ Figure~\ref{fig:double-line} illustrates image insertion between lines, and Figu
 \caption{Mogan's multi-line data structure}
 \label{fig:multiline-mogan}
 \end{figure}
+
+Let's look at another example. For a two-line layout like Figure~\ref{fig:double-line}, the Scheme representation is:
+\begin{lstlisting}
+(document "Mogan Logo" "(figure )" (itemize (document (concat (item) "WYSIWYG Writing") "")))
+\end{lstlisting}
 
 \subsection{Functional Symbol Representation}
 

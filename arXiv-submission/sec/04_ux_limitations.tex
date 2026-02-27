@@ -12,7 +12,13 @@
 \label{fig:texlive-size}
 \end{figure}
 
-Figure~\ref{fig:texlive-size} shows the growth of TeX Live over time. Figure~\ref{fig:texlive-installer} illustrates the complex installation interface. In contrast, Mogan STEM uses an on-demand plugin loading mechanism, where features are only loaded when needed. This significantly reduces the installation size and startup time.
+Figure~\ref{fig:texlive-size} illustrates the trend in file size for the most popular TeX Live ISO from 2008 to 2025. The horizontal axis represents the year, and the vertical axis represents file size in GB. Starting at 2.4~GB in 2008, the line shows an overall upward trajectory, reaching 5.9~GB by 2025. Despite minor fluctuations (such as a drop to 1.9~GB in 2010 and a slight dip to 3.2~GB in 2018), the long-term trend demonstrates a nearly twofold increase in size, reflecting the continuous expansion of software packages.
+
+This volumetric growth is primarily driven by TeX Live's role as a comprehensive \LaTeX{} distribution, which constantly integrates new fonts, documentation, multi-language support, and packages to adapt to user needs and technological advancements. For instance, while early versions focused on core functionality, later iterations incorporated extensive PDF support, graphics libraries, and extensions, resulting in volume bloat.
+
+However, this continuous expansion warrants critical reflection. Taking TeX Live as an example, a significant portion of its distribution volume consists of documentation sets and font resources. For beginners or light users requiring only basic typesetting functions, such overhead constitutes a clear redundant burden, consuming installation time, disk space, and maintenance effort. Although the \TeX{} ecosystem emphasizes modularity at the package level, the distribution strategy (as illustrated in Figure~\ref{fig:texlive-installer}) still prioritizes full installation as the default. Minimalist installation options, while available, are neither highlighted nor widely adopted. Consequently, most users default to the full version, effectively "normalizing" the issues of bloat and resource waste.
+
+While distributions like MikTeX attempt to address this, a more aggressive promotion of lean versions in default configurations by making documentation, examples, and large font sets optional is far more rational in terms of efficiency, resource utilization, and environmental impact, particularly in network- or storage-constrained scenarios.
 
 \begin{figure}[htbp]
 \centering
@@ -20,6 +26,8 @@ Figure~\ref{fig:texlive-size} shows the growth of TeX Live over time. Figure~\re
 \caption{TeX Live Installer}
 \label{fig:texlive-installer}
 \end{figure}
+
+Figure~\ref{fig:texlive-installer} illustrates the complex installation interface. In contrast, Mogan STEM uses an on-demand plugin loading mechanism, where features are only loaded when needed. This significantly reduces the installation size and startup time.
 
 \subsection{Real-World Performance Dilemma}
 
