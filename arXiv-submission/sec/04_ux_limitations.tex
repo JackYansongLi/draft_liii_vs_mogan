@@ -33,9 +33,21 @@ Compounded by its underlying compilation model, \LaTeX{} presents a series of se
 
 \subsection{Real-World Performance Dilemma}
 
-The performance of \LaTeX{} compilation degrades significantly with document complexity. Documents with extensive cross-references, bibliographies, or complex mathematical content require multiple passes and can take minutes to compile. This creates a frustrating edit-compile-view cycle that interrupts the writing flow.
+\LaTeX{}'s performance disadvantages warrant discussion, as they render the system incongruous with fast-paced modern workflows. Here, `performance' is not defined by interaction latency or incremental feedback, but rather serves a typesetting model centered on \textbf{batch processing}. The underlying assumption is that the user provides a relatively complete and stable source file, which the system processes through one or more full compilation cycles to generate quality-controlled output. Under this batch-oriented model, optimization prioritizes the correctness and consistency of the final result, rather than immediate responsiveness during the writing process.
+
+However, this throughput-oriented performance goal aligns poorly with modern documentation patterns that prioritize low latency, localized feedback, and continuous interaction. Frequent, minor modifications during writing often trigger a re-parsing and re-typesetting of the entire document, introducing significant wait times that disrupt the continuity between editing and thinking.
+
+Beyond performance unpredictability within a single platform, \LaTeX{} exhibits significant discrepancies in compilation time across different operating systems. For instance, under identical document and package configurations, compilation on Windows is often noticeably slower than on Linux or Unix-like systems. This disparity stems not from hardware differences, but from underlying factors such as file system efficiency, process instantiation overhead, font and I/O management, and the optimization level of the \TeX{} toolchain for specific platforms.
+
+For users, this cross-platform inconsistency undermines system comprehensibility and predictability. The same project may yield vastly different compilation experiences on a personal computer, a lab server, or a cloud environment, making `performance issues' difficult to reproduce, isolate, or optimize. In collaborative scenarios, this variance amplifies into actual collaboration friction, effectively influencing workflow rhythm and tool selection.
+
+Furthermore, \LaTeX{}'s reliance on a multi-stage compilation workflow exacerbates runtime performance costs. Functions such as bibliography management, indexing, and cross-referencing are typically offloaded to multiple external tools, requiring users to run multiple compilation rounds to achieve stable output. This design choice is not driven by performance optimization, but by the language's inherent inability to express complex dependencies within a single compilation pass. Consequently, the overhead of repeated disk I/O, redundant scanning, and process startup is systematically offloaded onto the user.
 
 \subsection{Intrinsic Weakness: Absence of Engineering Standards}
+
+\LaTeXe{} is fundamentally a collection of macros built upon the \TeX{} macro expansion mechanism. Its abstraction capabilities rely primarily on untyped text substitution and grouping scopes, rather than explicit language-level structures. Although the community has actively advanced the \LaTeX3 project in recent years to ameliorate this situation, the project has not been released as a standalone version. Instead, it follows a strategy of progressive evolution, gradually integrating into the existing \LaTeXe{} kernel. Currently, the \texttt{expl3} programming layer provided by \LaTeX3 serves as the foundation for numerous large-scale packages. Consequently, users often utilize its mechanisms indirectly and unconsciously in their daily workflows. This transition primarily results in improved interface consistency, maintainability, and engineering capabilities, accompanied by a degree of performance enhancement.
+
+However, this progressive integration fails to eliminate the long-standing structural contradictions within \LaTeXe{}'s language design. As a system built on a macro expansion language, its approach to modularity, interface expression, and state management stands in fundamental tension with modern engineering practices. The following table systematically outlines these inherent contradictions and their impact on usability and system stability.
 
 \LaTeX{} lacks formal engineering standards for package development. While the \texttt{lppl} license provides some guidance, there are no enforced standards for:
 
@@ -65,7 +77,21 @@ Compatibility vs.\ Modern Features & To maintain compatibility with \LaTeX2e, im
 \end{tabular}
 \end{table}
 
+In summary, \LaTeXe{} represents a macro language with a severe deficit in engineering rigor. Its system stability, maintainability, and user experience depend heavily on informal conventions and user expertise, rather than structural guarantees provided by the language design itself. This deficiency not only increases the complexity of extension and debugging but also establishes an unavoidable historical burden that constrains future systemic evolution.
+
 \subsection{User Experience Barriers from a Practical Perspective}
+
+The structural contradictions in language design discussed above do not remain abstract concepts. Instead, they directly translate into tangible user experience barriers repeatedly encountered during document composition, package combination, and troubleshooting. These issues do not stem from isolated implementation defects or inadequate documentation, but are intrinsic to the macro expansion mechanism and engineering constraints upon which \LaTeXe{} relies.
+
+\textbf{Lack of Usability and Interface Consistency:} Since command interfaces are constrained by convention rather than language-level mechanisms, \LaTeXe{} lacks a unified standard for parameter syntax, optional argument placement, and starred variants across different packages. A typical example is \verb|\newcommand|, which supports only a single, fixed-position optional argument, whereas more complex interface requirements necessitate the use of packages like \texttt{xparse} (via \verb|\NewDocumentCommand|). This deficiency in interface expressiveness forces users to frequently switch mental models between different packages, significantly increasing the cost of learning and usage.
+
+\textbf{Fragility and Implicit Errors Induced by the Global Namespace:} \LaTeXe{} lacks language-level namespaces and encapsulation mechanisms; all commands and variables share a global symbol table. This design makes it difficult to guarantee independence between packages, with loading order often directly affecting document behavior. In the worst-case scenario, definitions of the same command by different packages may result in ``silent overwriting,'' causing subtle but imperceptible changes in document output, thereby weakening system predictability and reliability.
+
+\textbf{High Opacity in Error Diagnosis and Debugging:} Under an execution model where macro expansion and typesetting decisions are deeply intertwined, error messages are often detached from their root causes. Common alerts like ``\verb|Undefined control sequence|'' or ``\verb|Overfull \hbox|'' typically indicate the surface location where the issue was triggered, rather than the origin of the error. Troubleshooting often forces users to rely on empirical methods like step-by-step commenting and regression testing. This process is both inefficient and difficult to systematize, further exacerbating the maintenance burden for complex documents or large projects.
+
+\textbf{Limited Extensibility and Non-Linear Growth in Implementation Complexity:} When users attempt to implement features with even slight complexity (e.g., multiple optional arguments, starred variants, conditional interfaces, or nested logic), they are often compelled to utilize extensive low-level macro hacks to bypass the language's expressive limitations. Such implementations typically rely on implicit state, special naming conventions, and opaque expansion orders, leading to a significant degradation in code readability and maintainability. Consequently, a linear increase in feature complexity is often accompanied by an exponential rise in implementation complexity.
+
+\textbf{High Learning Costs and the Accumulation of ``Tacit Knowledge'':} Collectively, these issues cause the learning path for \LaTeXe{} to depend heavily on tacit knowledge, including grouping scope rules, internal naming conventions (such as \verb|@|-class commands), macro expansion timing, and execution order. This knowledge is not explicitly expressed through language mechanisms but is scattered across package implementations and community lore, making it difficult for new users to establish a stable, transferable cognitive framework.
 
 For users, the \LaTeX{} experience is characterized by:
 
@@ -78,34 +104,42 @@ For users, the \LaTeX{} experience is characterized by:
 
 \subsection{Contributions and Constraints of \LaTeX3}
 
-\LaTeX3 represents an effort to modernize the \LaTeX{} codebase by introducing a more structured programming layer (\texttt{expl3}). While these improvements address some of the technical debt accumulated over decades, they remain constrained by the need for backward compatibility. The improvements are incremental rather than fundamental, and users must still engage with the legacy macro system for many tasks.
+The \LaTeX3 project emerged as a response to the structural dilemmas described above. It attempts to introduce a programming layer with distinct software engineering characteristics while preserving the underlying \TeX{} macro expansion model. By systematically standardizing and constraining the macro programming practices of \LaTeXe{} through modular naming conventions, an explicit data type system, and controlled scope management, the project aims to bring order to the system. As its core component, the \texttt{expl3} programming layer improves interface consistency and code maintainability, thereby reducing the risks of naming conflicts and implicit state interference during package integration and extension.
+
+However, the improvements offered by \LaTeX3 remain incremental and limited. Its commitment to long-term backward compatibility with \LaTeXe{} dictates that the new and old programming paradigms coexist for a considerable period. Users are required not only to master the new interface model but also to interact with existing packages and historical conventions. This coexistence complicates the ecosystem and renders the migration process slow and uncertain. It serves as a testament to how the historical baggage accumulated over \LaTeX{}'s long evolution continues to constrain its further engineering development.
 
 \subsection{Limitations of Modern Collaboration Platforms: A Case Study of Overleaf}
 
-In response to \LaTeX{}'s structural deficiencies regarding collaboration support and usability, the academic community has advanced a series of improvement measures. Among these, online collaboration platforms, exemplified by Overleaf, have significantly streamlined the user experience and reduced the technical barrier to entry \cite{overleaf_docs}.
+In response to \LaTeX{}'s structural deficiencies regarding collaboration support and usability, the academic community has advanced a series of improvement measures. Among these, online collaboration platforms, represented by \textbf{Overleaf}, have emerged as the most influential solution in recent years. By providing an integrated cloud-based environment, Overleaf significantly improves the onboarding experience and multi-user collaboration workflows for \LaTeX{}. However, viewed from the perspective of system architecture, Overleaf's design does not address the fundamental issues of \LaTeX{}'s core model. Its role is closer to the encapsulation and optimization of existing workflows rather than a revolution of the underlying paradigm.
 
 \subsubsection{Key Improvements by Overleaf}
 
-Overleaf has addressed some of \LaTeX{}'s usability issues by providing:
+Overleaf has effectively mitigated several obstacles inherent in traditional \LaTeX{} usage through the following mechanisms:
 
 \begin{itemize}
-    \item Real-time collaboration features
-    \item Simplified compilation management
-    \item Version control integration
-    \item Template libraries for common document types
+    \item \textbf{Simplified Environment Configuration:} Users are no longer required to install a full \TeX{} distribution (such as TeX Live or MiKTeX) locally. Document composition commences via a web browser, thereby eliminating the technical barrier of local deployment.
+    
+    \item \textbf{Automated Compilation Workflow:} The system automatically manages multi-pass compilation and external tool invocations (e.g., BibTeX, MakeIndex, Biber). Users need only trigger a single ``Recompile'' action; the platform's backend manages complex dependencies, reducing the technical knowledge required of the user.
+    
+    \item \textbf{Enhanced Collaboration Features:} The platform supports multi-user real-time editing, commenting/annotation, and version history tracking. It provides a foundational experience comparable to modern documentation tools (such as Google Docs), significantly outperforming traditional collaboration methods based on email or Git.
 \end{itemize}
+
+These platform-level improvements have significantly expanded the applicability of \LaTeX{} in non-professional typesetting scenarios, such as education and scientific research.
 
 \subsubsection{Constraints of Underlying Architecture}
 
-However, Overleaf cannot overcome the fundamental limitations of \LaTeX{}'s architecture:
+Despite Overleaf's significant progress in user interface and workflow, its foundation still relies entirely on the traditional \LaTeX{} compilation mechanism~\cite{overleaf_docs}, which introduces several insurmountable limitations:
 
 \begin{itemize}
-    \item Compilation is still batch-oriented and slow
-    \item Error messages remain cryptic
-    \item Real-time preview requires frequent recompilation
-    \item Collaboration is at the text level, not the semantic level
+    \item \textbf{Preview Latency Issues:} The so-called ``real-time preview'' is essentially periodic remote compilation and PDF retrieval, not true instant rendering. When document size increases or complex packages (e.g., \texttt{TikZ}, \texttt{algorithm2e}) are included, compilation time rises significantly, leading to a degraded interactive experience.
+    
+    \item \textbf{Limited Conflict Resolution in Collaboration:} Since \LaTeX{} source files are unstructured plain text, the platform cannot parse the document structure at a semantic level. When multiple users simultaneously modify the same paragraph, table, or macro definition, the system can only perform line-based text merging. It is unable to identify logical conflicts, ultimately necessitating manual intervention for resolution.
+    
+    \item \textbf{Restricted Functional Extensibility:} Overleaf cannot transcend the boundaries of \LaTeX{}'s own expressive capabilities. For instance, it fails to support true WYSIWYG editing modes, nor does it easily integrate dynamic content (such as interactive charts or real-time data binding). Implementing these features requires a structural overhaul of the typesetting engine, rather than mere adjustments to the frontend interface.
 \end{itemize}
 
 \subsubsection{Impact on Trajectory of Technological Evolution}
 
-By providing a veneer of usability over \LaTeX{}'s fundamental limitations, platforms like Overleaf may have inadvertently slowed the adoption of genuinely superior alternatives. Users who might otherwise seek better solutions are satisfied with incremental improvements to the existing system.
+The success of Overleaf serves as a double-edged sword: while it enhances user experience, it simultaneously masks \LaTeX{}'s inherent technical debt and structural defects, thereby diminishing the motivation to explore next-generation typesetting systems. In contrast, systems such as \TeX{}macs or Typst attempt to refactor the document model and syntax design from the foundation up, yet they struggle to disrupt \LaTeX{}'s dominant position due to entrenched user habits.
+
+Consequently, although Overleaf optimizes the usability of the existing ecosystem and resolves certain surface-level pain points, it objectively establishes a form of ``path dependence,'' delaying the demand for more fundamental technological transformation. This platform-driven optimization renders the legacy system more usable but fails to propel it toward a revolutionary direction characterized by greater structure, extensibility, and interactivity.
