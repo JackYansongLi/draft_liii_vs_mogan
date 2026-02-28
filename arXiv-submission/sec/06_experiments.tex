@@ -9,7 +9,7 @@ Limited by the design of \LaTeX{}, the compilation process requires significant 
 \[
 t_{\text{compiling}} + t_{\text{rendering}} + t_{\text{IO}},
 \]
-where $t_{\text{compiling}}$ is the compiling time, $t_{\text{rendering}}$ is the rendering time, and $t_{\text{IO}}$ is the \emph{extra} I/O overhead for WYSIWYG editing.
+where $t_{\text{compiling}}$ is the compiling time, $t_{\text{rendering}}$ is the rendering time, and $t_{\text{IO}}$ is the \emph{extra} I/O overhead for WYSIWYG editing. As shown in Figure~\ref{fig:full-compile}, even with the extra I/O process, Mogan STEM outperforms \LaTeX{} in compiling/rendering time for most documents. Note that for document \texttt{arXiv:2502.17655}, Mogan STEM compile and render slower than \LaTeX{}, the exception is due to the size of the documents, it has 120 pages. Therefore, the I/O overhead accounts for a large proportion.
 
 \begin{figure}[htbp]
 \centering
@@ -17,8 +17,6 @@ where $t_{\text{compiling}}$ is the compiling time, $t_{\text{rendering}}$ is th
 \caption{Benchmark on full compilation. Each bar represents the average of three trials}
 \label{fig:full-compile}
 \end{figure}
-
-Figure~\ref{fig:full-compile} shows the results. Even with the extra I/O process, Mogan STEM outperforms \LaTeX{} in compiling/rendering time for most documents. Note that for document \texttt{arXiv:2502.17655}, Mogan STEM compile and render slower than \LaTeX{}, the exception is due to the size of the documents, it has 120 pages. Therefore, the I/O overhead accounts for a large proportion.
 
 Another limitation of \LaTeX{} is the slow incremental updates. We also conducted an experiment on incremental updates. The update includes adding new sections, adding tables in some paragraphs, modifying the relations between labels and references, and rearrange the positions of contexts slightly. As shown in Figure~\ref{fig:inc-update}, Mogan STEM shows remarkable advantages over \LaTeX{} when doing incremental update on all 6 documents. Note that for document \texttt{arXiv:2502.17655}, Mogan STEM outperforms \LaTeX{}, which seems to be a contradiction to the result of compiling time experiment. The reason for such ``contradiction'' is due to the I/O overhead, in Mogan STEM, the I/O process only activated when the user open the document. Therefore, for incremental updates, $t_{\text{IO}}=0$.
 
@@ -28,8 +26,6 @@ Another limitation of \LaTeX{} is the slow incremental updates. We also conducte
 \caption{Benchmark on incremental update. Each bar represents the average of three trials}
 \label{fig:inc-update}
 \end{figure}
-
-Figure~\ref{fig:inc-update} shows the results for incremental updates. Mogan STEM shows remarkable advantages over \LaTeX{} when doing incremental update on all 6 documents. The reason for such ``contradiction'' is due to the I/O overhead, in Mogan STEM, the I/O process is triggered by user's operation, so the I/O overhead is amortized by user's interaction.
 
 \subsection{Performance in LLM tasks}
 
@@ -79,6 +75,15 @@ u_m = \max\left(0, \begin{cases}
 where $T$ is the token usage for the input, thinking, output, and MCP tools, $E_{\text{ref}}$ is the number of reference failing (i.e., "??" appears but compilation succeeds), $E_{\text{sty}}$ is the number where the merged file have the doc-style of \texttt{proofs.tex} (we required LLMs to write merged file in the doc-style of \texttt{theorems.tex}, so other macros alias or redefined macros are not accepted), $\sum u_m \in [0, 100]$.
 
 As illustrated in Figure~\ref{fig:writing}, Mogan gains higher score on all LLMs. The reason is that Mogan files have grammatical consistency so that the LLMs do not need to tackle with conflicts and unify usage from two distinct doc-styles. The hallucinations and randomness from LLMs are strictly limited as well.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{figure/writing.pdf}
+\caption{Test on merging files with distinct doc-styles}
+\label{fig:writing}
+\end{figure}
+
+Furthermore, merging contexts from two documents with distinct doc-styles is just a copy-and-paste case in Mogan STEM.
 
 \subsubsection{Debugging illed document using error messages}
 
