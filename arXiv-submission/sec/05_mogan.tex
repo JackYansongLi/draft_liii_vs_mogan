@@ -51,7 +51,7 @@ Let us consider another example:
 \int_{a}^{b} f(x) \mathrm{d}x = \left[ F(x) \right] \big|_{a}^{b}
 \end{equation}
 
-Its Scheme representation is as follows:
+Its Scheme representation is shown in Listing~\ref{lst:scheme-integral}:
 \begin{lstlisting}[caption={Scheme representation of integral expression},label={lst:scheme-integral},upquote=true]
 > `(math (concat (big "int") (rsub "a") (rsup "b") "f" (around* "(" "x" ")") "<mathd>x=" (around* "<nobracket>" (around* "[" (concat "F" (around* "(" "x" ")")) "]") "|") (rsub "a") (rsup "b")))
 \end{lstlisting}

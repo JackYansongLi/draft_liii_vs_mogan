@@ -15,7 +15,7 @@ The area between \verb|\documentclass| and \verb|\begin{document}| is called the
 
 Finally, we can compile the code. Running \verb|pdflatex example.tex| generates the \verb|example.pdf| file. Simultaneously, several auxiliary files are generated in the same directory. For instance, the \verb|.aux| file saves intermediate information such as cross-references, tables of contents, and numbering; consequently, documents often require multiple compilations to yield correct results. The \verb|.log| file records the complete compilation process and is the primary resource for locating warnings and errors. The \verb|.dvi| file stands for \textit{DeVice Independent file}, an intermediate format unrelated to the specific output device.
 
-Beyond the \verb|.tex| source files we write, every package and document class consists of files with specific extensions. The following files also frequently appear in \LaTeX{} templates:
+Beyond the \verb|.tex| source files we write, every package and document class consists of files with specific extensions. Table~\ref{tab:latex-ext} lists the files that frequently appear in \LaTeX{} templates:
 
 \begin{table}[htbp]
 \centering
@@ -33,7 +33,7 @@ Beyond the \verb|.tex| source files we write, every package and document class c
 \end{tabular}
 \end{table}
 
-\LaTeX{} generates numerous auxiliary files and logs during the compilation process. Features such as cross-references, bibliographies, tables of contents, and indices require an initial compilation to generate auxiliary files, followed by a subsequent compilation to read these files and produce the correct result. Therefore, complex \LaTeX{} source code often requires multiple compilation passes:
+\LaTeX{} generates numerous auxiliary files and logs during the compilation process. Features such as cross-references, bibliographies, tables of contents, and indices require an initial compilation to generate auxiliary files, followed by a subsequent compilation to read these files to produce the correct result. Therefore, complex \LaTeX{} source code often requires multiple compilation passes as summarized in Table~\ref{tab:latex-aux}:
 
 \begin{table}[htbp]
 \centering
@@ -58,7 +58,7 @@ Beyond the \verb|.tex| source files we write, every package and document class c
 \end{tabular}
 \end{table}
 
-To intuitively understand why \LaTeX{} documents often require multiple compilations, consider the following minimal example containing cross-references and a table of contents:
+To intuitively understand why \LaTeX{} documents often require multiple compilations, Listing~\ref{lst:crossref} shows a minimal example containing cross-references and a table of contents:
 
 \begin{lstlisting}[caption={Cross-reference example},label={lst:crossref}]
 \documentclass{article}

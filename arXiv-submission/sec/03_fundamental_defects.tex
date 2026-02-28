@@ -13,7 +13,7 @@ The working mechanism of \TeX{} follows a rigid sequence: Linear Input Reading $
 
 This flow possesses strong unidirectionality and irreversibility. The system does not maintain an intermediate representation amenable to incremental re-computation; instead, it treats input as a continuous stream of instructions. This design leads to:
 
-\textbf{Delayed Manifestation of Global State:} The overall typesetting state is only evaluable after the full compilation cycle concludes. \TeX{}'s typesetting decisions (pagination, float positioning, citation numbering, etc.) rely on global information, which is often only determined after the document has been fully read and executed. Consequently, users cannot verify whether the document is "typeset correctly" before compilation is complete.
+\textbf{Delayed Manifestation of Global State:} The overall typesetting state is only evaluable after the full compilation cycle concludes. \TeX{}'s typesetting decisions (pagination, float positioning, citation numbering, etc.) rely on global information, which is often only determined after the document has been fully read and executed. Consequently, users cannot verify whether the document is "typeset correctly" before compilation is complete. Listing~\ref{lst:xref-before-def} shows a typical example:
 
 \begin{lstlisting}[caption={Cross-reference before definition},label={lst:xref-before-def}]
 \documentclass{ctexart}
@@ -35,7 +35,7 @@ When this code is compiled with \texttt{xelatex} for the first time, \texttt{\te
 
 This requirement for multiple passes demonstrates that \TeX{}'s typesetting decisions are global and latent: the typesetting engine cannot accurately infer cross-references or numbering within the document before the first compilation finishes. Multiple passes are strictly required to obtain the final result.
 
-\textbf{Inability to Implement Incremental Updates:} Local modifications cannot trigger efficient, localized re-computation; instead, the entire compilation process requires repetition. Even if only a single local element in the document is modified, \TeX{} must re-execute the entire input stream from the beginning, re-expanding macros, re-paginating, and re-calculating all layouts.
+\textbf{Inability to Implement Incremental Updates:} Local modifications cannot trigger efficient, localized re-computation; instead, the entire compilation process requires repetition. Even if only a single local element in the document is modified, \TeX{} must re-execute the entire input stream from the beginning, re-expanding macros, re-paginating, and re-calculating all layouts. Listing~\ref{lst:incremental} illustrates this issue:
 
 \begin{lstlisting}[caption={Incremental update example},label={lst:incremental}]
 \documentclass{ctexart}
@@ -57,7 +57,7 @@ However, during actual compilation with \texttt{xelatex}, this modification trig
 
 This example clearly demonstrates that within \TeX{}'s execution model, there is no stable, reusable intermediate typesetting state. Any seemingly local change can alter all subsequent typesetting decisions. Therefore, the system has no choice but to perform a full re-compilation, making the efficient incremental updates expected of modern editors impossible.
 
-\textbf{Lack of Visualization Upon Interruption:} Once compilation is interrupted by an error, users cannot obtain reliable partial results for preview. \TeX{} typically aborts the output process immediately, preventing users from seeing "what has been typeset so far."
+\textbf{Lack of Visualization Upon Interruption:} Once compilation is interrupted by an error, users cannot obtain reliable partial results for preview. \TeX{} typically aborts the output process immediately, preventing users from seeing "what has been typeset so far." Listing~\ref{lst:missing-arg} demonstrates this scenario:
 
 \begin{lstlisting}[caption={Missing argument error},label={lst:missing-arg}]
 \documentclass{ctexart}
@@ -80,7 +80,7 @@ This characteristic stands in sharp contrast to the incremental update and conti
 
 In the \TeX{} system, syntax parsing, macro expansion, semantic interpretation, and typesetting decisions do not form a clear stratified structure; instead, they are deeply coupled within a single execution path. Macro expansion assumes the role of "semantic modeling" while simultaneously triggering specific typesetting behaviors, thereby conflating abstract structure with layout details. While this design offered high flexibility in the early days, it has exposed serious deficiencies in the context of modern document engineering.
 
-First, macro commands often bear the dual responsibility of structural semantics and layout control. Taking \texttt{\textbackslash section} as an example, this command should logically represent only the structural semantic of "section hierarchy." However, its implementation dictates the font size, spacing, numbering method, and whether a table of contents entry is generated:
+First, macro commands often bear the dual responsibility of structural semantics and layout control. Taking \texttt{\textbackslash section} as an example, this command should logically represent only the structural semantic of "section hierarchy." However, its implementation dictates the font size, spacing, numbering method, and whether a table of contents entry is generated as shown in Listing~\ref{lst:section-dual}:
 
 \begin{lstlisting}[caption={Section command with dual responsibility},label={lst:section-dual}]
 \section{Introduction}
@@ -90,7 +90,7 @@ This single line of code not only declares a new structural node but immediately
 
 Second, the macro definition mechanism itself cannot distinguish between abstract semantics and concrete implementation. This results in the same syntactic form potentially representing either high-level semantics or merely a typesetting shortcut. For example: \texttt{\textbackslash def\textbackslash theorem\#1\{\textbackslash textbf\{Theorem.\} \#1\}}. Superficially, \texttt{\textbackslash theorem} appears to be a semantic structure (a theorem). In reality, it is a simple wrapper for bold text, lacking numbering, cross-referencing, or hierarchical information. In contrast: \texttt{\textbackslash newtheorem\{theorem\}\{Theorem\}} introduces true structural semantics, including automatic numbering, scoping, and citability. However, from the perspective of the \TeX{} engine, there is no essential difference between these two definitions during the macro expansion phase---both are simply "executable text substitution rules." This semantic indistinguishability prevents static analysis tools from determining whether a specific macro represents document structure or merely affects visual appearance.
 
-Furthermore, the conditional expansion mechanism directly influences the final structure of the document during the parsing phase, rather than merely acting as a late-stage typesetting choice. For example:
+Furthermore, the conditional expansion mechanism directly influences the final structure of the document during the parsing phase, rather than merely acting as a late-stage typesetting choice. Listing~\ref{lst:conditional-structure} shows an example:
 
 \begin{lstlisting}[caption={Conditional structure},label={lst:conditional-structure}]
 \ifdefined\includeappendix
@@ -102,7 +102,7 @@ Whether the structural node "Appendix" exists depends entirely on the truth valu
 
 The aforementioned high degree of coupling leads to multifaceted negative impacts. First, static analysis tools find it difficult to intervene. Due to the lack of clear semantic boundaries, tools cannot reliably construct an Abstract Syntax Tree (AST) or structural model, making advanced features like code refactoring, semantic checking, and consistency verification arduous to implement.
 
-Since \LaTeX{} compilation results are strongly dependent on instruction order, \LaTeX{} introduced engineering improvements to allow users or package authors to insert and execute custom code at specific execution timing points. These mechanisms are not based on an explicit semantic event model, but rather attach to \TeX{}'s sequential execution flow, coordinating behavior between packages and document structure by "intercepting execution timing." This enables functions such as lazy initialization, global parameter patching, auxiliary file processing, and layout adjustment. In the \LaTeX{} core system, the commonly used hook commands primarily include the following four types:
+Since \LaTeX{} compilation results are strongly dependent on instruction order, \LaTeX{} introduced engineering improvements to allow users or package authors to insert and execute custom code at specific execution timing points. These mechanisms are not based on an explicit semantic event model, but rather attach to \TeX{}'s sequential execution flow, coordinating behavior between packages and document structure by "intercepting execution timing." This enables functions such as lazy initialization, global parameter patching, auxiliary file processing, and layout adjustment. In the \LaTeX{} core system, the commonly used hook commands primarily include the four types listed in Table~\ref{tab:latex-hooks}:
 
 \begin{table}[htbp]
 \centering
@@ -130,7 +130,7 @@ First, error types are highly conflated at the diagnostic level. Structural defe
 
 Second, the reported location of an error is rarely its actual point of origin. The line numbers and context provided by \TeX{} typically correspond to the point where the system finally "crashed" or stalled, rather than the source where the issue was introduced. Furthermore, the point of interruption and the origin of the error may be separated by a significant distance: an early, local error might only be exposed in a completely different form after multiple cycles of macro expansion and typesetting decisions. The result is a globalization of local issues, where a subtle defect in a single environment or command is sufficient to cause an irreversible interruption of the entire compilation process.
 
-It must be emphasized that this is not an oversight in specific implementation details, but a characteristic rooted in the fundamental design of \TeX{}: the system lacks a structured state model independent of the execution process that enables continuous consistency checking. In other words, \TeX{} possesses no "prior knowledge" regarding the document's validity; it reports failure only when execution becomes untenable.
+It must be emphasized that this is not an oversight in specific implementation details, but a characteristic rooted in the fundamental design of \TeX{}: the system lacks a structured state model independent of the execution process that enables continuous consistency checking. In other words, \TeX{} possesses no "prior knowledge" regarding the document's validity; it reports failure only when execution becomes untenable. Listing~\ref{lst:nested-section} shows a confusing error case:
 
 \begin{lstlisting}[caption={Nested section commands},label={lst:nested-section}]
 \documentclass{ctexart}
@@ -141,7 +141,7 @@ It must be emphasized that this is not an oversight in specific implementation d
 
 From the perspective of document structure, this usage of \texttt{\textbackslash section} is clearly illegal: a subsection is nested within the parameter of a section title. However, \LaTeX{} does not report this as a "structural nesting error." Instead, the system enters an inconsistent state during the macro expansion and typesetting execution, eventually throwing a confusing error message such as "LaTeX Error: Not allowed in LR mode." This message neither identifies the violating structural relationship nor points to the location where the issue actually occurred.
 
-The following examples highlight a typical characteristic of \TeX{}'s error detection mechanism: a significant offset often exists between the true origin of the error and the reported location.
+The following examples highlight a typical characteristic of \TeX{}'s error detection mechanism: a significant offset often exists between the true origin of the error and the reported location. Listing~\ref{lst:unclosed-frac} demonstrates this issue:
 
 \begin{lstlisting}[caption={Unclosed brace in frac},label={lst:unclosed-frac}]
 \documentclass{ctexart}
@@ -162,14 +162,14 @@ A similar latency phenomenon occurs with mismatched delimiters, such as using \t
 Both scenarios illustrate a fundamental constraint: \TeX{} does not maintain a structural state model capable of immediate verification. Instead, it relies on the passive exposure of issues when the execution process fails. This is one of the root causes of its "lagged manifestation and ambiguous localization" of errors.
 
 \begin{remark}
-Mogan STEM effectively mitigates this issue at the system level. By introducing implicit \texttt{around} tags and explicit structural wrapping, the editor maintains a verifiable structural state during the input phase, preventing error propagation. See Section~\ref{sec:mogan} for details.
+Mogan STEM effectively mitigates this issue at the system level. By introducing implicit \texttt{around} tags and explicit structural wrapping, the editor maintains a verifiable structural state during the input phase, preventing error propagation. See Section~\ref{sec:tree-struc-on-mogan} for details.
 \end{remark}
 
 \subsection{Compatibility Dilemma Beneath a Unified Syntax}
 
 To address varying requirements (such as modern fonts and Unicode support), the \LaTeX{} ecosystem has evolved multiple parallel compilation engines, such as \texttt{pdfLaTeX}, \texttt{XeLaTeX} and \texttt{LuaLaTeX}. This differentiation, rather than being a strength, is a manifestation of system design fragmentation.
 
-From a user's perspective, all three engines accept \texttt{.tex} input and adhere to the \LaTeX{} macro interface. However, at the system level, they exhibit fundamental differences in the following key aspects:
+From a user's perspective, all three engines accept \texttt{.tex} input and adhere to the \LaTeX{} macro interface. However, at the system level, they exhibit fundamental differences in the key aspects summarized in Table~\ref{tab:latex-engines}:
 
 \begin{table}[htbp]
 \centering
@@ -195,7 +195,7 @@ These discrepancies imply that the same \texttt{.tex} source file does not corre
 
 Take the use of Emojis as an example. If a document requires the direct inclusion of Unicode Emojis (e.g., 🙂📊), \texttt{pdfLaTeX} is mechanically incapable of supporting such characters.\footnote{Some packages such as \texttt{hwemoji} attempt to work around this limitation by pre-compiling emojis into PDF resources and replacing them during compilation. However, this is not native support---i.e., direct rendering from text and font files---but rather a workaround. We still consider \texttt{pdfLaTeX} to be fundamentally incapable of supporting such characters.} While \texttt{XeLaTeX} possesses native Unicode support, in practice, it often degrades Emojis to monochrome glyphs or suffers from missing characters due to insufficient font coverage. \texttt{LuaLaTeX} offers the theoretically most complete support path, handling complex characters via OpenType fonts and the Lua layer. However, this 'enhanced capability' comes at a price: \texttt{LuaLaTeX}'s compilation speed is typically significantly slower than \texttt{XeLaTeX}, and it introduces an additional dependency on the Lua runtime, expanding both the source of errors and the scope of debugging. Under these constraints, a compromise workflow that actually exists in reality involves: compiling the main body with \texttt{XeLaTeX} for speed and layout stability; separately compiling pages or chapters containing Emojis using \texttt{LuaLaTeX}; and finally stitching the output results from different engines together at the PDF level.
 
-A similar compatibility burden appears in the bibliography processing chain. While \LaTeX{} superficially provides a unified \texttt{.bib} data source format, during the actual compilation process, users must choose between different backends like \texttt{bibtex} and \texttt{biber}. These two differ fundamentally in character encoding, sorting rules, and data models.
+A similar compatibility burden appears in the bibliography processing chain. While \LaTeX{} superficially provides a unified \texttt{.bib} data source format, during the actual compilation process, users must choose between different backends like \texttt{bibtex} and \texttt{biber}. These two differ fundamentally in character encoding, sorting rules, and data models as shown in Listing~\ref{lst:bibtex-biber}:
 
 \begin{lstlisting}[caption={BibTeX vs BibLaTeX},label={lst:bibtex-biber}]
 \bibliography{ref/refs}   % References compiled using BibTeX
