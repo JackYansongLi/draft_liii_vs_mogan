@@ -136,13 +136,9 @@ In \TeX{}, all mathematical symbols and fonts are represented as strings. Howeve
 \left\langle \int \right\rangle \langle f \rangle
 \end{equation}
 
-This functional approach contrasts with \LaTeX{}'s macro-based approach, where \verb|\frac{a}{b}| relies on positional arguments and implicit grouping.
-
 \subsection{Fast Reference Rendering}
 
 Taking bibliographic citations as an instance: in the \LaTeX{} ecosystem, \verb|\cite| serves merely as a macro interface, with actual citation relationships established indirectly via intermediate files such as \verb|.aux| and \verb|.bbl|. Consequently, any modification to bibliography entries typically necessitates multiple global compilation cycles, exemplifying a classic batch processing model. In contrast, Mogan STEM treats citation relationships as structural links directly embedded in the document tree. To update a reference, the system performs only a local search and re-renders the specific leaf nodes involved, thereby avoiding a full re-parsing of the document.
-
-Cross-references in Mogan STEM are maintained as bidirectional links in the document tree. When a label is updated, all references to it are automatically updated without requiring a full recompilation. This provides immediate visual feedback and eliminates the need for multi-pass compilation.
 
 \subsection{On-demand plugin loading}
 
@@ -153,5 +149,3 @@ It is noteworthy that Mogan requires an installation package of merely one hundr
 This disparity stems from a fundamental divergence in system design. \LaTeX{} front-loads "potential future capabilities" as an installation cost, maintaining compatibility through its macro language and package ecosystem. Conversely, Mogan defers complexity to runtime, confining it within the actual execution path. It achieves extensibility via a unified document tree model and a runtime plugin mechanism. Consequently, Mogan's complexity activates dynamically by specific documents at runtime, whereas \LaTeX{}'s complexity manifests primarily during the installation and configuration phases.
 
 In summary, TeX Live installs an ever-accumulating repository of historical packages, whereas Mogan installs an evolvable document system. The complexity of the former is front-loaded to the installation phase, while the latter is triggered by the document at runtime.
-
-Mogan STEM's architecture supports on-demand loading of features and document types. Unlike \LaTeX{}, where the entire distribution must be installed upfront, Mogan loads only the components needed for the current document. This significantly reduces installation size and startup time.
