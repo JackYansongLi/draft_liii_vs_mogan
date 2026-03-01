@@ -101,6 +101,15 @@ for cfg in charts:
             zorder=3,
         )
 
+        # 对每个 patch 设置：先画填充，再单独画 hatch 线条
+        for patch in bars:
+            patch.set_hatch(series_hatch[name])
+            patch.set_edgecolor("black")  # hatch 线条颜色
+            patch.set_linewidth(0)  # 隐藏边框，只保留 hatch
+            # 关键：关闭填充，用双层绘制（底层填充 + 上层 hatch）
+            # 或用 zorder 确保 hatch 在上
+            patch.set_zorder(2)
+
         # Value labels
         for b, v in zip(bars, vals):
             ax.text(
