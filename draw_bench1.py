@@ -23,14 +23,23 @@ highlight_names = {
     "MoganSTEM on Linux"
 }
 
+# -----------------------------
+# Colorblind-safe palette
+# -----------------------------
 series_colors = {
-    "LaTeX on Windows":   "#9A4300",
-    "LaTeX on Linux":     "#AA7400",
-    "MoganSTEM on Windows": "#00BC80",
-    "MoganSTEM on Linux":   "#0080CA",
+    "LaTeX on Windows":      "#D55E00",  # Vermillion
+    "LaTeX on Linux":        "#D55E00",
+    "MoganSTEM on Windows":  "#0072B2",  # Blue
+    "MoganSTEM on Linux":    "#0072B2",
 }
 
-# Only varying configs
+series_hatch = {
+    "LaTeX on Windows":      "",
+    "LaTeX on Linux":        "\\\\\\",
+    "MoganSTEM on Windows":  "",
+    "MoganSTEM on Linux":    "///",
+}
+
 charts = [
     {"name": "full-compile", "data_path": "full-compile.txt", "ylim": (0, 21500)},
     {"name": "inc-update", "data_path": "inc-update.txt", "ylim": (0, 12000)},
@@ -42,11 +51,12 @@ plt.rcParams.update({
     "xtick.labelsize": 10,
     "ytick.labelsize": 10,
     "legend.fontsize": 10,
+    "hatch.color": "black",
+    "hatch.linewidth": 0.8,
 })
 
 bar_w = 0.18
 label_fontsize = 8
-label_offset = 1
 offsets = (np.arange(len(series_names)) - (len(series_names) - 1) / 2) * (bar_w + 0.02)
 
 for cfg in charts:
@@ -62,29 +72,36 @@ for cfg in charts:
         raise ValueError(f"Expect 4 rows x 6 cols, got {data.shape}. Check your data file.")
 
     fig, ax = plt.subplots(figsize=(11, 6))
-
     x = np.arange(len(benchmarks))
 
+    # Grid
     ax.set_axisbelow(True)
-    ax.yaxis.grid(True, linestyle="--", linewidth=0.7, alpha=0.25)
+    ax.yaxis.grid(True, linestyle="--", linewidth=0.6, alpha=0.25)
 
+    # Subtle axis frame
     for sp in ax.spines.values():
-        sp.set_color("#D0D0D0")
-        sp.set_linewidth(1.0)
+        sp.set_color("#C8C8C8")
+        sp.set_linewidth(0.8)
 
+    # Dynamic label offset (1% of y-range)
+    y_range = cfg["ylim"][1] - cfg["ylim"][0]
+    label_offset = y_range * 0.01
+
+    # Plot bars
     for i, name in enumerate(series_names):
         vals = data[i]
+
         bars = ax.bar(
             x + offsets[i],
             vals,
             width=bar_w,
             label=name,
             color=series_colors[name],
-            edgecolor="white",
-            linewidth=0.8,
+            hatch=series_hatch[name],
             zorder=3,
         )
 
+        # Value labels
         for b, v in zip(bars, vals):
             ax.text(
                 b.get_x() + b.get_width() / 2,
@@ -96,6 +113,7 @@ for cfg in charts:
                 fontweight="bold" if name in highlight_names else "normal",
             )
 
+    # Axes
     ax.set_xticks(x)
     ax.set_xticklabels(benchmarks, rotation=-35, ha="left", rotation_mode="anchor")
     ax.tick_params(axis="x", pad=6)
@@ -103,16 +121,19 @@ for cfg in charts:
     ax.set_ylabel("Time (ms)")
     ax.set_ylim(*cfg["ylim"])
 
+    # Legend
     ax.legend(
         ncol=4,
         loc="upper left",
         bbox_to_anchor=(0.01, 1.02),
         frameon=False,
-        handlelength=1.8,
+        handlelength=2.5,
         columnspacing=1.5,
+        handletextpad=0.3,
     )
 
-    plt.tight_layout(rect=[0.00, 0.00, 1.00, 1.00])
+    plt.tight_layout()
     plt.savefig(f"{cfg['name']}.pdf", bbox_inches="tight")
     plt.savefig(f"{cfg['name']}.png", dpi=300, bbox_inches="tight", facecolor="white")
     plt.show()
+

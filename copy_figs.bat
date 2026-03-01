@@ -13,9 +13,14 @@ set "COUNT=0"
 
 for %%f in ("%SRC_DIR%*.pdf") do (
     if exist "%%f" (
-        copy /Y "%%f" "%DEST_DIR%" >nul
-        echo Copied: %%~nxf
-        set /a COUNT+=1
+        set "FILENAME=%%~nxf"
+        set "SKIP=0"
+        echo "%%~nxf" | findstr /i "main" >nul && set "SKIP=1"
+        if !SKIP!==0 (
+            copy /Y "%%f" "%DEST_DIR%" >nul
+            echo Copied: %%~nxf
+            set /a COUNT+=1
+        )
     )
 )
 

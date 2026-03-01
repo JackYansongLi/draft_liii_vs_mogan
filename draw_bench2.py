@@ -9,19 +9,31 @@ benchmarks = [
     "ChatGPT-5.2",
 ]
 
+# Colorblind-friendly palettes for each chart (optimized for red-green colorblindness)
+# Each chart uses a distinct color scheme for better differentiation
+CHART_COLORS = {
+    "writing": {
+        "LaTeX": "#d7acb1",  # Light pink
+        "Mogan": "#bf1d2d",  # Red
+    },
+    "reading": {
+        "LaTeX": "#aeb5d9",  # Light blue
+        "Mogan": "#293890",  # Deep blue
+    },
+    "debugging": {
+        "LaTeX": "#E8D9A3",  # Light yellow
+        "Mogan": "#B77E3D",  # Brown
+    },
+}
+
 series_names = ["LaTeX", "Mogan"]
 highlight_names = {"Mogan"}
-series_colors = {
-    "reading": {"LaTeX": "#aeb5d9", "Mogan": "#293890"},
-    "writing": {"LaTeX": "#d7acb1", "Mogan": "#bf1d2d"},
-    "debugging": {"LaTeX": "#E8D9A3", "Mogan": "#B77E3D"},
-}
 
 # Only varying configs
 charts = [
-    {"name": "writing", "data_path": "writing.txt", "ylabel": "Total   Utility", "ylim": (0, 105)},
-    {"name": "reading", "data_path": "reading.txt", "ylabel": "Total   Utilitye", "ylim": (0, 100)},
-    {"name": "debugging", "data_path": "debugging.txt", "ylabel": "Total   Utility", "ylim": (0, 108)},
+    {"name": "writing", "data_path": "writing.txt", "ylabel": "Total Utility", "ylim": (0, 105)},
+    {"name": "reading", "data_path": "reading.txt", "ylabel": "Total Utility", "ylim": (0, 100)},
+    {"name": "debugging", "data_path": "debugging.txt", "ylabel": "Total Utility", "ylim": (0, 108)},
 ]
 
 plt.rcParams.update({
@@ -36,8 +48,6 @@ bar_w = 0.30
 offsets = (np.arange(len(series_names)) - (len(series_names) - 1) / 2) * (bar_w + 0.02)
 
 for cfg in charts:
-    chart_colors = series_colors[cfg["name"]]
-
     with open(cfg["data_path"], "r", encoding="utf-8") as f:
         rows = [
             list(map(float, re.split(r"[,\s]+", line.strip())))
@@ -67,7 +77,7 @@ for cfg in charts:
             vals,
             width=bar_w,
             label=name,
-            color=chart_colors[name],
+            color=CHART_COLORS[cfg["name"]][name],
             edgecolor="white",
             linewidth=0.8,
             zorder=3,

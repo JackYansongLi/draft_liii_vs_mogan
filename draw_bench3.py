@@ -6,9 +6,10 @@ from typing import List, Tuple
 
 # Fixed smoothing window for the displayed moving average
 SMOOTH_WINDOW = 7
-# Deep blue palette for raw and smoothed curves
-TEXMACS_COLOR = "#0044C1"
-LATEX_COLOR = "#7c1313"
+# Colorblind-friendly palette (optimized for red-green colorblindness)
+# Using deep blue and vermilion (orange-red) for maximum contrast
+TEXMACS_COLOR = "#0072B2"  # Deep blue
+LATEX_COLOR = "#D55E00"    # Vermilion
 
 plt.rcParams.update({
 	"font.family": "serif",
