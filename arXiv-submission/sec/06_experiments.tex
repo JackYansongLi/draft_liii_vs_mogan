@@ -49,7 +49,7 @@ where $T$ is the token usage for the input, thinking, output, and MCP tools, $\s
 \label{fig:reading}
 \end{figure}
 
-Figure~\ref{fig:reading} illustrates the results. Even if it is not a fair comparison as the LLMs have trained inherently by \LaTeX{} corpus before, Mogan took the lead for the most LLMs. The reason is that the file structure in Mogan have higher information density and even references are updated and written (e.g., \verb|<associate|sec:tree-struc-on-mogan|<tuple|5.1|13>>|, where \verb|sec:tree-struc-on-mogan| is the label name, \verb|5.1| is the section number, and \verb|13| is the page number) in \texttt{.tmu} file after incremental update, while in \LaTeX{}, LLM need to count the enviroment in the whole document in order to get the real displayed enviroment number after \LaTeX{} compilation. So the LLM can locate the enviroment quickly in Mogan.
+Figure~\ref{fig:reading} illustrates the results. Even if it is not a fair comparison as the LLMs have trained inherently by \LaTeX{} corpus before, Mogan took the lead for the most LLMs. The reason is that the file structure in Mogan have higher information density and even references are updated and written (e.g., \verb!<associate|sec:tree-struc-on-mogan|<tuple|5.1|13>>!, where \verb|sec:tree-struc-on-mogan| is the label name, \verb|5.1| is the section number, and \verb|13| is the page number) in \texttt{.tmu} file after incremental update, while in \LaTeX{}, LLM need to count the enviroment in the whole document in order to get the real displayed enviroment number after \LaTeX{} compilation. So the LLM can locate the enviroment quickly in Mogan.
 
 \subsubsection{Merging files with distinct doc-styles}
 \label{sec:doc-style}
