@@ -46,10 +46,14 @@ A fraction serves as a primary example of this difference. In \TeX{}, a fraction
 
 Let us consider another example:
 
+\begin{example}\label{exa:around-in-mogan}
+as the mathematical expression in Equation~\eqref{eq:tree-struc}
+
 \begin{equation}
 \label{eq:tree-struc}
 \int_{a}^{b} f(x) \mathrm{d}x = \left[ F(x) \right] \big|_{a}^{b}
 \end{equation}
+\end{example}
 
 Its Scheme representation is shown in Listing~\ref{lst:scheme-integral}:
 \begin{lstlisting}[caption={Scheme representation of integral expression},label={lst:scheme-integral},upquote=true]
@@ -129,7 +133,7 @@ This corresponds to the tree structure shown in Figure~\ref{fig:multiline-mogan}
 
 \subsection{Functional Symbol Representation}
 
-In \TeX{}, all mathematical symbols and fonts are represented as strings. However, in Mogan STEM, certain special symbols are defined via functions. For instance, the inner product $\langle \cdot \rangle$, as shown in Equation~\ref{eq:braket}, is an anonymous function that automatically scales according to the symbols it contains. While this is similar to \verb|\langle \rangle| in \LaTeX{}, the difference lies in the fact that, as a complete function, the left and right brackets always renders a unified pair rather than isolated characters. To obtain a single bracket, the user manually deletes the undesired character from the rendered pair.
+In \TeX{}, all mathematical symbols and fonts are represented as strings. However, in Mogan STEM, certain special symbols are defined via functions. For instance, the inner product $\langle \cdot \rangle$, as shown in Equation~\eqref{eq:braket}, is an anonymous function that automatically scales according to the symbols it contains. While this is similar to \verb|\langle \rangle| in \LaTeX{}, the difference lies in the fact that, as a complete function, the left and right brackets always renders a unified pair rather than isolated characters. To obtain a single bracket, the user manually deletes the undesired character from the rendered pair.
 
 \begin{equation}
 \label{eq:braket}
