@@ -18,44 +18,44 @@ Finally, we can compile the code. Running \verb|pdflatex example.tex| generates 
 Beyond the \verb|.tex| source files we write, every package and document class consists of files with specific extensions. Table~\ref{tab:latex-ext} lists the files that frequently appear in \LaTeX{} templates:
 
 \begin{table}[htbp]
-\centering
-\caption{\LaTeX{} file extensions and their descriptions}
-\label{tab:latex-ext}
-\begin{tabular}{llp{7.5cm}}
-\toprule
-\textbf{File Extension} & \textbf{File Type} & \textbf{Description} \\
-\midrule
-\texttt{.sty} & Package file & The package name corresponds to the filename without the extension. \\
-\texttt{.cls} & Document class file & The document class name corresponds to the filename without the extension. \\
-\texttt{.bib} & BibTeX database file & A database file storing bibliographic information. \\
-\texttt{.bst} & BibTeX style file & A template file defining the formatting style for bibliographies. \\
-\bottomrule
-\end{tabular}
+    \centering
+    \caption{\LaTeX{} file extensions and their descriptions}
+    \label{tab:latex-ext}
+    \begin{tabular}{llp{7.5cm}}
+        \toprule
+        \textbf{File Extension} & \textbf{File Type}   & \textbf{Description}                                                       \\
+        \midrule
+        \texttt{.sty}           & Package file         & The package name corresponds to the filename without the extension.        \\
+        \texttt{.cls}           & Document class file  & The document class name corresponds to the filename without the extension. \\
+        \texttt{.bib}           & BibTeX database file & A database file storing bibliographic information.                         \\
+        \texttt{.bst}           & BibTeX style file    & A template file defining the formatting style for bibliographies.          \\
+        \bottomrule
+    \end{tabular}
 \end{table}
 
 \LaTeX{} generates numerous auxiliary files and logs during the compilation process. Features such as cross-references, bibliographies, tables of contents, and indices require an initial compilation to generate auxiliary files, followed by a subsequent compilation to read these files to produce the correct result. Therefore, complex \LaTeX{} source code often requires multiple compilation passes as summarized in Table~\ref{tab:latex-aux}:
 
 \begin{table}[htbp]
-\centering
-\caption{\LaTeX{} auxiliary file extensions, tools, and descriptions}
-\label{tab:latex-aux}
-\begin{tabular}{llp{7.5cm}}
-\toprule
-\textbf{Extension} & \textbf{Related Tool / Source} & \textbf{Description} \\
-\midrule
-\texttt{.log} & Typesetting Engine & Records the compilation process; used for error debugging. \\
-\texttt{.aux} & \texttt{latex} & Main auxiliary file; records cross-references, TOC, citations, etc. \\
-\texttt{.toc} & \texttt{latex} & Records content for the Table of Contents. \\
-\texttt{.lof} & \texttt{latex} & Records content for the List of Figures. \\
-\texttt{.lot} & \texttt{latex} & Records content for the List of Tables. \\
-\texttt{.bbl} & \texttt{bibtex} & The generated bibliography record file. \\
-\texttt{.blg} & \texttt{bibtex} & Log file for the BibTeX compilation process. \\
-\texttt{.idx} & \texttt{latex} & Raw index record file to be processed by \texttt{makeindex}. \\
-\texttt{.ind} & \texttt{makeindex} & Formatted index file generated after processing \texttt{.idx}. \\
-\texttt{.ilg} & \texttt{makeindex} & Log file for \texttt{makeindex}. \\
-\texttt{.out} & \texttt{hyperref} package & Record file for generating PDF bookmarks. \\
-\bottomrule
-\end{tabular}
+    \centering
+    \caption{\LaTeX{} auxiliary file extensions, tools, and descriptions}
+    \label{tab:latex-aux}
+    \begin{tabular}{llp{7.5cm}}
+        \toprule
+        \textbf{Extension} & \textbf{Related Tool / Source} & \textbf{Description}                                                \\
+        \midrule
+        \texttt{.log}      & Typesetting Engine             & Records the compilation process; used for error debugging.          \\
+        \texttt{.aux}      & \texttt{latex}                 & Main auxiliary file; records cross-references, TOC, citations, etc. \\
+        \texttt{.toc}      & \texttt{latex}                 & Records content for the Table of Contents.                          \\
+        \texttt{.lof}      & \texttt{latex}                 & Records content for the List of Figures.                            \\
+        \texttt{.lot}      & \texttt{latex}                 & Records content for the List of Tables.                             \\
+        \texttt{.bbl}      & \texttt{bibtex}                & The generated bibliography record file.                             \\
+        \texttt{.blg}      & \texttt{bibtex}                & Log file for the BibTeX compilation process.                        \\
+        \texttt{.idx}      & \texttt{latex}                 & Raw index record file to be processed by \texttt{makeindex}.        \\
+        \texttt{.ind}      & \texttt{makeindex}             & Formatted index file generated after processing \texttt{.idx}.      \\
+        \texttt{.ilg}      & \texttt{makeindex}             & Log file for \texttt{makeindex}.                                    \\
+        \texttt{.out}      & \texttt{hyperref} package      & Record file for generating PDF bookmarks.                           \\
+        \bottomrule
+    \end{tabular}
 \end{table}
 
 To intuitively understand why \LaTeX{} documents often require multiple compilations, Listing~\ref{lst:crossref} shows a minimal example containing cross-references and a table of contents:

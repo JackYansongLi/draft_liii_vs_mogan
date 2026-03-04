@@ -105,19 +105,19 @@ The aforementioned high degree of coupling leads to multifaceted negative impact
 Since \LaTeX{} compilation results are strongly dependent on instruction order, \LaTeX{} introduced engineering improvements to allow users or package authors to insert and execute custom code at specific execution timing points. These mechanisms are not based on an explicit semantic event model, but rather attach to \TeX{}'s sequential execution flow, coordinating behavior between packages and document structure by "intercepting execution timing." This enables functions such as lazy initialization, global parameter patching, auxiliary file processing, and layout adjustment. In the \LaTeX{} core system, the commonly used hook commands primarily include the four types listed in Table~\ref{tab:latex-hooks}:
 
 \begin{table}[htbp]
-\centering
-\caption{Common \LaTeX{} Hook Directives and Descriptions}
-\label{tab:latex-hooks}
-\begin{tabular}{lp{9.5cm}}
-\toprule
-\textbf{Directive} & \textbf{Description} \\
-\midrule
-\texttt{\textbackslash AtBeginDocument} & Executes code at the beginning of the document body (after \texttt{\textbackslash begin\{document\}}). \\
-\texttt{\textbackslash AtEndDocument} & Executes code before the document ends (before \texttt{\textbackslash end\{document\}}). \\
-\texttt{\textbackslash AtEndOfPackage} & Executes code immediately after the current package finishes loading. \\
-\texttt{\textbackslash AtEndOfClass} & Executes code immediately after the current document class finishes loading. \\
-\bottomrule
-\end{tabular}
+  \centering
+  \caption{Common \LaTeX{} Hook Directives and Descriptions}
+  \label{tab:latex-hooks}
+  \begin{tabular}{lp{9.5cm}}
+    \toprule
+    \textbf{Directive}                      & \textbf{Description}                                                                                   \\
+    \midrule
+    \texttt{\textbackslash AtBeginDocument} & Executes code at the beginning of the document body (after \texttt{\textbackslash begin\{document\}}). \\
+    \texttt{\textbackslash AtEndDocument}   & Executes code before the document ends (before \texttt{\textbackslash end\{document\}}).               \\
+    \texttt{\textbackslash AtEndOfPackage}  & Executes code immediately after the current package finishes loading.                                  \\
+    \texttt{\textbackslash AtEndOfClass}    & Executes code immediately after the current document class finishes loading.                           \\
+    \bottomrule
+  \end{tabular}
 \end{table}
 
 These directives provide a relatively non-invasive method of collaboration between packages and user documents, avoiding the need to forcibly control loading order or directly modify user source code to achieve functional extension.
@@ -162,7 +162,7 @@ A similar latency phenomenon occurs with mismatched delimiters, such as using \t
 Both scenarios illustrate a fundamental constraint: \TeX{} does not maintain a structural state model capable of immediate verification. Instead, it relies on the passive exposure of issues when the execution process fails. This is one of the root causes of its "lagged manifestation and ambiguous localization" of errors.
 
 \begin{remark}
-Mogan STEM effectively mitigates this issue at the system level. By introducing implicit \texttt{around} tags and explicit structural wrapping, the editor maintains a verifiable structural state during the input phase, preventing error propagation. See Section~\ref{sec:tree-struc-on-mogan} for details.
+  Mogan STEM effectively mitigates this issue at the system level. By introducing implicit \texttt{around} tags and explicit structural wrapping, the editor maintains a verifiable structural state during the input phase, preventing error propagation. See Section~\ref{sec:tree-struc-on-mogan} for details.
 \end{remark}
 
 \subsection{Compatibility Dilemma Beneath a Unified Syntax}
@@ -172,21 +172,21 @@ To address varying requirements (such as modern fonts and Unicode support), the 
 From a user's perspective, all three engines accept \texttt{.tex} input and adhere to the \LaTeX{} macro interface. However, at the system level, they exhibit fundamental differences in the key aspects summarized in Table~\ref{tab:latex-engines}:
 
 \begin{table}[htbp]
-\centering
-\caption{Comparison of \LaTeX{} Engines}
-\label{tab:latex-engines}
-\resizebox{0.99\textwidth}{!}{%
-\begin{tabular}{llll}
-\toprule
-\textbf{Dimension} & \textbf{pdfLaTeX} & \textbf{XeLaTeX} & \textbf{LuaLaTeX} \\
-\midrule
-Native Encoding Support & 8-bit (requires \texttt{inputenc}) & Native Unicode & Native Unicode \\
-Font System & Type1 / limited OpenType & System Fonts (OpenType) & OpenType (via Lua) \\
-Extension Mechanism & \TeX{} primitives & \TeX{} + Xe\TeX{} primitives & \TeX{} + Lua VM \\
-External Programmability & Very Weak & Very Weak & Strong (Lua) \\
-\bottomrule
-\end{tabular}%
-}
+  \centering
+  \caption{Comparison of \LaTeX{} Engines}
+  \label{tab:latex-engines}
+  \resizebox{0.99\textwidth}{!}{%
+    \begin{tabular}{llll}
+      \toprule
+      \textbf{Dimension}       & \textbf{pdfLaTeX}                  & \textbf{XeLaTeX}             & \textbf{LuaLaTeX}  \\
+      \midrule
+      Native Encoding Support  & 8-bit (requires \texttt{inputenc}) & Native Unicode               & Native Unicode     \\
+      Font System              & Type1 / limited OpenType           & System Fonts (OpenType)      & OpenType (via Lua) \\
+      Extension Mechanism      & \TeX{} primitives                  & \TeX{} + Xe\TeX{} primitives & \TeX{} + Lua VM    \\
+      External Programmability & Very Weak                          & Very Weak                    & Strong (Lua)       \\
+      \bottomrule
+    \end{tabular}%
+  }
 \end{table}
 
 These discrepancies imply that the same \texttt{.tex} source file does not correspond to the same semantic execution environment across different engines.
@@ -221,9 +221,9 @@ In \LaTeX{}, the accurate generation of cross-references, tables of contents, an
 This mechanism imposes several burdens:
 
 \begin{itemize}
-    \item \textbf{State Fragmentation:} Document state is scattered across multiple external files.
-    \item \textbf{Cognitive Load:} Users must master complex ``compilation rituals.'' For instance, failure to run BibTeX results in all citation numbers appearing as \texttt{??}.
-    \item \textbf{Debugging Difficulties:} Error tracing is notoriously difficult. An illegal character in a \texttt{.bib} file might trigger an error in the \texttt{\textbackslash bibliography\{refs\}} command, causing the error message to be completely detached from the actual root cause.
+  \item \textbf{State Fragmentation:} Document state is scattered across multiple external files.
+  \item \textbf{Cognitive Load:} Users must master complex ``compilation rituals.'' For instance, failure to run BibTeX results in all citation numbers appearing as \texttt{??}.
+  \item \textbf{Debugging Difficulties:} Error tracing is notoriously difficult. An illegal character in a \texttt{.bib} file might trigger an error in the \texttt{\textbackslash bibliography\{refs\}} command, causing the error message to be completely detached from the actual root cause.
 \end{itemize}
 
 In extreme cases, cross-references remain generated during the first pass, leaving the user with a mass of undefined numbers or empty tables until the multi-pass cycle is complete. This reliance on external side effects to patch internal architectural flaws is, in essence, a form of technical debt.
@@ -235,9 +235,9 @@ The batch processing design of \TeX{} has stifled the development of peripheral 
 This structural dilemma is not accidental; rather, it is rooted in the batch-processing paradigm of \LaTeX{} itself. Frank Mittelbach, the technical lead for \LaTeX{}, candidly admitted in an interview~\cite{interview2021}:
 
 \begin{quotation}
-PN: "I try to look at this issue from the point of view of global and local, and interactivity is just like a... This is probably a change that happens very fast, and that you worried only about the local stuff, but the separation between local and global in \LaTeX{} seems to be hard."
+  PN: "I try to look at this issue from the point of view of global and local, and interactivity is just like a... This is probably a change that happens very fast, and that you worried only about the local stuff, but the separation between local and global in \LaTeX{} seems to be hard."
 
-FMi: "First of all, it is right now hard in \TeX{}\ldots"
+  FMi: "First of all, it is right now hard in \TeX{}\ldots"
 \end{quotation}
 
 \subsection{Comparison: Design Paradigms of Structured and Incremental Systems}

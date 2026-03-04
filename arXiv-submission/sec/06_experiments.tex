@@ -7,24 +7,24 @@ To verify the benefits of using Mogan STEM compared to \LaTeX{}, we designed and
 
 Limited by the design of \LaTeX{}, the compilation process requires significant time for documents that are rich in cross-references, tables of contents, and bibliographies. We chose 6 papers from arXiv that satisfy this richness criterion as benchmark documents (machine configuration is attached in Appendix~\ref{app:ms} (Table~\ref{tab:machine})). Note that Mogan STEM is a WYSIWYG editor, so the comparison is unfair! The time consumption for Mogan STEM is
 \[
-t_{\text{compiling}} + t_{\text{rendering}} + t_{\text{IO}},
+    t_{\text{compiling}} + t_{\text{rendering}} + t_{\text{IO}},
 \]
 where $t_{\text{compiling}}$ is the compiling time, $t_{\text{rendering}}$ is the rendering time, and $t_{\text{IO}}$ is the \emph{extra} I/O overhead for WYSIWYG editing. As shown in Figure~\ref{fig:full-compile}, even with the extra I/O process, Mogan STEM outperforms \LaTeX{} in compiling/rendering time for most documents. Note that for document \texttt{arXiv:2502.17655}, Mogan STEM compiles and renders slower than \LaTeX{}; this exception is due to the size of the document, as it has 120 pages. Therefore, the I/O overhead accounts for a large proportion.
 
 \begin{figure}[htbp]
-\centering
-\includegraphics[width=0.95\textwidth]{figure/full-compile.pdf}
-\caption{Benchmark on full compilation. Each bar represents the average of three trials.}
-\label{fig:full-compile}
+    \centering
+    \includegraphics[width=0.95\textwidth]{figure/full-compile.pdf}
+    \caption{Benchmark on full compilation. Each bar represents the average of three trials.}
+    \label{fig:full-compile}
 \end{figure}
 
 Another limitation of \LaTeX{} is slow incremental updates. We also conducted an experiment on incremental updates. The update includes adding new sections, adding tables in some paragraphs, modifying the relations between labels and references, and rearranging the positions of content slightly. As shown in Figure~\ref{fig:inc-update}, Mogan STEM shows remarkable advantages over \LaTeX{} when doing incremental updates on all 6 documents. Note that for document \texttt{arXiv:2502.17655}, Mogan STEM outperforms \LaTeX{}, which seems to contradict the result of the compiling time experiment. The reason for such ``contradiction'' is due to the I/O overhead: in Mogan STEM, the I/O process is only activated when the user opens the document. Therefore, for incremental updates, $t_{\text{IO}}=0$.
 
 \begin{figure}[htbp]
-\centering
-\includegraphics[width=0.95\textwidth]{figure/inc-update.pdf}
-\caption{Benchmark on incremental update. Each bar represents the average of three trials.}
-\label{fig:inc-update}
+    \centering
+    \includegraphics[width=0.95\textwidth]{figure/inc-update.pdf}
+    \caption{Benchmark on incremental update. Each bar represents the average of three trials.}
+    \label{fig:inc-update}
 \end{figure}
 
 \subsection{Performance in LLM tasks}
@@ -35,18 +35,18 @@ We highly recommend using \texttt{.tmu} to train LLMs instead of \texttt{.tex}. 
 
 To evaluate the LLM's grasp of document structure, we designed tests on 4 LLMs. Each test has 20 questions (attached in Appendix~\ref{app:20ques}) about the article's structure from \texttt{arXiv:2502.17655}. For each answer, we take
 \[
-u_s = \max\left(0, \begin{cases}
-5 - \left\lfloor \frac{T}{1 \times 10^4} \right\rfloor & \text{, right answer} \\
-0 & \text{, wrong answer}
-\end{cases} \right),
+    u_s = \max\left(0, \begin{cases}
+            5 - \left\lfloor \frac{T}{1 \times 10^4} \right\rfloor & \text{, right answer} \\
+            0                                                      & \text{, wrong answer}
+        \end{cases} \right),
 \]
 where $T$ is the token usage for the input, thinking, output, and MCP tools, $\sum u_s \in [0, 100]$. The reason for using 10k tokens as a scale is that when the LLM had high confidence and located the structure accurately, it always consumed less than 10k tokens per question on our experimental material. Higher token usage means more loops of thinking and more uses of MCP tools, which represents lower efficiency and higher costs.
 
 \begin{figure}[htbp]
-\centering
-\includegraphics[width=0.8\textwidth]{figure/reading.pdf}
-\caption{Test on locating document structure}
-\label{fig:reading}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figure/reading.pdf}
+    \caption{Test on locating document structure}
+    \label{fig:reading}
 \end{figure}
 
 Figure~\ref{fig:reading} illustrates the results. Even if it is not a fair comparison as the LLMs have been trained inherently on \LaTeX{} corpora, Mogan took the lead for most LLMs. The reason is that the file structure in Mogan has higher information density: references are updated and stored directly (e.g., \verb!<associate|sec:tree-struc-on-mogan|<tuple|5.1|13>>!, where \verb!sec:tree-struc-on-mogan! is the label name, \verb!5.1! is the section number, and \verb!13! is the page number) in the \texttt{.tmu} file after incremental update. In contrast, in \LaTeX{}, the LLM needs to scan the entire document to determine the actual displayed environment number after compilation. Thus, the LLM can locate the environment quickly in Mogan.
@@ -66,21 +66,21 @@ We use Mogan STEM to generate \texttt{theorems.tmu} and \texttt{proofs.tmu} dire
 
 Assignment 1 has 1 task (generate two files). Assignment 2 has 4 tasks (merge two files generated by 4 LLMs). For each task, we take
 \[
-u_m = \max\left(0, \begin{cases}
-20 - 2 \times E_{\text{ref}} - \left\lfloor \frac{T}{1 \times 10^4} \right\rfloor - E_{\text{sty}} & \text{, success on the first try} \\
-10 - 2 \times E_{\text{ref}} - \left\lfloor \frac{T}{1 \times 10^4} \right\rfloor - E_{\text{sty}} & \text{, success on the second try} \\
-0 & \text{, fail within two tries}
-\end{cases} \right),
+    u_m = \max\left(0, \begin{cases}
+            20 - 2 \times E_{\text{ref}} - \left\lfloor \frac{T}{1 \times 10^4} \right\rfloor - E_{\text{sty}} & \text{, success on the first try}  \\
+            10 - 2 \times E_{\text{ref}} - \left\lfloor \frac{T}{1 \times 10^4} \right\rfloor - E_{\text{sty}} & \text{, success on the second try} \\
+            0                                                                                                  & \text{, fail within two tries}
+        \end{cases} \right),
 \]
 where $T$ is the token usage for the input, thinking, output, and MCP tools, $E_{\text{ref}}$ is the number of reference failures (i.e., "??" appears but compilation succeeds), $E_{\text{sty}}$ is the number of cases where the merged file has the doc-style of \texttt{proofs.tex} (we required LLMs to write the merged file in the doc-style of \texttt{theorems.tex}, so other macro aliases or redefined macros are not accepted), $\sum u_m \in [0, 100]$.
 
 As illustrated in Figure~\ref{fig:writing}, Mogan gains higher scores on all LLMs. The reason is that Mogan files have grammatical consistency so that the LLMs do not need to tackle conflicts and unify usage from two distinct doc-styles. The hallucinations and randomness from LLMs are strictly limited as well.
 
 \begin{figure}[htbp]
-\centering
-\includegraphics[width=0.8\textwidth]{figure/writing.pdf}
-\caption{Test on merging files with distinct doc-styles}
-\label{fig:writing}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figure/writing.pdf}
+    \caption{Test on merging files with distinct doc-styles}
+    \label{fig:writing}
 \end{figure}
 
 Furthermore, merging contexts from two documents with distinct doc-styles is just a copy-and-paste task in Mogan STEM.
@@ -90,37 +90,37 @@ Furthermore, merging contexts from two documents with distinct doc-styles is jus
 Debugging ill-formed documents is a common usage of LLM co-writing. We constructed several ill-formed documents (originating from \texttt{arXiv:2502.17655}), fed the error messages to LLMs, and asked them to fix them. The test has 20 ill-formed samples as shown in Table~\ref{tab:ill-dist}.
 
 \begin{table}[htbp]
-\centering
-\caption{Distribution of illness types in samples}
-\label{tab:ill-dist}
-\begin{tabular}{lc}
-\toprule
-\textbf{Illness Type} & \textbf{Count} \\
-\midrule
-Unclosed bracket & 4 \\
-Unclosed environment & 5 \\
-Wrong command usage & 4 \\
-Undefined cross-reference & 3 \\
-Conflicting packages & 2 \\
-Self-recursive macros & 2 \\
-\bottomrule
-\end{tabular}
+    \centering
+    \caption{Distribution of illness types in samples}
+    \label{tab:ill-dist}
+    \begin{tabular}{lc}
+        \toprule
+        \textbf{Illness Type}     & \textbf{Count} \\
+        \midrule
+        Unclosed bracket          & 4              \\
+        Unclosed environment      & 5              \\
+        Wrong command usage       & 4              \\
+        Undefined cross-reference & 3              \\
+        Conflicting packages      & 2              \\
+        Self-recursive macros     & 2              \\
+        \bottomrule
+    \end{tabular}
 \end{table}
 
 For each illness, we take
 \[
-u_d = \max\left(0, \begin{cases}
-5 - \left\lfloor \frac{T}{1 \times 10^4} \right\rfloor & \text{, right answer} \\
-0 & \text{, wrong answer}
-\end{cases} \right),
+    u_d = \max\left(0, \begin{cases}
+            5 - \left\lfloor \frac{T}{1 \times 10^4} \right\rfloor & \text{, right answer} \\
+            0                                                      & \text{, wrong answer}
+        \end{cases} \right),
 \]
 where $T$ is the token usage for the input, thinking, output, and MCP tools, $\sum u_d \in [0, 100]$, as illustrated in Figure~\ref{fig:debugging}.
 
 \begin{figure}[htbp]
-\centering
-\includegraphics[width=0.8\textwidth]{figure/debugging.pdf}
-\caption{Test on debugging ill-formed documents using error messages}
-\label{fig:debugging}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figure/debugging.pdf}
+    \caption{Test on debugging ill-formed documents using error messages}
+    \label{fig:debugging}
 \end{figure}
 
 The \LaTeX{} group thinks for a long time to solve most of the error samples. The Mogan group locates the problems quickly and solves all of the error samples (only two samples consume more than 10k tokens). The reason is that the illness in \texttt{.tmu} files only influences the closest tree-tag ancestor (as discussed in Section~\ref{sec:tree-struc-on-mogan}). So the error message in Mogan STEM is quite clear for LLMs to understand and correct easily. In contrast, \LaTeX{}'s error messages are usually detached from their root causes in large documents and the logs are very long.
@@ -137,10 +137,10 @@ We conducted a parallel supervised fine-tuning (SFT) experiment (machine configu
 Figure~\ref{fig:fine-tune} shows the experiment of low-rank adaptation (LoRA) based on Qwen2.5-7B-Instruct on 1000 formulas in 289 steps. The Mogan group's loss converges to around 0.4 while \LaTeX{}'s converges to around 0.7. The reason is that Mogan's S-expressions have lower information entropy. \LaTeX{} documents have a lot of syntax noise. For example, the code \verb|\frac{a}{b}| and \verb|{a \over b}| in \LaTeX{} are equivalent after rendering; the code \verb|x^{2}| and \verb|x^2| are also equivalent after rendering. So the model has less certainty when predicting the next token in \LaTeX{} compared to Mogan.
 
 \begin{figure}[htbp]
-\centering
-\includegraphics[width=0.8\textwidth]{figure/fine-tune.pdf}
-\caption{Experiment of LoRA based on Qwen2.5-7B-Instruct}
-\label{fig:fine-tune}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figure/fine-tune.pdf}
+    \caption{Experiment of LoRA based on Qwen2.5-7B-Instruct}
+    \label{fig:fine-tune}
 \end{figure}
 
 Note that \LaTeX{} documents have weaker grammatical consistency than Mogan. It is a burden for the model to predict the proper command in line with macro definitions in the preamble, especially in large documents written in several distinct doc-styles (discussed in Section~\ref{sec:doc-style}) during training.
