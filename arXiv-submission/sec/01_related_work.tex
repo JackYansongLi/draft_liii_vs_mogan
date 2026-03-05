@@ -1,3 +1,11 @@
 \paragraph{Related work}
 
 Ling et al.~\cite{ling_table2latex_2025} propose a method for \LaTeX{} code generation from table images using reinforced multimodal language models. Their work highlights the potential of leveraging advanced AI techniques to improve the accuracy and efficiency of \LaTeX{} document preparation. However, as they claim, the method is suffering from low-efficiency and high token cost due to the compilation principles of \LaTeX{}.
+
+The importance of mathematical content for LLM training has been highlighted by Paster et al.~\cite{paster2023openwebmath}, who constructed a 14.7B token dataset from web sources, demonstrating the complexity of extracting and processing \LaTeX{} content from diverse formats.
+
+Recent work by Kale and Nadadur~\cite{kale2025texpert} demonstrates that even state-of-the-art LLMs struggle with \LaTeX{} code generation, achieving only 15\% accuracy on complex tasks, with logical errors accounting for 54\% of failures.
+
+Large-scale benchmarks such as DocGenome~\cite{xia2024docgenome} reveal that Equation-to-\LaTeX{} and Table-to-\LaTeX{} conversion tasks remain challenging even with extensive training data (Edit Distance > 0.21), underscoring the high information entropy of \LaTeX{} source code.
+
+The high computational cost of applying LLMs directly to document processing has motivated systems like ZenDB~\cite{lin2024accurate}, which achieves up to 30$\times$ cost reduction through semantic hierarchical indexing, highlighting the need for more efficient document representations.

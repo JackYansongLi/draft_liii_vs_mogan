@@ -127,10 +127,6 @@ The \LaTeX{} group thinks for a long time to solve most of the error samples. Th
 
 In fact, \texttt{.tmu} files do not have problems like unclosed environments or self-recursive macros if they are written by Mogan STEM. In addition, Mogan STEM provides a WYSIWYG and intuitive user interface. If there is anything wrong in a \texttt{.tmu} file, when opened by Mogan STEM, it is always clear to see where the problem is. And the rest of the document can be rendered correctly instead of being terminated in compilation like \LaTeX{}.
 
-\paragraph{Related work}
-
-Recent work by Kale and Nadadur~\cite{kale2025texpert} demonstrates that even state-of-the-art LLMs struggle with \LaTeX{} code generation, achieving only 15\% accuracy on complex tasks, with logical errors accounting for 54\% of failures.
-
 \subsection{Efficiency in fine-tuning}
 \label{sec:eff-in-sft}
 
@@ -150,9 +146,3 @@ Figure~\ref{fig:fine-tune} shows the experiment of low-rank adaptation (LoRA) ba
 Note that \LaTeX{} documents have weaker grammatical consistency than Mogan. It is a burden for the model to predict the proper command in line with macro definitions in the preamble, especially in large documents written in several distinct doc-styles (discussed in Section~\ref{sec:doc-style}) during training.
 
 Moreover, discussions of Mogan versus Markdown are attached in Appendix~\ref{app:vs}.
-
-\paragraph{Related work}
-
-Large-scale benchmarks such as DocGenome~\cite{xia2024docgenome} reveal that Equation-to-\LaTeX{} and Table-to-\LaTeX{} conversion tasks remain challenging even with extensive training data (Edit Distance > 0.21), underscoring the high information entropy of \LaTeX{} source code.
-
-The high computational cost of applying LLMs directly to document processing has motivated systems like ZenDB~\cite{lin2024accurate}, which achieves up to 30$\times$ cost reduction through semantic hierarchical indexing, highlighting the need for more efficient document representations.

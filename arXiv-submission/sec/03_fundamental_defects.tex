@@ -165,10 +165,6 @@ Both scenarios illustrate a fundamental constraint: \TeX{} does not maintain a s
   Mogan STEM effectively mitigates this issue at the system level. By introducing implicit \texttt{around} tags and explicit structural wrapping, the editor maintains a verifiable structural state during the input phase, preventing error propagation. See Section~\ref{sec:tree-struc-on-mogan} for details.
 \end{remark}
 
-\paragraph{Related work}
-
-The importance of mathematical content for LLM training has been highlighted by Paster et al.~\cite{paster2023openwebmath}, who constructed a 14.7B token dataset from web sources, demonstrating the complexity of extracting and processing \LaTeX{} content from diverse formats.
-
 \subsection{Compatibility Dilemma Beneath a Unified Syntax}
 
 To address varying requirements (such as modern fonts and Unicode support), the \LaTeX{} ecosystem has evolved multiple parallel compilation engines, such as \texttt{pdfLaTeX}, \texttt{XeLaTeX} and \texttt{LuaLaTeX}. This differentiation, rather than being a strength, is a manifestation of system design fragmentation.
