@@ -40,7 +40,7 @@ To evaluate the LLM's grasp of document structure, we designed tests on 4 LLMs. 
             0                                                      & \text{, wrong answer}
         \end{cases} \right),
 \]
-where $T$ is the token usage for the input, thinking, output, and MCP tools, $\sum u_s \in [0, 100]$. The reason for using 10k tokens as a scale is that when the LLM had high confidence and located the structure accurately, it always consumed less than 10k tokens per question on our experimental material. Higher token usage means more loops of thinking and more uses of MCP tools, which represents lower efficiency and higher costs.
+where $T$ is the token usage for the input, thinking, output, and MCP tools, $\sum u_s \in [0, 100]$. The reason for using 10k tokens as a scale is that when the LLM had high confidence and located the structure accurately, it always consumed less than 10k tokens per question on our experimental material. Higher token usage means more loops of thinking and more uses of MCP tools, which represents lower efficiency and higher costs~\cite{ling_table2latex_2025}.
 
 \begin{figure}[htbp]
     \centering
@@ -74,7 +74,7 @@ Assignment 1 has 1 task (generate two files). Assignment 2 has 4 tasks (merge tw
 \end{equation*}
 where $T$ is the token usage for the input, thinking, output, and MCP tools, $E_{\text{ref}}$ is the number of reference failures (i.e., "??" appears but compilation succeeds), $E_{\text{sty}}$ is the number of cases where the merged file has the doc-style of \texttt{proofs.tex} (we required LLMs to write the merged file in the doc-style of \texttt{theorems.tex}, so other macro aliases or redefined macros are not accepted), $\sum u_m \in [0, 100]$.
 
-As illustrated in Figure~\ref{fig:writing}, Mogan gains higher scores on all LLMs. The reason is that Mogan files have grammatical consistency so that the LLMs do not need to tackle conflicts and unify usage from two distinct doc-styles. The hallucinations and randomness from LLMs are strictly limited as well.
+As illustrated in Figure~\ref{fig:writing}, Mogan gains higher scores on all LLMs. LLMs struggle with \LaTeX{} code generation on complex tasks~\cite{kale2025texpert}. The reason is that Mogan files have grammatical consistency so that the LLMs do not need to tackle conflicts and unify usage from two distinct doc-styles. The hallucinations and randomness from LLMs are strictly limited as well.
 
 \begin{figure}[htbp]
     \centering
@@ -134,7 +134,7 @@ Recall that Mogan uses a tree structure while \LaTeX{} uses a linear macro flow.
 
 We conducted a parallel supervised fine-tuning (SFT) experiment (machine configuration is shown in Appendix~\ref{app:ms}). We generated 1000 random formulas written in \LaTeX{} and converted them to Mogan S-expressions using Mogan STEM. We guaranteed that the formulas in both Mogan and \LaTeX{} are identical after rendering. The formulas cover fractions, radicals, subscripts and superscripts, matrices, piecewise functions, integrals and summations, limits, logical quantifiers, composite functions, and nested parentheses. Next, we cut the formulas into two parts. We gave the prefix part to the model and let it complete the rest.
 
-Figure~\ref{fig:fine-tune} shows the experiment of low-rank adaptation (LoRA) based on Qwen2.5-7B-Instruct~\cite{qwen2025qwen25} on 1000 formulas in 289 steps, following the approach of Dong et al.~\cite{dong2025machinelearninglm}. The Mogan group's loss converges to around 0.4 while \LaTeX{}'s converges to around 0.7. The reason is that Mogan's S-expressions have lower information entropy. \LaTeX{} documents have a lot of syntax noise. For example, the code \verb|\frac{a}{b}| and \verb|{a \over b}| in \LaTeX{} are equivalent after rendering; the code \verb|x^{2}| and \verb|x^2| are also equivalent after rendering. So the model has less certainty when predicting the next token in \LaTeX{} compared to Mogan.
+Figure~\ref{fig:fine-tune} shows the experiment of low-rank adaptation (LoRA) based on Qwen2.5-7B-Instruct~\cite{qwen2025qwen25} on 1000 formulas in 289 steps, following the approach of Dong et al.~\cite{dong2025machinelearninglm}. The Mogan group's loss converges to around 0.4 while \LaTeX{}'s converges to around 0.7. The reason is that Mogan's S-expressions have lower information entropy~\cite{xia2024docgenome}. \LaTeX{} documents have a lot of syntax noise. For example, the code \verb|\frac{a}{b}| and \verb|{a \over b}| in \LaTeX{} are equivalent after rendering; the code \verb|x^{2}| and \verb|x^2| are also equivalent after rendering. So the model has less certainty when predicting the next token in \LaTeX{} compared to Mogan.
 
 \begin{figure}[htbp]
     \centering
@@ -143,6 +143,6 @@ Figure~\ref{fig:fine-tune} shows the experiment of low-rank adaptation (LoRA) ba
     \label{fig:fine-tune}
 \end{figure}
 
-Note that \LaTeX{} documents have weaker grammatical consistency than Mogan. It is a burden for the model to predict the proper command in line with macro definitions in the preamble, especially in large documents written in several distinct doc-styles (discussed in Section~\ref{sec:doc-style}) during training.
+Note that \LaTeX{} documents have weaker grammatical consistency than Mogan. It is a burden for the model to predict the proper command in line with macro definitions in the preamble, especially in large documents written in several distinct doc-styles (discussed in Section~\ref{sec:doc-style}) during training~\cite{lin2024accurate}.
 
 Moreover, discussions of Mogan versus Markdown are attached in Appendix~\ref{app:vs}.
