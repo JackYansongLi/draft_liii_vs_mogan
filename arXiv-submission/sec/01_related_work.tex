@@ -9,3 +9,7 @@ Kale and Nadadur~\cite{kale2025texpert} demonstrate that even state-of-the-art L
 Xia et al.~\cite{xia2024docgenome} performed large-scale benchmarks to reveal that Equation-to-\LaTeX{} and Table-to-\LaTeX{} conversion tasks remain challenging even with extensive training data (Edit Distance > 0.21). The reason is the high information entropy of \LaTeX{} source code.
 
 Lin et al.~\cite{lin2024accurate} highlight that the high computational cost of applying LLMs directly to document processing. It achieves up to 30$\times$ cost reduction through semantic hierarchical indexing. They launch an appeal for the need of more efficient document representations.
+
+Lyn and Graham~\cite{lyn2025translatex} identify an ``execution illusion'' where LLMs produce linguistically fluent but unexecutable \LaTeX code for scientific formatting. They introduce TransLaTeX, a reasoning-and-control framework with compiler-level verification, and SafeFormatBench for executable \LaTeX generation and template conversion.
+
+Gardner et al.~\cite{gardner2025neuralatex} implement a deep learning library entirely in pure \LaTeX; when the document is compiled, the \LaTeX engine trains the network and generates figures. Their paper took 48 hours to compile, illustrating the extreme runtime cost of \LaTeX{} when used as a programmable substrate.
