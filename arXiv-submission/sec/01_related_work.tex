@@ -10,7 +10,9 @@ Kale and Nadadur~\cite{kale2025texpert} demonstrate that even state-of-the-art L
 
 Xia et al.~\cite{xia2024docgenome} performed large-scale benchmarks to reveal that Equation-to-\LaTeX{} and Table-to-\LaTeX{} conversion tasks remain challenging even with extensive training data (Edit Distance > 0.21). The reason is the high information entropy of \LaTeX{} source code.
 
-Lin et al.~\cite{lin2024accurate} highlight that the high computational cost of applying LLMs directly to document processing. It achieves up to 30$\times$ cost reduction through semantic hierarchical indexing. They launch an appeal for the need of more efficient document representations.
+Lin et al.~\cite{lin2024accurate} highlight the high computational cost of applying LLMs directly to document processing. Their approach achieves up to $30\times$ cost reduction through semantic hierarchical indexing, highlighting the need for more efficient document representations.
+
+Evidence from neural code modeling further supports the importance of structured representations. TreeDiff~\cite{zeng2026treediffastguidedcodegeneration} demonstrated that AST-guided span masking significantly outperforms token-level random masking for diffusion-based code generation, particularly for longer sequences (36.59\% vs.\ 33.54\% pass@1 on HumanEval with 1024-token prompts). This result suggests that hierarchical representations enable models to better capture long-range dependencies. Similarly, our tree-structured \texttt{.tmu} format provides a more information-dense and structurally explicit representation than linear \texttt{.tex}, enabling more efficient learning.
 
 Lyn and Graham~\cite{lyn2025translatex} identify an ``execution illusion'' where LLMs produce linguistically fluent but unexecutable \LaTeX code for scientific formatting. They introduce TransLaTeX, a reasoning-and-control framework with compiler-level verification, and SafeFormatBench for executable \LaTeX generation and template conversion.
 
