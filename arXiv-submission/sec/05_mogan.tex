@@ -55,7 +55,7 @@ Let us consider another example:
     \end{equation}
 \end{example}
 
-Its Scheme representation is shown in Listing~\ref{lst:scheme-integral}:
+Its Scheme representation\footnote{In fact, the code written in Mogan's \texttt{.tmu} files is XML-like formatted instead of Scheme. These two formats can be converted in Mogan without information loss. Note that AI is sensitive to XML syntax~\cite{sui2024Table}. Therefore, the document of Mogan is conductive to the training and task performance of LLMs.} is shown in Listing~\ref{lst:scheme-integral}:
 \begin{lstlisting}[caption={Scheme representation of integral expression},label={lst:scheme-integral},upquote=true]
 > `(math (concat (big "int") (rsub "a") (rsup "b") "f" (around* "(" "x" ")") "<mathd>x=" (around* "<nobracket>" (around* "[" (concat "F" (around* "(" "x" ")")) "]") "|") (rsub "a") (rsup "b")))
 \end{lstlisting}
