@@ -1,0 +1,17 @@
+\section{Legacy {\TeX}: Architectural and Ecosystem Bottlenecks}
+
+\subsection{Introduction of {\TeX}}
+
+For decades, {\LaTeX} has been the standard for scientific writing~\cite{lamport1994document}. However, it is not friendly to Large Language Models (LLMs). As an unstructured macro language~\cite{van_der_hoeven_jolly_2020}, {\LaTeX} brings significant challenges to modern AI-driven workflows \emph{(we defer a brief history of {\TeX} to Appendix~\ref{app:intro})}.
+
+\subsection{Principles of {\TeX} Compilation}
+
+{\TeX} uses a batch-processing model. It reads the source code from beginning to end and replaces macros step by step. It does not build an explicit document tree (Abstract Syntax Tree) in memory~\cite{van_der_hoeven_gnu_2001}. Because it lacks internal states, {\LaTeX} must rely on multiple compilation passes to resolve cross-references and bibliographies. It writes temporary data into intermediate files (like \texttt{.aux}, \texttt{.toc}, and \texttt{.bbl}), and reads them back in the next run \emph{(detailed in Appendix~\ref{app:pr})}. This multi-pass design is inherently slow and opaque. It prevents the sub-second, real-time feedback required by modern editors and AI agents~\cite{madje2023typst}.
+
+\subsection{Architectural Defects in {\TeX}}
+
+{\TeX} processes documents as a linear sequence of commands. Structural semantics and typesetting decisions are deeply coupled within a single execution path. Consequently, AI models and static analysis tools cannot reliably extract the document's structure without actually executing the code \emph{(see Appendix~\ref{app:arch} for a deep analysis of these defects)}. This design also leads to delayed and ambiguous feedback in error handling. The reported location of an error is rarely where the mistake actually happened. A subtle local defect can cause an irreversible interruption of the entire compilation process. Insufficient error logs provide no structural guidance, leaving models trapped in infinite debugging loops and hallucinations~\cite{jain2026bibby}. This mechanism fundamentally constrains LLM-writing.
+
+\subsection{UX \& Ecosystem Constraints}
+
+As detailed in Appendix~\ref{app:con}, {\LaTeX}'s ecosystem is too heavy. A full TeX Live distribution usually exceeds 6GB. This huge size makes it difficult to deploy in cloud environments or sandboxes. Moreover, the ecosystem is highly fragmented. Different engines (e.g., pdfLaTeX, XeLaTeX, and LuaLaTeX) handle fonts and Unicode differently, causing inconsistent compilation results. Today, the continued dominance of {\LaTeX} relies more on user habits and publisher rules rather than technical advantages~\cite{van_der_hoeven_jolly_2020}. It is time to adopt a more scalable, AI-friendly data representation.
