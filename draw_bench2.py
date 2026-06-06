@@ -1,6 +1,16 @@
+import argparse
 import re
 import numpy as np
 import matplotlib.pyplot as plt
+
+parser = argparse.ArgumentParser(description="Draw LLM task benchmark figures.")
+parser.add_argument(
+    "--anonymous",
+    "--anonymize",
+    action="store_true",
+    help='Replace Mogan labels with ".tmu" in generated figures.',
+)
+args = parser.parse_args()
 
 benchmarks = [
     "Deepseek-v3.2",
@@ -28,6 +38,10 @@ CHART_COLORS = {
 
 series_names = ["LaTeX", "Mogan"]
 highlight_names = {"Mogan"}
+
+
+def display_label(name):
+    return ".tmu" if args.anonymous and name == "Mogan" else name
 
 # Only varying configs
 charts = [
@@ -76,7 +90,7 @@ for cfg in charts:
             x + offsets[i],
             vals,
             width=bar_w,
-            label=name,
+            label=display_label(name),
             color=CHART_COLORS[cfg["name"]][name],
             edgecolor="white",
             linewidth=0.8,
