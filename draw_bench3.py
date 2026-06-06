@@ -65,6 +65,15 @@ def plot_loss(ax, steps: List[int], losses: List[float], color: str, label: str,
 
 
 def main():
+	parser = argparse.ArgumentParser(description="Draw fine-tuning loss figure.")
+	parser.add_argument(
+		"--anonymous",
+		"--anonymize",
+		action="store_true",
+		help='Replace Mogan labels with ".tmu" in generated figures.',
+	)
+	args = parser.parse_args()
+
 	texmacs_path = "log_texmacs.jsonl"
 	latex_path = "log_latex.jsonl"
 
@@ -72,7 +81,8 @@ def main():
 
 	if texmacs_path and os.path.isfile(texmacs_path):
 		steps, losses = parse_jsonl_loss(texmacs_path)
-		plot_loss(ax, steps, losses, TEXMACS_COLOR, 'Mogan Loss', SMOOTH_WINDOW)
+		texmacs_label = '.tmu Loss' if args.anonymous else 'Mogan Loss'
+		plot_loss(ax, steps, losses, TEXMACS_COLOR, texmacs_label, SMOOTH_WINDOW)
 	else:
 		print(f'Warning: cannot read {texmacs_path}')
 	if latex_path:

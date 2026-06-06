@@ -1,6 +1,16 @@
+import argparse
 import re
 import numpy as np
 import matplotlib.pyplot as plt
+
+parser = argparse.ArgumentParser(description="Draw compilation benchmark figures.")
+parser.add_argument(
+    "--anonymous",
+    "--anonymize",
+    action="store_true",
+    help='Replace Mogan labels with ".tmu" in generated figures.',
+)
+args = parser.parse_args()
 
 benchmarks = [
     "arXiv:1706.03762",
@@ -22,6 +32,15 @@ highlight_names = {
     "MoganSTEM on Windows",
     "MoganSTEM on Linux"
 }
+
+display_names = {
+    "MoganSTEM on Windows": ".tmu on Windows",
+    "MoganSTEM on Linux": ".tmu on Linux",
+}
+
+
+def display_label(name):
+    return display_names[name] if args.anonymous and name in display_names else name
 
 # -----------------------------
 # Colorblind-safe palette
@@ -95,7 +114,7 @@ for cfg in charts:
             x + offsets[i],
             vals,
             width=bar_w,
-            label=name,
+            label=display_label(name),
             color=series_colors[name],
             hatch=series_hatch[name],
             zorder=3,
@@ -145,4 +164,3 @@ for cfg in charts:
     plt.savefig(f"{cfg['name']}.pdf", bbox_inches="tight")
     plt.savefig(f"{cfg['name']}.png", dpi=300, bbox_inches="tight", facecolor="white")
     plt.show()
-

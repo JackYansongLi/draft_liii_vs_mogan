@@ -2,6 +2,7 @@
 setlocal enabledelayedexpansion
 
 set "SRC_DIR=%~dp0"
+@REM set "DEST_DIR=%~dp0arXiv-submission\figure-blind"
 set "DEST_DIR=%~dp0arXiv-submission\figure"
 
 if not exist "%DEST_DIR%" (
