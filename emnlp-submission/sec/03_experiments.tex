@@ -1,152 +1,200 @@
 \section{Numerical experiments}
 \label{sec:experiments}
 
-To verify the benefits of using Mogan STEM compared to \LaTeX{}, we designed and conducted experiments on fast compiling/rendering, LLM task performance, and fine-tuning.
+We compare \texttt{.tmu} with \texttt{.tex} on compiling/rendering speed, LLM task performance, and fine-tuning.
+
+\paragraph{Setup.} All experiments derive from a 120-page arXiv document (\texttt{arXiv:2502.17655}) and run on an Intel Ultra 9 285H CPU, GeForce RTX 5080 GPU, and 32GB RAM. We evaluate four LLMs---Deepseek-v3.2, Claude-Sonnet-4.5, Gemini-3-pro, and ChatGPT-5.2---on structure locating (20 questions), style-aware file merging (5 tasks), and debugging (20 samples). Scores reward correctness while penalizing total token usage $T$ (input, thinking, output, and MCP tools), and timing benchmarks report the average of three trials per document. We refer to these scores as Cost-aware Task Utility. Incorrect outputs receive zero, while token cost discounts successful completions; a correct but over-budget response may also score zero, without being considered semantically equivalent to a hallucination.
 
 \subsection{Benchmark on compiling/rendering time}
 
-We benchmarked the compilation and rendering time of Mogan against {\LaTeX} across documents of varying contents. The result demonstrates that Mogan STEM outperforms {\LaTeX} on both full compilation and incremental updates. In real-time LLM-writing, Mogan's tree-structured documents will drastically reduce agents' time cost by its low feedback delays. \emph{(Experimental setups and detailed timing data are documented in Appendix~\ref{app:bench}.)}
-
-\subsection{Performance in LLM tasks}
-
-We test using \texttt{.tmu} to train LLMs instead of \texttt{.tex}. The highly standardized grammar and structured tree-node tags in \texttt{.tmu} files help the models locate targets faster, complete contexts properly, and debug ill-formed structures efficiently. The benefits are summarized along three dimensions: locating document structure, merging files with distinct doc-styles, and debugging ill-formed documents using error messages, which will be discussed in the rest of this subsection.
-
-\subsubsection{Locating document structure}
-
-To evaluate the LLM's grasp of document structure, we designed tests on 4 LLMs. Each test has 20 questions (attached in Appendix~\ref{app:20ques}) about the article's structure from \texttt{arXiv:2502.17655}. For each answer, we take
-\[
-\resizebox{\columnwidth}{!}{$
-    u_s = \max\left(0, \begin{cases}
-            5 - \left\lfloor \frac{T}{1 \times 10^4} \right\rfloor & \text{, right answer} \\
-            0                                                      & \text{, wrong answer}
-        \end{cases} \right),
-$}
-\]
-where $T$ is the token usage for the input, thinking, output, and MCP tools, $\sum u_s \in [0, 100]$. The reason for using 10k tokens as a scale is that when the LLM had high confidence and located the structure accurately, it always consumed less than 10k tokens per question on our experimental material. Higher token usage means more loops of thinking and more uses of MCP tools, which represents lower efficiency and higher costs~\cite{ling_table2latex_2025}.
+We benchmark compilation and rendering on 6 arXiv documents. \texttt{.tmu} outperforms \texttt{.tex} on both full compilation and incremental updates; the latter is most decisive (Figure~\ref{fig:inc-update}), because \texttt{.tmu} updates local tree nodes without I/O overhead ($t_{\text{IO}}=0$, activated only when opening the document). These low feedback delays directly reduce agent time cost in real-time LLM writing. \emph{(Full-compilation results and the $t_{\text{IO}}$ cost model are in Appendix~\ref{app:bench}.)}
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\columnwidth]{figure/reading.pdf}
-    \caption{Test on locating document structure}
-    \label{fig:reading}
+    \includegraphics[width=\columnwidth]{figure/inc-update.pdf}
+    \caption{Benchmark on incremental update. Each bar represents the average of three trials.}
+    \label{fig:inc-update}
 \end{figure}
 
-Figure~\ref{fig:reading} illustrates the results. Even if it is not a fair comparison as the LLMs have been trained inherently on \LaTeX{} corpora, Mogan took the lead for most LLMs. The reason is that the file structure in Mogan has higher information density: references are updated and stored directly (e.g., \path!<associate|sec:tree-struc-on-mogan|<tuple|5.1|13>>!, where \path!sec:tree-struc-on-mogan! is the label name, \verb!5.1! is the section number, and \verb!13! is the page number) in the \texttt{.tmu} file after incremental update. In contrast, in \LaTeX{}, the LLM needs to scan the entire document to determine the actual displayed environment number after compilation. Thus, the LLM can locate the environment quickly in Mogan.
+\subsection{Performance in LLM tasks}
+
+The standardized grammar and explicit tree-node tags in \texttt{.tmu} help models locate targets, merge contexts, and debug ill-formed structures more efficiently than \texttt{.tex}. Figure~\ref{fig:llm-tasks} summarizes the three LLM task results.
+
+\begin{figure*}[t]
+    \centering
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figure/reading.pdf}
+        \caption{Structure locating}
+        \label{fig:reading}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figure/writing.pdf}
+        \caption{Style-aware merging}
+        \label{fig:writing}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figure/debugging.pdf}
+        \caption{Debugging}
+        \label{fig:debugging}
+    \end{subfigure}
+    \caption{LLM task performance for \texttt{.tmu} and \texttt{.tex}.}
+    \label{fig:llm-tasks}
+\end{figure*}
+
+\subsubsection{Locating document structure}
+
+To evaluate structural understanding, each LLM answers 20 document-structure questions (Appendix~\ref{app:20ques}). For each answer, we take
+\begingroup\small
+\[
+    u_s = \max\left(0,\ \begin{cases}
+        5 - \left\lfloor \dfrac{T}{1 \times 10^4} \right\rfloor & \text{right answer,} \\[6pt]
+        0 & \text{wrong answer,}
+    \end{cases} \right)
+\]
+\endgroup
+where $\sum u_s \in [0, 100]$. The 10k-token scale separates confident structure location from longer reasoning/tool-use loops, which indicate lower efficiency and higher cost~\cite{ling_table2latex_2025}.
+
+Despite LLMs' stronger pretraining exposure to \LaTeX{}, \texttt{.tmu} leads for most models (Figure~\ref{fig:reading}). Its reference metadata is updated and stored directly in the file (e.g., \path!<associate|sec:tree-struc-on-mogan|<tuple|5.1|13>>!), whereas \texttt{.tex} requires scanning and resolving the compiled numbering context.
+
+Gemini is the only exception, scoring 90 on \texttt{.tex} versus 87 on \texttt{.tmu}. Thus, we claim gains in most, rather than all, settings and interpret this as a comparison of the complete native representations rather than tree syntax alone.
+% Replaced by the combined Figure~\ref{fig:llm-tasks} to save space.
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=\columnwidth]{figure/reading.pdf}
+%     \caption{Test on locating document structure.}
+%     \label{fig:reading}
+% \end{figure}
 
 \subsubsection{Merging files with distinct doc-styles}
 \label{sec:doc-style}
 
-We define \emph{doc-style} informally as the style of macro naming and command usage in a document. Documents may have distinct macro aliases, redefined macros, and more. For example, the theorem environments could be named \verb|theorem| in one but \verb|thm| in another. The same macro could have different meanings if \verb|\norm| is defined as \verb|\left\lVert #1 \right\rVert| in one but \verb|\mid #1 \mid| in another. The same command could have different usage if \verb|\R| is defined as \verb|\mathbb{R}| in one but \verb|\textcolor{red}{#1}| in another.
+We define \emph{doc-style} as macro naming and command usage. Documents may use different theorem aliases, redefine the same macro differently, or give the same command incompatible meanings.
 
-To verify the benefit of generating precise structured and standard grammar for LLM writing, we asked the LLMs to complete two assignments.
+We ask LLMs to complete two assignments.
 
-Assignment 1 is to generate two files: \texttt{theorems.tex} and \texttt{proofs.tex}. \texttt{theorems.tex} is a large collection of mathematical theorems in a doc-style that includes many newly-defined macros, redefined commands, and packages. \texttt{proofs.tex} is the collection of proofs of the theorems above but disordered and has a distinct doc-style. \texttt{proofs.tex} even includes conflicting packages compared to \texttt{theorems.tex}. The connection between these two files is the cross-references of each theorem and equation. The LLM should guarantee that \texttt{theorems.tex} and \texttt{proofs.tex} generated can be compiled successfully alone.
+Assignment 1 generates two independently compilable files: \texttt{theorems.tex}, a theorem collection with many new macros and packages, and \texttt{proofs.tex}, a disordered proof collection with a distinct doc-style and conflicting packages. The files are connected by theorem and equation cross-references.
 
-Assignment 2 is to merge the two files generated by each LLM. The merged file should be written in the same doc-style as the leading file \texttt{theorems.tex}. The LLM should guarantee that the merged file can be compiled successfully and the proofs are placed properly below their theorems according to cross-references.
+Assignment 2 merges the generated files into the doc-style of \texttt{theorems.tex}, while preserving compilability and placing each proof below the referenced theorem.
 
-We use Mogan STEM to generate \texttt{theorems.tmu} and \texttt{proofs.tmu} directly from their \texttt{.tex} versions; the task in Mogan is similar. The content in both Mogan and \LaTeX{} is identical after rendering, which is guaranteed by the \LaTeX{} importing engine built into Mogan.
+We obtain \texttt{theorems.tmu} and \texttt{proofs.tmu} from their \texttt{.tex} versions; rendered content is identical, as guaranteed by a \LaTeX{} importing engine.
 
-Assignment 1 has 1 task (generate two files). Assignment 2 has 4 tasks (merge two files generated by 4 LLMs). For each task, we take
+Assignment 1 is 1 generation task; Assignment 2 is 4 merge tasks. For each task, we take
 \begin{equation*}
 \resizebox{\columnwidth}{!}{$
 u_m =
-\max\left(
-0,
+\max\left(0,\
 \begin{cases}
-20 - 2E_{\mathrm{ref}}
-- \left\lfloor \dfrac{T}{10^4} \right\rfloor
-- E_{\mathrm{sty}},
-\\[4pt]
-10 - 2E_{\mathrm{ref}}
-- \left\lfloor \dfrac{T}{10^4} \right\rfloor
-- E_{\mathrm{sty}},
-\\[4pt]
+20 - 2E_{\mathrm{ref}} - \left\lfloor \dfrac{T}{10^4} \right\rfloor - E_{\mathrm{sty}}
+    & \text{success on the first try,} \\[6pt]
+10 - 2E_{\mathrm{ref}} - \left\lfloor \dfrac{T}{10^4} \right\rfloor - E_{\mathrm{sty}}
+    & \text{success on the second try,} \\[6pt]
 0
+    & \text{fail within two tries,}
 \end{cases}
 \right)
 $}
 \end{equation*}
-\vspace{-0.5em}
-\[
-\begin{aligned}
-&\text{first row: success on the first try,}\\
-&\text{second row: success on the second try,}\\
-&\text{third row: fail within two tries.}
-\end{aligned}
-\]
-where $T$ is the token usage for the input, thinking, output, and MCP tools, $E_{\text{ref}}$ is the number of reference failures (i.e., "??" appears but compilation succeeds), $E_{\text{sty}}$ is the number of cases where the merged file has the doc-style of \texttt{proofs.tex} (we required LLMs to write the merged file in the doc-style of \texttt{theorems.tex}, so other macro aliases or redefined macros are not accepted), $\sum u_m \in [0, 100]$.
+where $E_{\text{ref}}$ is the number of reference failures (i.e., "??" appears but compilation succeeds), $E_{\text{sty}}$ is the number of cases where the merged file has the doc-style of \texttt{proofs.tex} (we required LLMs to write the merged file in the doc-style of \texttt{theorems.tex}, so other macro aliases or redefined macros are not accepted), $\sum u_m \in [0, 100]$.
 
-As illustrated in Figure~\ref{fig:writing}, Mogan gains higher scores on all LLMs. LLMs struggle with \LaTeX{} code generation on complex tasks~\cite{kale2025texpert}. The reason is that Mogan files have grammatical consistency so that the LLMs do not need to tackle conflicts and unify usage from two distinct doc-styles. The hallucinations and randomness from LLMs are strictly limited as well.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\columnwidth]{figure/writing.pdf}
-    \caption{Test on merging files with distinct doc-styles}
-    \label{fig:writing}
-\end{figure}
-
-Furthermore, merging contexts from two documents with distinct doc-styles is just a copy-and-paste task in Mogan STEM.
+As shown in Figure~\ref{fig:writing}, \texttt{.tmu} scores higher for all LLMs. Its grammatical consistency removes many macro-conflict and style-unification choices that make complex \LaTeX{} generation brittle~\cite{kale2025texpert}; merging structured contexts becomes closer to copying compatible subtrees.
+% Replaced by the combined Figure~\ref{fig:llm-tasks} to save space.
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=\columnwidth]{figure/writing.pdf}
+%     \caption{Test on merging files with distinct doc-styles.}
+%     \label{fig:writing}
+% \end{figure}
+%
+% Furthermore, with the \texttt{.tmu} representation, merging contexts from two documents with distinct doc-styles reduces to a simple copy-and-paste task.
 
 \subsubsection{Debugging ill-formed documents using error messages}
 
-Debugging ill-formed documents is a common usage of LLM co-writing. We constructed several ill-formed documents (originating from \texttt{arXiv:2502.17655}), fed the error messages to LLMs, and asked them to fix them. The test has 20 ill-formed samples as shown in Table~\ref{tab:ill-dist}.
+Debugging ill-formed documents is a common LLM co-writing use case. We construct 20 samples from the source document (Table~\ref{tab:ill-dist}), feed error messages to LLMs, and ask them to repair the document.
 
-\begin{table}[htbp]
+\begin{table}[t]
     \centering
-    \caption{Distribution of illness types in samples}
+    \small
+    \setlength{\tabcolsep}{4pt}
+    \caption{Distribution of error types.}
     \label{tab:ill-dist}
     \begin{tabular}{lc}
         \toprule
-        \textbf{Illness Type}     & \textbf{Count} \\
+        \textbf{Error Type} & \textbf{Count} \\
         \midrule
-        Unclosed bracket          & 4              \\
-        Unclosed environment      & 5              \\
-        Wrong command usage       & 4              \\
-        Undefined cross-reference & 3              \\
-        Conflicting packages      & 2              \\
-        Self-recursive macros     & 2              \\
+        Unclosed bracket & 4 \\
+        Unclosed environment & 5 \\
+        Wrong command usage & 4 \\
+        Undefined cross-reference & 3 \\
+        Conflicting packages & 2 \\
+        Self-recursive macros & 2 \\
         \bottomrule
     \end{tabular}
 \end{table}
 
-For each illness, we take
+% Older full table, kept for restoration if needed.
+% \begin{table}[htbp]
+%     \centering
+%     \small
+%     \setlength{\tabcolsep}{3pt}
+%     \caption{Distribution of error types in samples}
+%     \label{tab:ill-dist}
+%     \begin{tabular}{lc}
+%         \toprule
+%         \textbf{Error Type}     & \textbf{Count} \\
+%         \midrule
+%         Unclosed bracket          & 4              \\
+%         Unclosed environment      & 5              \\
+%         Wrong command usage       & 4              \\
+%         Undefined cross-reference & 3              \\
+%         Conflicting packages      & 2              \\
+%         Self-recursive macros     & 2              \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
+
+For each error, we take
+\begingroup\small
 \[
-\resizebox{\columnwidth}{!}{$
-    u_d = \max\left(0, \begin{cases}
-            5 - \left\lfloor \frac{T}{1 \times 10^4} \right\rfloor & \text{, right answer} \\
-            0                                                      & \text{, wrong answer}
-        \end{cases} \right),
-$}
+    u_d = \max\left(0,\ \begin{cases}
+        5 - \left\lfloor \dfrac{T}{1 \times 10^4} \right\rfloor & \text{right answer,} \\[6pt]
+        0 & \text{wrong answer,}
+    \end{cases} \right)
 \]
-where $T$ is the token usage for the input, thinking, output, and MCP tools, $\sum u_d \in [0, 100]$, as illustrated in Figure~\ref{fig:debugging}.
+\endgroup
+where $\sum u_d \in [0, 100]$.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\columnwidth]{figure/debugging.pdf}
-    \caption{Test on debugging ill-formed documents using error messages}
-    \label{fig:debugging}
-\end{figure}
+ We treat this as an end-to-end evaluation under each format's native validation and diagnostic workflow, rather than a controlled comparison using identical plain-text error messages.
 
-The \LaTeX{} group thinks for a long time to solve most of the error samples. The Mogan group locates the problems quickly and solves all of the error samples (only two samples consume more than 10k tokens). The reason is that the illness in \texttt{.tmu} files only influences the closest tree-tag ancestor (as discussed in Section~\ref{sec:tree-struc-on-mogan}). So the error message in Mogan STEM is quite clear for LLMs to understand and correct easily. In contrast, \LaTeX{}'s error messages are usually detached from their root causes in large documents and the logs are very long.
+The \texttt{.tex} group requires substantially more reasoning on most samples, while the \texttt{.tmu} group solves all samples and only two exceed 10k tokens (Figure~\ref{fig:debugging}). A defect in \texttt{.tmu} affects only the closest tree-tag ancestor (Section~\ref{sec:tree-struc-on-mogan}), yielding localized messages instead of long logs detached from root causes.
+% Replaced by the combined Figure~\ref{fig:llm-tasks} to save space.
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=\columnwidth]{figure/debugging.pdf}
+%     \caption{Test on debugging ill-formed documents using error messages.}
+%     \label{fig:debugging}
+% \end{figure}
 
-In fact, \texttt{.tmu} files do not have problems like unclosed environments or self-recursive macros if they are written by Mogan STEM. In addition, Mogan STEM provides a WYSIWYG and intuitive user interface. If there is anything wrong in a \texttt{.tmu} file, when opened by Mogan STEM, it is always clear to see where the problem is. And the rest of the document can be rendered correctly instead of being terminated in compilation like \LaTeX{}.
+Well-formed \texttt{.tmu} also precludes classes such as unclosed environments or self-recursive macros; when a malformed tree exists, a structured editor can surface the affected node directly while the rest of the document remains renderable.
 
 \subsection{Efficiency in fine-tuning}
 \label{sec:eff-in-sft}
 
-Recall that Mogan uses a tree structure while \LaTeX{} uses a linear macro flow. Benefiting from the tree structure, it is easier for models to predict the next token in Mogan than in \LaTeX{}.
+Because \texttt{.tmu} is tree-structured while \texttt{.tex} follows a linear macro flow, next-token prediction should be less ambiguous in \texttt{.tmu}.
 
-We conducted a parallel supervised fine-tuning (SFT) experiment (machine configuration is shown in Appendix~\ref{app:ms}). We generated 1000 random formulas written in \LaTeX{} and converted them to Mogan S-expressions\footnote{Also known as Scheme representations. It has been discussed in Section~\ref{sec:tree-struc-on-mogan}.} using Mogan STEM. We guaranteed that the formulas in both Mogan and \LaTeX{} are identical after rendering. The formulas cover fractions, radicals, subscripts and superscripts, matrices, piecewise functions, integrals and summations, limits, logical quantifiers, composite functions, and nested parentheses. Next, we cut the formulas into two parts. We gave the prefix part to the model and let it complete the rest.
+We fine-tune Qwen2.5-7B-Instruct~\cite{qwen2025qwen25} with LoRA on 1000 random formulas, converting each \LaTeX{} formula to an equivalent rendered \texttt{.tmu} S-expression. The formulas cover common mathematical constructs; each is split into a prefix prompt and completion target.
 
-Figure~\ref{fig:fine-tune} shows the experiment of low-rank adaptation (LoRA) based on Qwen2.5-7B-Instruct~\cite{qwen2025qwen25} on 1000 formulas in 289 steps, following the approach of Dong et al.~\cite{dong2025machinelearninglm}. The Mogan group's loss converges to around 0.4 while \LaTeX{}'s converges to around 0.7. The reason is that Mogan's S-expressions have lower information entropy~\cite{xia2024docgenome}. \LaTeX{} documents have a lot of syntax noise. For example, the code \verb|\frac{a}{b}| and \verb|{a \over b}| in \LaTeX{} are equivalent after rendering; the code \verb|x^{2}| and \verb|x^2| are also equivalent after rendering. So the model has less certainty when predicting the next token in \LaTeX{} compared to Mogan.
+Following Dong et al.~\cite{dong2025machinelearninglm}, both runs use identical LoRA settings and differ only in training format. Figure~\ref{fig:fine-tune} shows that \texttt{.tmu} converges to around 0.4 loss, while \texttt{.tex} converges to around 0.7. This supports the low-entropy claim: equivalent \LaTeX{} strings such as \verb|\frac{a}{b}| and \verb|{a \over b}|, or \verb|x^{2}| and \verb|x^2|, create extra prediction uncertainty absent from canonicalized \texttt{.tmu} trees.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\columnwidth]{figure/fine-tune.pdf}
-    \caption{Experiment of LoRA based on Qwen2.5-7B-Instruct}
+    \caption{Experiment of LoRA based on Qwen2.5-7B-Instruct.}
     \label{fig:fine-tune}
 \end{figure}
 
-Note that \LaTeX{} documents have weaker grammatical consistency than Mogan. It is a burden for the model to predict the proper command in line with macro definitions in the preamble, especially in large documents written in several distinct doc-styles (discussed in Section~\ref{sec:doc-style}) during training~\cite{lin2024accurate}.
+This advantage matters especially for large documents with multiple doc-styles, where \LaTeX{} models must infer commands from preamble-local macro definitions~\cite{lin2024accurate}.
 
-Moreover, discussions of Mogan versus Markdown are attached in Limitations.
+Moreover, discussions of the \texttt{.tmu} format versus Markdown are attached in Limitations.

@@ -1,17 +1,33 @@
-\section{Legacy {\TeX}: Architectural and Ecosystem Bottlenecks}
+\section{Background: Why {\TeX} Limits LLM Workflows}
+\label{sec:background}
+
+This section details the frictions summarized in Section~\ref{sec:introduction}.
 
 \subsection{Introduction of {\TeX}}
 
-For decades, {\LaTeX} has been the standard for scientific writing~\cite{lamport1994document}. However, it is not friendly to Large Language Models (LLMs). As an unstructured macro language~\cite{van_der_hoeven_jolly_2020}, {\LaTeX} brings significant challenges to modern AI-driven workflows \emph{(we defer a brief history of {\TeX} to Appendix~\ref{app:intro})}.
+For decades, {\LaTeX} has been the standard for scientific writing~\cite{lamport1994document}. As an unstructured macro language~\cite{van_der_hoeven_jolly_2020}, however, it presents structural limitations for modern LLM-driven workflows along the axis of machine-tractable document structure \emph{(we defer a brief history of {\TeX} to Appendix~\ref{app:intro})}.
 
 \subsection{Principles of {\TeX} Compilation}
 
-{\TeX} uses a batch-processing model. It reads the source code from beginning to end and replaces macros step by step. It does not build an explicit document tree (Abstract Syntax Tree) in memory~\cite{van_der_hoeven_gnu_2001}. Because it lacks internal states, {\LaTeX} must rely on multiple compilation passes to resolve cross-references and bibliographies. It writes temporary data into intermediate files (like \texttt{.aux}, \texttt{.toc}, and \texttt{.bbl}), and reads them back in the next run \emph{(detailed in Appendix~\ref{app:pr})}. This multi-pass design is inherently slow and opaque. It prevents the sub-second, real-time feedback required by modern editors and AI agents~\cite{madje2023typst}.
+{\TeX} uses a batch-processing model: it reads source code from beginning to end, expanding macros step by step without building an explicit document tree (Abstract Syntax Tree) in memory~\cite{van_der_hoeven_gnu_2001}. Lacking internal state, {\LaTeX} must resolve cross-references and bibliographies through multiple compilation passes, writing temporary data into intermediate files (\texttt{.aux}, \texttt{.toc}, \texttt{.bbl}) and reading them back on the next run \emph{(detailed in Appendix~\ref{app:pr})}. This multi-pass design is inherently slow and opaque, precluding the sub-second, real-time feedback required by modern editors and AI agents~\cite{madje2023typst}.
 
 \subsection{Architectural Defects in {\TeX}}
 
-{\TeX} processes documents as a linear sequence of commands. Structural semantics and typesetting decisions are deeply coupled within a single execution path. Consequently, AI models and static analysis tools cannot reliably extract the document's structure without actually executing the code \emph{(see Appendix~\ref{app:arch} for a deep analysis of these defects)}. This design also leads to delayed and ambiguous feedback in error handling. The reported location of an error is rarely where the mistake actually happened. A subtle local defect can cause an irreversible interruption of the entire compilation process. Insufficient error logs provide no structural guidance, leaving models trapped in infinite debugging loops and hallucinations~\cite{jain2026bibby}. This mechanism fundamentally constrains LLM-writing.
+{\TeX} processes documents as a linear sequence of commands in which structural semantics and typesetting decisions are deeply coupled within a single execution path. Consequently, AI models and static analysis tools cannot reliably extract the document's structure without executing the code \emph{(see Appendix~\ref{app:arch} for a deep analysis)}. This separation problem is fundamental, not incidental: Frank Mittelbach, the technical lead for {\LaTeX}, candidly conceded in an interview~\cite{interview2021} that
+\begin{quote}
+the separation between local and global in {\LaTeX} seems to be hard. [\ldots] First of all, it is right now hard in {\TeX}\ldots
+\end{quote}
+
+The same coupling makes error feedback delayed and ambiguous: the reported location of an error is rarely where the mistake actually happened, and a subtle local defect can irreversibly abort the entire compilation. Listing~\ref{lst:unclosed-frac} shows a typical case---the second argument of \verb|\frac| is missing its closing brace, yet {\TeX} keeps consuming subsequent tokens and only reports a \texttt{Runaway argument?} error at \verb|\end{equation}|, far from the true cause.
+
+\begin{lstlisting}[caption={Unclosed brace: error reported at \texttt{\textbackslash end\{equation\}}, not at its source},label={lst:unclosed-frac}]
+\begin{equation}
+x=\frac{-b\pm \sqrt{b^{2}-4ac}}{2a
+\end{equation}
+\end{lstlisting}
+
+Because such logs provide little structural guidance, models are prone to prolonged, often non-terminating debugging loops and hallucinations~\cite{jain2026bibby}. This mechanism constrains LLM-driven writing.
 
 \subsection{UX \& Ecosystem Constraints}
 
-As detailed in Appendix~\ref{app:con}, {\LaTeX}'s ecosystem is too heavy. A full TeX Live distribution usually exceeds 6GB. This huge size makes it difficult to deploy in cloud environments or sandboxes. Moreover, the ecosystem is highly fragmented. Different engines (e.g., pdfLaTeX, XeLaTeX, and LuaLaTeX) handle fonts and Unicode differently, causing inconsistent compilation results. Today, the continued dominance of {\LaTeX} relies more on user habits and publisher rules rather than technical advantages~\cite{van_der_hoeven_jolly_2020}. It is time to adopt a more scalable, AI-friendly data representation.
+As detailed in Appendix~\ref{app:con}, {\LaTeX}'s ecosystem is too heavy and fragmented: a full TeX Live distribution exceeds 6GB, hindering deployment in cloud environments or sandboxes, while different engines (pdfLaTeX, XeLaTeX, LuaLaTeX) handle fonts and Unicode differently, yielding inconsistent results. While {\LaTeX} retains clear technical strengths in typographic quality and mathematical expressivity, its continued dominance is also sustained by established user habits and publisher requirements~\cite{van_der_hoeven_jolly_2020}; for LLM-driven workflows specifically, these factors leave its structural limitations unaddressed. This motivates a more scalable, LLM-friendly data representation.

@@ -1,0 +1,39 @@
+\section{Introduction}
+\label{sec:introduction}
+
+LLM-assisted scientific writing is moving from isolated chat interactions to production workflows: agents inspect manuscripts, draft equations and proofs, merge revisions, and repair build failures in editors, CI systems, and conversion pipelines. Most such workflows still operate over {\LaTeX} source. {\LaTeX} remains excellent for typography, mathematical notation, and long-term compatibility, but its source format is optimized for typesetting rather than machine action. For LLM systems, the bottleneck is therefore representational: tools must recover document structure from a macro program that was not designed to expose it.
+
+Three practical failure modes follow. First, {\LaTeX} exposes no explicit document tree, so agents spend tokens rediscovering sections, labels, equations, and scope. Second, structure and rendering instructions are coupled, making static analysis unreliable without executing the document. Third, errors are often non-local: a small syntactic defect can surface many lines later and send an agent into repeated compile-and-repair loops. In industry settings, these failures translate directly into latency, tool calls, compute cost, and lower reliability (we detail the mechanisms in Section~\ref{sec:background}).
+
+We study \texttt{.tmu}, a low-entropy tree-structured representation from the GNU {\TeX}macs lineage~\cite{van_der_hoeven_gnu_2001}, as an alternative substrate for LLM-assisted scientific writing. In \texttt{.tmu}, formulas, citations, sections, and layout objects are represented as addressable tree nodes. This makes local edits and reference updates explicit and reduces source-level ambiguity: many equivalent {\LaTeX} encodings collapse into a more canonical tree. The same representation also supports WYSIWYG authoring for humans, but our claim here is machine-facing: structured, low-entropy source should be easier for LLM systems to locate, merge, repair, and model. In practice, \texttt{.tmu} already underlies an existing scientific-writing system supporting document import, structured editing, node-level LLM assistance, syntax checking, and local repair.
+
+Our contributions are as follows:
+\vspace{-0.35em}
+\begin{itemize}
+    \setlength{\itemsep}{0.15em}
+    \setlength{\parsep}{0pt}
+    \setlength{\parskip}{0pt}
+    \item We diagnose three representational frictions of {\LaTeX} for LLM authoring---no explicit AST, structure--typesetting coupling, and non-local error reporting---and tie each to a concrete LLM failure mode.
+    \item We present a low-entropy, tree-structured \texttt{.tmu} representation (on the {\TeX}macs lineage) with explicit semantic nodes and clear contextual boundaries.
+    \item We empirically evaluate \texttt{.tmu} on structure location, style-aware document merging, debugging of ill-formed documents, and formula-completion fine-tuning, showing gains in most evaluated settings (Section~\ref{sec:experiments}).
+\end{itemize}
+
+% Previous longer introduction, kept for restoration if needed.
+% Large language models (LLMs) are increasingly used to read, write, and process scientific mathematics, from drafting proofs and equations to refactoring entire manuscripts. Today they do so almost entirely by reading and generating {\LaTeX} source, which makes the document \emph{format} itself a bottleneck: whatever an LLM can or cannot do with mathematical writing is mediated by how that writing is represented on disk.
+%
+% We do not contest {\LaTeX}'s genuine strengths---its typographic quality, its mathematical expressivity, and decades of stability and ecosystem maturity are real and well earned. But LLM-driven authoring introduces a \emph{new} requirement that these strengths do not address: machine-tractable document structure, an axis along which {\LaTeX} was never designed to operate.
+%
+% Viewed through this lens, three frictions surface. {\LaTeX} exposes no explicit document tree (AST), so models waste tokens and remain structurally blind to what they are editing; structure is coupled to typesetting, so the document's organization cannot be extracted without executing the code; and error messages are detached from their root cause, trapping LLMs in prolonged debugging loops far from the actual defect (we detail these in Section~\ref{sec:background}).
+%
+% We argue that the root cause is \emph{representational} rather than incidental, and we adopt a low-entropy, tree-structured representation as the remedy---concretely the \texttt{.tmu} format, built on the GNU {\TeX}macs lineage~\cite{van_der_hoeven_gnu_2001}. In this representation every semantic unit---formula, citation, section---is an addressable node, which decouples structure from typesetting and gives both tools and models a stable tree to operate on. The key intuition for ``low-entropy'' is that the same rendered output admits far fewer valid source encodings than in {\LaTeX} (e.g., \verb|\frac{a}{b}| versus \verb|{a \over b}|), so next-token prediction is correspondingly less ambiguous.
+%
+% Crucially, this is one representation with two beneficiaries. Its WYSIWYG editing interface lets human authors manipulate rendered mathematical structure directly, avoiding the edit-source-then-compile loop, while our experiments show that the same structured substrate is also more efficient for LLMs. A single structured representation can therefore support human ergonomics and machine tractability without requiring an unsupported deployment or usage claim.
+%
+% Our contributions are as follows:
+% \begin{itemize}
+%     \item We diagnose three representational frictions of {\LaTeX} for LLM authoring---no explicit AST, structure--typesetting coupling, and non-local error reporting---and tie each to a concrete LLM failure mode.
+%     \item We present a low-entropy, tree-structured \texttt{.tmu} representation (on the {\TeX}macs lineage) with explicit semantic nodes and clear contextual boundaries.
+%     \item We show empirically that it improves LLM performance on locating document structure, merging files across document styles, and debugging ill-formed documents, and that fine-tuning on \texttt{.tmu} reduces training loss relative to \texttt{.tex} (Section~\ref{sec:experiments}).
+% \end{itemize}
+%
+% Across structure-location, file-merging, debugging, and fine-tuning evaluations, the \texttt{.tmu} representation consistently outperforms {\LaTeX}, supporting the case for a tree-structured substrate for LLM-assisted scientific writing.
