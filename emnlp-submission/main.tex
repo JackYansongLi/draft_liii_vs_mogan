@@ -2,7 +2,7 @@
 
 % Change "review" to "final" to generate the final (sometimes called camera-ready) version.
 % Change to "preprint" to generate a non-anonymous version with page numbers.
-\usepackage[review]{acl}
+\usepackage[final]{acl}
 
 % Standard package includes
 \usepackage{times}
@@ -44,6 +44,8 @@
 \usepackage{listings}
 \usepackage{hwemoji}
 
+\newcommand{\yw}[1]{\textcolor{red}{YW: #1}}
+
 % LaTeX code style with line numbers
 \lstdefinestyle{latexstyle}{
     language=[LaTeX]TeX,
@@ -80,7 +82,7 @@
 %
 % and set <dim> to something 5cm or larger.
 
-\title{Mogan STEM: A Low-Entropy Structured Representation Empowering AI for Science}
+\title{\texttt{.tmu}: A Low-Entropy Tree-Structured Representation for LLM-Assisted Scientific Writing}
 
 % Author information can be set in various styles:
 % For several authors from the same institution:
@@ -109,62 +111,48 @@ $^{1}$Southern University of Science and Technology,
 $^{2}$Alibaba,\\
 $^{3}$Tsinghua University,
 $^{4}$Rutgers University,
-$^{5}$Liii Network
+$^{5}$Eastern Institute of Technology, Ningbo
 }
+
 \newcommand{\dagfootnote}{%
   {\let\thefootnote\relax
   \footnotetext[0]{%
-    \parbox{\columnwidth}{
-      $^\dag$ Equal Contribution.\\
-      $\ast$ Corresponding author.
-    }
+    \begin{tabular}{@{}l@{\hspace{0.25em}}l@{}}
+      $^\dagger$ & Equal Contribution.\\
+      $^\ast$    & Corresponding author.
+      \href{mailto:ysli@eitech.edu.cn}{\texttt{ysli@eitech.edu.cn}}
+    \end{tabular}
   }}%
 }
 
 % \author{
-%  \textbf{First Author\textsuperscript{1}},
-%  \textbf{Second Author\textsuperscript{1,2}},
-%  \textbf{Third T. Author\textsuperscript{1}},
-%  \textbf{Fourth Author\textsuperscript{1}},
-% \\
-%  \textbf{Fifth Author\textsuperscript{1,2}},
-%  \textbf{Sixth Author\textsuperscript{1}},
-%  \textbf{Seventh Author\textsuperscript{1}},
-%  \textbf{Eighth Author \textsuperscript{1,2,3,4}},
-% \\
-%  \textbf{Ninth Author\textsuperscript{1}},
-%  \textbf{Tenth Author\textsuperscript{1}},
-%  \textbf{Eleventh E. Author\textsuperscript{1,2,3,4,5}},
-%  \textbf{Twelfth Author\textsuperscript{1}},
-% \\
-%  \textbf{Thirteenth Author\textsuperscript{3}},
-%  \textbf{Fourteenth F. Author\textsuperscript{2,4}},
-%  \textbf{Fifteenth Author\textsuperscript{1}},
-%  \textbf{Sixteenth Author\textsuperscript{1}},
-% \\
-%  \textbf{Seventeenth S. Author\textsuperscript{4,5}},
-%  \textbf{Eighteenth Author\textsuperscript{3,4}},
-%  \textbf{Nineteenth N. Author\textsuperscript{2,5}},
-%  \textbf{Twentieth Author\textsuperscript{1}}
-% \\
-% \\
-%  \textsuperscript{1}Affiliation 1,
-%  \textsuperscript{2}Affiliation 2,
-%  \textsuperscript{3}Affiliation 3,
-%  \textsuperscript{4}Affiliation 4,
-%  \textsuperscript{5}Affiliation 5
-% \\
+%  \textbf{Tianyou Liu$^{\dagger,1}$},
+%  \textbf{Ziqiang Li$^{\dagger,2}$},
+%  \textbf{Xurui Liu$^{3}$},
+%  \textbf{Yu Wu$^{4}$},
+%  \textbf{Yansong Li$^{\ast,5}$}
+%  \\
+%  \\
+%  \textsuperscript{1}Southern University of Science and Technology,
+%  \textsuperscript{2}Alibaba,
+%  \textsuperscript{3}Tsinghua University,\\
+%  \textsuperscript{4}Rutgers University,
+%  \textsuperscript{5}Eastern Institute of Technology, Ningbo
+%  \\
 %  \small{
-%    \textbf{Correspondence:} \href{mailto:email@domain}{email@domain}
+%    $^\dagger$ Equal Contribution.
+%    $^\ast$ Corresponding author. \href{mailto:ysli@eitech.edu.cn}{\texttt{ysli@eitech.edu.cn}}
 %  }
 % }
 
 \begin{document}
 
 \maketitle
-% \dagfootnote
+\dagfootnote
 
 \input{sec/00_abstract.tex}
+
+\input{sec/01_introduction.tex}
 
 \input{sec/01_tex.tex}
 

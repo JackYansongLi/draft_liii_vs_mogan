@@ -45,17 +45,17 @@ def display_label(name):
 
 # Only varying configs
 charts = [
-    {"name": "writing", "data_path": "writing.txt", "ylabel": "Total Utility", "ylim": (0, 105)},
-    {"name": "reading", "data_path": "reading.txt", "ylabel": "Total Utility", "ylim": (0, 100)},
-    {"name": "debugging", "data_path": "debugging.txt", "ylabel": "Total Utility", "ylim": (0, 108)},
+    {"name": "writing", "data_path": "writing.txt", "ylabel": "Cost-aware Task Utility", "ylim": (0, 105)},
+    {"name": "reading", "data_path": "reading.txt", "ylabel": "Cost-aware Task Utility", "ylim": (0, 100)},
+    {"name": "debugging", "data_path": "debugging.txt", "ylabel": "Cost-aware Task Utility", "ylim": (0, 108)},
 ]
 
 plt.rcParams.update({
     "font.family": "serif",
-    "axes.labelsize": 12,
-    "xtick.labelsize": 10,
-    "ytick.labelsize": 10,
-    "legend.fontsize": 10,
+    "axes.labelsize": 16,
+    "xtick.labelsize": 16,
+    "ytick.labelsize": 13,
+    "legend.fontsize": 13,
 })
 
 bar_w = 0.30
@@ -104,7 +104,7 @@ for cfg in charts:
                 f"{int(v)}",
                 ha="center",
                 va="bottom",
-                fontsize=12,
+                fontsize=16,
                 fontweight="bold" if name in highlight_names else "normal",
             )
 
