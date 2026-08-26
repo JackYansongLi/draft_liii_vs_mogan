@@ -186,7 +186,7 @@ Because \texttt{.tmu} is tree-structured while \texttt{.tex} follows a linear ma
 
 We fine-tune Qwen2.5-7B-Instruct~\cite{qwen2025qwen25} with LoRA on 1000 random formulas, converting each \LaTeX{} formula to an equivalent rendered \texttt{.tmu} S-expression. The formulas cover common mathematical constructs; each is split into a prefix prompt and completion target.
 
-Following Dong et al.~\cite{dong2025machinelearninglm}, both runs use identical LoRA settings and differ only in training format. Figure~\ref{fig:fine-tune} shows that \texttt{.tmu} converges to around 0.4 loss, while \texttt{.tex} converges to around 0.7. This supports the low-entropy claim: equivalent \LaTeX{} strings such as \verb|\frac{a}{b}| and \verb|{a \over b}|, or \verb|x^{2}| and \verb|x^2|, create extra prediction uncertainty absent from canonicalized \texttt{.tmu} trees.
+Following \citet{dong2025machinelearninglm}, both runs use identical LoRA settings and differ only in training format. Figure~\ref{fig:fine-tune} shows that \texttt{.tmu} converges to around 0.4 loss, while \texttt{.tex} converges to around 0.7. This supports the low-entropy claim: equivalent \LaTeX{} strings such as \verb|\frac{a}{b}| and \verb|{a \over b}|, or \verb|x^{2}| and \verb|x^2|, create extra prediction uncertainty absent from canonicalized \texttt{.tmu} trees.
 
 \begin{figure}[htbp]
     \centering
